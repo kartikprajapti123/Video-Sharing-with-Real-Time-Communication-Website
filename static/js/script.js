@@ -31,6 +31,18 @@ Version      : 1.0
 			}
 		});
 	}
+
+	// if($('.toggle-password2').length > 0) {
+	// 	$(document).on('click', '.toggle-password2', function() {
+	// 		$(this).toggleClass("feather-eye feather-eye-off");
+	// 		var input = $(".pass-input2");
+	// 		if (input.attr("type") == "password") {
+	// 			input.attr("type", "text");
+	// 		} else {
+	// 			input.attr("type", "password");
+	// 		}
+	// 	});
+	// }
 	
 	// Sidebar
 	

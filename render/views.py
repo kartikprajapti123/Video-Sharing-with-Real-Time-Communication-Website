@@ -13,3 +13,13 @@ def signin(request):
 def signup(request):
     return render(request,"register.html")
 
+def verify_otp(request,token):
+    return render(request,"verification-code.html")
+
+def forgot_password(request):
+    return render(request,"forgot-password.html")
+
+def reset_password(request,token):
+    return render(request,"reset-password.html")
+    
+
