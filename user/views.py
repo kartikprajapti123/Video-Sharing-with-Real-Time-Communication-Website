@@ -148,7 +148,7 @@ class ResendOtpViewSet(ModelViewSet):
         token = generate_token(user.email, 60)
         subject = "Email Verification"
         to = user.email
-        context = {"link": f"{config('HOST_URL')}verify-otp/{token}/", "otp": otp}
+        context = {"otp": otp}
         # send_email_verfication(subject=subject, to=to, context=context)
         email_thread = threading.Thread(
             target=send_email_verfication, args=(subject, to, context)
