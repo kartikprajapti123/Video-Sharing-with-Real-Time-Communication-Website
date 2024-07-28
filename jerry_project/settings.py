@@ -1,4 +1,6 @@
 from pathlib import Path
+from django.utils.deprecation import MiddlewareMixin
+import os
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'render',
+    'user',
+    
 ]
 
 MIDDLEWARE = [
@@ -89,14 +94,43 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
+# STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static',
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+# if os.getenv('DJANGO_ENV') == 'production':
+#     STATIC_ROOT = BASE_DIR / 'static'
+#     STATICFILES_DIRS = []
+# else:
+#     STATICFILES_DIRS = [
+#         BASE_DIR / 'static',
+#     ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "user.User"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # For Gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('SEND_EMAIL')
+EMAIL_HOST_PASSWORD = config('SEND_EMAIL_PASSWORD')
+
+
+
+# settings.py
+
+
+class CustomHeaderMiddleware(MiddlewareMixin):
+    def process_response(self, request, response):
+        response['Cross-Origin-Opener-Policy'] = 'same-origin-allow-popups'
+        return response
+
+# Insert this custom middleware into the MIDDLEWARE setting
+MIDDLEWARE.insert(0, 'jerry_project.settings.CustomHeaderMiddleware')

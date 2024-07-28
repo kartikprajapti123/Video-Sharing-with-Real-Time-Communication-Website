@@ -19,10 +19,19 @@ from django.conf import settings
 
 from django.conf.urls.static import static
 from render.urls import urlpatterns as render_urlpatterns
+from jerry_project.router import routers
+from user.views import VerifyEmailViewset,ResetPasswordViewSet,ResendOtpViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include(render_urlpatterns))
+    path('',include(render_urlpatterns)),
+    path('api/',include(routers.urls)),
+    path('api/verify-otp/<str:token>/',VerifyEmailViewset.as_view({"post":"create"})),
+    path('api/reset-password/<str:token>/',ResetPasswordViewSet.as_view({"post":"create"})),
+    path('api/resend-otp/<str:token>/',ResendOtpViewSet.as_view({"post":"create"}))
+    
+    
+
 ]
 
 if settings.DEBUG:
