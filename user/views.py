@@ -241,7 +241,7 @@ class ForgotPasswordViewSet(ModelViewSet):
         token = generate_token(user.email, 60)
         to = user.email
         subject = "Reset Password"
-        context = {"link": f"{config('HOST_URL')}reset-password/{token}/"}
+        context = {"link": f"{config('HOST_URL')}/reset-password/{token}/"}
 
         email_thread = threading.Thread(
             target=send_reset_password_mail, args=(subject, to, context)
@@ -402,7 +402,7 @@ class LoginWithGoogleViewSet(ModelViewSet):
                     # Process user info, create user, or authenticate user as needed
                     return Response(
                         {
-                            "success": False,
+                            "success": True,
                             "message": "Google authentication successfully done",
                         },
                         status=status.HTTP_200_OK,
