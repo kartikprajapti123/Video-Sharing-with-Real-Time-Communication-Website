@@ -153,7 +153,7 @@
                                 <label class="form-control-label">Password</label>
                                 <div class="pass-group" id="passwordInput">
                                     <input type="password" class="form-control pass-input"
-                                        placeholder="Enter your password" id="password" required>
+                                        placeholder="Enter your password" id="password" >
                                     <span class="toggle-password feather-eye"></span>
                                     <span class="pass-checked"><i class="feather-check"></i></span>
                                 </div>
@@ -309,7 +309,11 @@
                     } else if (response.message.password) {
                         password.style.borderBottom = "2px solid red";
                         message_content.innerHTML = response.message.password[0];
-                    } else if (response.message.password2) {
+                    } else if (response.message.non_field_errors) {
+                        password2.style.borderBottom = "2px solid red";
+                        message_content.innerHTML = response.message.non_field_errors[0];
+                    }
+                    else if (response.message.password2) {
                         password2.style.borderBottom = "2px solid red";
                         message_content.innerHTML = response.message.password2[0];
                     }
