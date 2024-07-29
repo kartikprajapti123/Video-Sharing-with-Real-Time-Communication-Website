@@ -309,14 +309,15 @@
                     } else if (response.message.password) {
                         password.style.borderBottom = "2px solid red";
                         message_content.innerHTML = response.message.password[0];
-                    } else if (response.message.non_field_errors) {
-                        password2.style.borderBottom = "2px solid red";
-                        message_content.innerHTML = response.message.non_field_errors[0];
-                    }
-                    else if (response.message.password2) {
+                    }else if (response.message.password2) {
                         password2.style.borderBottom = "2px solid red";
                         message_content.innerHTML = response.message.password2[0];
                     }
+                    
+                    else if (response.message.non_field_errors) {
+                        message_content.innerHTML = response.message.non_field_errors[0];
+                    }
+                    
                     card.style.display = "flex";
                     card.style.borderLeft = "10px solid red";
                     message_type.innerHTML = "Error";
