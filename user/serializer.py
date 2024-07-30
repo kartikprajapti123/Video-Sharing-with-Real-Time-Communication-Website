@@ -2,15 +2,16 @@ from rest_framework import serializers
 from user.models import User
 from utils.generate_otp import generate_otp
 
+
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
     password2 = serializers.CharField(write_only=True, required=True)
     email=serializers.EmailField(required=True)
-    
+    phone =serializers.CharField(required=False)
     class Meta:
         model = User
         fields = [
-            'id', 'username', 'first_name', 'last_name', 'email', 'phone', 'password', 'password2','otp'
+            'id', 'username', 'first_name', 'last_name', 'email', 'phone', 'password', 'password2','otp','profile_picture'
         ]
         
     def validate(self, attrs):
@@ -44,3 +45,25 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+    email=serializers.EmailField(required=True)
+    
+    class Meta:
+        model=User
+        fields=['id', 'username', 'first_name', 'last_name', 'email', 'password', 'password2','profile_picture','bio']
+        
+        
+class UserMyProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','username', 'first_name', 'last_name', 'email', 'profile_picture', 'phone', 'bio']
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','username', 'first_name', 'last_name', 'profile_picture', 'bio']
+        

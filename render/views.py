@@ -21,5 +21,11 @@ def forgot_password(request):
 
 def reset_password(request,token):
     return render(request,"reset-password.html")
+
+def myprofile(request):
+    return render(request,"myprofile.html")
+    
+def others_profile(request,id):
+    return render(request,"others-profile.html")
     
 
