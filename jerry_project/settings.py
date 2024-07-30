@@ -75,6 +75,21 @@ DATABASES = {
     }
 }
 
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'x-requested-with',
+    'accept',
+    'origin',
+    'user-agent',
+    'dnt',
+    'cache-control',
+    'accept-encoding',
+    'access-control-allow-headers',
+    'access-control-request-method',
+    'access-control-request-headers',
+]
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
