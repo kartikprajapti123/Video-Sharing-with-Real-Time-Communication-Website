@@ -145,11 +145,6 @@
                                     placeholder="Enter your email address" >
                             </div>
                             <div class="input-block">
-                                <label class="form-control-label">Phone-Number</label>
-                                <input type="number" id="phone" class="form-control"
-                                    placeholder="Enter your Number" >
-                            </div>
-                            <div class="input-block">
                                 <label class="form-control-label">Password</label>
                                 <div class="pass-group" id="passwordInput">
                                     <input type="password" class="form-control pass-input"
@@ -242,7 +237,6 @@
     }
 
     email = document.getElementById("email");
-    phone = document.getElementById("phone");
     username = document.getElementById("username");
     password = document.getElementById("password");
     password2 = document.getElementById("password2");
@@ -263,7 +257,6 @@
         let data = {
             email: email.value,
             username: username.value,
-            phone: phone.value,
             password: password.value,
             password2: password2.value
         };
@@ -303,9 +296,6 @@
                     } else if (response.message.email) {
                         email.style.borderBottom = "2px solid red";
                         message_content.innerHTML = response.message.email[0];
-                    } else if (response.message.phone) {
-                        phone.style.borderBottom = "2px solid red";
-                        message_content.innerHTML = response.message.phone[0];
                     } else if (response.message.password) {
                         password.style.borderBottom = "2px solid red";
                         message_content.innerHTML = response.message.password[0];
@@ -334,7 +324,6 @@
     function resetBorders() {
         email.style.borderBottom = "1px solid #ced4da";
         username.style.borderBottom = "1px solid #ced4da";
-        phone.style.borderBottom = "1px solid #ced4da";
         password.style.borderBottom = "1px solid #ced4da";
         password2.style.borderBottom = "1px solid #ced4da";
     }
@@ -342,7 +331,6 @@
     function valueReset() {
         email.value = "";
         username.value = "";
-        phone.value = "";
         password.value = "";
         password2.value = "";
     }

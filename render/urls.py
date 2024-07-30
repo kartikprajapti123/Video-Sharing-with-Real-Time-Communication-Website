@@ -11,6 +11,10 @@ urlpatterns = [
     path('verify-otp/<str:token>/',views.verify_otp,name="signup"),
     path('forgot-password/',views.forgot_password,name="forgot_password"),
     path('reset-password/<str:token>/',views.reset_password,name="reset-password"),
+    path('myprofile/',views.myprofile,name="my-profile"),
+    path('profile/<str:id>/',views.others_profile,name="others-profile"),
+    
+    
     
     
     

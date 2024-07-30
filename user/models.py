@@ -48,8 +48,9 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=100,default="")
     last_name = models.CharField(max_length=100, default="")
     email = models.EmailField(unique=True)
+    profile_picture = models.ImageField(default='profile_pictures/default_profile_image.png', upload_to='profile_pictures/')
     otp = models.IntegerField(null=True)
-    
+    bio=models.TextField(max_length=1000,default="")
     phone = models.CharField(max_length=15, null=True)
     is_active = models.BooleanField(default=False)
     email_verified = models.BooleanField(default=False)

@@ -23674,6 +23674,9 @@ ul li {
 		left: -30px;
 		bottom: 80px;
 	}
+    .visibleonly{
+        display: block  !important;
+    }
 	.trained-by-experts {
 		padding: 40px 0 20px 0;
 	}
@@ -24224,8 +24227,16 @@ ul li {
 		background-color: #f66962;
 	}
 	.header-navbar-rht {
-		display: none;
+		display: none ;
 	}
+    .authenticated {
+        display: block ;
+    }
+    
+    
+    .unauthenticated {
+        display: none !important;
+    }
 	.course-key {
 		position: relative;
 		top: 0;

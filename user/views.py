@@ -9,8 +9,12 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
-from user.serializer import RegisterSerializer
+from user.serializer import RegisterSerializer,UserSerializer,UserDetailSerializer,UserMyProfileSerializer
 from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework_simplejwt.tokens import OutstandingToken, BlacklistedToken
+
+
 from utils.register_email_verfication import (
     send_email_verfication,
     send_reset_password_mail,
@@ -110,11 +114,21 @@ class VerifyEmailViewset(ModelViewSet):
             )
 
         user.email_verified = True
+        refresh_token = RefreshToken.for_user(user)
+        access_token = str(refresh_token.access_token)
+
         user.otp = otp
         user.save()
 
         return Response(
-            {"success": True, "message": "Email successfully verified"},
+            {
+                "success": True,
+                "message": "Email successfully verified",
+                "token": {
+                    "access_token": access_token,
+                    "refresh_token": str(refresh_token),
+                },
+            },
             status=status.HTTP_200_OK,
         )
 
@@ -375,7 +389,7 @@ class LoginWithGoogleViewSet(ModelViewSet):
 
                     user = User.objects.filter(email=email)
                     if user.exists():
-                        user[0].is_active=True
+                        user[0].is_active = True
                         user[0].save()
                         refresh_token = RefreshToken.for_user(user[0])
                         access_token = str(refresh_token.access_token)
@@ -391,12 +405,12 @@ class LoginWithGoogleViewSet(ModelViewSet):
                             },
                             status=status.HTTP_200_OK,
                         )
-                        
+
                     else:
-                        user=User.objects.create(email=email,username=username)
-                        user.is_active=True
+                        user = User.objects.create(email=email, username=username)
+                        user.is_active = True
                         user.set_password("password@123")
-                        user.email_verified=True
+                        user.email_verified = True
                         user.save()
 
                     # Process user info, create user, or authenticate user as needed
@@ -423,3 +437,56 @@ class LoginWithGoogleViewSet(ModelViewSet):
                 {"success": False, "message": "Something went wrong ! Try again"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+
+class UserViewSet(ModelViewSet):
+    queryset=User.objects.all()
+    serializer_class=UserSerializer
+    permission_classes=[IsAuthenticated]
+    authentication_classes=[JWTAuthentication]
+
+        
+    def get_permissions(self):
+        if self.action == 'retrieve':
+            self.permission_classes = [AllowAny]
+        else:
+            self.permission_classes = [IsAuthenticated]
+        return super(UserViewSet, self).get_permissions()
+
+    
+    def list(self, request, *args, **kwargs):
+        # Get the current authenticated user
+        user = request.user
+        serializer = UserMyProfileSerializer(user)
+        return Response({'success': True, 'data': serializer.data})
+    
+    def retrieve(self, request, *args, **kwargs):
+        self.permission_classes = [AllowAny]
+        instance=self.get_object()
+        serializer = UserDetailSerializer(instance)
+        return Response({'success': True, 'data': serializer.data})
+        
+    @action(detail=False, methods=['post'])
+    def logout(self, request, *args, **kwargs):
+        try:
+            # Get the token from the request body
+            token = request.data.get('refresh_token')
+            if token:
+                try:
+                    # Create a RefreshToken object
+                    refresh_token = RefreshToken(token)
+                    # Get the outstanding token instance
+                    outstanding_token = OutstandingToken.objects.filter(token=refresh_token).first()
+                    print(outstanding_token)
+                    if outstanding_token:
+                        # Blacklist the token
+                        BlacklistedToken.objects.create(token=outstanding_token)
+                        return Response({'success': True, 'message': 'Logout successfully done.'}, status=status.HTTP_200_OK)
+                    else:
+                        return Response({'success': False, 'message': 'Something went wrong. Try again.'}, status=status.HTTP_400_BAD_REQUEST)
+                except:
+                    return Response({'success': False, 'message': 'Something went wrong. Try again.'}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'success': False, 'message': 'You are not logged in refresh the page'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'success': False, 'message': 'You are not logged in refresh the page'}, status=status.HTTP_400_BAD_REQUEST)

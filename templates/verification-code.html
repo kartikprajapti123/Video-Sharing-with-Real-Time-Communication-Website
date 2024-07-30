@@ -75,7 +75,7 @@
                         <div class="img-logo">
                             <img src="/static/img/logo.svg" class="img-fluid" alt="Logo">
                             <div class="back-home">
-                                <a href=".index/">Back to Home</a>
+                                <a href="/index/">Back to Home</a>
                             </div>
                         </div>
                         <h1>Enter Verification Code</h1>
@@ -196,6 +196,7 @@
                 
                     console.log(response);
                     if (response.success) {
+                        scrollToTop();
                         card.style.display = "flex"
                         card.style.borderLeft = "10px solid green"
                     
@@ -204,12 +205,16 @@
                         message_type.style.color = "green"
                         message_icon_parent.style.color = "green"
                         message_icon_child.classList = "fas fa-check-circle"
+                        
+                        localStorage.setItem("jerry_project_access_token", response.token.access_token);
+					localStorage.setItem("jerry_project_refresh_token", response.token.refresh_token);
+
+
+					setTimeout(() => {
+						window.location.href = "/index/";
+					}, 2000);
                     
-                    
-						scrollToTop();
-                        setTimeout(() => {
-                            window.location.href = "/signin/";
-                        }, 2000);
+						
                         // Handle success case
                     } else {
                         console.log(response.message)
