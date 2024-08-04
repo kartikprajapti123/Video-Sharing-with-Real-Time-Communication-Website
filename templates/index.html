@@ -8,6 +8,7 @@
 {% block body %}
   
 <!-- Home Banner -->
+ 
 <section class="home-slide d-flex align-items-center">
 				<div class="container">
 					<div class="row ">
@@ -134,7 +135,12 @@
 				</div>
 			</section>
 			<!-- Home Banner -->
-			
+			<div id="temp-card" style="display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;">
+				
+			 </div>
 			<!-- Top Categories -->
 			<section class="section how-it-works">
 				<div class="container">
@@ -150,7 +156,20 @@
 					<div class="section-text aos" data-aos="fade-up">
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget aenean accumsan bibendum gravida maecenas augue elementum et neque. Suspendisse imperdiet.</p>
 					</div>
-					<div class="owl-carousel mentoring-course owl-theme aos" data-aos="fade-up">
+					<div class="owl-carousel mentoring-course owl-theme aos" data-aos="fade-up" id="other_users">
+						<div class="feature-box text-center " >					
+							<div class="feature-bg" >					
+								<div class="feature-header">
+									<div class="feature-icon">
+										<img src="/static/img/categories-icon.png" alt="Img">
+									</div>		
+									<div class="feature-cont">	
+										<div class="feature-text">kartik Development</div>
+									</div>
+								</div>
+								<p>40 Instructors</p>
+							</div>
+						</div>
 						<div class="feature-box text-center " >					
 							<div class="feature-bg" >					
 								<div class="feature-header">
@@ -1562,7 +1581,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="owl-carousel blogs-slide owl-theme aos" data-aos="fade-up">
+					<div class="owl-carousel blogs-slide owl-theme aos" data-aos="fade-up" >
 						<div class="instructors-widget blog-widget">
 							<div class="instructors-img">
 								<a href="blog-list.html">
@@ -1866,5 +1885,46 @@
 			{% endblock body %}
 
 			{% block script %}
-			  
+<script>
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const authenticated_index = localStorage.getItem("jerry_project_access_token");
+		if (authenticated_index) {
+			fetch(`${window.location.origin}/api/user/get-other-users/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${authenticated_index}`
+				}
+			})
+			.then(response => response.json())
+			.then(response => {
+				if (response.success) {
+					let str = '';
+					response.data.forEach(data => {
+						str += `<div class="card" style="width: 18rem;
+    margin: 10px;">
+		<img class="card-img-top" src="${data.profile_picture}" alt="Card image cap">
+		<div class="card-body">
+		  <h5 class="card-title">${data.username}</h5>
+		  <p class="card-text">${data.email}</p>
+		  <a href="/profile/${data.id}/" class="btn btn-primary">Profile</a>
+		</div>
+	  </div>`;
+					});
+					const otherUsersElement = document.getElementById("temp-card");
+					otherUsersElement.innerHTML += str;
+	
+					// Optional: Force reflow or trigger style application if needed
+					
+				} else {
+					console.error('Failed to fetch data:', response.message);
+				}
+			})
+			.catch(error => {
+				console.error('Error fetching data:', error);
+			});
+		}
+	});
+	</script>
 			{% endblock script %}

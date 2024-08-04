@@ -24098,7 +24098,7 @@ ul li {
 		height: 100%;
 	}
 	.chat-messages {
-		display: none;
+		display: block;
 	}
 	.chat-messages.show-chatbar {
 		display: block;
