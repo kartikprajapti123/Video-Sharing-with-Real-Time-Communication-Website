@@ -252,6 +252,16 @@
 		window.scrollTo(0, 0);
 	}
 
+	
+	document.getElementById("message_close").addEventListener('click', () => {
+        const card = document.getElementById("card");
+        if (card) {
+            card.style.display = "none"; // Hide the card
+            // Or, if you want to completely remove the card from the DOM:
+            // card.remove();
+        }
+    });
+
 
 	function handleCredentialResponse(response) {
         console.log('Encoded JWT ID token: ' + response.credential);

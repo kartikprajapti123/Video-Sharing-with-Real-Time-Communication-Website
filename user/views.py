@@ -490,3 +490,17 @@ class UserViewSet(ModelViewSet):
                 return Response({'success': False, 'message': 'You are not logged in refresh the page'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'success': False, 'message': 'You are not logged in refresh the page'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+    @action(detail=False, methods=['post'],url_path='get-other-users')
+    def get_other_users(self, request, *args, **kwargs):
+        # Get the current authenticated user
+        current_user = request.user
+        
+        # Exclude the current user from the queryset
+        users = User.objects.exclude(id=current_user.id)
+        
+        # Serialize the data
+        serializer = UserSerializer(users, many=True)
+        
+        return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)

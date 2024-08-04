@@ -13,6 +13,10 @@ urlpatterns = [
     path('reset-password/<str:token>/',views.reset_password,name="reset-password"),
     path('myprofile/',views.myprofile,name="my-profile"),
     path('profile/<str:id>/',views.others_profile,name="others-profile"),
+    path('contact-list/',views.contact_list,name="chating"),
+    path('chatting/<str:id>/',views.chatting,name="chating"),
+    
+    
     
     
     

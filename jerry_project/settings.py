@@ -10,7 +10,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
@@ -18,6 +17,8 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
+    # "daphne",
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     'render',
     'corsheaders',
     'user',
+    'chat',
     
 ]
 
@@ -61,7 +63,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'jerry_project.wsgi.application'
+# WSGI_APPLICATION = 'jerry_project.wsgi.application'
+ASGI_APPLICATION = 'jerry_project.asgi.application'
 
 # Database
 DATABASES = {
@@ -73,6 +76,15 @@ DATABASES = {
         "HOST": config("DB_HOST"),
         "PORT": config("DB_PORT"),
     }
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.pubsub.RedisPubSubChannelLayer',
+        'CONFIG': {
+            "hosts": [('localhost', 6379)],
+        },
+    },
 }
 
 CORS_ALLOW_HEADERS = [
@@ -93,6 +105,8 @@ CORS_ALLOW_HEADERS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://127.0.0.1:8001",
+    
     'https://www.bmy.fan',
     
 ]

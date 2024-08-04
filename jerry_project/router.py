@@ -1,6 +1,10 @@
 from rest_framework.routers import DefaultRouter
 from user.views import RegisterViewSet,VerifyEmailViewset,LoginViewSet,ForgotPasswordViewSet,ChangePasswordViewSet,LoginWithGoogleViewSet,UserViewSet
 
+from chat.consumers import MyChatConsumer
+
+from chat.views import ConversationViewSet,MessageViewSet
+
 routers=DefaultRouter()
 
 routers.register(r'register',RegisterViewSet,basename="register")
@@ -11,7 +15,15 @@ routers.register(r'change-password',ChangePasswordViewSet,basename="change-passw
 routers.register(r'google-authentication',LoginWithGoogleViewSet,basename="google-authentication")
 
 routers.register(r'user',UserViewSet,basename='user')
+routers.register(r'messages',MessageViewSet,basename='messages')
+routers.register(r'conversations',ConversationViewSet,basename='conversation')
 
 
 
 
+
+
+from django.urls import path
+websocket_urlpatterns=[
+    path("ws/chat/<str:id>/",MyChatConsumer.as_asgi())
+]

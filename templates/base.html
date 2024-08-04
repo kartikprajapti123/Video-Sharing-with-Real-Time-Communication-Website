@@ -38,6 +38,10 @@
 	<!-- Aos CSS -->
 	<link rel="stylesheet" href="/static/plugins/aos/aos.css">
 
+		<!-- Swiper CSS -->
+		<link rel="stylesheet" href="/static/plugins/swiper/swiper.min.css">
+
+
 	<!-- feature -->
 	<link rel="stylesheet" href="/static/css/feather.css">
 
@@ -510,12 +514,18 @@
 	<script src="/static/js/jquery.waypoints.js"></script>
 	<script src="/static/js/jquery.counterup.min.js"></script>
 
+	<!-- Slimscroll JS -->
+	<script src="/static/js/jquery.slimscroll.min.js"></script>
+<!-- Swiper JS -->
+<script src="/static/plugins/swiper/swiper.min.js"></script>
+		
+
 	<!-- Select2 JS -->
 	<script src="/static/plugins/select2/js/select2.min.js"></script>
 
 	<!-- Owl Carousel -->
 	<script src="/static/js/owl.carousel.min.js"></script>
-
+	
 	<!-- Slick Slider -->
 	<script src="/static/plugins/slick/slick.js"></script>
 
@@ -525,11 +535,11 @@
 	<!-- Custom JS -->
 	<script src="/static/js/script.js"></script>
 
-
+	
 	<script>
 		const authenticated = localStorage.getItem("jerry_project_access_token");
 		const refresh_token = localStorage.getItem("jerry_project_refresh_token");
-
+		
 		const message_box = document.getElementById("message_box");
 		const message_content = document.getElementById("message-content");
 		const message_type = document.getElementById("message-type");
@@ -557,7 +567,7 @@
 				document.querySelectorAll('.authenticated').forEach(function (element) {
 					element.style.display = "none";
 				});
-
+				
 				document.querySelector(".menu-authenticated").style.display = "none"
 				document.querySelector(".menu-unauthenticated").style.display = "block"
 
@@ -654,17 +664,29 @@
 					message_type.style.color = "red";
 					message_icon_parent.style.color = "red";
 					message_icon_child.classList = "fas fa-times-circle";
-
+					
 					setTimeout(() => {
 						card.style.display = "none";
 					}, 3000);
 				});
 			}
 		}
+
+		document.getElementById("message_close").addEventListener('click', () => {
+			const card = document.getElementById("card");
+			if (card) {
+				card.style.display = "none"; // Hide the card
+				// Or, if you want to completely remove the card from the DOM:
+				// card.remove();
+			}
+		});
+		
 	</script>
 	{% block script %}
 
 	{% endblock script %}
+	<script src="/static/js/owl.carousel.min.js"></script>
+
 </body>
 
 </html>
