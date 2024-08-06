@@ -5,10 +5,10 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from chat.models import Conversation, Message
-from chat.serializers import ConversationsSerializer, MessageSerializer
+from chat.models import Conversation, Message,UploadedImage
+from chat.serializers import ConversationsSerializer, MessageSerializer,UploadedImageSerializer
 from utils.pagination import Pagination
-
+import os 
 from rest_framework.decorators import action
 from django.db.models import Q
 
@@ -299,3 +299,53 @@ class MessageViewSet(ModelViewSet):
         except Message.DoesNotExist:
             return Response({"success": False, "message": "No unread messages found for this conversation."}, status=status.HTTP_404_NOT_FOUND)
         return Response({"success": True, "message": "All messages marked as read."}, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['post'], url_path="mark-message-read")
+    def mark_message_read(self, request):
+        message_id = request.data.get('message_id')
+        print(message_id)
+        user_id = request.user.id
+        if not message_id:
+            return Response({"success": False, "message": "Message ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            message = Message.objects.get(id=message_id)
+            conversation = message.conversation
+            if conversation.user1_id == user_id:
+                message.is_read_by_user1 = True
+            elif conversation.user2_id == user_id:
+                message.is_read_by_user2 = True
+            else:
+                return Response({"success": False, "message": "User not part of the conversation."}, status=status.HTTP_403_FORBIDDEN)
+            message.save()
+        except Message.DoesNotExist:
+            return Response({"success": False, "message": "Message not found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"success": True, "message": "Message marked as read."}, status=status.HTTP_200_OK)
+
+class UplaodedImaeViewSet(ModelViewSet):
+    queryset=UploadedImage.objects.all()
+    serializer_class=UploadedImageSerializer
+    permission_classes=[IsAuthenticated]
+    authentication_classes=[JWTAuthentication]
+    
+    def create(self, request, *args, **kwargs):
+        image = request.FILES.get("image")
+        print(image)
+        if not image:
+            return Response({"success": False, "message": "No image file provided."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Validate file type
+        valid_extensions = ['.jpg', '.jpeg', '.png']
+        ext = os.path.splitext(image.name)[1].lower()
+        if ext not in valid_extensions:
+            return Response({"success": False, "message": "Invalid file type. Only JPEG,JPG and PNG files are allowed."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create the UploadedImage instance
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": True, "data": serializer.data}, status=status.HTTP_200_OK)
+        
+        return Response({"success": False, "message": serializer.data}, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    

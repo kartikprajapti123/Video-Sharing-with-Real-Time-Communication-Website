@@ -3,7 +3,7 @@ from user.views import RegisterViewSet,VerifyEmailViewset,LoginViewSet,ForgotPas
 
 from chat.consumers import MyChatConsumer
 
-from chat.views import ConversationViewSet,MessageViewSet
+from chat.views import ConversationViewSet,MessageViewSet,UplaodedImaeViewSet
 
 routers=DefaultRouter()
 
@@ -17,6 +17,8 @@ routers.register(r'google-authentication',LoginWithGoogleViewSet,basename="googl
 routers.register(r'user',UserViewSet,basename='user')
 routers.register(r'messages',MessageViewSet,basename='messages')
 routers.register(r'conversations',ConversationViewSet,basename='conversation')
+routers.register(r'uploads',UplaodedImaeViewSet,basename='upload-image')
+
 
 
 

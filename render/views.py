@@ -29,7 +29,7 @@ def others_profile(request,id):
     return render(request,"others-profile.html")
 
 def contact_list(request):
-    return render(request,"contact_list.html")
+    return render(request,"changes_chat.html")
     
 def chatting(request,id):
     return render(request,"chatting.html")
