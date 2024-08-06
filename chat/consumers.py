@@ -34,7 +34,8 @@ class MyChatConsumer(AsyncWebsocketConsumer):
             content = text_data_json['content']
             profile_picture = text_data_json.get('profile_picture', '')
             username = text_data_json['username']
-            file_url = text_data_json.get('file_url', '')
+            file_url = text_data_json.get('file_url')
+            print(file_url)
 
             # Save the message to the database
             message = await self.save_message(conversation, sender, content, file_url)
