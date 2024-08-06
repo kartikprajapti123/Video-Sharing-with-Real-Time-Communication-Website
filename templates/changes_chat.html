@@ -123,14 +123,14 @@
         <!-- Page Content -->
         <div class="page-content chat-page-wrapper" style="margin:0px;padding-top:20px;">
             <div class="container">
-                <div class="row">
+                <div class="row" style="display: flex;justify-content:center;align-items:center;">
 
                     <!-- sidebar -->
 
                     <!-- /Sidebar -->
 
                     <!-- Student Profile -->
-                    <div class="col-xl-9 col-lg-9 theiaStickySidebar" style="width:100%;">
+                    <div class="col-xl-9 col-lg-9 theiaStickySidebar" >
 
 
                         <div class="settings-widget card-details mb-0">
@@ -222,7 +222,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="chat-footer">
-                                                    <form id="chat_form">
+                                                    <form id="chat_form" style="margin-bottom: 20px;">
                                                         <div class="replay-forms">
                                                             <input id="chat_input" type="text"
                                                                 class="form-control chat_form"
@@ -396,6 +396,15 @@
                                     if (event.target.closest(".user-list-item")) {
                                         const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
                                         document.getElementById(`count_${itemId}`).innerHTML=""
+
+                                        const previouslySelectedItem = document.querySelector(".user-list-item.selected-chat-user");
+                if (previouslySelectedItem) {
+                    previouslySelectedItem.classList.remove("selected-chat-user");
+                }
+
+                // Add the 'selected-chat-user' class to the clicked item
+                event.target.closest(".user-list-item").classList.add("selected-chat-user");
+
                                         // Function to mark messages as read
                                         const markMessagesRead = async (conversationId) => {
                                             try {
