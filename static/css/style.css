@@ -18417,7 +18417,7 @@ input[type=password]::-ms-clear
 	border-bottom: 1px solid #CDCDCD;
     border-radius: 10px;
 	align-items: center;
-    margin-bottom:37px !important;
+    margin-bottom:30px !important;
 }
 .chat .chat-footer form .form-buttons .btn {
 	margin-left: 0px;
