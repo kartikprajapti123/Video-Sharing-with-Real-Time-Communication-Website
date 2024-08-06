@@ -18417,6 +18417,7 @@ input[type=password]::-ms-clear
 	border-bottom: 1px solid #CDCDCD;
     border-radius: 10px;
 	align-items: center;
+    margin-bottom:37px !important;
 }
 .chat .chat-footer form .form-buttons .btn {
 	margin-left: 0px;
@@ -22366,6 +22367,7 @@ ul li {
         font-size: 30px;
         padding-bottom: 30px;
     }
+    
     .request-box {
         display: block;
         align-items: center;
@@ -23636,6 +23638,9 @@ ul li {
 	.footer-logo p {
 		padding: 40px 0 0 0;
 	}
+    .chat .chat-footer form{
+        margin-bottom: 0px !important;
+    }
 	.footer-main-info {
 		flex-wrap: wrap;
 		padding-bottom: 40px;
