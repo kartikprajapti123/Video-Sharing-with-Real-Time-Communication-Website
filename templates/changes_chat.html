@@ -674,7 +674,9 @@
 
                 const connectWebSocket = (userID, conversationId, userProfiePicture, userUsername) => {
                     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-                    const ws = new WebSocket(`${protocol}://${window.location.host}:8001/ws/chat/${conversationId}/?token=${authenticated}`);
+                    const host = window.location.protocol === "https:" ? `${window.location.host}` : "127.0.0.1";
+
+                    const ws = new WebSocket(`${protocol}://${host}:8001/ws/chat/${conversationId}/?token=${authenticated}`);
 
                     ws.onopen = () => {
                         console.log('WebSocket connection opened');
@@ -871,25 +873,44 @@
                     let content = document.getElementById("chat_input");
                     let fileUrl = null;
 
+                    if (content.value.trim() === "") {
+                        card.style.display = "flex";
+                        card.style.borderLeft = "10px solid #3db5dc";
+                        message_content.innerHTML = "Message should not be blank";
+                        message_type.innerHTML = "Info";
+                        message_type.style.color = "#3db5dc";
+                        message_icon_parent.style.color = "#3db5dc";
+                        message_icon_child.classList = "fas fa-exclamation-circle";
+                        selectedFile=null;
+                    }
+                    else{
+                        console.log(content.value==selectedFile.name)
+                        console.log(content.value)
+                        console.log(content.selectedFile)
+
+                        if (content.value !=selectedFile.name){
+                            selectedFile=null
+                        }
+                    }
+                
                     // Upload the file and get URL if a file is selected
                     if (selectedFile) {
-                        let formData = new FormData;
-                        formData.append('image', selectedFile)
-                        fileUrl = await fetch(`${window.location.origin}/api/uploads/`, { // Replace with your upload endpoint
-                            method: 'POST',
-                            headers: {
-                                "Authorization": `Bearer ${authenticated}`,
-                            },
-                            body: formData
-                        }).then((response) => {
-                            return response.json()
-                        }).then((response) => {
-                            console.log(response)
+                        let formData = new FormData();
+                        formData.append('image', selectedFile);
+                
+                        try {
+                            const response = await fetch(`${window.location.origin}/api/uploads/`, { // Replace with your upload endpoint
+                                method: 'POST',
+                                headers: {
+                                    "Authorization": `Bearer ${authenticated}`,
+                                },
+                                body: formData
+                            }).then(response => response.json());
+                
                             if (response.success) {
-                                console.log(response.data.image)
-                                return response.data.image
-                            }
-                            else {
+                                console.log(response.data.image);
+                                fileUrl = response.data.image; // Get the file URL
+                            } else {
                                 card.style.display = "flex";
                                 card.style.borderLeft = "10px solid #3db5dc";
                                 message_content.innerHTML = response.message;
@@ -897,40 +918,54 @@
                                 message_type.style.color = "#3db5dc";
                                 message_icon_parent.style.color = "#3db5dc";
                                 message_icon_child.classList = "fas fa-exclamation-circle";
-                                return null
+                                return; // Stop execution if upload fails
                             }
-                        })
-
-                        // Adjust according to your API response
-
-
+                        } catch (error) {
+                            console.error('Upload error:', error);
+                            card.style.display = "flex";
+                            card.style.borderLeft = "10px solid #3db5dc";
+                            message_content.innerHTML = "An error occurred while uploading the file.";
+                            message_type.innerHTML = "Info";
+                            message_type.style.color = "#3db5dc";
+                            message_icon_parent.style.color = "#3db5dc";
+                            message_icon_child.classList = "fas fa-exclamation-circle";
+                            return; // Stop execution if upload fails
+                        }
                     }
-                    console.log(fileUrl)
-                    console.log('Message content:', content.value);
-                    if (content.value.trim() != "") {
-                        ws.send(JSON.stringify({
+                
+                    // Check if content is not empty
+                    if (content.value.trim() !== "") {
+                        const messagePayload = {
                             'type': 'chat',
                             'sender': userID,
                             'profile_picture': userProfiePicture,
                             'conversation': conversationId,
                             'username': userUsername,
                             'content': content.value,
-                            'file_url': fileUrl // Include file URL in
-                        }));
+                        };
+                
+                        // Add file URL to payload if it exists
+                        if (fileUrl) {
+                            messagePayload.file_url = fileUrl;
+                        }
+                
+                        // Send the message
+                        ws.send(JSON.stringify(messagePayload));
+                
                         content.value = '';
                         content.placeholder = 'Type your message here...';
-                        try{
+                
+                        try {
                             const emptyChatUser = document.getElementById("empty_chat_user");
-                            if (emptyChatUser && emptyChatUser.style.display != "none") {
+                            if (emptyChatUser && emptyChatUser.style.display !== "none") {
                                 emptyChatUser.style.display = "none";
                             }
+                        } catch (e) {
+                            console.log(e);
                         }
-                        catch(e){
-                            console.log(e)
-                        }
+                
                         selectedFile = null;
                         scrolling();
-
                     } else {
                         card.style.display = "flex";
                         card.style.borderLeft = "10px solid #3db5dc";
@@ -941,7 +976,7 @@
                         message_icon_child.classList = "fas fa-exclamation-circle";
                     }
                 };
-
+                
                 document.getElementById("message_close").addEventListener('click', () => {
                     const card = document.getElementById("card");
                     if (card) {
@@ -961,7 +996,7 @@
                 if (files.length > 0) {
                     selectedFile = files[0]; // Store the first file
                     const chatInput = document.getElementById('chat_input');
-                    chatInput.value = `[${selectedFile.name}]`;
+                    chatInput.value = `${selectedFile.name}`;
                 }
             });
 
