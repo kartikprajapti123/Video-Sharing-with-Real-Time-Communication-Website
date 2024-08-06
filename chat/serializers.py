@@ -1,4 +1,4 @@
-from chat.models import Conversation,Message
+from chat.models import Conversation,Message,UploadedImage
 from rest_framework import serializers
 
 class ConversationsSerializer(serializers.ModelSerializer):
@@ -35,8 +35,14 @@ class MessageSerializer(serializers.ModelSerializer):
             'sender1_profile_picture',
             'sender1_username',
             'content',
+            'file_url',
             'timestamp',
             'is_read_by_user1',
             'is_read_by_user2',
             
             ]
+        
+class UploadedImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadedImage
+        fields = ['image', 'uploaded_at']

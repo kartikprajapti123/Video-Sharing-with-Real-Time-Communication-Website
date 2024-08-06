@@ -18,6 +18,7 @@ class Message(models.Model):
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
+    file_url = models.URLField(blank=True, null=True) 
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read_by_user1 = models.BooleanField(default=False)
     is_read_by_user2 = models.BooleanField(default=False)
@@ -41,3 +42,11 @@ class Message(models.Model):
         self.conversation.last_message_timestamp = self.timestamp
         self.conversation.save(update_fields=['last_message_timestamp'])
         super(Message, self).save(*args, **kwargs)
+        
+        
+class UploadedImage(models.Model):
+    image = models.ImageField(upload_to='profile_pictures/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.image

@@ -27,103 +27,94 @@ class MyChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data=None, bytes_data=None):
         text_data_json = json.loads(text_data)
         type = text_data_json['type']
-        if (type=='chat'):
+
+        if type == 'chat':
             conversation = text_data_json['conversation']
             sender = text_data_json['sender']
             content = text_data_json['content']
             profile_picture = text_data_json.get('profile_picture', '')
             username = text_data_json['username']
+            file_url = text_data_json.get('file_url', '')
 
             # Save the message to the database
-            message=await self.save_message(conversation, sender, content)
-            print("timestamp",message.timestamp)
+            message = await self.save_message(conversation, sender, content, file_url)
             timestamp_str = message.timestamp.isoformat() 
 
             # Send message to room group
-            if type=='chat':
-                await self.channel_layer.group_send(
-                    self.group_name,
-                    {
-                        'type': 'chat_message',
-
-                            'conversation': conversation,
-                            'sender': sender,
-                            'content': content,
-                            'profile_picture': profile_picture,
-                            'username': username,
-                            'timestamp':timestamp_str,
-
-                    }
-                )
-        elif (type=='typingstart'):
-            await self.channel_layer.group_send(self.group_name,{
-                'type':"typing_start",
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    'type': 'chat_message',
+                    'conversation': conversation,
+                    'sender': sender,
+                    'content': content,
+                    'profile_picture': profile_picture,
+                    'username': username,
+                    'file_url': file_url,
+                    'timestamp': timestamp_str,
+                    'message_id': message.id# Get the file URL if present
+                    
+                }
+            )
+        elif type == 'typingstart':
+            await self.channel_layer.group_send(self.group_name, {
+                'type': "typing_start",
                 'conversation': text_data_json['conversation'],
                 'sender': text_data_json['sender'],
                 'content': text_data_json['content'],
                 'profile_picture': text_data_json['profile_picture'],
                 'username': text_data_json['username'],
-                'timestamp':""
+                'timestamp': ""
             })
-            
-        elif (type=='typingend'):
-            await self.channel_layer.group_send(self.group_name,{
-                'type':"typing_end",
+        elif type == 'typingend':
+            await self.channel_layer.group_send(self.group_name, {
+                'type': "typing_end",
                 'conversation': text_data_json['conversation'],
                 'sender': text_data_json['sender'],
                 'content': text_data_json['content'],
                 'profile_picture': text_data_json['profile_picture'],
                 'username': text_data_json['username'],
-                'timestamp':""
+                'timestamp': ""
             })
-        
-    
+
     async def chat_message(self, event):
-
-        print(event)
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
-            'type':'chat',
-            'conversation':event['conversation'],
-            'sender':event['sender'],
-            'content':event['content'],
-            'username':event['username'],
-             'profile_picture': event['profile_picture'],
-            'timestamp':event['timestamp']
-             
-            
+            'type': 'chat',
+            'conversation': event['conversation'],
+            'sender': event['sender'],
+            'content': event['content'],
+            'username': event['username'],
+            'profile_picture': event['profile_picture'],
+            'file_url': event['file_url'],
+            'timestamp': event['timestamp'],
+            "message_id":event['message_id']
         }))
-        
-    async def typing_start(self,event):
+
+    async def typing_start(self, event):
         await self.send(text_data=json.dumps({
-            'type':'typingstart',
-            'conversation':event['conversation'],
-            'sender':event['sender'],
-             'content':event['content'],
-            'username':event['username'],
-             'profile_picture': event['profile_picture'],
-              'timestamp':event['timestamp']
-             
+            'type': 'typingstart',
+            'conversation': event['conversation'],
+            'sender': event['sender'],
+            'content': event['content'],
+            'username': event['username'],
+            'profile_picture': event['profile_picture'],
+            'timestamp': event['timestamp']
         }))
-        
-    async def typing_end(self,event):
+
+    async def typing_end(self, event):
         await self.send(text_data=json.dumps({
-            'type':'typingend',
-            'conversation':event['conversation'],
-            'sender':event['sender'],
-             'content':event['content'],
-            'username':event['username'],
-             'profile_picture': event['profile_picture'],
-              'content':event['content'],
-             
+            'type': 'typingend',
+            'conversation': event['conversation'],
+            'sender': event['sender'],
+            'content': event['content'],
+            'username': event['username'],
+            'profile_picture': event['profile_picture'],
+            'timestamp': event['timestamp']
         }))
-        
-        
-    
-        
-    
+
     @sync_to_async
-    def save_message(self, conversation_id, sender_id, content):
+    def save_message(self, conversation_id, sender_id, content, file_url):
         try:
             conversation = Conversation.objects.get(id=conversation_id)
             sender = User.objects.get(id=sender_id)
@@ -131,6 +122,7 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                 conversation=conversation,
                 sender=sender,
                 content=content,
+                file_url=file_url, # Save the file URL if present
                 is_read_by_user1=(sender == conversation.user1),
                 is_read_by_user2=(sender == conversation.user2),
                 deleted=0
@@ -139,7 +131,6 @@ class MyChatConsumer(AsyncWebsocketConsumer):
             
             conversation.last_message_timestamp = message.timestamp
             conversation.save(update_fields=['last_message_timestamp'])
-            
             
             return message
         except Conversation.DoesNotExist:
