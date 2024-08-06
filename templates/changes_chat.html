@@ -674,7 +674,7 @@
 
                 const connectWebSocket = (userID, conversationId, userProfiePicture, userUsername) => {
                     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-                    const ws = new WebSocket(`${protocol}://127.0.0.1:8001/ws/chat/${conversationId}/?token=${authenticated}`);
+                    const ws = new WebSocket(`${protocol}://${window.location.host}:8001/ws/chat/${conversationId}/?token=${authenticated}`);
 
                     ws.onopen = () => {
                         console.log('WebSocket connection opened');
