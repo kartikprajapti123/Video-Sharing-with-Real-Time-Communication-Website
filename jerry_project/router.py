@@ -2,8 +2,9 @@ from rest_framework.routers import DefaultRouter
 from user.views import RegisterViewSet,VerifyEmailViewset,LoginViewSet,ForgotPasswordViewSet,ChangePasswordViewSet,LoginWithGoogleViewSet,UserViewSet
 
 from chat.consumers import MyChatConsumer
-
+from notification.consumers import NotificationConsumer
 from chat.views import ConversationViewSet,MessageViewSet,UplaodedImaeViewSet
+from notification.views import NotificationViewSet
 
 routers=DefaultRouter()
 
@@ -18,6 +19,7 @@ routers.register(r'user',UserViewSet,basename='user')
 routers.register(r'messages',MessageViewSet,basename='messages')
 routers.register(r'conversations',ConversationViewSet,basename='conversation')
 routers.register(r'uploads',UplaodedImaeViewSet,basename='upload-image')
+routers.register(r'notification',NotificationViewSet,basename="notification")
 
 
 
@@ -27,5 +29,7 @@ routers.register(r'uploads',UplaodedImaeViewSet,basename='upload-image')
 
 from django.urls import path
 websocket_urlpatterns=[
-    path("ws/chat/<str:id>/",MyChatConsumer.as_asgi())
+    path("ws/chat/<str:id>/",MyChatConsumer.as_asgi()),
+    path("ws/notification/<str:uuid>/",NotificationConsumer.as_asgi())
+    
 ]

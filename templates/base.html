@@ -32,14 +32,14 @@
 
 	<link rel="stylesheet" href="/static/plugins/dropzone/dropzone.min.css">
 
-		<!-- Boxioons CSS -->
-		<link rel="stylesheet" href="/static/plugins/boxicons/css/boxicons.min.css">
+	<!-- Boxioons CSS -->
+	<link rel="stylesheet" href="/static/plugins/boxicons/css/boxicons.min.css">
 
 	<!-- Aos CSS -->
 	<link rel="stylesheet" href="/static/plugins/aos/aos.css">
 
-		<!-- Swiper CSS -->
-		<link rel="stylesheet" href="/static/plugins/swiper/swiper.min.css">
+	<!-- Swiper CSS -->
+	<link rel="stylesheet" href="/static/plugins/swiper/swiper.min.css">
 
 
 	<!-- feature -->
@@ -54,12 +54,49 @@
 
 	<style>
 		.authenticated {
-			display: none ;
+			display: none;
 		}
 
 		.unauthenticated {
-			display: none ;
+			display: none;
 		}
+
+		.icon-button {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 50px;
+			height: 50px;
+			color: #333333;
+			background: #dddddd;
+			border: none;
+			outline: none;
+			border-radius: 50%;
+		}
+
+		.icon-button:hover {
+			cursor: pointer;
+		}
+
+		.icon-button:active {
+			background: #cccccc;
+		}
+
+		.icon-button__badge {
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			width: 25px;
+			height: 25px;
+			background: red;
+			color: #ffffff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 50%;
+		}
+
 
 		/* Show elements when needed */
 	</style>
@@ -101,7 +138,7 @@
 									<span></span>
 								</span>
 							</a>
-							<a href="index.html" class="navbar-brand logo">
+							<a href="/index/" class="navbar-brand logo">
 								<img src="/static/img/logo.svg" class="img-fluid" alt="Logo">
 							</a>
 						</div>
@@ -303,15 +340,26 @@
 										</ul>
 									</li>	 -->
 
-										<li class="mobile-login-singup visibleonly" style="display: none;" >
+								<li class="mobile-login-singup visibleonly" style="display: none;">
 
-											<a href="/signin/">Login/Signup</a>
-										</li>
+									<a href="/signin/">Login/Signup</a>
+								</li>
 
 
 							</ul>
 						</div>
 						<ul class="nav header-navbar-rht  authenticated">
+							<li class="nav-item dropdown">
+								<button type="button" class="icon-button nav-link dropdown-toggle"
+									data-bs-toggle="dropdown" style="background-color: #ff4667;" aria-expanded="false">
+									<i class="fas fa-bell" style="color: white;"></i>
+									<span class="icon-button__badge" id="notification_count"
+										style="display: none;"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-end" id="notification_all"
+    style="width: 300px; max-height: 400px; overflow: auto; scrollbar-width: none; -ms-overflow-style: none;">
+</ul>
+							</li>
 							<li class="nav-item user-nav">
 								<a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
 									<span class="user-img">
@@ -331,8 +379,8 @@
 											<h6 id="profile_username">Eugene Andre</h6>
 										</div>
 									</div>
-									<a class="dropdown-item" href="/myprofile/"><i
-											class="feather-star me-1"></i>My Profile</a>
+									<a class="dropdown-item" href="/myprofile/"><i class="feather-star me-1"></i>My
+										Profile</a>
 									<a class="dropdown-item" href="instructor-dashboard.html"><i
 											class="feather-home me-1"></i>Fan Dashboard</a>
 									<a class="dropdown-item" href="instructor-dashboard.html"><i
@@ -349,154 +397,156 @@
 											class="feather-log-out me-1"></i> Logout</div>
 								</div>
 							</li>
+
 						</ul>
-					<!-- Unauthenticated Navbar -->
-					<ul class="nav header-navbar-rht unauthenticated">
-						<li class="nav-item">
-							<a class="nav-link header-sign" href="/signin/">Signin</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link header-login" href="/signup/">Signup</a>
-						</li>
-					</ul>
+
+						<!-- Unauthenticated Navbar -->
+						<ul class="nav header-navbar-rht unauthenticated">
+							<li class="nav-item">
+								<a class="nav-link header-sign" href="/signin/">Signin</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link header-login" href="/signup/">Signup</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 			</div>
-			</nav>
-	</div>
-	</header>
-	<!-- /Header -->
+		</header>
+		<!-- /Header -->
 
-	{% block body %}
+		{% block body %}
 
-	{% endblock body %}
+		{% endblock body %}
 
-	<!-- Footer -->
-	<footer class="footer">
+		<!-- Footer -->
+		<footer class="footer">
 
-		<!-- Footer Top -->
-		<div class="footer-top aos" data-aos="fade-up">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4 col-md-6">
-
-						<!-- Footer Widget -->
-						<div class="footer-widget footer-about">
-							<div class="footer-logo">
-								<img src="/static/img/logo.svg" alt="logo">
-							</div>
-							<div class="footer-about-content">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p>
-							</div>
-						</div>
-						<!-- /Footer Widget -->
-
-					</div>
-
-					<div class="col-lg-2 col-md-6">
-
-						<!-- Footer Widget -->
-						<div class="footer-widget footer-menu">
-							<h2 class="footer-title">For Instructor</h2>
-							<ul>
-								<li><a href="instructor-profile.html">Profile</a></li>
-								<li><a href="login.html">Login</a></li>
-								<li><a href="register.html">Register</a></li>
-								<li><a href="instructor-list.html">Instructor</a></li>
-								<li><a href="instructor-dashboard.html"> Dashboard</a></li>
-							</ul>
-						</div>
-						<!-- /Footer Widget -->
-
-					</div>
-
-					<div class="col-lg-2 col-md-6">
-
-						<!-- Footer Widget -->
-						<div class="footer-widget footer-menu">
-							<h2 class="footer-title">For Student</h2>
-							<ul>
-								<li><a href="student-profile.html">Profile</a></li>
-								<li><a href="login.html">Login</a></li>
-								<li><a href="register.html">Register</a></li>
-								<li><a href="students-list.html">Student</a></li>
-								<li><a href="student-dashboard.html"> Dashboard</a></li>
-							</ul>
-						</div>
-						<!-- /Footer Widget -->
-
-					</div>
-
-					<div class="col-lg-4 col-md-6">
-
-						<!-- Footer Widget -->
-						<div class="footer-widget footer-contact">
-							<h2 class="footer-title">News letter</h2>
-							<div class="news-letter">
-								<form>
-									<input type="text" class="form-control" placeholder="Enter your email address"
-										name="email">
-								</form>
-							</div>
-							<div class="footer-contact-info">
-								<div class="footer-address">
-									<img src="/static/img/icon/icon-20.svg" alt="Img" class="img-fluid">
-									<p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
-								</div>
-								<p>
-									<img src="/static/img/icon/icon-19.svg" alt="Img" class="img-fluid">
-									dreamslms@example.com
-								</p>
-								<p class="mb-0">
-									<img src="/static/img/icon/icon-21.svg" alt="Img" class="img-fluid">
-									+19 123-456-7890
-								</p>
-							</div>
-						</div>
-						<!-- /Footer Widget -->
-
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- /Footer Top -->
-
-		<!-- Footer Bottom -->
-		<div class="footer-bottom">
-			<div class="container">
-
-				<!-- Copyright -->
-				<div class="copyright">
+			<!-- Footer Top -->
+			<div class="footer-top aos" data-aos="fade-up">
+				<div class="container">
 					<div class="row">
-						<div class="col-md-6">
-							<div class="privacy-policy">
+						<div class="col-lg-4 col-md-6">
+
+							<!-- Footer Widget -->
+							<div class="footer-widget footer-about">
+								<div class="footer-logo">
+									<img src="/static/img/logo.svg" alt="logo">
+								</div>
+								<div class="footer-about-content">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris</p>
+								</div>
+							</div>
+							<!-- /Footer Widget -->
+
+						</div>
+
+						<div class="col-lg-2 col-md-6">
+
+							<!-- Footer Widget -->
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">For Instructor</h2>
 								<ul>
-									<li><a href="term-condition.html">Terms</a></li>
-									<li><a href="privacy-policy.html">Privacy</a></li>
+									<li><a href="instructor-profile.html">Profile</a></li>
+									<li><a href="login.html">Login</a></li>
+									<li><a href="register.html">Register</a></li>
+									<li><a href="instructor-list.html">Instructor</a></li>
+									<li><a href="instructor-dashboard.html"> Dashboard</a></li>
 								</ul>
 							</div>
+							<!-- /Footer Widget -->
+
 						</div>
-						<div class="col-md-6">
-							<div class="copyright-text">
-								<p class="mb-0">&copy; 2024 DreamsLMS. All rights reserved.</p>
+
+						<div class="col-lg-2 col-md-6">
+
+							<!-- Footer Widget -->
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">For Student</h2>
+								<ul>
+									<li><a href="student-profile.html">Profile</a></li>
+									<li><a href="login.html">Login</a></li>
+									<li><a href="register.html">Register</a></li>
+									<li><a href="students-list.html">Student</a></li>
+									<li><a href="student-dashboard.html"> Dashboard</a></li>
+								</ul>
+							</div>
+							<!-- /Footer Widget -->
+
+						</div>
+
+						<div class="col-lg-4 col-md-6">
+
+							<!-- Footer Widget -->
+							<div class="footer-widget footer-contact">
+								<h2 class="footer-title">News letter</h2>
+								<div class="news-letter">
+									<form>
+										<input type="text" class="form-control" placeholder="Enter your email address"
+											name="email">
+									</form>
+								</div>
+								<div class="footer-contact-info">
+									<div class="footer-address">
+										<img src="/static/img/icon/icon-20.svg" alt="Img" class="img-fluid">
+										<p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
+									</div>
+									<p>
+										<img src="/static/img/icon/icon-19.svg" alt="Img" class="img-fluid">
+										dreamslms@example.com
+									</p>
+									<p class="mb-0">
+										<img src="/static/img/icon/icon-21.svg" alt="Img" class="img-fluid">
+										+19 123-456-7890
+									</p>
+								</div>
+							</div>
+							<!-- /Footer Widget -->
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- /Footer Top -->
+
+			<!-- Footer Bottom -->
+			<div class="footer-bottom">
+				<div class="container">
+
+					<!-- Copyright -->
+					<div class="copyright">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="privacy-policy">
+									<ul>
+										<li><a href="term-condition.html">Terms</a></li>
+										<li><a href="privacy-policy.html">Privacy</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="copyright-text">
+									<p class="mb-0">&copy; 2024 DreamsLMS. All rights reserved.</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<!-- /Copyright -->
+
 				</div>
-				<!-- /Copyright -->
-
 			</div>
-		</div>
-		<!-- /Footer Bottom -->
+			<!-- /Footer Bottom -->
 
-	</footer>
-	<!-- /Footer -->
+		</footer>
+		<!-- /Footer -->
 
 	</div>
 	<!-- /Main Wrapper -->
 
 	<!-- jQuery -->
-	
+
 	<script src="/static/js/jquery-3.7.1.min.js"></script>
 
 	<script src="/static/js/ckeditor.js"></script>
@@ -507,8 +557,8 @@
 	<script src="/static/js/bootstrap.bundle.min.js"></script>
 
 	<script src="/static/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="/static/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-		
+	<script src="/static/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
 
 	<!-- counterup JS -->
 	<script src="/static/js/jquery.waypoints.js"></script>
@@ -516,16 +566,16 @@
 
 	<!-- Slimscroll JS -->
 	<script src="/static/js/jquery.slimscroll.min.js"></script>
-<!-- Swiper JS -->
-<script src="/static/plugins/swiper/swiper.min.js"></script>
-		
+	<!-- Swiper JS -->
+	<script src="/static/plugins/swiper/swiper.min.js"></script>
+
 
 	<!-- Select2 JS -->
 	<script src="/static/plugins/select2/js/select2.min.js"></script>
 
 	<!-- Owl Carousel -->
 	<script src="/static/js/owl.carousel.min.js"></script>
-	
+
 	<!-- Slick Slider -->
 	<script src="/static/plugins/slick/slick.js"></script>
 
@@ -535,11 +585,11 @@
 	<!-- Custom JS -->
 	<script src="/static/js/script.js"></script>
 
-	
+
 	<script>
 		const authenticated = localStorage.getItem("jerry_project_access_token");
 		const refresh_token = localStorage.getItem("jerry_project_refresh_token");
-		
+
 		const message_box = document.getElementById("message_box");
 		const message_content = document.getElementById("message-content");
 		const message_type = document.getElementById("message-type");
@@ -567,7 +617,7 @@
 				document.querySelectorAll('.authenticated').forEach(function (element) {
 					element.style.display = "none";
 				});
-				
+
 				document.querySelector(".menu-authenticated").style.display = "none"
 				document.querySelector(".menu-unauthenticated").style.display = "block"
 
@@ -596,7 +646,8 @@
 						document.getElementById("profile_image").src = `${response.data.profile_picture}`
 						document.getElementById("profile_image2").src = `${response.data.profile_picture}`
 						document.getElementById("profile_username").innerHTML = `${response.data.username}`
-
+						initializeWebSocket(response.data.uuid, response.data.id)
+						fetchNotificationNotRead(response.data.id)
 					}
 					console.log(response)
 				})
@@ -638,7 +689,7 @@
 						message_icon_child.classList = "fas fa-check-circle";
 
 						setTimeout(() => {
-							window.location.href="/index/"
+							window.location.href = "/index/"
 						}, 3000)
 
 					}
@@ -664,7 +715,7 @@
 					message_type.style.color = "red";
 					message_icon_parent.style.color = "red";
 					message_icon_child.classList = "fas fa-times-circle";
-					
+
 					setTimeout(() => {
 						card.style.display = "none";
 					}, 3000);
@@ -680,7 +731,170 @@
 				// card.remove();
 			}
 		});
-		
+
+		function initializeWebSocket(userUuid, userid) {
+			//const token = localStorage.getItem("jerry_project_access_token");
+			const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+			const socketUrl = `${protocol}//${window.location.host}/ws/notification/${userUuid}/`;
+
+
+			const ws = new WebSocket(socketUrl);
+
+			ws.onopen = () => {
+				console.log("WebSocket connection established.");
+			};
+
+			ws.onmessage = (event) => {
+				const data = JSON.parse(event.data);
+				console.log("Received WebSocket message:", data);
+				// Handle the incoming WebSocket message here
+				showNotification(data, userid);
+			};
+
+			ws.onclose = () => {
+				console.log("WebSocket connection closed.");
+			};
+
+			ws.onerror = (error) => {
+				console.error("WebSocket error:", error);
+			};
+		}
+
+		// Show notification from WebSocket
+		function showNotification(data, userid) {
+			console.log(data)
+			const message_box = document.getElementById("message_box");
+			const message_content = document.getElementById("message-content");
+			const message_type = document.getElementById("message-type");
+			const message_icon_parent = document.getElementById("message-icon-parent");
+			const message_icon_child = document.getElementById("message-icon-child");
+
+			message_content.innerHTML = `${data.message}`
+			card.style.display = "flex";
+			card.style.borderLeft = "10px solid #3db5dc";
+			message_type.innerHTML = `${data.notification_type}`;
+			message_type.style.color = "#3db5dc";
+			message_icon_parent.style.color = "#3db5dc";
+			message_icon_child.classList = "fas fa-exclamation-circle";
+
+
+			const notification_all = document.getElementById("notification_all");
+			const notification_count = document.getElementById("notification_count");
+			// Parse and format the timestamp
+			const timestamp = new Date(data.timestamp);
+			const formattedDate = timestamp.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
+			const formattedTime = timestamp.toLocaleTimeString('en-GB', {
+				hour: '2-digit',
+				minute: '2-digit'
+			}); // Format as HH:MM
+
+			str = `<li onclick="markAsRead('${data.notification_type}', ${userid})">
+					<a class="dropdown-item" href="${data.link}" style="font-weight: 600;">${data.notification_type}</a>
+					<p style="color: grey; padding: 0px 15px;">${data.message} <span style="float: right;">${formattedDate} ${formattedTime}</span> </p>
+				</li>
+				<hr>`;
+
+			if(notification_count.innerHTML==0){
+
+				notification_all.innerHTML=str
+			}
+			if(notification_count.innerHTML!=0){
+
+				notification_all.innerHTML+=str
+			}
+			notification_count.style.display = "block";
+			notification_count.innerHTML = parseInt(notification_count.innerHTML)+1;
+		}
+
+
+		async function fetchNotificationNotRead(userid) {
+			const url = new URL(`${window.location.origin}/api/notification/unread-for-user/`);
+			url.searchParams.append('user_id', userid);
+
+			await fetch(url, {
+				method: "GET",
+				headers: {
+					"content-type": "application/json",
+					"Authorization": `Bearer ${authenticated}`
+				}
+			}).then((response) => {
+				return response.json()
+			}).then((response) => {
+				console.log(response);
+				if (response.success) {
+					const notification_all = document.getElementById("notification_all");
+					const notification_count = document.getElementById("notification_count");
+					let str = "";
+					if (response.data.length > 0) {
+
+						response.data.forEach((data) => {
+							// Parse and format the timestamp
+							const timestamp = new Date(data.timestamp);
+							const formattedDate = timestamp.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
+							const formattedTime = timestamp.toLocaleTimeString('en-GB', {
+								hour: '2-digit',
+								minute: '2-digit'
+							}); // Format as HH:MM
+
+							str += `<li onclick="markAsRead('${data.notification_type}', ${userid})">
+								<a class="dropdown-item" href="${data.link}" style="font-weight: 600;">${data.notification_type}</a>
+								<p style="color: grey; padding: 0px 15px;">${data.message} <span style="float: right;">${formattedDate} ${formattedTime}</span> </p>
+							</li>
+							<hr>`;
+						});
+						notification_count.innerHTML = response.data.length;
+						notification_count.style.display = "block";
+					}
+
+					else {
+						str = `<li style="display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;">
+								
+								<div>Your Notification list is empty</div>
+							</li>
+							`
+						notification_count.style.display = "none";
+						notification_count.innerHTML = "0";
+
+					}
+					notification_all.innerHTML = str;
+				}
+			});
+		}
+
+		async function markAsRead(notificationType, userId) {
+			const url = `${window.location.origin}/api/notification/multiple-mark-as-read/`;
+			const data = {
+				notification_type: notificationType,
+				user_id: userId
+			};
+
+			await fetch(url, {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+					"Authorization": `Bearer ${authenticated}`
+				},
+				body: JSON.stringify(data)
+			}).then((response) => {
+				return response.json();
+			}).then((response) => {
+				console.log(response);
+				if (response.success) {
+					console.log(response.data)
+					// Optionally, update the UI to reflect the change
+					//fetchNotificationNotRead(userId); -->
+				} else {
+					console.error("Failed to mark notification as read");
+				}
+			}).catch((error) => {
+				console.error("Error:", error);
+			});
+		}
+
 	</script>
 	{% block script %}
 

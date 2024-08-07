@@ -54,16 +54,16 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=User
-        fields=['id', 'username', 'first_name', 'last_name', 'email', 'password', 'password2','profile_picture','bio']
+        fields=['id', 'username', 'first_name', 'last_name', 'email', 'password', 'password2','profile_picture','bio','uuid']
         
         
 class UserMyProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','username', 'first_name', 'last_name', 'email', 'profile_picture', 'phone', 'bio']
+        fields = ['id','username', 'first_name', 'last_name', 'email', 'profile_picture', 'phone', 'bio','uuid']
 
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','username', 'first_name', 'last_name', 'profile_picture', 'bio']
+        fields = ['id','username', 'first_name', 'last_name', 'profile_picture', 'bio','uuid']
         

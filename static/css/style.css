@@ -17854,7 +17854,7 @@ input[type=password]::-ms-clear
 	vertical-align: 0px;
 }
 .chat .chat-body .messages .chats .message-content {
-	background-color: #ffebeb;
+	background-color: #e3edf8;
 	border-radius: 0 10px 10px 10px;
 	padding: 14px 20px;
 	color: #737373;
@@ -18116,8 +18116,8 @@ input[type=password]::-ms-clear
     color: #FF5454;
 }
 .chat .chat-body .messages .chats.chats-right .message-content {
-	background: #f9e6e4;
-	color: #232323;
+	background: #ff4667;
+	color: white;
 	border-radius: 15px 0px 15px 15px;
 	padding: 15px;
 }
@@ -24156,9 +24156,9 @@ ul li {
 		max-height:40px;
 	}
 	#mobile_btn {
-		top: 18px;
+		/* top: 18px; */
 		margin-right: 0;
-		position: absolute;
+		/* position: absolute; */
 	}
 	.logo img,
 	.menu-logo img {
@@ -24240,7 +24240,7 @@ ul li {
 		display: none ;
 	}
     .authenticated {
-        display: block ;
+        display: contents !important ;
     }
     
     
@@ -28085,3 +28085,44 @@ ul li {
 /* Signup erroe css  */
 
   /* success */
+
+
+
+
+  /* //////////////////////////////notification ////////////////////////////////////////////// */
+  .icon-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    color: #333333;
+    background: #dddddd;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+  }
+  
+  .icon-button:hover {
+    cursor: pointer;
+  }
+  
+  .icon-button:active {
+    background: #cccccc;
+  }
+  
+  .icon-button__badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 25px;
+    height: 25px;
+    background: red;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  

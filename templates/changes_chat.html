@@ -130,7 +130,7 @@
                     <!-- /Sidebar -->
 
                     <!-- Student Profile -->
-                    <div class="col-xl-9 col-lg-9 theiaStickySidebar" >
+                    <div class="col-xl-9 col-lg-9 theiaStickySidebar">
 
 
                         <div class="settings-widget card-details mb-0">
@@ -142,7 +142,113 @@
     justify-content: space-between;
     margin: 0px;
     padding: 0px;">
-                                    <h3 style="margin-left: 10px;">Message</h3>
+                                    <!-- <h3 style="margin-left: 10px;">Message</h3> -->
+                                    <div class="container"
+                                        style="flex-wrap: nowrap;display:flex;justify-content:center;align-items:center;">
+                                        <div class="navbar-header">
+                                            <a id="mobile_btn" href="javascript:void(0);">
+                                                <span class="bar-icon">
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                </span>
+                                            </a>
+                                            <a href="/index/" class="navbar-brand logo">
+                                                <img src="/static/img/logo.svg" class="img-fluid" alt="Logo">
+                                            </a>
+                                        </div>
+                                        <div class="main-menu-wrapper menu-authenticated">
+                                            <div class="menu-header">
+                                                <a href="/index/" class="menu-logo">
+                                                    <img src="/static/img/logo.svg" class="img-fluid" alt="Logo">
+                                                </a>
+                                                <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                            </div>
+                                            <ul class="main-nav">
+                                                <li class="has-submenu">
+                                                    <!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+                                                    <a href="/index/">Home </a>
+
+                                                    <!-- <ul class="submenu">
+                                                            <li class="active"><a href="/index/">Home</a></li>
+                                                            <li><a href="index-two.html">Home Two</a></li>
+                                                            <li><a href="index-three.html">Home Three</a></li>
+                                                            <li><a href="index-four.html">Home Four</a></li>
+                                                        </ul> -->
+                                                </li>
+                                                <li class="has-submenu">
+                                                    <!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+                                                    <a href="#">Today's Feed </a>
+
+                                                    <!-- <ul class="submenu">
+                                                            <li class="active"><a href="/index/">Home</a></li>
+                                                            <li><a href="index-two.html">Home Two</a></li>
+                                                            <li><a href="index-three.html">Home Three</a></li>
+                                                            <li><a href="index-four.html">Home Four</a></li>
+                                                        </ul> -->
+                                                </li>
+                                                <li class="has-submenu">
+                                                    <a href="#">Dashboard <i class="fas fa-chevron-down"></i></a>
+
+                                                    <!-- <a class="" href="#">Dashboard</a> -->
+                                                    <ul class="submenu">
+                                                        <li><a href="#">Fan Dashbored</a></li>
+                                                        <li><a href="#">Creator Dashbored</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="has-submenu">
+                                                    <a href="#">Creator's <i class="fas fa-chevron-down"></i></a>
+                                                    <ul class="submenu">
+                                                        <!-- <li class="has-submenu">
+                                                                <a href="#">Instructor</a>
+                                                                <ul class="submenu">
+                                                                    <li><a href="#">List</a></li>
+                                                                    <li><a href="#">Grid</a></li>
+                                                                </ul>
+                                                            </li> -->
+                                                        <li><a href="#">Popular</a></li>
+                                                        <li><a href="#">Men</a></li>
+                                                        <li><a href="#">Women</a></li>
+                                                        <li><a href="#">Common</a></li>
+
+
+                                                    </ul>
+                                                </li>
+
+                                                <!-- <li class="has-submenu">
+                                                        <a href="#">Instructor <i class="fas fa-chevron-down"></i></a>
+                                                        <ul class="submenu">
+                                                            <li class="has-submenu">
+                                                                <a href="instructor-list.html">Instructor</a>
+                                                                <ul class="submenu">
+                                                                    <li><a href="instructor-list.html">List</a></li>
+                                                                    <li><a href="instructor-grid.html">Grid</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a href="instructor-dashboard.html">Dashboard</a></li>
+                                                            <li><a href="instructor-profile.html">My Profile</a></li>
+                                                            <li><a href="instructor-course.html">My Course</a></li>
+                                                            <li><a href="instructor-wishlist.html">Wishlist</a></li>
+                                                            <li><a href="instructor-reviews.html">Reviews</a></li>
+                                                            <li><a href="instructor-quiz.html">My Quiz Attempts</a></li>
+                                                            <li><a href="instructor-orders.html">Orders</a></li>
+                                                            <li><a href="instructor-qa.html">Question & Answer</a></li>
+                                                            <li><a href="instructor-referral.html">Referrals</a></li>
+                                                            <li><a href="instructor-chat.html">Messages</a></li>
+                                                            <li><a href="instructor-tickets.html">Support Ticket</a></li>
+                                                            <li><a href="instructor-notifications.html">Notifications</a></li>
+                                                            <li><a href="instructor-settings.html">Settings</a></li>
+                                                        </ul>
+                                                    </li>	 -->
+
+
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <a href="/myprofile/">
 
                                         <div class="add-course btn-primary" id="Send_Message" style="    width: fit-content;
@@ -222,11 +328,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="chat-footer">
-                                                    <form id="chat_form" >
-                                                        <div class="replay-forms">
-                                                            <input id="chat_input" type="text"
-                                                                class="form-control chat_form"
-                                                                placeholder="Type your message here...">
+                                                    <form id="chat_form">
+                                                        <div class="replay-forms" style="position: relative;">
+                                                            <input id="chat_input" type="text" class="form-control chat_form" placeholder="Type your message here..." style="padding-right: 120px;">
+                                                            <div id="file-info" style="display: none; position: absolute;left: 5px; top: 50%; transform: translateY(-50%); background: white; padding: 5px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                                                                <span id="file-name" style="margin-right: 10px;"></span>
+                                                                <button type="button" id="remove-file" style="background: none; border: none; color: red; cursor: pointer;">&times;</button>
+                                                            </div>
                                                         </div>
                                                         <div class="form-buttons">
                                                             <button class="btn send-btn" type="submit" id="chat_button">
@@ -234,32 +342,27 @@
                                                             </button>
                                                         </div>
                                                         <div class="form-buttons">
-                                                            <label for="file-upload" class="btn" style="background: #ff4667;
-    color: white;
-    padding: 20px;
-    margin-left: 6px;
-    margin-top: 6px;">
+                                                            <label for="file-upload" class="btn" style="background: #ff4667; color: white; padding: 20px; margin-left: 6px; margin-top: 6px;">
                                                                 <i class="bx bx-upload"></i>
                                                             </label>
-                                                            <input type="file" id="file-upload"
-                                                                style="display: none;" />
+                                                            <input type="file" id="file-upload" style="display: none;" />
                                                         </div>
                                                     </form>
                                                 </div>
 
                                             </div>
-                                            
+
                                             <!-- /Chat -->
                                         </div>
-                                        <div id="empty_messages" style="width: 60%;
+                                        <div id="empty_messages"
+                                            style="width: 60%;
     display: flex;justify-content: center;align-items: center;flex-direction: column;border: 0.5px solid gray;border-radius: 10px;">
-                                                <i class="fas fa-comment-alt"
-                                                    style="color: #ff4667;font-size: 50px;"></i>
-                                                <h4 style="text-align: center;
+                                            <i class="fas fa-comment-alt" style="color: #ff4667;font-size: 50px;"></i>
+                                            <h4 style="text-align: center;
     width: 70%;
     margin: 10px;
     color: gray;">Please select a chat from the contact list</h4>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -327,6 +430,7 @@
                         const userData = await userResponse.json();
 
                         if (userData.success) {
+                            console.log(userData.data)
                             const profileID = userData.data.id;
 
                             const conversationsResponse = await fetch(`${window.location.origin}/api/conversations/user-conversations/?user_id=${profileID}`, {
@@ -395,15 +499,9 @@
                                     document.getElementById("empty_messages").style.display = "none"
                                     if (event.target.closest(".user-list-item")) {
                                         const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
-                                        document.getElementById(`count_${itemId}`).innerHTML=""
+                                        document.getElementById(`count_${itemId}`).innerHTML = ""
 
-                                        const previouslySelectedItem = document.querySelector(".user-list-item.selected-chat-user");
-                if (previouslySelectedItem) {
-                    previouslySelectedItem.classList.remove("selected-chat-user");
-                }
 
-                // Add the 'selected-chat-user' class to the clicked item
-                event.target.closest(".user-list-item").classList.add("selected-chat-user");
 
                                         // Function to mark messages as read
                                         const markMessagesRead = async (conversationId) => {
@@ -483,7 +581,7 @@
                 let chatMessages = document.getElementById("allChats");
                 if (chatMessages) {
                     // Focus on the chatMessages element
-                    
+
                     let lastMessage = chatMessages.lastElementChild;
                     if (lastMessage) {
                         // Scroll the last message into view smoothly
@@ -629,7 +727,7 @@
 											  <h6>${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
 										  <div class="message-content award-link chat-award-link">
-											  <a href="javascript:void(0);">${data.file_url}</a>
+											  <a href="javascript:void(0);" style="color:white;" >${data.file_url}</a>
 											  <img src="${data.file_url}" class="img-fluid" alt="img">										  </div>
 									  </div>
                                       <div class="chat-avatar">
@@ -659,7 +757,7 @@
                         });
                     }
                     else {
-                        str += `
+                        str += `<div id="empty_messages_inside">
                                                         <div style="width: 100%;
     
                                                         display: flex;
@@ -675,6 +773,8 @@
                                                         color: gray;">Please select a chat from the contact list</h4>
                                                         </div>
                                                     </div>
+
+                                                </div>
 `
                     }
                     scrolling();
@@ -758,7 +858,7 @@
 											  <h6>${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
 										  <div class="message-content award-link chat-award-link">
-											  <a href="javascript:void(0);">${message.file_url}</a>
+											  <a href="javascript:void(0);"  style="color:white;">${message.file_url}</a>
 											  <img src="${message.file_url}" class="img-fluid" alt="img">										  </div>
 									  </div>
                                       <div class="chat-avatar">
@@ -785,26 +885,45 @@
                         }
 
                         else {
-                            
-                            let data={"message_id":message.message_id}
-                            const messagesResponse = async ()=>{
-                             fetch(`${window.location.origin}/api/messages/mark-message-read/`, {
+                            console.log(message)
+                            let message_data = { "message_id": message.message_id }
+                            let notification_data = { "notification_id": message.notification_id }
 
-                                method: "POST",
-                                headers: {
-                                    "content-type": "application/json",
-                                    "Authorization": `Bearer ${authenticated}`,
-                                },
-                                body:JSON.stringify(data)
-                            }).then((resposne)=>{
-                                return resposne.json()
-                            }).then((response)=>{
-                                console.log(response)
-                            })
-                        }
-                        let check=messagesResponse()
+                            const messagesResponse = async () => {
+                                await fetch(`${window.location.origin}/api/messages/mark-message-read/`, {
 
-                            
+                                    method: "POST",
+                                    headers: {
+                                        "content-type": "application/json",
+                                        "Authorization": `Bearer ${authenticated}`,
+                                    },
+                                    body: JSON.stringify(message_data)
+                                }).then((resposne) => {
+                                    return resposne.json()
+                                }).then((response) => {
+                                    console.log(response)
+                                })
+                            }
+                            const notificationResponse = async () => {
+                                await fetch(`${window.location.origin}/api/notification/single-mark-as-read/`, {
+
+                                    method: "POST",
+                                    headers: {
+                                        "content-type": "application/json",
+                                        "Authorization": `Bearer ${authenticated}`,
+                                    },
+                                    body: JSON.stringify(notification_data)
+                                }).then((resposne) => {
+                                    return resposne.json()
+                                }).then((response) => {
+                                    console.log(response)
+                                })
+                            }
+                            let check = messagesResponse()
+                            let check2 = notificationResponse()
+
+
+
 
                             console.log(message.file_url)
                             if (message.file_url != null) {
@@ -882,7 +1001,7 @@
                     let content = document.getElementById("chat_input");
                     let fileUrl = null;
 
-                    if (content.value.trim() === "") {
+                    if (selectedFile==null  && content.value.trim() === "") {
                         card.style.display = "flex";
                         card.style.borderLeft = "10px solid #3db5dc";
                         message_content.innerHTML = "Message should not be blank";
@@ -890,19 +1009,14 @@
                         message_type.style.color = "#3db5dc";
                         message_icon_parent.style.color = "#3db5dc";
                         message_icon_child.classList = "fas fa-exclamation-circle";
-                        selectedFile=null;
+                        selectedFile = null;
                     }
-                    else {
-                        if (selectedFile && content.value !== selectedFile.name) {
-                            selectedFile = null;
-                        }
-                    }
-                
+
                     // Upload the file and get URL if a file is selected
                     if (selectedFile) {
                         let formData = new FormData();
                         formData.append('image', selectedFile);
-                
+
                         try {
                             const response = await fetch(`${window.location.origin}/api/uploads/`, { // Replace with your upload endpoint
                                 method: 'POST',
@@ -911,7 +1025,7 @@
                                 },
                                 body: formData
                             }).then(response => response.json());
-                
+
                             if (response.success) {
                                 console.log(response.data.image);
                                 fileUrl = response.data.image; // Get the file URL
@@ -937,9 +1051,9 @@
                             return; // Stop execution if upload fails
                         }
                     }
-                
+
                     // Check if content is not empty
-                    if (content.value.trim() !== "") {
+                    if (selectedFile!=null || content.value.trim() !== "") {
                         const messagePayload = {
                             'type': 'chat',
                             'sender': userID,
@@ -948,27 +1062,34 @@
                             'username': userUsername,
                             'content': content.value,
                         };
-                
+
                         // Add file URL to payload if it exists
                         if (fileUrl) {
                             messagePayload.file_url = fileUrl;
                         }
-                
+
                         // Send the message
                         ws.send(JSON.stringify(messagePayload));
-                
                         content.value = '';
                         content.placeholder = 'Type your message here...';
-                
+                        let fileInfo = document.getElementById('file-info');
+                        let fileNameSpan = document.getElementById('file-name');
+                        let fileInput = document.getElementById('file-upload');
+
+                        fileNameSpan.textContent=""
+                        fileInfo.style.display = 'none';
+                        content.disabled = false; // Enable the input field
+                        fileInput.value = '';
+
                         try {
-                            const emptyChatUser = document.getElementById("empty_chat_user");
+                            const emptyChatUser = document.getElementById("empty_messages_inside");
                             if (emptyChatUser && emptyChatUser.style.display !== "none") {
                                 emptyChatUser.style.display = "none";
                             }
                         } catch (e) {
                             console.log(e);
                         }
-                
+
                         selectedFile = null;
                         scrolling();
                     } else {
@@ -981,7 +1102,7 @@
                         message_icon_child.classList = "fas fa-exclamation-circle";
                     }
                 };
-                
+
                 document.getElementById("message_close").addEventListener('click', () => {
                     const card = document.getElementById("card");
                     if (card) {
@@ -1000,11 +1121,33 @@
                 const files = event.target.files;
                 if (files.length > 0) {
                     selectedFile = files[0]; // Store the first file
+                    const fileName = selectedFile.name;
+                    const fileInfo = document.getElementById('file-info');
+                    const fileNameSpan = document.getElementById('file-name');
                     const chatInput = document.getElementById('chat_input');
-                    chatInput.value = `${selectedFile.name}`;
+            
+                    chatInput.value=""
+                    chatInput.placeholder=""
+                    fileNameSpan.textContent = fileName;
+                    fileInfo.style.display = 'flex';
+                    chatInput.disabled = true; // Disable the input field
                 }
             });
+            
+            document.getElementById('remove-file').addEventListener('click', function () {
+                selectedFile = null; // Remove the selected file
+                const fileInfo = document.getElementById('file-info');
+                const chatInput = document.getElementById('chat_input');
+                const fileNameSpan = document.getElementById('file-name');
+                const fileInput = document.getElementById('file-upload');
 
+                chatInput.value = '';
+                chatInput.placeholder="Type your message here..."
+                fileNameSpan.textContent=""
+                fileInfo.style.display = 'none';
+                chatInput.disabled = false; // Enable the input field
+                fileInput.value = '';
+            });
 
         </script>
 
