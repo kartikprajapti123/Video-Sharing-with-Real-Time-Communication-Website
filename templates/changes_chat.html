@@ -483,12 +483,12 @@
                 let chatMessages = document.getElementById("allChats");
                 if (chatMessages) {
                     // Focus on the chatMessages element
-                    chatMessages.focus();
-
+                    
                     let lastMessage = chatMessages.lastElementChild;
                     if (lastMessage) {
                         // Scroll the last message into view smoothly
                         lastMessage.scrollIntoView({ behavior: 'smooth' });
+                        //chatMessages.focus();
                     }
                 }
             }
@@ -892,13 +892,9 @@
                         message_icon_child.classList = "fas fa-exclamation-circle";
                         selectedFile=null;
                     }
-                    else{
-                        console.log(content.value==selectedFile.name)
-                        console.log(content.value)
-                        console.log(content.selectedFile)
-
-                        if (content.value !=selectedFile.name){
-                            selectedFile=null
+                    else {
+                        if (selectedFile && content.value !== selectedFile.name) {
+                            selectedFile = null;
                         }
                     }
                 
