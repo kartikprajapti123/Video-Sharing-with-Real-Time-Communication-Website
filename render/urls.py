@@ -15,6 +15,8 @@ urlpatterns = [
     path('profile/<str:id>/',views.others_profile,name="others-profile"),
     path('contact-list/',views.contact_list,name="chating"),
     path('chatting/<str:id>/',views.chatting,name="chating"),
+    path('notification/',views.notification,name="notification"),
+    
     
     
     

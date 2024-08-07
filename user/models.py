@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-
+import uuid
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -44,6 +44,7 @@ class User(AbstractUser):
         ("active", "active"),
         ("inactive", "inactive"),
     )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False,unique=True) 
     username = models.CharField(max_length=60)
     first_name = models.CharField(max_length=100,default="")
     last_name = models.CharField(max_length=100, default="")
@@ -63,6 +64,9 @@ class User(AbstractUser):
     class Meta:
         db_table='user'
         ordering=['id']
+        
+    def __str__(self):
+        return f"{self.username}--{self.uuid}"
         
     
     
