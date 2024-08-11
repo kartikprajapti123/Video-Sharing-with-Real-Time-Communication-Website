@@ -421,7 +421,7 @@
             const message_icon_child = document.getElementById("message-icon-child");
 
             const card = document.getElementById("card");
-
+            let currentWebSocket = null;
             const authenticated = localStorage.getItem("jerry_project_access_token");
             console.log(authenticated);
             if (authenticated) {
@@ -759,7 +759,7 @@
                                                             <h4 style="text-align: center;
                                                         width: 70%;
                                                         margin: 10px;
-                                                        color: gray;">Please select a chat from the contact list</h4>
+                                                        color: gray;">No chat messages between you </h4>
                                                         </div>
                                                     </div>
 
@@ -773,10 +773,15 @@
                 const connectWebSocket = (userID, conversationId, userProfiePicture, userUsername) => {
                     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
                     const host = window.location.protocol === "https:" ? `${window.location.host}` : "127.0.0.1";
-
+                    if (currentWebSocket) {
+                        currentWebSocket.close();
+                        console.log("Previous WebSocket connection closed.");
+                    }
+                
                     const ws = new WebSocket(`${protocol}://${host}:8001/ws/chat/${conversationId}/?token=${authenticated}`);
 
                     ws.onopen = () => {
+                        currentWebSocket = ws;
                         console.log('WebSocket connection opened');
                     };
 
