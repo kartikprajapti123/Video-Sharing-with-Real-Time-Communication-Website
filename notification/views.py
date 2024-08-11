@@ -113,17 +113,17 @@ class NotificationViewSet(ModelViewSet):
             status=status.HTTP_200_OK
         )
         
-    @action(detail=False, methods=['POST'],url_path="multiple-mark-as-read")
+    @action(detail=False, methods=['POST'], url_path="multiple-mark-as-read")
     def multiple_mark_as_read(self, request):
         user_id = request.data.get('user_id')
-        notification_type = request.data.get('notification_type')
-
-        if not user_id or not notification_type:
+        common_uuid = request.data.get('common_uuid')
+    
+        if not user_id or not common_uuid:
             return Response(
-                {"success": False, "message": "user_id and notification_type are required."},
+                {"success": False, "message": "user_id and common_uuid are required."},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
+    
         try:
             user_id = int(user_id)
         except ValueError:
@@ -131,13 +131,13 @@ class NotificationViewSet(ModelViewSet):
                 {"success": False, "message": "user_id must be an integer."},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
-        updated_count= Notification.objects.filter(
+    
+        updated_count = Notification.objects.filter(
             user_id=user_id,
-            notification_type=notification_type,
+            common_uuid=common_uuid,
             is_read=False
         ).update(is_read=True)
-
+    
         return Response(
             {"success": True, "message": f"Marked {updated_count} notifications as read."},
             status=status.HTTP_200_OK

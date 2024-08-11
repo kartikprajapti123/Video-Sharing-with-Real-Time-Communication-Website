@@ -17854,10 +17854,10 @@ input[type=password]::-ms-clear
 	vertical-align: 0px;
 }
 .chat .chat-body .messages .chats .message-content {
-	background-color: #ebf1ff;
+	background-color: #e5e5ea;
 	border-radius: 0 10px 10px 10px;
 	padding: 14px 20px;
-	color: #737373;
+	color: black;
 	font-size: 14px;
 	font-weight: 400;
 	box-shadow: 0px 6px 12px 0px #00000008;

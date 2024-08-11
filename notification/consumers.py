@@ -27,8 +27,19 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         # Send notification message to WebSocket
         await self.send(text_data=json.dumps({
             'type': 'notification',
+            "notification_id":event['notification_id'],
             'message': event['message'],
             'notification_type': event['notification_type'],
             'timestamp': event['timestamp'],
-            'link': event['link']
+            'link': event['link'],
+            'sender':event['sender'],
+            'sender_profile_picture':event['sender_profile_picture'],
+            # 'common_uuid':event['common_uuid'],
+            
+            'count':event['count'],
+            # 'sender_id':event['sender_id'],
+            'sender_type':event['sender_type']
+            
         }))
+        
+    
