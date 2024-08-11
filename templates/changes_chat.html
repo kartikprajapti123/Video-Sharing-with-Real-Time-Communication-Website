@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="/static/css/message_box.css">
     <style>
         .chat-bubble {
-            background-color: #FDF4F3;
+            background-color: #e5e5ea;
             padding: 16px 28px;
             -webkit-border-radius: 20px;
             -webkit-border-bottom-left-radius: 2px;
@@ -50,7 +50,7 @@
 
         .typing .dot {
             animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
-            background-color: #FF4667;
+            background-color: black;
             ;
             border-radius: 50%;
             height: 7px;
@@ -79,17 +79,17 @@
         @keyframes mercuryTypingAnimation {
             0% {
                 transform: translateY(0px);
-                background-color: #FDF4F3;
+                background-color: #636262;
             }
 
             28% {
                 transform: translateY(-7px);
-                background-color: #FDF4F3;
+                background-color: #2d2c2b;
             }
 
             44% {
                 transform: translateY(0px);
-                background-color: #FDF4F3;
+                background-color: #0f0e0e;
             }
         }
     </style>
@@ -330,10 +330,15 @@
                                                 <div class="chat-footer">
                                                     <form id="chat_form">
                                                         <div class="replay-forms" style="position: relative;">
-                                                            <input id="chat_input" type="text" class="form-control chat_form" placeholder="Type your message here..." style="padding-right: 120px;">
-                                                            <div id="file-info" style="display: none; position: absolute;left: 5px; top: 50%; transform: translateY(-50%); background: white; padding: 5px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                                                            <input id="chat_input" type="text"
+                                                                class="form-control chat_form"
+                                                                placeholder="Type your message here..."
+                                                                >
+                                                            <div id="file-info"
+                                                                style="display: none; position: absolute;left: 5px; top: 50%; transform: translateY(-50%); background: white; padding: 5px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
                                                                 <span id="file-name" style="margin-right: 10px;"></span>
-                                                                <button type="button" id="remove-file" style="background: none; border: none; color: red; cursor: pointer;">&times;</button>
+                                                                <button type="button" id="remove-file"
+                                                                    style="background: none; border: none; color: red; cursor: pointer;">&times;</button>
                                                             </div>
                                                         </div>
                                                         <div class="form-buttons">
@@ -342,10 +347,12 @@
                                                             </button>
                                                         </div>
                                                         <div class="form-buttons">
-                                                            <label for="file-upload" class="btn" style="background: #ff4667; color: white; padding: 20px; margin-left: 6px; margin-top: 6px;">
+                                                            <label for="file-upload" class="btn"
+                                                                style="background: #ff4667; color: white; padding: 20px; margin-left: 6px; margin-top: 6px;">
                                                                 <i class="bx bx-upload"></i>
                                                             </label>
-                                                            <input type="file" id="file-upload" style="display: none;" />
+                                                            <input type="file" id="file-upload"
+                                                                style="display: none;" />
                                                         </div>
                                                     </form>
                                                 </div>
@@ -399,10 +406,14 @@
         <!-- Custom JS -->
         <script src="/static/js/script.js"></script>
         <script>
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Extract the conversation ID
+            const ParamsconversationId = urlParams.get('conversation_id');
 
             //  contactlist
             let selectedFile = null;
-
+            let active_chat=null;
             const message_box = document.getElementById("message_box");
             const message_content = document.getElementById("message-content");
             const message_type = document.getElementById("message-type");
@@ -430,6 +441,7 @@
                         const userData = await userResponse.json();
 
                         if (userData.success) {
+                            global_websocket_connection(userData.data.uuid,userData.data.id)
                             console.log(userData.data)
                             const profileID = userData.data.id;
 
@@ -495,44 +507,21 @@
 
                                 document.getElementById("contact-list").innerHTML = str;
 
-                                document.getElementById("contact-list").addEventListener("click", async function (event) {
-                                    document.getElementById("empty_messages").style.display = "none"
-                                    if (event.target.closest(".user-list-item")) {
-                                        const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
-                                        document.getElementById(`count_${itemId}`).innerHTML = ""
+                                document.getElementById("contact-list").addEventListener("click", () => {
+                                    const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
+                                    active_chat=itemId
+                                    messages_list(itemId)
+                                    Read_all_chat_notification(itemId,profileID)
+                                })
+                                if (ParamsconversationId) {
+                                    messages_list(ParamsconversationId)
+                                    active_chat=ParamsconversationId
+                                    Read_all_chat_notification(itemId,profileID)
+
+                                }
 
 
 
-                                        // Function to mark messages as read
-                                        const markMessagesRead = async (conversationId) => {
-                                            try {
-                                                const response = await fetch(`${window.location.origin}/api/messages/mark-messages-read/`, {
-                                                    method: "POST",
-                                                    headers: {
-                                                        "content-type": "application/json",
-                                                        "Authorization": `Bearer ${token}`
-                                                    },
-                                                    body: JSON.stringify({ conversation_id: conversationId })
-                                                });
-                                                const data = await response.json();
-                                                return data.success; // Assume the response contains a 'success' field indicating the status
-                                            } catch (error) {
-                                                console.error("Error marking messages as read:", error);
-                                                return false;
-                                            }
-                                        };
-
-                                        // Call the function and redirect if successful
-                                        const success = await markMessagesRead(itemId);
-                                        if (success) {
-                                            console.log("Messages marked as read for conversation ID:", itemId);
-                                            //window.location.href = `/chatting/${itemId}/`;
-                                            messages(itemId)
-                                        } else {
-                                            console.log("Failed to mark messages as read for conversation ID:", itemId);
-                                        }
-                                    }
-                                });
                             } else {
                                 document.getElementById("contact-list").innerHTML = `<div id="empty-contact-list" style="width: 100%;height:100%;display:flex;justify-content:center;align-items:center;flex-direction:column">
                          <i class="fas fa-user" style="color: #ff4667;font-size: 50px;"></i>
@@ -1001,7 +990,7 @@
                     let content = document.getElementById("chat_input");
                     let fileUrl = null;
 
-                    if (selectedFile==null  && content.value.trim() === "") {
+                    if (selectedFile == null && content.value.trim() === "") {
                         card.style.display = "flex";
                         card.style.borderLeft = "10px solid #3db5dc";
                         message_content.innerHTML = "Message should not be blank";
@@ -1053,7 +1042,7 @@
                     }
 
                     // Check if content is not empty
-                    if (selectedFile!=null || content.value.trim() !== "") {
+                    if (selectedFile != null || content.value.trim() !== "") {
                         const messagePayload = {
                             'type': 'chat',
                             'sender': userID,
@@ -1076,7 +1065,7 @@
                         let fileNameSpan = document.getElementById('file-name');
                         let fileInput = document.getElementById('file-upload');
 
-                        fileNameSpan.textContent=""
+                        fileNameSpan.textContent = ""
                         fileInfo.style.display = 'none';
                         content.disabled = false; // Enable the input field
                         fileInput.value = '';
@@ -1125,15 +1114,15 @@
                     const fileInfo = document.getElementById('file-info');
                     const fileNameSpan = document.getElementById('file-name');
                     const chatInput = document.getElementById('chat_input');
-            
-                    chatInput.value=""
-                    chatInput.placeholder=""
+
+                    chatInput.value = ""
+                    chatInput.placeholder = ""
                     fileNameSpan.textContent = fileName;
                     fileInfo.style.display = 'flex';
                     chatInput.disabled = true; // Disable the input field
                 }
             });
-            
+
             document.getElementById('remove-file').addEventListener('click', function () {
                 selectedFile = null; // Remove the selected file
                 const fileInfo = document.getElementById('file-info');
@@ -1142,12 +1131,188 @@
                 const fileInput = document.getElementById('file-upload');
 
                 chatInput.value = '';
-                chatInput.placeholder="Type your message here..."
-                fileNameSpan.textContent=""
+                chatInput.placeholder = "Type your message here..."
+                fileNameSpan.textContent = ""
                 fileInfo.style.display = 'none';
                 chatInput.disabled = false; // Enable the input field
                 fileInput.value = '';
             });
+
+
+            async function messages_list(conversationId) {
+                document.getElementById("empty_messages").style.display = "none"
+
+                const itemId = conversationId
+                document.getElementById(`count_${itemId}`).innerHTML = ""
+
+
+
+                // Function to mark messages as read
+                const markMessagesRead = async (conversationId) => {
+                    try {
+                        const response = await fetch(`${window.location.origin}/api/messages/mark-messages-read/`, {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json",
+                                "Authorization": `Bearer ${authenticated}`
+                            },
+                            body: JSON.stringify({ conversation_id: conversationId })
+                        });
+                        const data = await response.json();
+                        return data.success; // Assume the response contains a 'success' field indicating the status
+                    } catch (error) {
+                        console.error("Error marking messages as read:", error);
+                        return false;
+                    }
+                };
+
+                // Call the function and redirect if successful
+                const success = await markMessagesRead(itemId);
+                if (success) {
+                    console.log("Messages marked as read for conversation ID:", itemId);
+                    //window.location.href = `/chatting/${itemId}/`;
+                    messages(itemId)
+                } else {
+                    console.log("Failed to mark messages as read for conversation ID:", itemId);
+                }
+            }
+
+            async function Read_all_chat_notification(conversationId,userId){
+                console.log()
+                await fetch(`${window.location.origin}/api/notification/multiple-mark-as-read/`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${authenticated}`
+                    },
+                    body: JSON.stringify({ "common_uuid": conversationId,'user_id':userId })
+                }).then((resposne)=>{
+                    return resposne.json()
+                }).then((response)=>{
+                    console.log(response)
+                })
+            }
+            
+
+            function global_websocket_connection(user_uuid,userId){
+                const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+                const host = window.location.protocol === "https:" ? `${window.location.host}` : "127.0.0.1";
+
+                const ws = new WebSocket(`${protocol}://${host}:8001/ws/global_chat/${user_uuid}/`);
+
+                ws.onopen = () => {
+                    console.log('global WebSocket connection opened');
+                };
+
+                ws.onmessage = async (response) => {
+                    let global_message = JSON.parse(response.data);
+                    console.log(global_message.conversation_id);
+                    console.log(active_chat);
+                
+                    if (global_message.conversation_id !== active_chat) {
+                        try {
+                            // Fetch conversations
+                            const conversationsResponse = await fetch(`${window.location.origin}/api/conversations/user-conversations/?user_id=${userId}`, {
+                                method: "get",
+                                headers: {
+                                    "content-type": "application/json",
+                                    "Authorization": `Bearer ${authenticated}`
+                                }
+                            });
+                            const conversationsData = await conversationsResponse.json();
+                            console.log(conversationsData);
+                
+                            let str = "";
+                
+                            if (conversationsData.data.length > 0) {
+                                for (const data of conversationsData.data) {
+                                    let unreadmessages = 0;
+                
+                                    // Fetch unread messages
+                                    const unreadMessagesResponse = await fetch(`${window.location.origin}/api/messages/unread-messages/?conversation_id=${data.id}`, {
+                                        method: "get",
+                                        headers: {
+                                            "content-type": "application/json",
+                                            "Authorization": `Bearer ${authenticated}`
+                                        }
+                                    });
+                                    const unreadMessagesData = await unreadMessagesResponse.json();
+                
+                                    if (unreadMessagesData.success) {
+                                        unreadmessages = unreadMessagesData.data.length;
+                                    }
+                
+                                    let contact_list_image = "";
+                                    let contact_list_username = "";
+                
+                                    if (userId === data.user1) {
+                                        contact_list_image = data.user2_profile_picture;
+                                        contact_list_username = data.user2_username;
+                                    } else {
+                                        contact_list_image = data.user1_profile_picture;
+                                        contact_list_username = data.user1_username;
+                                    }
+                
+                                    str += `
+                                        <li class="user-list-item chat-user-list" data-id="${data.id}">
+                                            <a href="javascript:void(0);">
+                                                <div class="avatar">
+                                                    <img src="/media/${contact_list_image}" class="rounded-circle" alt="image">
+                                                </div>
+                                                <div class="users-list-body">
+                                                    <div>
+                                                        <h5>${contact_list_username}</h5>
+                                                    </div>
+                                                    <div class="last-chat-time">
+                                                        <div class="chat-pin" id="count_${data.id}">
+                                                            ${unreadmessages > 0 ? `<span class="count-message">${unreadmessages}</span>` : ''}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    `;
+                                }
+                
+                                document.getElementById("contact-list").innerHTML = str;
+                
+                                document.getElementById("contact-list").addEventListener("click", (event) => {
+                                    const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
+                                    active_chat = itemId;
+                                    messages_list(itemId);
+                                    Read_all_chat_notification(itemId, userId);
+                                });
+                
+                                if (ParamsconversationId) {
+                                    messages_list(ParamsconversationId);
+                                    active_chat = ParamsconversationId;
+                                    Read_all_chat_notification(ParamsconversationId, userId);
+                                }
+                
+                            } else {
+                                document.getElementById("contact-list").innerHTML = `
+                                    <div id="empty-contact-list" style="width: 100%;height:100%;display:flex;justify-content:center;align-items:center;flex-direction:column">
+                                        <i class="fas fa-user" style="color: #ff4667;font-size: 50px;"></i>
+                                        <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
+                                            Your contact list is empty
+                                        </h4>
+                                    </div>
+                                `;
+                            }
+                        } catch (error) {
+                            console.error("Error fetching conversations or unread messages:", error);
+                        }
+                    }
+                };
+                
+                ws.onclose = () => {
+                    console.log('WebSocket connection closed');
+                };
+                
+                ws.onerror = (error) => {
+                    console.log('WebSocket error: ', error);
+                };
+            }
 
         </script>
 
