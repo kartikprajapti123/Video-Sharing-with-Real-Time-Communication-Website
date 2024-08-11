@@ -99,7 +99,7 @@
 <body class="chat-page main-chat-blk">
 
     <div class="wrapper-success" id="message-box" style="position: fixed;z-index:1000000;width:50%;">
-        <div id="card" style="transition-duration: 2s;width:100%">
+        <div id="card" style="transition-duration: 2s;width:330px;">
             <div class="icon" id="message-icon-parent"><i class="fas fa-times-circle " id="message-icon-child"></i>
             </div>
             <div class="subject">
@@ -781,7 +781,6 @@
                     const ws = new WebSocket(`${protocol}://${host}:8001/ws/chat/${conversationId}/?token=${authenticated}`);
 
                     ws.onopen = () => {
-                        currentWebSocket = ws;
                         console.log('WebSocket connection opened');
                     };
 
@@ -797,10 +796,16 @@
                     ws.onerror = (error) => {
                         console.log('WebSocket error: ', error);
                     };
+                    currentWebSocket = ws;
 
                     document.getElementById("chat_button").addEventListener('click', (e) => {
                         e.preventDefault()
-                        sendMessage(ws, userID, conversationId, userProfiePicture, userUsername);
+                        
+                            if (ws.readyState === WebSocket.OPEN) {
+                                sendMessage(ws, userID, conversationId, userProfiePicture, userUsername);
+                            } else {
+                                console.log('Cannot send message, WebSocket is not open');
+                            }
                     });
 
 
