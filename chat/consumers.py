@@ -228,11 +228,11 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                 )
             if existing_notification:
                 print("Updating existing notification")
-                if len(message)<50:
+                if len(message)<25:
                     notification_message=message
                     
                 else:
-                    notification_message=f"{message[0:50]}..."
+                    notification_message=f"{message[0:25]}..."
                 # Update the existing notification
                 existing_notification.count += 1
                 existing_notification.message=notification_message
@@ -265,11 +265,11 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                 return existing_notification
             else:
                 print("Creating new notification")
-                if len(message)<50:
+                if len(message)<25:
                     notification_message=message
                     
                 else:
-                    notification_message=f"{message[0:50]}..."
+                    notification_message=f"{message[0:25]}..."
                 # Create a new notification
                 notification = Notification(
                     user=user,
