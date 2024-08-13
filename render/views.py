@@ -34,6 +34,9 @@ def contact_list(request):
 def chatting(request,id):
     return render(request,"chatting.html")
 
+def chatting2(request):
+    return render(request,"chat_messages.html")
+
 def notification(request):
     return render(request,"notification_user.html")
     

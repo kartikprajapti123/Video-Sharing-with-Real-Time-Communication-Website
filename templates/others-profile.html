@@ -109,11 +109,11 @@
 {% block script %}
 <script>
 	const pathArray = window.location.pathname.split('/');
-	const profileId = pathArray[pathArray.length - 2];
-
+	const username = pathArray[pathArray.length - 2];
+	let other_user="";
 	console.log("called")
 	userApi = async () => {
-		await fetch(`${window.location.origin}/api/user/${profileId}`, {
+		await fetch(`${window.location.origin}/api/user/retrieve-by-username/?username=${username}`, {
 			"method": "get",
 			"headers": {
 				"content-type": "application/json",
@@ -123,6 +123,7 @@
 		}).then((response) => {
 
 			if (response.success) {
+				other_user=response.data.id 
 				console.log(response.data.profile_picture)
 
 				if (response.data.profile_picture == "") {
@@ -210,7 +211,7 @@
 				if (userResponse.ok && userData.success) {
 					// Prepare conversation data
 					const data = {
-						"user1": profileId, // Make sure profileId is defined elsewhere in your code
+						"user1": other_user, // Make sure profileId is defined elsewhere in your code
 						"user2": userData.data.id
 					};
 

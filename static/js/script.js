@@ -1124,7 +1124,7 @@ Version      : 1.0
 			wheelStep: 10,
 			touchScrollStep: 100
 		});
-		var wHeight = $(window).height();
+		var wHeight = 500
 		$slimScrolls.height(wHeight);
 		$('.left-sidebar .slimScrollDiv, .sidebar-menu .slimScrollDiv, .sidebar-menu .slimScrollDiv').height(wHeight);
 		$('.right-sidebar .slimScrollDiv').height(wHeight - 30);
@@ -1132,7 +1132,7 @@ Version      : 1.0
 		$('.chat.settings-main .slimScrollDiv').height(wHeight);
 		$('.right-sidebar.video-right-sidebar .slimScrollDiv').height(wHeight - 90);
 		$(window).resize(function() {
-			var rHeight = $(window).height();
+			var rHeight = 500
 			$slimScrolls.height(rHeight);
 			$('.left-sidebar .slimScrollDiv, .sidebar-menu .slimScrollDiv, .sidebar-menu .slimScrollDiv').height(rHeight);
 			$('.right-sidebar .slimScrollDiv').height(wHeight - 30);
@@ -1141,6 +1141,41 @@ Version      : 1.0
 			$('.right-sidebar.video-right-sidebar .slimScrollDiv').height(wHeight - 90);
 		});
 	}
+
+	
+	// if ($slimScrolls.length > 0) {
+	// 	var fixedHeight = 500; // Desired fixed height
+	// 	console.log(fixedHeight)
+	// 	// Initialize slimScroll
+	// 	$slimScrolls.slimScroll({
+	// 		height: 'auto',
+	// 		width: '100%',
+	// 		position: 'right',
+	// 		size: '7px',
+	// 		color: '#ccc',
+	// 		wheelStep: 10,
+	// 		touchScrollStep: 100
+	// 	});
+	
+	// 	// Set the fixed height for slimScroll elements
+	// 	$slimScrolls.height(fixedHeight);
+	// 	$('.left-sidebar .slimScrollDiv, .sidebar-menu .slimScrollDiv').height(fixedHeight);
+	// 	$('.right-sidebar .slimScrollDiv').height(fixedHeight - 30);
+	// 	$('.chat .slimScrollDiv').height(fixedHeight - 70);
+	// 	$('.chat.settings-main .slimScrollDiv').height(fixedHeight);
+	// 	$('.right-sidebar.video-right-sidebar .slimScrollDiv').height(fixedHeight - 90);
+	
+	// 	// Optionally update the resize event handler if needed
+	// 	$(window).resize(function() {
+	// 		console.log(fixedHeight-30)
+	// 		// Maintain fixed height for elements on window resize
+	// 		$('.left-sidebar .slimScrollDiv, .sidebar-menu .slimScrollDiv').height(fixedHeight);
+	// 		$('.right-sidebar .slimScrollDiv').height(fixedHeight - 30);
+	// 		$('.chat .slimScrollDiv').height(fixedHeight - 70);
+	// 		$('.chat.settings-main .slimScrollDiv').height(fixedHeight);
+	// 		$('.right-sidebar.video-right-sidebar .slimScrollDiv').height(fixedHeight - 90);
+	// 	});
+	// }
 
 	// Tooltip
 	if($('[data-bs-toggle="tooltip"]').length > 0) {

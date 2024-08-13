@@ -66,6 +66,8 @@ class ConversationViewSet(ModelViewSet):
         ).first()
 
         if existing_conversation:
+            existing_conversation.deleted = 0
+            existing_conversation.save()
             return Response(
                 {"success": True, "data": ConversationsSerializer(existing_conversation).data},
                 status=status.HTTP_200_OK
@@ -128,17 +130,23 @@ class ConversationViewSet(ModelViewSet):
                 {"success": False, "message": "User ID is required."},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
         try:
             conversations = Conversation.objects.filter(
-                Q(user1_id=user_id) | Q(user2_id=user_id)
+                (Q(user1_id=user_id) | Q(user2_id=user_id)) & Q(deleted=0)
             ).order_by('-last_message_timestamp')
-            
-            print(conversations)
+
+            # if not conversations.exists():
+            #     return Response(
+            #         {"success": False, "message": "No conversations found for this user."},
+            #         status=status.HTTP_404_NOT_FOUND
+            #     )
         except Conversation.DoesNotExist:
             return Response(
                 {"success": False, "message": "No conversations found for this user."},
                 status=status.HTTP_404_NOT_FOUND
             )
+
         serializer = self.get_serializer(conversations, many=True)
         return Response(
             {"success": True, "data": serializer.data},
