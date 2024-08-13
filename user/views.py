@@ -444,16 +444,17 @@ class UserViewSet(ModelViewSet):
     serializer_class=UserSerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[JWTAuthentication]
-
-        
+    
     def get_permissions(self):
-        if self.action == 'retrieve':
+        if self.action == 'retrieve_by_username':
+            self.permission_classes = [AllowAny]
+            
+        elif self.action == 'retrieve':
             self.permission_classes = [AllowAny]
         else:
             self.permission_classes = [IsAuthenticated]
         return super(UserViewSet, self).get_permissions()
 
-    
     def list(self, request, *args, **kwargs):
         # Get the current authenticated user
         user = request.user
@@ -503,4 +504,20 @@ class UserViewSet(ModelViewSet):
         # Serialize the data
         serializer = UserSerializer(users, many=True)
         
+        return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['get'], url_path='retrieve-by-username')
+    def retrieve_by_username(self, request, *args, **kwargs):
+        print("retieve by username")
+        username = request.query_params.get('username')
+        
+        if not username:
+            return Response({'success': False, 'message': 'Username is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({'success': False, 'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = UserDetailSerializer(user)
         return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)

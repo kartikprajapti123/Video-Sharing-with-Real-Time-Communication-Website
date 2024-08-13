@@ -228,8 +228,14 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                 )
             if existing_notification:
                 print("Updating existing notification")
+                if len(message)<50:
+                    notification_message=message
+                    
+                else:
+                    notification_message=f"{message[0:50]}..."
                 # Update the existing notification
                 existing_notification.count += 1
+                existing_notification.message=notification_message
                 existing_notification.timestamp = timezone.now()  # Update timestamp
                 existing_notification.link = f'/contact-list/?conversation_id={conversation.id}'  # Update link if provided
                 existing_notification.save()
@@ -251,16 +257,23 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                         'link': existing_notification.link,
                         'count': existing_notification.count,
                         'sender_type': existing_notification.sender_type,
+                        'sender_username': str(existing_notification.sender.username),
+                        
                     }
                 )
                 print("Existing notification updated and sent")
                 return existing_notification
             else:
                 print("Creating new notification")
+                if len(message)<50:
+                    notification_message=message
+                    
+                else:
+                    notification_message=f"{message[0:50]}..."
                 # Create a new notification
                 notification = Notification(
                     user=user,
-                    message=f"You have received a new message from {sender.username}",
+                    message=notification_message,
                     notification_type=notification_type,
                     link=f'/contact-list/?conversation_id={conversation.id}',
                     sender=sender,
@@ -285,6 +298,9 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                         'link': notification.link,
                         'count': notification.count,
                         'sender_type': notification.sender_type,
+                        'sender_username': str(notification.sender.username),
+                        
+                        
                     }
                 )
                 print("New notification created and sent")

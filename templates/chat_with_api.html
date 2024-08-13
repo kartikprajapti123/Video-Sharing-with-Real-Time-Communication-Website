@@ -123,8 +123,7 @@
         <!-- Page Content -->
         <div class="page-content chat-page-wrapper" style="margin:0px;padding-top:20px;">
             <div class="container">
-                <div class="row"
-                    style="display: flex;justify-content:center;align-items:center;width:100%;height:100vh;">
+                <div class="row" style="display: flex;justify-content:center;align-items:center;">
 
                     <!-- sidebar -->
 
@@ -258,9 +257,8 @@
                                 </div>
                                 <div class="checkout-form">
                                     <!-- sidebar group -->
-                                    <div class="content" style="height: 500px;width:100%;">
-                                        <div class="sidebar-group left-sidebar chat_sidebar"
-                                            style="width:35%;height: 500px;">
+                                    <div class="content">
+                                        <div class="sidebar-group left-sidebar chat_sidebar" style="width:35%;">
 
                                             <!-- Chats sidebar -->
                                             <div id="chats" class="left-sidebar-wrap sidebar active slimscroll">
@@ -303,8 +301,7 @@
                                         <!-- /Sidebar group -->
 
                                         <!-- Chat -->
-                                        <div class="chat chat-messages" id="middle"
-                                            style="display: none; width:64%;height: 500px;">
+                                        <div class="chat chat-messages" id="middle" style="display: none; width:40%;">
                                             <div class="h-100">
                                                 <div class="chat-header">
                                                     <div class="user-details mb-0">
@@ -326,7 +323,7 @@
                                                 </div>
                                                 <div class="chat-body chat-page-group slimscroll">
                                                     <div class="messages" id="allChats"
-                                                        style="overflow-x:hidden !important;overflow-y:scroll !important; width:100%;height:100%;">
+                                                        style="overflow-x:hidden !important;overflow-y:scroll !important; ">
 
                                                     </div>
                                                 </div>
@@ -335,7 +332,8 @@
                                                         <div class="replay-forms" style="position: relative;">
                                                             <input id="chat_input" type="text"
                                                                 class="form-control chat_form"
-                                                                placeholder="Type your message here...">
+                                                                placeholder="Type your message here..."
+                                                                >
                                                             <div id="file-info"
                                                                 style="display: none; position: absolute;left: 5px; top: 50%; transform: translateY(-50%); background: white; padding: 5px; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
                                                                 <span id="file-name" style="margin-right: 10px;"></span>
@@ -364,7 +362,7 @@
                                             <!-- /Chat -->
                                         </div>
                                         <div id="empty_messages"
-                                            style="width: 64%;height:500px;
+                                            style="width: 60%;
     display: flex;justify-content: center;align-items: center;flex-direction: column;border: 0.5px solid gray;border-radius: 10px;">
                                             <i class="fas fa-comment-alt" style="color: #ff4667;font-size: 50px;"></i>
                                             <h4 style="text-align: center;
@@ -415,7 +413,7 @@
 
             //  contactlist
             let selectedFile = null;
-            let active_chat = null;
+            let active_chat=null;
             const message_box = document.getElementById("message_box");
             const message_content = document.getElementById("message-content");
             const message_type = document.getElementById("message-type");
@@ -443,16 +441,125 @@
                         const userData = await userResponse.json();
 
                         if (userData.success) {
-                            global_websocket_connection(userData.data.uuid, userData.data.id)
+                            global_websocket_connection(userData.data.uuid,userData.data.id)
                             console.log(userData.data)
                             const profileID = userData.data.id;
 
-                            contact_list_update(profileID)
+                            const conversationsResponse = await fetch(`${window.location.origin}/api/conversations/user-conversations/?user_id=${profileID}`, {
+                                method: "get",
+                                headers: {
+                                    "content-type": "application/json",
+                                    "Authorization": `Bearer ${token}`
+                                }
+                            });
+
+                            const conversationsData = await conversationsResponse.json();
+                            console.log(conversationsData)
+                            let str = "";
+
+                            if (conversationsData.data.length > 0) {
+                                for (const data of conversationsData.data) {
+                                    let unreadmessages = 0;
+
+                                    const unreadMessagesResponse = await fetch(`${window.location.origin}/api/messages/unread-messages/?conversation_id=${data.id}`, {
+                                        method: "get",
+                                        headers: {
+                                            "content-type": "application/json",
+                                            "Authorization": `Bearer ${token}`
+                                        }
+                                    });
+
+                                    const unreadMessagesData = await unreadMessagesResponse.json();
+
+                                    if (unreadMessagesData.success) {
+                                        unreadmessages = unreadMessagesData.data.length;
+                                    }
+
+                                    let contact_list_image = "";
+                                    let contact_list_username = "";
+
+                                    if (profileID == data.user1) {
+                                        contact_list_image = data.user2_profile_picture;
+                                        contact_list_username = data.user2_username;
+                                    } else {
+                                        contact_list_image = data.user1_profile_picture;
+                                        contact_list_username = data.user1_username;
+                                    }
+
+                                    str += `<li class="user-list-item chat-user-list" data-id="${data.id}">
+                            <a href="javascript:void(0);" class="chat-link" style="border-left: none;">
+                                <div class="avatar">
+                                    <img src="/media/${contact_list_image}" class="rounded-circle" alt="image">
+                                </div>
+                                <div class="users-list-body">
+                                    <div>
+                                        <h5>${contact_list_username}</h5>
+                                    </div>
+                                    <div class="last-chat-time">
+                                        <div class="chat-pin" id="count_${data.id}">
+                                            ${unreadmessages > 0 ? `<span class="count-message" >${unreadmessages}</span>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>`;
+                                }
+
+                                document.getElementById("contact-list").innerHTML = str;
+
+                                document.getElementById("contact-list").addEventListener("click", () => {
+                                    const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
+                                    active_chat=itemId
+                                    document.querySelectorAll(".chat-link").forEach(link => {
+                                        link.style.borderLeft = "none";
+                                    });
+                                
+                                    // Add the border-left style to the selected link
+                                    const selectedLink = document.querySelector(`.user-list-item[data-id="${itemId}"] .chat-link`);
+                                    if (selectedLink) {
+                                        selectedLink.style.borderLeft = "10px solid #ff4667";
+                                    }
+                                
+                                    // Handle chat selection
+                                    active_chat = itemId;
+                                    messages_list(itemId)
+                                    Read_all_chat_notification(itemId,profileID)
+                                })
+                                if (ParamsconversationId) {
+                                    document.querySelectorAll(".chat-link").forEach(link => {
+                                        link.style.borderLeft = "none";
+                                    });
+                                
+                                    // Add the border-left style to the selected link
+                                    const selectedLink = document.querySelector(`.user-list-item[data-id="${ParamsconversationId}"] .chat-link`);
+                                    if (selectedLink) {
+                                        selectedLink.style.borderLeft = "10px solid #ff4667";
+                                    }
+                                
+                                    // Handle chat selection
+                                    active_chat = itemId;
+                                    messages_list(ParamsconversationId)
+                                    active_chat=ParamsconversationId
+                                    Read_all_chat_notification(itemId,profileID)
+
+                                }
+
+
+
+                            } else {
+                                document.getElementById("contact-list").innerHTML = `<div id="empty-contact-list" style="width: 100%;height:100%;display:flex;justify-content:center;align-items:center;flex-direction:column">
+                         <i class="fas fa-user" style="color: #ff4667;font-size: 50px;"></i>
+                                            <h4 style="text-align: center;
+    width: 70%;
+    margin: 10px;
+    color: gray;">Your contact list is empty</h4>
+                    </div>`;
+                            }
+                        } else {
+                            console.log(userData);
                         }
-                            
-                    }
-                    catch{
-                        console.log("error")
+                    } catch (error) {
+                        console.error("An error occurred:", error);
                     }
                 };
 
@@ -483,20 +590,18 @@
 
 
             ////////////////////////////////messaes //////////////////////////////////////////
-
-            function scrolling() {
-                const chatBody = document.querySelector('#allChats');
-                console.log(chatBody)
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }
-
-            // Call this function after you add new messages
+            
+function scrolling() {
+    const chatBody = document.querySelector('.chat-body');
+    chatBody.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+    
+    // Call this function after you add new messages
 
 
             const messages = (conversationId) => {
                 document.getElementById("middle").style.display = "block"
-                document.getElementById("empty_messages").style.display = "none"
-
                 //const conversationId = window.location.pathname.split('/').slice(-2, -1)[0];
                 const message_box = document.getElementById("message_box");
                 const message_content = document.getElementById("message-content");
@@ -559,9 +664,9 @@
                     message_type.style.color = "#3db5dc";
                     message_icon_parent.style.color = "#3db5dc";
                     message_icon_child.classList = "fas fa-exclamation-circle";
-                    //setTimeout(() => {
-                    //    window.location.href = "/index/";
-                    //}, 2000);
+                    setTimeout(() => {
+                        window.location.href = "/index/";
+                    }, 2000);
                 };
 
                 const fetchMessagesAndConnectWebSocket = async (userID, conversationId, userProfiePicture, userUsername) => {
@@ -659,8 +764,8 @@
                         });
                     }
                     else {
-                        str += `<div id="empty_messages_inside" style="width:100%;height:100%;">
-                                                        <div style="width: 100%;height:100%;
+                        str += `<div id="empty_messages_inside">
+                                                        <div style="width: 100%;
     
                                                         display: flex;
                                                         justify-content: center;
@@ -680,7 +785,7 @@
 `
                     }
                     document.getElementById('allChats').innerHTML = str;
-                    scrolling();
+                        scrolling();
 
                 };
 
@@ -691,7 +796,7 @@
                         currentWebSocket.close();
                         console.log("Previous WebSocket connection closed.");
                     }
-
+                
                     const ws = new WebSocket(`${protocol}://${host}:8001/ws/chat/${conversationId}/?token=${authenticated}`);
 
                     ws.onopen = () => {
@@ -714,12 +819,12 @@
 
                     document.getElementById("chat_button").addEventListener('click', (e) => {
                         e.preventDefault()
-
-                        if (ws.readyState === WebSocket.OPEN) {
-                            sendMessage(ws, userID, conversationId, userProfiePicture, userUsername);
-                        } else {
-                            console.log('Cannot send message, WebSocket is not open');
-                        }
+                        
+                            if (ws.readyState === WebSocket.OPEN) {
+                                sendMessage(ws, userID, conversationId, userProfiePicture, userUsername);
+                            } else {
+                                console.log('Cannot send message, WebSocket is not open');
+                            }
                     });
 
 
@@ -1101,7 +1206,7 @@
                 }
             }
 
-            async function Read_all_chat_notification(conversationId, userId) {
+            async function Read_all_chat_notification(conversationId,userId){
                 console.log()
                 await fetch(`${window.location.origin}/api/notification/multiple-mark-as-read/`, {
                     method: "POST",
@@ -1109,16 +1214,16 @@
                         "content-type": "application/json",
                         "Authorization": `Bearer ${authenticated}`
                     },
-                    body: JSON.stringify({ "common_uuid": conversationId, 'user_id': userId })
-                }).then((resposne) => {
+                    body: JSON.stringify({ "common_uuid": conversationId,'user_id':userId })
+                }).then((resposne)=>{
                     return resposne.json()
-                }).then((response) => {
+                }).then((response)=>{
                     console.log(response)
                 })
             }
+            
 
-
-            function global_websocket_connection(user_uuid, userId) {
+            function global_websocket_connection(user_uuid,userId){
                 const protocol = window.location.protocol === "https:" ? "wss" : "ws";
                 const host = window.location.protocol === "https:" ? `${window.location.host}` : "127.0.0.1";
 
@@ -1132,183 +1237,112 @@
                     let global_message = JSON.parse(response.data);
                     console.log(global_message.conversation_id);
                     console.log(active_chat);
-
+                
                     if (global_message.conversation_id !== active_chat) {
-                        contact_list_update(userId)
-                    }
-                };
-
-                ws.onclose = () => {
-                    console.log('WebSocket connection closed');
-                };
-
-                ws.onerror = (error) => {
-                    console.log('WebSocket error: ', error);
-                };
-            }
-            let attchment_called=false
-            async function contact_list_delete(conversationId,userId) {
-                await fetch(`${window.location.origin}/api/conversations/${conversationId}/`, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${authenticated}`
-                    }
-                })
-                .then((response) => {
-                    return response.json();
-                })
-                .then(async (response) => {
-                    if (response.success) {
-                        await contact_list_update(userId);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error deleting conversation:", error);
-                });
-            }
-
-            async function contact_list_update(userId) {
-                try {
-                    // Fetch conversations
-                    const conversationsResponse = await fetch(`${window.location.origin}/api/conversations/user-conversations/?user_id=${userId}`, {
-                        method: "GET",
-                        headers: {
-                            "content-type": "application/json",
-                            "Authorization": `Bearer ${authenticated}`
-                        }
-                    });
-                    const conversationsData = await conversationsResponse.json();
-                    console.log(conversationsData);
-            
-                    let str = "";
-                    console.log(conversationsData.data.length);
-                    if (conversationsData.data.length > 0) {
-                        for (const data of conversationsData.data) {
-                            let unreadmessages = 0;
-            
-                            // Fetch unread messages
-                            const unreadMessagesResponse = await fetch(`${window.location.origin}/api/messages/unread-messages/?conversation_id=${data.id}`, {
-                                method: "GET",
+                        try {
+                            // Fetch conversations
+                            const conversationsResponse = await fetch(`${window.location.origin}/api/conversations/user-conversations/?user_id=${userId}`, {
+                                method: "get",
                                 headers: {
                                     "content-type": "application/json",
                                     "Authorization": `Bearer ${authenticated}`
                                 }
                             });
-                            const unreadMessagesData = await unreadMessagesResponse.json();
-            
-                            if (unreadMessagesData.success) {
-                                unreadmessages = unreadMessagesData.data.length;
-                            }
-            
-                            let contact_list_image = "";
-                            let contact_list_username = "";
-            
-                            if (userId === data.user1) {
-                                contact_list_image = data.user2_profile_picture;
-                                contact_list_username = data.user2_username;
-                            } else {
-                                contact_list_image = data.user1_profile_picture;
-                                contact_list_username = data.user1_username;
-                            }
-            
-                            str += `
-                                <li class="user-list-item chat-user-list" data-id="${data.id}">
-                                    <a href="javascript:void(0);" class="chat-link" style="border-left: none;">
-                                        <div class="avatar">
-                                            <img src="/media/${contact_list_image}" class="rounded-circle" alt="image">
-                                        </div>
-                                        <div class="users-list-body">
-                                            <div>
-                                                <h5>${contact_list_username}</h5>
-                                            </div>
-                                            <div class="last-chat-time">
-                                                <div class="chat-pin" id="count_${data.id}">
-                                                    ${unreadmessages > 0 ? `<span class="count-message">${unreadmessages}</span>` : ''}
+                            const conversationsData = await conversationsResponse.json();
+                            console.log(conversationsData);
+                
+                            let str = "";
+                
+                            if (conversationsData.data.length > 0) {
+                                for (const data of conversationsData.data) {
+                                    let unreadmessages = 0;
+                
+                                    // Fetch unread messages
+                                    const unreadMessagesResponse = await fetch(`${window.location.origin}/api/messages/unread-messages/?conversation_id=${data.id}`, {
+                                        method: "get",
+                                        headers: {
+                                            "content-type": "application/json",
+                                            "Authorization": `Bearer ${authenticated}`
+                                        }
+                                    });
+                                    const unreadMessagesData = await unreadMessagesResponse.json();
+                
+                                    if (unreadMessagesData.success) {
+                                        unreadmessages = unreadMessagesData.data.length;
+                                    }
+                
+                                    let contact_list_image = "";
+                                    let contact_list_username = "";
+                
+                                    if (userId === data.user1) {
+                                        contact_list_image = data.user2_profile_picture;
+                                        contact_list_username = data.user2_username;
+                                    } else {
+                                        contact_list_image = data.user1_profile_picture;
+                                        contact_list_username = data.user1_username;
+                                    }
+                
+                                    str += `
+                                        <li class="user-list-item chat-user-list" data-id="${data.id}">
+                                            <a href="javascript:void(0);">
+                                                <div class="avatar">
+                                                    <img src="/media/${contact_list_image}" class="rounded-circle" alt="image">
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="chat-hover ms-1">
-                                        <div class="chat-action-col">
-                                            <span class="dropdown-item delete-chat" style="font-size:14px;" data-id="${data.id}">
-                                                <span>
-                                                    <i class="bx bx-trash" style="font-size:20px;"></i>
-                                                </span>
-                                            </span>
-                                        </div>
+                                                <div class="users-list-body">
+                                                    <div>
+                                                        <h5>${contact_list_username}</h5>
+                                                    </div>
+                                                    <div class="last-chat-time">
+                                                        <div class="chat-pin" id="count_${data.id}">
+                                                            ${unreadmessages > 0 ? `<span class="count-message">${unreadmessages}</span>` : ''}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    `;
+                                }
+                
+                                document.getElementById("contact-list").innerHTML = str;
+                
+                                document.getElementById("contact-list").addEventListener("click", (event) => {
+                                    const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
+                                    active_chat = itemId;
+                                    messages_list(itemId);
+                                    Read_all_chat_notification(itemId, userId);
+                                });
+                
+                                if (ParamsconversationId) {
+                                    messages_list(ParamsconversationId);
+                                    active_chat = ParamsconversationId;
+                                    Read_all_chat_notification(ParamsconversationId, userId);
+                                }
+                
+                            } else {
+                                document.getElementById("contact-list").innerHTML = `
+                                    <div id="empty-contact-list" style="width: 100%;height:100%;display:flex;justify-content:center;align-items:center;flex-direction:column">
+                                        <i class="fas fa-user" style="color: #ff4667;font-size: 50px;"></i>
+                                        <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
+                                            Your contact list is empty
+                                        </h4>
                                     </div>
-                                </li>
-                            `;
+                                `;
+                            }
+                        } catch (error) {
+                            console.error("Error fetching conversations or unread messages:", error);
                         }
-            
-                        document.getElementById("contact-list").innerHTML = str;
-                        attachEventListeners(userId);
-                        if (ParamsconversationId){
-                            active_chat=ParamsconversationId
-                            messages_list(ParamsconversationId);
-                Read_all_chat_notification(ParamsconversationId, userId);
-                        }
-                        // Attach event listener only once
-                    } else {
-                        document.getElementById("contact-list").innerHTML = `
-                            <div id="empty-contact-list" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
-                                <i class="fas fa-user" style="color: #ff4667; font-size: 50px;"></i>
-                                <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
-                                    Your contact list is empty
-                                </h4>
-                            </div>
-                        `;
                     }
-                    document.getElementById("middle").style.display = "none";
-                    document.getElementById("empty_messages").style.display = "flex";
-                } catch (error) {
-                    console.error("Error fetching conversations or unread messages:", error);
-                }
+                };
+                
+                ws.onclose = () => {
+                    console.log('WebSocket connection closed');
+                };
+                
+                ws.onerror = (error) => {
+                    console.log('WebSocket error: ', error);
+                };
             }
-            function attachEventListeners(userId) {
-                const contactList = document.getElementById("contact-list");
-                if(attchment_called==false){
 
-                    // Ensure that old event listeners are removed
-                    contactList.removeEventListener("click", handleContactListClick); // Correctly remove the event listener
-                    contactList.addEventListener("click", handleContactListClick.bind(null, userId)); // Attach with userId
-                    attchment_called=true
-                }
-            }
-            function handleContactListClick(userId,event) {
-                event.stopPropagation(); // Prevents the event from bubbling up and triggering the main click event
-            
-                if (event.target.closest(".chat-action-col")) {
-                    const conversationId = event.target.closest('.delete-chat').getAttribute('data-id');
-            
-                    // Show a confirmation dialog
-                    const userConfirmed = confirm("Are you sure you want to delete this chat?");
-            
-                    if (userConfirmed) {
-                        contact_list_delete(conversationId, userId);
-                    }
-            
-                    return;
-                }
-                const itemId = event.target.closest(".user-list-item").getAttribute("data-id");
-                active_chat = itemId;
-                document.querySelectorAll(".chat-link").forEach(link => {
-                    link.style.borderLeft = "none";
-                });
-            
-                // Add the border-left style to the selected link
-                const selectedLink = document.querySelector(`.user-list-item[data-id="${itemId}"] .chat-link`);
-                if (selectedLink) {
-                    selectedLink.style.borderLeft = "10px solid #ff4667";
-                }
-            
-                // Handle chat selection
-                active_chat = itemId;
-                messages_list(itemId);
-                Read_all_chat_notification(itemId, userId);
-            }
-            
         </script>
 
 </body>

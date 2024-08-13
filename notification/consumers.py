@@ -34,6 +34,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             'link': event['link'],
             'sender':event['sender'],
             'sender_profile_picture':event['sender_profile_picture'],
+            'sender_username':event['sender_username'],
             # 'common_uuid':event['common_uuid'],
             
             'count':event['count'],
