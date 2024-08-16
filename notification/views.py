@@ -6,8 +6,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.db.models import Q
 from rest_framework.decorators import action
-from notification.models import Notification
-from notification.serializer import NotificationSerializer
+from notification.models import Notification,MainNotification
+from notification.serializer import NotificationSerializer,MainNotificationSerializer
 from utils.pagination import Pagination
 
 class NotificationViewSet(ModelViewSet):
@@ -106,7 +106,7 @@ class NotificationViewSet(ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        unread_notifications = self.queryset.filter(user_id=user_id, is_read=False)
+        unread_notifications = self.queryset.filter(user_id=user_id)
         serializer = self.serializer_class(unread_notifications, many=True)
         return Response(
             {"success": True, "data": serializer.data},
@@ -154,6 +154,7 @@ class NotificationViewSet(ModelViewSet):
         try:
             notification = Notification.objects.get(id=notification_id, deleted=0)
             notification.is_read = True
+            notification.count=0
             notification.save()
             return Response(
                 {"success": True, "message": "Notification marked as read."},
@@ -164,3 +165,106 @@ class NotificationViewSet(ModelViewSet):
                 {"success": False, "message": "Notification not found."},
                 status=status.HTTP_404_NOT_FOUND
             )
+
+class MainNotificationViewSet(ModelViewSet):
+    queryset = MainNotification.objects.filter(deleted=0).order_by('-timestamp')
+    serializer_class = MainNotificationSerializer
+    pagination_class = Pagination
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        data['user'] = request.user.id
+
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"success": True, "data": serializer.data},
+                status=status.HTTP_201_CREATED
+            )
+        else:
+            return Response(
+                {"success": False, "message": serializer.errors},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.serializer_class(instance)
+        return Response(
+            {"success": True, "data": serializer.data},
+            status=status.HTTP_200_OK
+        )
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        data = request.data
+        serializer = self.serializer_class(instance, data=data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"success": True, "data": serializer.data},
+                status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"success": False, "message": serializer.errors},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        no_pagination = request.query_params.get("no_pagination")
+        if no_pagination:
+            serializer = self.serializer_class(queryset, many=True)
+            return Response({"success": True, "data": serializer.data})
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.serializer_class(page, many=True)
+            return self.get_paginated_response(
+                {"success": True, "data": serializer.data}
+            )
+
+        serializer = self.serializer_class(queryset, many=True)
+        return self.get_paginated_response({"success": True, "data": serializer.data})
+
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.deleted = 1  # Assuming you have a field to soft-delete notifications
+        instance.save()
+        return Response(
+            {"success": True, "message": "Main Notification Deleted Successfully."},
+            status=status.HTTP_200_OK
+        )
+
+    @action(detail=False, methods=['get'], url_path='notifications-for-user')
+    def notifications_for_user(self, request):
+        user_id = request.query_params.get('user_id')
+        if not user_id:
+            return Response(
+                {"success": False, "message": "user_id parameter is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            return Response(
+                {"success": False, "message": "user_id must be an integer."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    
+        notifications = self.queryset.filter(user_id=user_id)
+    
+        # Serialize all notifications without pagination
+        serializer = self.serializer_class(notifications, many=True)
+        return Response(
+            {"success": True, "data": serializer.data},
+            status=status.HTTP_200_OK
+        )
+    

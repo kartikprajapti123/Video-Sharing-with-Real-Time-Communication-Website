@@ -211,9 +211,6 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                 Q(sender=sender) &
                 # Q(message=message) &
                 # Q(common_uuid=conversation.id) &
-                
-                
-                Q(is_read=False) &
                 Q(notification_type=notification_type)
             ).first()
             print(existing_notification)
@@ -237,7 +234,8 @@ class MyChatConsumer(AsyncWebsocketConsumer):
                 existing_notification.count += 1
                 existing_notification.message=notification_message
                 existing_notification.timestamp = timezone.now()  # Update timestamp
-                existing_notification.link = f'/contact-list/?conversation_id={conversation.id}'  # Update link if provided
+                existing_notification.link = f'/contact-list/?conversation_id={conversation.id}'
+                existing_notification.is_read=False# Update link if provided
                 existing_notification.save()
 
                 # Send the updated notification via WebSocket

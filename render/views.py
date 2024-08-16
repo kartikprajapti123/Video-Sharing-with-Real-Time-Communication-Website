@@ -40,4 +40,12 @@ def chatting2(request):
 def notification(request):
     return render(request,"notification_user.html")
     
+    
+
+def become_creator(request):
+    return render(request,"creator_become.html")
+
+def terms_of_service(request):
+    return render(request,"terms_of_service.html")
+    
 

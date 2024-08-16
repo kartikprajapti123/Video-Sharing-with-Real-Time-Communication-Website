@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'user',
     'chat',
-    'notification'
+    'notification',
+    'creator',
     
 ]
 
@@ -130,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'  # Set this to your preferred U.S. time zone
 USE_I18N = True
 USE_TZ = True
 

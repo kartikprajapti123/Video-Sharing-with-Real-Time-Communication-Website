@@ -66,7 +66,7 @@ class User(AbstractUser):
         ordering=['id']
         
     def __str__(self):
-        return f"{self.username}--{self.uuid}"
+        return f"{self.username}"
         
     
     

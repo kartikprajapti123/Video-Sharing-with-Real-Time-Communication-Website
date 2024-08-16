@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Notification
+from .models import Notification,MainNotification
 
 class NotificationSerializer(serializers.ModelSerializer):
     user_username = serializers.CharField(source='user.username', read_only=True)
@@ -26,4 +26,21 @@ class NotificationSerializer(serializers.ModelSerializer):
             'sender',
             'count',
             'link'
+        ]
+
+
+class MainNotificationSerializer(serializers.ModelSerializer):
+    user_username = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = MainNotification
+        fields = [
+            'id',
+            'user',
+            'user_username',
+            'message',
+            'timestamp',
+            'link',
+            'is_read',
+            'deleted'
         ]

@@ -110,7 +110,7 @@
 </head>
 
 <body>
-	<div class="wrapper-success" id="message-box" style="position: fixed;z-index:1000000;width:330px;">
+	<div class="wrapper-success" id="message-box" style="position: fixed;z-index:1000000;max-width: 480px;">
 
 		<div id="card" style="transition-duration: 2s;width:100%">
 			<a href="#" id="common_message" style="display:flex;">
@@ -118,7 +118,7 @@
 				</div>
 				<div class="subject">
 					<h3 id="message-type">Success</h3>
-					<p id="message-content">Anyone with access can view your invited visitors</p>
+					<p id="message-content"></p>
 				</div>
 			</a>
 			<div class="icon-times" id="message_close"><i class="fas fa-times"></i></div>
@@ -280,7 +280,7 @@
 								</li>
 
 								<li class="has-submenu">
-									<a href="#">Creator's <i class="fas fa-chevron-down"></i></a>
+									<a href="/creator/">Creator's <i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
 										<!-- <li class="has-submenu">
 												<a href="#">Instructor</a>
@@ -303,7 +303,7 @@
 									<!-- <a class="" href="#">Dashboard</a> -->
 									<ul class="submenu">
 										<li><a href="#">Pricing Policy </a></li>
-										<li><a href="#">Creator Dashbored</a></li>
+										<li><a href="/creator/">Creator Dashbored</a></li>
 									</ul>
 								</li>
 								<li class="has-submenu">
@@ -353,31 +353,29 @@
 						</div>
 						<ul class="nav header-navbar-rht  authenticated">
 							<li class="nav-item dropdown">
-								
+
 								<button type="button" class="icon-button nav-link dropdown-toggle"
 									data-bs-toggle="dropdown" style="background-color: #fae2e0;" aria-expanded="false">
 									<i class="fas fa-envelope" style="color: #ff4667;"></i>
 									<span class="icon-button__badge" id="notification_count"
-										style="display: none;"></span>
+										style="display: none;">0</span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-end" id="notification_all"
 									style="width: 300px; max-height: 400px; overflow: auto; scrollbar-width: none; -ms-overflow-style: none;">
 								</ul>
 							</li>
 							<li class="nav-item dropdown">
-								
+
 								<button type="button" class="icon-button nav-link dropdown-toggle"
 									data-bs-toggle="dropdown" style="background-color: #fae2e0;" aria-expanded="false">
 									<i class="fas fa-bell" style="color: #ff4667;"></i>
-									<span class="icon-button__badge" 
-										style="display: none;">
-										</span>
+									<span class="icon-button__badge" style="display: none;"
+										id="main_notification_count">0
+									</span>
 								</button>
-								<ul class="dropdown-menu dropdown-menu-end" 
-									style="width: 300px; max-height: 400px; overflow: auto; scrollbar-width: none; -ms-overflow-style: none;">
-									<li style="display: flex; justify-content: center; align-items: center; width: 100%; height: 80px;" id="notification-null">
-										<div>Your Notification list is empty</div>
-									</li>
+								<ul class="dropdown-menu dropdown-menu-end"
+									style="width: 300px; max-height: 400px; overflow: auto; scrollbar-width: none; -ms-overflow-style: none;"
+									id="main_notification_all">
 								</ul>
 							</li>
 							<li class="nav-item user-nav">
@@ -403,7 +401,7 @@
 										Profile</a>
 									<a class="dropdown-item" href="instructor-dashboard.html"><i
 											class="feather-home me-1"></i>Fan Dashboard</a>
-									<a class="dropdown-item" href="instructor-dashboard.html"><i
+									<a class="dropdown-item" href="/creator/"><i
 											class="feather-home me-1"></i>Creator Dashboared </a>
 									<a class="dropdown-item" href="instructor-dashboard.html"><i
 											class="feather-home me-1"></i>Settings </a>
@@ -668,6 +666,7 @@
 						document.getElementById("profile_username").innerHTML = `${response.data.username}`
 						initializeWebSocket(response.data.uuid, response.data.id)
 						fetchNotificationNotRead(response.data.id)
+						mainFetchNotification(response.data.id)
 					}
 					console.log(response)
 				})
@@ -770,12 +769,20 @@
 				const data = JSON.parse(event.data);
 				console.log(data);
 
+				if (data.type == "notification") {
+
+					showNotification(data, userid);
+				}
+				if (data.type == "main_notification") {
+					console.log("main_notification")
+					showMainNotification(data, userid)
+				}
+
 				// Handle the incoming WebSocket message here
-				showNotification(data, userid);
 			};
 
 			ws.onclose = () => {
-				
+
 				console.log("WebSocket connection closed.");
 			};
 
@@ -798,7 +805,7 @@
 			const message_icon_parent = document.getElementById("message-icon-parent");
 			const message_icon_child = document.getElementById("message-icon-child");
 			const link_common_message = document.getElementById("common_message");
-		
+
 			link_common_message.href = `${data.link}`;
 			message_content.innerHTML = `You have recieved a new messge from ${data.sender_username}`;
 			card.style.display = "flex";
@@ -808,34 +815,43 @@
 			message_icon_parent.style.color = "#3db5dc";
 			message_icon_child.classList = "fas fa-exclamation-circle";
 
-			link_common_message.onclick = function() {
+			link_common_message.onclick = function () {
 				markAsRead(data.notification_id);
 			};
-		
+
 			const notification_null = document.getElementById('notification-null');
 
-if (notification_null && notification_null.style.display !== "none") {
-    notification_null.style.display = "none";
-}
+			if (notification_null && notification_null.style.display !== "none") {
+				notification_null.style.display = "none";
+			}
 
 			const notification_all = document.getElementById("notification_all");
 			const notification_count = document.getElementById("notification_count");
-		
+
 			// Parse and format the timestamp
 			const timestamp = new Date(data.timestamp);
-			const formattedDate = timestamp.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
-			const formattedTime = timestamp.toLocaleTimeString('en-GB', {
+
+			// Format the date as "MM/DD/YYYY"
+			const formattedDate = timestamp.toLocaleDateString('en-US', {
+				month: '2-digit',
+				day: '2-digit',
+				year: 'numeric'
+			});
+
+			// Format the time as "HH:MM AM/PM"
+			const formattedTime = timestamp.toLocaleTimeString('en-US', {
 				hour: '2-digit',
-				minute: '2-digit'
-			}); // Format as HH:MM
-		
+				minute: '2-digit',
+				hour12: true
+			});
+
 			// Check if a notification with the same id already exists
 			let existingNotification = null;
 			const notificationItems = notification_all.querySelectorAll('li');
 			console.log(data.notification_id)
 			for (let i = 0; i < notificationItems.length; i++) {
 				const id = notificationItems[i].getAttribute('data-notification-id');
-				console.log(id==data.notification_id)
+				console.log(id == data.notification_id)
 				if (id == data.notification_id) {
 					console.log('update exists notificaation ')
 					existingNotification = notificationItems[i];
@@ -846,16 +862,30 @@ if (notification_null && notification_null.style.display !== "none") {
 			if (existingNotification) {
 				console.log(existingNotification)
 				// Update the count in the existing notification
+				let countSpandot = existingNotification.querySelector('#notification_count');
+    if (!countSpandot) {
+        // Create the span if it doesn't exist
+        countSpandot = document.createElement('span');
+        countSpandot.id = 'notification_count';
+        countSpandot.style.cssText = "display: flex; position: absolute; top: 5px; left: 10px; width: 10px; height: 10px; background: green; color: #ffffff; justify-content: center; align-items: center; border-radius: 50%;";
+
+        // Append the span to the notification
+        const imgElement = existingNotification.querySelector('img'); // Assuming the span goes before the image
+        imgElement.parentNode.insertBefore(countSpandot, imgElement);
+    }
+
+
 				const countSpan = existingNotification.querySelector('.dropdown-item span');
+				countSpan.style.display="block"
 				const currentCount = parseInt(countSpan.textContent.replace('(', '').replace(')', ''));
 				countSpan.textContent = `(${currentCount + 1})`;
-		
+
 				// Update the message and timestamp
 				const messageParagraph = existingNotification.querySelector('.dropdown-item div:last-child');
-        messageParagraph.innerHTML = `${data.message}`;
-        
-        const timestampSpan = existingNotification.querySelector('p span');
-        timestampSpan.textContent = `${formattedDate} ${formattedTime}`;
+				messageParagraph.innerHTML = `${data.message}`;
+
+				const timestampSpan = existingNotification.querySelector('p span');
+				timestampSpan.textContent = `${formattedDate} ${formattedTime}`;
 			} else {
 				console.log("${data.sender_username}")
 				// Add a new notification if it doesn't already exist
@@ -867,11 +897,16 @@ if (notification_null && notification_null.style.display !== "none") {
     align-items: center;
     margin-top: 10px;
     margin-left: 10px;">
-
+<span id="notification_count"
+													style="display: flex;position: absolute;top: 5px; left: 10px;width: 10px;height: 10px;background: green;color: #ffffff;display: flex;justify-content: center;align-items: center;border-radius: 50%;"></span>
+													<img src="/media/${data.sender_profile_picture}" style="width:50px;height:50px;border-radius:50px;"/>
+													<div class="dropdown-item" style="font-weight: 600;display:block;">
 											<img src="/media/${data.sender_profile_picture}" style="width:50px;height:50px;border-radius:50px;"/>
 											<div class="dropdown-item" style="font-weight: 600;display:block;">
 												${data.sender_username} <span id="single_notification_count" style="float:right;">(${data.count})</span>
-												<div style="color:grey;">${data.message}</div>
+												<div style="color:grey; word-wrap: break-word; overflow-wrap: break-word;text-wrap:wrap;">
+  ${data.message}
+</div>
 											</div>
 										</div>
 										<p style="color: grey; padding: 0px 15px;">
@@ -883,20 +918,20 @@ if (notification_null && notification_null.style.display !== "none") {
 
 
 				`;
-		
+
 				notification_all.innerHTML += str;
 			}
-		
+
 			// Update the main notification count
 			notification_count.style.display = "block";
 			const currentMainCount = parseInt(notification_count.innerHTML);
 			notification_count.innerHTML = currentMainCount + 1;
 		}
-		
+
 		async function fetchNotificationNotRead(userid) {
 			const url = new URL(`${window.location.origin}/api/notification/unread-for-user/`);
 			url.searchParams.append('user_id', userid);
-		
+
 			await fetch(url, {
 				method: "GET",
 				headers: {
@@ -912,30 +947,45 @@ if (notification_null && notification_null.style.display !== "none") {
 					const notification_count = document.getElementById("notification_count");
 					let str = "";
 					let totalnotification = 0;
-		
+
 					if (response.data.length > 0) {
 						response.data.forEach((data) => {
 							// Parse and format the timestamp
 							const timestamp = new Date(data.timestamp);
-							const formattedDate = timestamp.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
-							const formattedTime = timestamp.toLocaleTimeString('en-GB', {
+
+							// Format the date as "MM/DD/YYYY"
+							const formattedDate = timestamp.toLocaleDateString('en-US', {
+								month: '2-digit',
+								day: '2-digit',
+								year: 'numeric'
+							});
+
+							// Format the time as "HH:MM AM/PM"
+							const formattedTime = timestamp.toLocaleTimeString('en-US', {
 								hour: '2-digit',
-								minute: '2-digit'
-							}); // Format as HH:MM
-		
-							str += `
+								minute: '2-digit',
+								hour12: true
+							});
+
+							if (!data.is_read){
+
+								str += `
 								<li data-notification-id="${data.id}" onclick="markAsRead('${data.id}')">
-									<a href="${data.link}">
+									<a href="${data.link}" >
 										<div style="display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+										justify-content: center;
+										align-items: center;
+										margin-top: 10px;
     margin-left: 10px;">
 
-											<img src="/media/${data.sender_profile_picture}" style="width:50px;height:50px;border-radius:50px;"/>
-											<div class="dropdown-item" style="font-weight: 600;display:block;">
+	<span id="notification_count"
+													style="display: none;position: absolute;top: 5px; left: 10px;width: 10px;height: 10px;background: green;color: #ffffff;display: flex;justify-content: center;align-items: center;border-radius: 50%;"></span>
+													<img src="/media/${data.sender_profile_picture}" style="width:50px;height:50px;border-radius:50px;"/>
+													<div class="dropdown-item" style="font-weight: 600;display:block;">
 												${data.sender_username} <span id="single_notification_count" style="float:right;">(${data.count})</span>
-												<div style="color:grey;">${data.message}</div>
+												<div style="color:grey; word-wrap: break-word; overflow-wrap: break-word;text-wrap:wrap;">
+  ${data.message}
+</div>
 											</div>
 
 										</div>
@@ -945,12 +995,47 @@ if (notification_null && notification_null.style.display !== "none") {
 									</a>
 								</li>
 								<hr>
-							`;
-							totalnotification += data.count;
+								`;
+								totalnotification += data.count;
+								}
+
+							else{
+								if (data.is_read){
+
+									str += `
+									<li data-notification-id="${data.id}" onclick="markAsRead('${data.id}')">
+										<a href="${data.link}" >
+											<div style="display: flex;
+											justify-content: center;
+											align-items: center;
+											margin-top: 10px;
+		margin-left: 10px;">
+	
+														<img src="/media/${data.sender_profile_picture}" style="width:50px;height:50px;border-radius:50px;"/>
+														<div class="dropdown-item" style="font-weight: 600;display:block;">
+													${data.sender_username} <span id="single_notification_count" style="float:right; display:none;">(${data.count})</span>
+													<div style="color:grey; word-wrap: break-word; overflow-wrap: break-word;text-wrap:wrap;">
+	  ${data.message}
+	</div>
+												</div>
+	
+											</div>
+											<p style="color: grey; padding: 0px 15px;">
+												<span style="float: right;">${formattedDate} ${formattedTime}</span>
+											</p>
+										</a>
+									</li>
+									<hr>
+									`;
+
+								}
+							}
 						});
-		
-						notification_count.innerHTML = totalnotification;
-						notification_count.style.display = "block";
+if(totalnotification>0){
+
+	notification_count.innerHTML = totalnotification;
+	notification_count.style.display = "block";
+}
 					} else {
 						str = `
 							<li style="display: flex; justify-content: center; align-items: center; width: 100%; height: 80px;" id="notification-null">
@@ -960,12 +1045,12 @@ if (notification_null && notification_null.style.display !== "none") {
 						notification_count.style.display = "none";
 						notification_count.innerHTML = "0";
 					}
-		
+
 					notification_all.innerHTML = str;
 				}
 			});
 		}
-		
+
 		async function markAsRead(notificationid) {
 			const url = `${window.location.origin}/api/notification/single-mark-as-read/`;
 			const data = {
@@ -993,6 +1078,228 @@ if (notification_null && notification_null.style.display !== "none") {
 			}).catch((error) => {
 				console.error("Error:", error);
 			});
+		}
+
+		function showMainNotification(data, userid) {
+			const message_box = document.getElementById("message-box");
+			const message_content = document.getElementById("message-content");
+			const message_type = document.getElementById("message-type");
+			const message_icon_parent = document.getElementById("message-icon-parent");
+			const message_icon_child = document.getElementById("message-icon-child");
+			const link_common_message = document.getElementById("common_message");
+
+			//link_common_message.href = `${data.link}`;
+			message_content.innerHTML = `You have received a new notification ! check notification inbox`;
+			card.style.display = "flex";
+			card.style.borderLeft = "10px solid #3db5dc";
+			message_type.innerHTML = `notification`;
+			message_type.style.color = "#3db5dc";
+			message_icon_parent.style.color = "#3db5dc";
+			message_icon_child.classList = "fas fa-exclamation-circle";
+
+			link_common_message.onclick = function () {
+				markAsRead(data.notification_id);
+			};
+
+			const main_notification_null = document.getElementById('main_notification-null');
+
+			if (main_notification_null && main_notification_null.style.display !== "none") {
+				main_notification_null.style.display = "none";
+			}
+
+			const main_notification_all = document.getElementById("main_notification_all");
+			const main_notification_count = document.getElementById("main_notification_count");
+
+			// Parse and format the timestamp
+			const timestamp = new Date(data.timestamp);
+
+			// Format the date as "MM/DD/YYYY"
+			const formattedDate = timestamp.toLocaleDateString('en-US', {
+				month: '2-digit',
+				day: '2-digit',
+				year: 'numeric'
+			});
+
+			// Format the time as "HH:MM AM/PM"
+			const formattedTime = timestamp.toLocaleTimeString('en-US', {
+				hour: '2-digit',
+				minute: '2-digit',
+				hour12: true
+			});
+
+
+			// Check if a notification with the same id already exists
+			const str = `
+<li data-notification-id="${data.notification_id}"
+										onclick="markAsRead_mainNofication(${data.notification_id})">
+
+										<a href="/creator/">
+
+											<div
+												style="display: flex;justify-content: center;align-items: center;margin-top: 10px;margin-left: 10px;position:relative;">
+												<span id="notification_count"
+													style="display: none;position: absolute;top: 2px;left: 0px;width: 10px;height: 10px;background: green;color: #ffffff;display: flex;justify-content: center;align-items: center;border-radius: 50%;"></span>
+												<img src="/static/img/admin_image.png"
+													style="width:50px;height:50px;border-radius:50px;" />
+												<div class="dropdown-item"
+													style="font-weight: 600;display:block;text-wrap:wrap;color:grey;">
+													
+													${data.message}
+												</div>
+											</div>
+											<p style="color: grey; padding: 0px 15px;">
+												<span style="float: right;">${formattedDate} ${formattedTime}</span>
+											</p>
+										</a>
+									</li>
+									<hr>
+
+
+				`;
+
+			console.log(str)
+
+			main_notification_all.innerHTML = str + main_notification_all.innerHTML;
+
+
+			// Update the main notification count
+			main_notification_count.style.display = "block";
+			const currentMainCount = parseInt(main_notification_count.innerHTML);
+			main_notification_count.innerHTML = currentMainCount + 1;
+		}
+
+		async function mainFetchNotification(userid) {
+			const url = new URL(`${window.location.origin}/api/main-notification/?no_pagination=true`);
+			url.searchParams.append('user_id', userid);
+
+			await fetch(url, {
+				method: "GET",
+				headers: {
+					"content-type": "application/json",
+					"Authorization": `Bearer ${authenticated}`
+				}
+			}).then((response) => {
+				return response.json();
+			}).then((response) => {
+				console.log(response);
+				if (response.success) {
+					const main_notification_all = document.getElementById("main_notification_all");
+					const main_notification_count = document.getElementById("main_notification_count");
+					let str = "";
+					let totalnotification = 0;
+
+					if (response.data.length > 0) {
+						response.data.forEach((data) => {
+							// Parse and format the timestamp
+							const timestamp = new Date(data.timestamp);
+
+							// Format the date as "MM/DD/YYYY"
+							const formattedDate = timestamp.toLocaleDateString('en-US', {
+								month: '2-digit',
+								day: '2-digit',
+								year: 'numeric'
+							});
+
+							// Format the time as "HH:MM AM/PM"
+							const formattedTime = timestamp.toLocaleTimeString('en-US', {
+								hour: '2-digit',
+								minute: '2-digit',
+								hour12: true
+							});
+
+							if (data.is_read) {
+								str += `<li data-notification-id="${data.id}"
+										>
+										<a href="#">
+
+											<div
+												style="display: flex;justify-content: center;align-items: center;margin-top: 10px;margin-left: 10px;">
+												
+												<img src="/static/img/admin_image.png"
+													style="width:50px;height:50px;border-radius:50px;" />
+												<div class="dropdown-item"
+													style="font-weight: 600;display:block;text-wrap:wrap;color:grey;">
+													
+													${data.message}
+												</div>
+											</div>
+											<p style="color: grey; padding: 0px 15px;">
+												<span style="float: right;">${formattedDate} ${formattedTime}</span>
+											</p>
+										</a>
+									</li>
+									<hr>`
+
+
+
+							}
+							else {
+
+								str += `
+								<li data-notification-id="${data.id}"
+										onclick="markAsRead_mainNofication(${data.id})">
+
+										<a href="${data.link}">
+
+											<div
+												style="display: flex;justify-content: center;align-items: center;margin-top: 10px;margin-left: 10px;position:relative;">
+												<span id="notification_count"
+													style="display: none;position: absolute;top: 2px;left: 0px;width: 10px;height: 10px;background: green;color: #ffffff;display: flex;justify-content: center;align-items: center;border-radius: 50%;"></span>
+												<img src="/static/img/admin_image.png"
+													style="width:50px;height:50px;border-radius:50px;" />
+												<div class="dropdown-item"
+													style="font-weight: 600;display:block;text-wrap:wrap;color:grey;">
+													
+													${data.message}
+												</div>
+											</div>
+											<p style="color: grey; padding: 0px 15px;">
+												<span style="float: right;">${formattedDate} ${formattedTime}</span>
+											</p>
+										</a>
+									</li>
+									<hr>
+									
+									`;
+								totalnotification += 1;
+
+							}
+						});
+
+						main_notification_count.innerHTML = totalnotification;
+						main_notification_count.style.display = "block";
+					} else {
+						str = `
+							<li style="display: flex; justify-content: center; align-items: center; width: 100%; height: 80px;" id="main_notification-null">
+								<div>Your Notification list is empty</div>
+							</li>
+						`;
+						main_notification_count.style.display = "none";
+						main_notification_count.innerHTML = "0";
+					}
+
+					main_notification_all.innerHTML = str;
+				}
+			});
+		}
+
+		async function markAsRead_mainNofication(id) {
+			const url = new URL(`${window.location.origin}/api/main-notification/${id}/`);
+
+			await fetch(url, {
+				method: "PATCH",
+				headers: {
+					"content-type": "application/json",
+					"Authorization": `Bearer ${authenticated}`
+				},
+				body: JSON.stringify({
+					is_read: true
+				})
+			}).then((response) => {
+				return response.json();
+			}).then((response) => {
+				console.log(response.success)
+			})
 		}
 
 	</script>

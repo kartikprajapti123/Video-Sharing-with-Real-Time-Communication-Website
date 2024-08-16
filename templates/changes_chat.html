@@ -196,7 +196,7 @@
                                                     <!-- <a class="" href="#">Dashboard</a> -->
                                                     <ul class="submenu">
                                                         <li><a href="#">Fan Dashbored</a></li>
-                                                        <li><a href="#">Creator Dashbored</a></li>
+                                                        <li><a href="/creator/">Creator Dashbored</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="has-submenu">
@@ -585,7 +585,11 @@
 
 
                         messages.forEach((data) => {
-                            let formattedTime = data.timestamp.match(/T(\d{2}:\d{2})/)[1];
+                            let formattedTime = new Date(data.timestamp).toLocaleTimeString('en-US', { 
+                                hour: '2-digit', 
+                                minute: '2-digit', 
+                                hour12: true 
+                            });
                             if (userID !== data.sender) {
                                 if (data.file_url != null || data.file_url == '') {
                                     str += `<div class="chats">
@@ -594,7 +598,7 @@
                                 </div>
                                 <div class="chat-content">
                                     <div class="chat-profile-name">
-                                        <h6>${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;" >${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content award-link chat-award-link">
                                         <a href="javascript:void(0);">${data.file_url}</a>
@@ -610,9 +614,10 @@
                                 </div>
                                 <div class="chat-content">
                                     <div class="chat-profile-name">
-                                        <h6>${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
-                                    <div class="message-content">
+                                    <div class="message-content" style="width: fit-content;
+    float: right;">
                                         ${data.content}
                                     </div>
                                 </div>
@@ -626,7 +631,7 @@
 									  
 									  <div class="chat-content">
 										  <div class="chat-profile-name">
-											  <h6>${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+											  <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
 										  <div class="message-content award-link chat-award-link">
 											  <a href="javascript:void(0);" style="color:white;" >${data.file_url}</a>
@@ -644,9 +649,10 @@
                                     str += `<div class="chats chats-right">
                                         <div class="chat-content">
                                             <div class="chat-profile-name text-end">
-                                                <h6>${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
+                                                <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                             </div>
-                                            <div class="message-content ">
+                                            <div class="message-content " style="width: fit-content;
+    float: right;">
                                                 ${data.content}
                                             </div>
                                         </div>
@@ -757,7 +763,11 @@
                                 tempinfo.remove()
                             }
                         }
-                        let formattedTime = new Date(message.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+                        let formattedTime = new Date(message.timestamp).toLocaleTimeString('en-US', { 
+                            hour: '2-digit', 
+                            minute: '2-digit', 
+                            hour12: true 
+                        });
                         let str = '';
 
                         if (message.sender === userID) {
@@ -768,7 +778,7 @@
 									  
 									  <div class="chat-content">
 										  <div class="chat-profile-name">
-											  <h6>${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+											  <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
 										  <div class="message-content award-link chat-award-link">
 											  <a href="javascript:void(0);"  style="color:white;">${message.file_url}</a>
@@ -784,9 +794,10 @@
                                 str = `<div class="chats chats-right">
                         <div class="chat-content">
                             <div class="chat-profile-name text-end">
-                                        <h6>${message.username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
-                                    <div class="message-content ">
+                                    <div class="message-content " style="width: fit-content;
+    float: right;">
                                        ${message.content}
                                     </div>
                                 </div>
@@ -846,7 +857,7 @@
                                 </div>
                                 <div class="chat-content">
                                     <div class="chat-profile-name">
-                                        <h6>${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content award-link chat-award-link">
                                         <a href="javascript:void(0);">${message.file_url}</a>
@@ -861,9 +872,10 @@
                                     </div>
                                     <div class="chat-content">
                                         <div class="chat-profile-name">
-                                            <h6>${message.username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
+                                            <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
                                         </div>
-                                        <div class="message-content">
+                                        <div class="message-content" style="width: fit-content;
+    float: right;">
                                             ${message.content}
                                         </div>
                                     </div>
@@ -1223,8 +1235,8 @@
                                                 <h5>${contact_list_username}</h5>
                                             </div>
                                             <div class="last-chat-time">
-                                                <div class="chat-pin" id="count_${data.id}">
-                                                    ${unreadmessages > 0 ? `<span class="count-message">${unreadmessages}</span>` : ''}
+                                                <div class="chat-pin" id="count_${data.id}" >
+                                                    ${unreadmessages > 0 ? `<span class="count-message" style="margin-right:10px;">${unreadmessages}</span>` : ''}
                                                 </div>
                                             </div>
                                         </div>
