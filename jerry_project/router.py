@@ -4,7 +4,9 @@ from user.views import RegisterViewSet,VerifyEmailViewset,LoginViewSet,ForgotPas
 from chat.consumers import MyChatConsumer,GlobalChatConsumer
 from notification.consumers import NotificationConsumer
 from chat.views import ConversationViewSet,MessageViewSet,UplaodedImaeViewSet
-from notification.views import NotificationViewSet
+from notification.views import NotificationViewSet,MainNotificationViewSet
+from creator.views import CreatorApprovalViewSet
+
 
 routers=DefaultRouter()
 
@@ -20,7 +22,9 @@ routers.register(r'messages',MessageViewSet,basename='messages')
 routers.register(r'conversations',ConversationViewSet,basename='conversation')
 routers.register(r'uploads',UplaodedImaeViewSet,basename='upload-image')
 routers.register(r'notification',NotificationViewSet,basename="notification")
+routers.register(r'main-notification',MainNotificationViewSet,basename="main-notification")
 
+routers.register(r'creator-approval',CreatorApprovalViewSet,basename="creator-approval")
 
 
 

@@ -22,67 +22,20 @@ class Notification(models.Model):
     def __str__(self):
         return f'Notification {self.id} for {self.user.username} - {self.notification_type}'
 
-    # def save(self, *args, **kwargs):
-    #     # Debugging: Print the user's UUID
-    #     print(f"User UUID: {self.user.uuid}")
-
-    #     # Check for an existing notification with similar details for the same user
-    #     existing_notification = Notification.objects.filter(
-    #         user=self.user,
-    #         sender=self.sender,
-    #         message=self.message,
-    #         is_read=False,
-    #         notification_type=self.notification_type
-    #     ).first()
-
-    #     if existing_notification:
-    #         print("if")
-    #         # Update the existing notification
-    #         existing_notification.count += 1
-    #         existing_notification.timestamp = timezone.now()  # Update timestamp
-    #         existing_notification.link = self.link  # Update link if provided
-    #         existing_notification.save()
-
-    #         # Send the updated notification via WebSocket
-    #         channel_layer = get_channel_layer()
-    #         async_to_sync(channel_layer.group_send)(
-    #             f'user_{existing_notification.user.uuid}',  # WebSocket group name
-    #             {
-    #                 'type': 'send_notification',
-    #                 'notification_id': existing_notification.id,
-    #                 'message': existing_notification.message,
-    #                 'notification_type': existing_notification.notification_type,
-    #                 'timestamp': existing_notification.timestamp.isoformat(),
-    #                 'sender': existing_notification.sender.id if existing_notification.sender else None,
-    #                 'link': existing_notification.link,
-    #                 'count': existing_notification.count,
-    #                 'sender_type': existing_notification.sender_type,
-    #             }
-    #         )
-    #         print("Existing notification updated and sent")
-    #         return
-    #     else:
-    #         print("else")
-    #         # Save the new notification
-    #         super().save(*args, **kwargs)
-
-    #         # Send the new notification via WebSocket
-    #         channel_layer = get_channel_layer()
-    #         async_to_sync(channel_layer.group_send)(
-    #             f'user_{self.user.uuid}',  # WebSocket group name
-    #             {
-    #                 'type': 'send_notification',
-    #                 'notification_id': self.id,
-    #                 'message': self.message,
-    #                 'notification_type': self.notification_type,
-    #                 'timestamp': self.timestamp.isoformat(),
-    #                 'sender': self.sender.id if self.sender else None,
-    #                 'link': self.link,
-    #                 'count': self.count,
-    #                 'sender_type': self.sender_type,
-    #             }
-    #         )
-    #         print("New notification created and sent")
 
     class Meta:
         ordering = ['-timestamp']
+        
+        
+class MainNotification(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='main_notifications', on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    link = models.URLField(blank=True, null=True)
+    is_read = models.BooleanField(default=False)
+    deleted = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f'main Notification for {self.user.username} '
+
+        

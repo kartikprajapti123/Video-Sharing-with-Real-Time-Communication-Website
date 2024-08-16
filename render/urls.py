@@ -16,7 +16,11 @@ urlpatterns = [
     path('contact-list/',views.contact_list,name="chating"),
     path('chatting/<str:id>/',views.chatting,name="chating"),
     path('notification/',views.notification,name="notification"),
-    path('chatting/',views.chatting2,name="notification"),
+    path('chatting/',views.chatting2,name="chattting"),
+    path('creator/',views.become_creator,name="become_creator"),
+    path('terms_of_service/',views.terms_of_service,name="terms_of_service"),
+    
+    
     
     
     
