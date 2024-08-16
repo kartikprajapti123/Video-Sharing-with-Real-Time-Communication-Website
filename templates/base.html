@@ -183,7 +183,7 @@
 									<!-- <a class="" href="#">Dashboard</a> -->
 									<ul class="submenu">
 										<li><a href="#">Fan Dashbored</a></li>
-										<li><a href="#">Creator Dashbored</a></li>
+										<li><a href="/creator/">Creator Dashbored</a></li>
 									</ul>
 								</li>
 								<li class="has-submenu">
@@ -280,7 +280,7 @@
 								</li>
 
 								<li class="has-submenu">
-									<a href="/creator/">Creator's <i class="fas fa-chevron-down"></i></a>
+									<a href="#">Creator's <i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu">
 										<!-- <li class="has-submenu">
 												<a href="#">Instructor</a>
@@ -776,6 +776,9 @@
 				if (data.type == "main_notification") {
 					console.log("main_notification")
 					showMainNotification(data, userid)
+					if (window.location.pathname === "/creator/") {
+						window.location.reload(); // Reload the page
+					}
 				}
 
 				// Handle the incoming WebSocket message here
@@ -1265,9 +1268,12 @@ if(totalnotification>0){
 
 							}
 						});
+						if(totalnotification>0){
 
-						main_notification_count.innerHTML = totalnotification;
-						main_notification_count.style.display = "block";
+							main_notification_count.innerHTML = totalnotification;
+							main_notification_count.style.display = "block";
+						}
+
 					} else {
 						str = `
 							<li style="display: flex; justify-content: center; align-items: center; width: 100%; height: 80px;" id="main_notification-null">
