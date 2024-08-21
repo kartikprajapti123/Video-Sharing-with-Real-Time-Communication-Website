@@ -110,13 +110,14 @@
 </head>
 
 <body>
-	<div class="wrapper-success" id="message-box" style="position: fixed;z-index:1000000;max-width: 480px;">
+	<div class="wrapper-success" id="message-box" style="position: fixed;z-index:1000000;max-width: 480px;
+    min-width: 330px;">
 
 		<div id="card" style="transition-duration: 2s;width:100%">
-			<a href="#" id="common_message" style="display:flex;">
-				<div class="icon" id="message-icon-parent"><i class="fas fa-times-circle " id="message-icon-child"></i>
+			<a href="#" id="common_message" style="display:flex;width:100%;">
+				<div class="icon" id="message-icon-parent" style="margin-right: 15px;"><i class="fas fa-times-circle " id="message-icon-child" ></i>
 				</div>
-				<div class="subject">
+				<div class="subject" style="width: 100%;">
 					<h3 id="message-type">Success</h3>
 					<p id="message-content"></p>
 				</div>
@@ -399,11 +400,11 @@
 									</div>
 									<a class="dropdown-item" href="/myprofile/"><i class="feather-star me-1"></i>My
 										Profile</a>
-									<a class="dropdown-item" href="instructor-dashboard.html"><i
-											class="feather-home me-1"></i>Fan Dashboard</a>
+									<a class="dropdown-item" href="/mypost/"><i
+											class="feather-home me-1"></i>My Posts</a>
 									<a class="dropdown-item" href="/creator/"><i
 											class="feather-home me-1"></i>Creator Dashboared </a>
-									<a class="dropdown-item" href="instructor-dashboard.html"><i
+									<a class="dropdown-item" href="/myprofileedit/"><i
 											class="feather-home me-1"></i>Settings </a>
 									<!-- <div class="dropdown-item night-mode">
 											<span><i class="feather-moon me-1"></i> Night Mode </span>
@@ -605,6 +606,7 @@
 
 
 	<script>
+		let profileId=0
 		const authenticated = localStorage.getItem("jerry_project_access_token");
 		const refresh_token = localStorage.getItem("jerry_project_refresh_token");
 
@@ -660,10 +662,50 @@
 					return response.json()
 				}).then((response) => {
 					if (response.success) {
+						profileId=response.data.id
 						console.log(response.data.image)
 						document.getElementById("profile_image").src = `${response.data.profile_picture}`
 						document.getElementById("profile_image2").src = `${response.data.profile_picture}`
 						document.getElementById("profile_username").innerHTML = `${response.data.username}`
+						if (response.data.profile_picture==""){
+
+							let profile_page_image=document.getElementById("profile_page_image")
+							if(profile_page_image){
+								profile_page_image.src = '/media/profile_pictures/default_profile_image.png'
+							}
+	
+						}
+						else{
+							let profile_page_image=document.getElementById("profile_page_image")
+							console.log(profile_page_image)
+							if(profile_page_image){
+
+								profile_page_image.src = `${response.data.profile_picture}`
+							}
+						}
+	
+	
+						console.log(response.data.username)
+						if (response.data.username == "") {
+							let profile_page_username=document.getElementById("profile_page_username2")
+							if(profile_page_username){
+
+								profile_page_username.innerHTML="username"
+							}
+	
+	
+						}
+						else {
+
+							let profile_page_username=document.getElementById("profile_page_username2")
+							if (profile_page_username){
+
+								profile_page_username.innerHTML=`${response.data.username.substring(0, 14)}...`;
+							}
+	
+	
+	
+						}
 						initializeWebSocket(response.data.uuid, response.data.id)
 						fetchNotificationNotRead(response.data.id)
 						mainFetchNotification(response.data.id)
@@ -1136,7 +1178,7 @@ if(totalnotification>0){
 <li data-notification-id="${data.notification_id}"
 										onclick="markAsRead_mainNofication(${data.notification_id})">
 
-										<a href="/creator/">
+										<a href="${data.link}">
 
 											<div
 												style="display: flex;justify-content: center;align-items: center;margin-top: 10px;margin-left: 10px;position:relative;">
@@ -1172,7 +1214,7 @@ if(totalnotification>0){
 		}
 
 		async function mainFetchNotification(userid) {
-			const url = new URL(`${window.location.origin}/api/main-notification/?no_pagination=true`);
+			const url = new URL(`${window.location.origin}/api/main-notification/notifications-for-user/`);
 			url.searchParams.append('user_id', userid);
 
 			await fetch(url, {

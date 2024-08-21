@@ -47,5 +47,33 @@ def become_creator(request):
 
 def terms_of_service(request):
     return render(request,"terms_of_service.html")
+
+
+def upload_post(request):
+    return render(request,"upload-post.html")
     
 
+
+
+
+def my_post(request):
+    return render(request,"my_post.html")
+
+
+def myprofileedit(request):
+    return render(request,"myprofileedit.html")
+    
+def changepassword(request):
+    return render(request,"mychangepassword.html")
+    
+
+def mydeleteaccount(request):
+    return render(request,"mydelete-account.html")
+    
+def updatepost(request,id):
+    return render(request,"update-post.html")
+    
+
+def post_view(request,id):
+    return render(request,"post-view.html")
+    

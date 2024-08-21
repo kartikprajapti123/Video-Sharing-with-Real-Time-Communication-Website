@@ -47,12 +47,15 @@ class CreatorApproval(models.Model):
 
     def create_notification_and_send_message(self, admin_user):
         # Create a notification for the user
+        
+        if self.status == "pending":
+            return
         if (self.status=="canceled"):
-            notification_message = f" <b style='color:black;'> Rejected !</b> Your creator approval has been rejected - Apply again"
+            notification_message = f"<b style='color:black;'>Creator Update:</b> Your Creator information has been <b>Rejected</b>. Please contact support if you have any questions."
             
         
         elif (self.status=="approved"):
-            notification_message = f"<b style='color:black;'> Success !</b> Your creator approval has been acccepted - go to dashbored "
+            notification_message = f"<b style='color:black;'>Creator Update:</b>Your Creator's information has been <b>Approved</b>"
             
         
         
@@ -61,6 +64,7 @@ class CreatorApproval(models.Model):
             message=notification_message,
             link="/creator/"  # Update with the relevant link if necessary
         )
+        print(mainnotification)
 
         # Send WebSocket notification
         from channels.layers import get_channel_layer

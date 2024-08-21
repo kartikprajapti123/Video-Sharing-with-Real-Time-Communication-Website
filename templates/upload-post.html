@@ -1,0 +1,573 @@
+{% extends "base.html" %}
+{% block link %}
+
+{% endblock link %}
+{% block style %}
+<style>
+    @keyframes progress {
+        from {
+            --percentage: 0;
+        }
+
+        to {
+            --percentage: var(--value);
+        }
+    }
+
+    [role="progressbar"] {
+        --percentage: var(--value);
+        --primary: #ff4667;
+        --secondary: #fae2e0;
+        --size: 150px;
+        animation: progress 2s 0.5s forwards;
+        width: var(--size);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+    }
+    
+    [role="progressbar"]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: conic-gradient(var(--primary) calc(var(--percentage) * 1%), var(--secondary) 0);
+        mask: radial-gradient(white 55%, transparent 0);
+        mask-mode: alpha;
+        -webkit-mask: radial-gradient(#0000 55%, #000 0);
+        -webkit-mask-mode: alpha;
+    }
+    [role="progressbar"]::after {
+        counter-reset: percentage var(--value);
+        content: counter(percentage) '%';
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: calc(var(--size) / 5);
+        color: var(--primary);
+    }
+</style>
+{% endblock style %}
+
+{% block body %}
+
+
+<!-- New Course -->
+<section class="page-content course-sec" style="margin-top: 100px;">
+    <div class="container" id="become_creator" style="display:none;">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="add-course-header">
+                    <h2>Become Creator</h2>
+                    <div class="add-course-btns">
+                        <ul class="nav">
+                            <li>
+                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- Course Wizard -->
+                    <div class="widget-set">
+                        <div class="widget-setcount">
+                            <ul id="progressbar">
+
+                            </ul>
+                        </div>
+                        <div class="widget-content multistep-form">
+                            <fieldset class="field-card" style="display: block;">
+                                <div class="add-course-info">
+                                    <div class="add-course-msg">
+                                        <i class="fas fa-excalmation-check"></i>
+                                        <h4>You are not a creator yet.</h4>
+                                        <ul class="nav" style="display: flex;
+    justify-content: center;">
+                                            <li>
+                                                <a href="/creator/" class="btn btn-success-dark"
+                                                   >Become a Creator</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- /Course Wizard -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container" id="row1" style="display:none">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="add-course-header">
+                    <h2>Add New Post</h2>
+                    <div class="add-course-btns">
+                        <ul class="nav">
+                            <li>
+                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Save</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- Course Wizard -->
+                    <div class="widget-set">
+                        <div class="widget-setcount">
+                            <ul id="progressbar">
+                                <li class="progress-active">
+                                    <p><span></span> Basic Information</p>
+                                </li>
+                                <li>
+                                    <p><span></span> Post Media</p>
+                                </li>
+                                <!-- <li>
+												<p><span></span> Curriculum</p>												
+											</li> -->
+                                <li>
+                                    <p><span></span> Price</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div id="progress" style="display: block;">
+                            <div id="mainprogress" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                aria-valuemax="100" style="--value: 0"></div>
+
+
+                        </div> -->
+                        <div class="widget-content multistep-form" id="post_form">
+                            <fieldset id="first">
+                                <div class="add-course-info">
+                                    <div class="add-course-inner-header">
+                                        <h4>Basic Information</h4>
+                                    </div>
+                                    <div class="add-course-form">
+                                        <form action="#">
+                                            <div class="input-block">
+                                                <label class="add-course-label">Post Title</label>
+                                                <input type="text" id="post_title" class="form-control"
+                                                    placeholder="Post Title">
+                                            </div>
+                                            <!-- <div class="input-block">
+															<label class="add-course-label"> Category</label>
+															<select class="form-control select">
+																<option>Category 01</option>
+																<option>Category 02</option>
+																<option>Category 03</option>
+																<option>Category 04</option>
+															</select>
+														</div>
+														<div class="input-block">
+															<label class="add-course-label">Courses Level</label>
+															<select class="form-control select">
+																<option>Level 01</option>
+																<option>Level 02</option>
+																<option>Level 03</option>
+																<option>Level 04</option>
+															</select>
+														</div> -->
+                                            <div class="input-block mb-0">
+                                                <label class="add-course-label">Post Description <span
+                                                        style="font-size: 14px;">
+                                                        (We recommend to create detailed description highlighting key
+                                                        features and benefits.)
+                                                    </span></label>
+                                                <div id="editor2"></div>
+                                                <textarea id="description" name="description"
+                                                    style="display:none;"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="widget-btn">
+                                        <a class="btn btn-black">Back</a>
+                                        <a class="btn btn-info-light next_btn">Continue</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="field-card">
+                                <div class="add-course-info">
+                                    <div class="add-course-inner-header">
+                                        <h4>Post Media</h4>
+                                    </div>
+                                    <div class="add-course-form">
+                                        <form action="#">
+                                            <div class="input-block">
+                                                <label class="add-course-label">Post Video </label>
+                                                <div class="relative-form">
+                                                    <span id="video-file-name">No File Selected</span>
+                                                    <label class="relative-file-upload" id="clear-video">
+                                                        Clear
+                                                    </label>
+                                                    <!-- <button  class="clear-button" style="display: none;">&times; Clear</button> -->
+                                                    <label class="relative-file-upload" id="upload-video-label">
+                                                        Upload File <input type="file" id="post_video" accept=".mp4, .wav">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="input-block">
+                                                <label class="add-course-label">Post Thumbnail (Leave this field empty. The thumbnail will be generated automatically from video.)</label>
+                                                <div class="relative-form">
+                                                    <span id="thumbnail-file-name">No File Selected</span>
+                                                    <label class="relative-file-upload" id="clear-thumbnail">
+                                                        Clear
+                                                    </label>
+                                                    <label class="relative-file-upload" id="upload-thumbnail-label">
+                                                        Upload File <input type="file" id="post_thumbnail" accept=".jpg ,jpeg,.png">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="input-block">
+                                                <label class="add-course-label">Post Preview Video (Optional) </label>
+                                                <div class="relative-form">
+                                                    <span id="preview-file-name">No File Selected</span>
+                                                    <label class="relative-file-upload" id="clear-preview">
+                                                        Clear
+                                                    </label>
+                                                    <label class="relative-file-upload" id="upload-preview-label">
+                                                        Upload File <input type="file" id="post_preview" accept=".mp4, .wav">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="widget-btn">
+                                        <a class="btn btn-black prev_btn">Previous</a>
+                                        <a class="btn btn-info-light next_btn">Continue</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="field-card">
+                                <div class="add-course-info">
+                                    <div class="add-course-inner-header">
+                                        <h4>Pricing</h4>
+                                    </div>
+                                    <div class="add-course-form">
+                                        <form action="#">
+
+                                            <div class="input-block mb-0">
+                                                <label class="add-course-label">Price</label>
+                                                <input type="text" class="form-control" placeholder="example:-10.00"
+                                                    id="post_price">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="widget-btn">
+                                        <a class="btn btn-black prev_btn">Previous</a>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- /Course Wizard -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container" id="row2" style="display:none">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="add-course-header">
+                    <h2>Add New Post</h2>
+                    <div class="add-course-btns">
+                        <ul class="nav">
+                            <li>
+                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-success-dark"
+                                    onclick="reversefunction()">Add Another Post</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!-- Course Wizard -->
+                    <div class="widget-set">
+                        <div class="widget-setcount">
+                            <ul id="progressbar">
+
+                            </ul>
+                        </div>
+                        <div class="widget-content multistep-form">
+                            <fieldset class="field-card" style="display: block;">
+                                <div class="add-course-info">
+                                    <div class="add-course-msg">
+                                        <i class="fas fa-circle-check"></i>
+                                        <h4>Your Post has been successfully submitted.</h4>
+                                        <p>Our team will review your submission to verify your content. This
+                                            process typically takes around one day. You will be notified once
+                                            the review is approved or rejected.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <!-- /Course Wizard -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+</div>
+
+<!-- /New Course -->
+{% endblock body %}
+{% block script %}
+<script>
+
+    post_title = document.getElementById("post_title")
+    description = document.getElementById("description")
+    post_video = document.getElementById("post_video")
+    post_thumbnail = document.getElementById("post_thumbnail")
+    post_preview = document.getElementById("post_preview")
+    post_price = document.getElementById("post_price")
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        function updateFileName(inputId, spanId, clearId, uploadLabelId) {
+            var input = document.getElementById(inputId);
+            var span = document.getElementById(spanId);
+            var clearButton = document.getElementById(clearId);
+            var uploadLabel = document.getElementById(uploadLabelId);
+
+            if (!input || !span || !clearButton || !uploadLabel) {
+                console.error(`Elements not found. IDs: ${inputId}, ${spanId}, ${clearId}, ${uploadLabelId}`);
+                return;
+            }
+
+            input.addEventListener('change', function () {
+                if (input.files.length > 0) {
+                    span.textContent = input.files[0].name;
+                    clearButton.style.display = 'inline'; // Show the clear button
+                    uploadLabel.style.display = 'none'; // Hide the upload label
+                } else {
+                    span.textContent = 'No File Selected';
+                    clearButton.style.display = 'none'; // Hide the clear button
+                    uploadLabel.style.display = 'inline'; // Show the upload label
+                }
+            });
+
+            clearButton.addEventListener('click', function (e) {
+                e.preventDefault()
+                input.value = ''; // Clear the file input
+                span.textContent = 'No File Selected'; // Reset the file name display
+                clearButton.style.display = 'none'; // Hide the clear button
+                uploadLabel.style.display = 'inline'; // Show the upload label
+            });
+        }
+
+        // Initialize file input listeners
+        updateFileName('post_video', 'video-file-name', 'clear-video', 'upload-video-label');
+        updateFileName('post_thumbnail', 'thumbnail-file-name', 'clear-thumbnail', 'upload-thumbnail-label');
+        updateFileName('post_preview', 'preview-file-name', 'clear-preview', 'upload-preview-label');
+    });
+
+    ClassicEditor
+        .create(document.querySelector('#editor2'))
+        .then(editor => {
+            console.log("done");
+
+            // Attach the editor instance to a global variable for later use
+            window.editorInstance = editor;
+        })
+        .catch(error => {
+            console.error('There was a problem initializing the editor.', error);
+        });
+    //function updateProgressBar(percentage) {
+    //    const progressBar = document.getElementById('mainprogress');
+    //    if (!progressBar) return;
+    //    progressBar.setAttribute('aria-valuenow', percentage);
+    //    progressBar.style.setProperty('--value', percentage + '%');
+    //}
+
+    document.getElementById("post_save").onclick = async (e) => {
+        console.log("called");
+        //document.getElementById("post_form").style.display = "none"
+        //document.getElementById("post_load").style.display = "block"
+        //document.getElementById("post_save").style.display = "none"
+        document.getElementById("post_save").innerHTML = `<div class="spinner-border text-light" role="status">
+                                    <!-- <span class="sr-only">Loading...</span> -->
+                                  </div>`
+                                  document.getElementById("post_save").disabled = true
+
+
+        e.preventDefault();
+        //document.getElementById("progress").style.display = "block"
+        //updateProgressBar(10);
+
+        const editorContent = window.editorInstance.getData();
+        card.style.display = "none";
+
+        let formData = new FormData();
+        //updateProgressBar(40);
+        // Append text data
+        formData.append("title", post_title.value);
+        formData.append("description", editorContent);
+        formData.append("price", post_price.value);
+
+        // Append files if they exist
+        if (post_video.files[0]) {
+            formData.append("video", post_video.files[0]);
+        }
+
+        if (post_thumbnail.files[0]) {
+            formData.append("thumbnail", post_thumbnail.files[0]);
+        }
+
+        if (post_preview.files[0]) {
+            formData.append("preview", post_preview.files[0]);
+        }
+
+
+
+        await fetch(`${window.location.origin}/api/upload-post/`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${authenticated}`
+                // Note: Do not set "Content-Type" header; let the browser set it for FormData
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(response => {
+                if (response.success) {
+                    //updateProgressBar(100);
+
+                    card.style.display = "none";
+                    document.getElementById('row1').style.display = "none"
+                    document.getElementById("row2").style.display = "block"
+
+                    document.getElementById("post_save").innerHTML = `Save`
+                      document.getElementById("post_save").disabled = false
+
+
+                    //document.getElementById("progress").style.display = "none"
+
+
+
+                } else {
+                    // Handle errors
+                    let errorMessage = "";
+                    if (response.message.title) {
+                        errorMessage = response.message.title[0];
+                    } else if (response.message.description) {
+                        errorMessage = response.message.description[0];
+                    } else if (response.message.video) {
+                        errorMessage = response.message.video[0];
+                    } else if (response.message.thumbnail) {
+                        errorMessage = response.message.thumbnail[0];
+                    } else if (response.message.preview) {
+                        errorMessage = response.message.preview[0];
+                    } else if (response.message.price) {
+                        errorMessage = response.message.price[0];
+                    }
+
+                    message_content.innerHTML = errorMessage;
+                    card.style.display = "flex";
+                    card.style.borderLeft = "10px solid red";
+                    message_type.innerHTML = "Error";
+                    message_type.style.color = "red";
+                    message_icon_parent.style.color = "red";
+                    message_icon_child.classList = "fas fa-times-circle";
+                    document.getElementById('post_form').style.display = "block"
+
+                    document.getElementById("post_save").innerHTML = `Save`
+                    document.getElementById("post_save").disabled = false
+
+                    //document.getElementById("progress").style.display = "none"
+
+                    //updateProgressBar(0);
+
+                }
+            });
+    };
+
+    function reversefunction(e) {
+        window.location.reload()
+    }
+
+    userApi = async () => {
+        await fetch(`${window.location.origin}/api/user/`, {
+            "method": "get",
+            "headers": {
+                "content-type": "application/json",
+                "Authorization": `Bearer ${authenticated}`
+            }
+        }).then((response) => {
+            return response.json()
+        }).then(async (response) => {
+            userId=response.data.id
+            if (response.success) {
+                const approvalResponse = await fetch(`${window.location.origin}/api/upload-post/check-approval/?user_id=${userId}`, {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${authenticated}`
+                    }
+                });
+    
+                const approvalData = await approvalResponse.json();
+    
+                if (approvalData.success) {
+                    console.log('User approval status:', approvalData);
+                    // Handle the approval status here
+                    if (approvalData.success) {
+                        // User is approved
+                        document.getElementById("become_creator").style.display="none"
+                        document.getElementById('row1').style.display = "block"
+                    document.getElementById("row2").style.display = "none"
+                        // You can now proceed with actions for approved users
+                    } else {
+                        // User is not approved
+                        console.log('User is not approved');
+                        // Handle cases where the user is not approved
+                    }
+                } else {
+                    document.getElementById("become_creator").style.display="block"
+                        document.getElementById('row1').style.display = "none"
+                    document.getElementById("row2").style.display = "none"
+                }
+
+
+            }
+            console.log(response)
+        })
+    }
+    userApi()
+    document.getElementsByClassName("footer")[0].style.display="none"
+
+
+</script>
+{% endblock script %}

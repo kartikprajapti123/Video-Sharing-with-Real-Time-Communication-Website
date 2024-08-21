@@ -6,6 +6,7 @@ from notification.consumers import NotificationConsumer
 from chat.views import ConversationViewSet,MessageViewSet,UplaodedImaeViewSet
 from notification.views import NotificationViewSet,MainNotificationViewSet
 from creator.views import CreatorApprovalViewSet
+from post.views import PostViewSet
 
 
 routers=DefaultRouter()
@@ -25,6 +26,7 @@ routers.register(r'notification',NotificationViewSet,basename="notification")
 routers.register(r'main-notification',MainNotificationViewSet,basename="main-notification")
 
 routers.register(r'creator-approval',CreatorApprovalViewSet,basename="creator-approval")
+routers.register(r'upload-post',PostViewSet,basename="upload-post")
 
 
 
