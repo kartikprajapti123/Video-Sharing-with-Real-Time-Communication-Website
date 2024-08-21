@@ -466,6 +466,26 @@ class UserViewSet(ModelViewSet):
         instance=self.get_object()
         serializer = UserDetailSerializer(instance)
         return Response({'success': True, 'data': serializer.data})
+    
+    def update(self, request, *args, **kwargs):
+        request.data._mutable=True
+        data=request.data
+        instance=self.get_object()
+        data=request.data 
+        data['updated_by']=request.user.id 
+        seriliazer=UserMyProfileSerializer(instance,data=request.data,partial=True)
+        if seriliazer.is_valid():
+            seriliazer.save()
+            return Response({'success':True,'message':"Your Profile Successfully updated"},status=status.HTTP_200_OK)
+        
+        else:
+            return Response({'success':False,'message':seriliazer.errors},status=status.HTTP_400_BAD_REQUEST)
+            
+    def destroy(self, request, *args, **kwargs):
+        instance=self.get_object()
+        instance.deleted=1
+        instance.save()
+        return Response({'success':True,'message':"Your Account Successfully Deleted"},status=status.HTTP_200_OK)
         
     @action(detail=False, methods=['post'])
     def logout(self, request, *args, **kwargs):

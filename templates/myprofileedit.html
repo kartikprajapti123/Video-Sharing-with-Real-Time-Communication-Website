@@ -1,0 +1,457 @@
+{% extends "base.html" %}			
+{% block title %}
+  
+{% endblock title %}
+{% block link %}
+
+  
+{% endblock link %}
+
+{% block style %}
+  
+{% endblock style %}
+
+{% block body %}
+  
+
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar breadcrumb-bar-info" style="margin-top:100px;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 col-12">
+							<div class="breadcrumb-list">
+								<h2 class="breadcrumb-title">Settings</h2>
+								<nav aria-label="breadcrumb" class="page-breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->	
+			
+			<!-- Page Content -->
+			<div class="page-content">
+				<div class="container">
+					<div class="row">
+						
+						<!-- sidebar -->
+						<div class="col-xl-3 col-lg-3 theiaStickySidebar">
+							<div class="settings-widget dash-profile">
+								<div class="settings-menu">
+									<div class="profile-bg">
+										<div class="profile-img">
+											<a href="/myprofile/"><img id="profile_page_image"
+												src="/media/profile_pictures/default_profile_image.png" alt="Img"></a>
+										</div>
+									</div>
+									<div class="profile-group">
+										<div class="profile-name text-center">
+											<h4 id="profile_page_username2"> Username</h4>
+											<a href="/upload-post/" class="add-course btn-primary">Upload New Post</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="settings-widget account-settings">
+								<div class="settings-menu">
+									<h3>Dashboard</h3>
+									<ul>
+										<li class="nav-item">
+											<a href="/creator/" class="nav-link">
+												<i class="bx bxs-tachometer"></i>Dashboard
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="/myprofile/" class="nav-link">
+												<i class="bx bxs-user"></i>My Profile
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="/mypost/" class="nav-link">
+												<i class="bx bxs-tachometer"></i>My Posts
+											</a>
+										</li>
+										<!-- <li class="nav-item">
+											<a href="instructor-enrolled-course.html" class="nav-link">
+												<i class="bx bxs-graduation"></i>Enrolled Courses
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-wishlist.html" class="nav-link">
+												<i class="bx bxs-heart"></i>Wishlist
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-reviews.html" class="nav-link">
+												<i class="bx bxs-star"></i>Reviews
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-quiz.html" class="nav-link">
+												<i class="bx bxs-shapes"></i>My Quiz Attempts
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-orders.html" class="nav-link">
+												<i class="bx bxs-cart"></i>Order History
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-qa.html" class="nav-link">
+												<i class="bx bxs-bookmark-alt"></i>Question & Answer
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-referral.html" class="nav-link">
+												<i class="bx bxs-user-plus"></i>Referrals
+											</a>
+										</li> -->
+										<li class="nav-item">
+											<a href="/contact-list/" class="nav-link">
+												<i class="bx bxs-chat"></i>Messages
+											</a>
+										</li>
+										<!-- <li class="nav-item">
+											<a href="instructor-notifications.html" class="nav-link">
+												<i class="bx bxs-bell"></i>Notifications
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-tickets.html" class="nav-link">
+												<i class="bx bxs-coupon"></i>Support Tickets
+											</a>
+										</li> -->
+									</ul>
+									<!-- <h3>Instructor</h3>
+									<ul>
+										<li class="nav-item">
+											<a href="instructor-course.html" class="nav-link ">
+												<i class="bx bxs-rocket"></i>My Courses
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-announcements.html" class="nav-link">
+												<i class="bx bxs-volume-full"></i>Announcements
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-withdraw.html" class="nav-link ">
+												<i class="bx bxs-wallet"></i>Withdrawls
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-quiz-attempts.html" class="nav-link">
+												<i class="bx bxs-shapes"></i>Quiz Attempts
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-assignment.html" class="nav-link ">
+												<i class="bx bxs-file"></i>Assignments
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="instructor-earnings.html" class="nav-link">
+												<i class="bx bxs-badge-dollar"></i>Earnings
+											</a>
+										</li>
+									</ul> -->
+									<h3>Account Settings</h3>
+									<ul>
+										<li class="nav-item active">
+											<a href="/myprofileedit/" class="nav-link ">
+												<i class="bx bxs-cog"></i>Settings
+											</a>
+										</li>
+										<li class="nav-item">
+											<div  class="nav-link" onClick="LogoutApi()"><a href="#">
+			
+												<i class="bx bxs-log-out"></i>Logout
+											</a>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- /Sidebar -->
+						
+						<!-- Instructor Settings -->
+						<div class="col-xl-9 col-lg-9">	
+
+							<div class="settings-widget card-details">
+								<div class="settings-menu p-0">
+									<div class="profile-heading">
+										<h3>Settings</h3>
+										<p>You have full control to manage your own account settings</p>
+									</div>
+									<div class="settings-page-head">
+										<ul class="settings-pg-links">
+											<li><a href="/myprofileedit/" class="active"><i class="bx bx-edit"></i>Edit Profile</a></li>
+											<li><a href="/mychangepassword/"><i class="bx bx-lock"></i>Change Password</a></li>
+											<!-- <li><a href="/mydelete-account/"><i class="bx bx-error-alt"></i>Delete Account</a></li> -->
+											<!-- <li><a href="instructor-setting-notifications.html"><i class="bx bx-bell"></i>Notifications</a></li> -->
+											<!-- <li><a href="instructor-setting-withdraw.html"><i class="bx bx-wallet-alt"></i>Withdraw</a></li> -->
+											
+										</ul>
+									</div>
+									<form action="#">
+										<div class="course-group profile-upload-group mb-0 d-flex">									
+											<div class="course-group-img profile-edit-field d-flex align-items-center">
+												<a href="student-profile.html" class="profile-pic"><img src="/static/img/user/user-17.jpg" alt="Img" class="img-fluid" id="profile_picture"></a>
+												<div class="profile-upload-head">
+													<h4 id="avatar_username"></a></h4>
+													<p>PNG, JPEG, and JPG are only supported</p>
+													<div class="new-employee-field">
+														<div class="d-flex align-items-center mt-2">
+															<div class="image-upload mb-0">
+																<input type="file" id="file-input" accept=".png, .jpeg, .jpg">
+																<div class="image-uploads">
+																	<i class="bx bx-cloud-upload"></i>
+																</div>
+															</div>
+															<div id="file-name" class="ml-3" style="display: none;padding-left: 5px;" >No file chosen</div>
+															<div class="img-delete ml-3" style="display: none;" >
+																<a href="#" id="delete-button" class="delete-icon"><i class="bx bx-trash"></i></a>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>											
+										</div>
+										<div class="checkout-form settings-wrap">
+											<div class="edit-profile-info">
+												<h5>Personal Details</h5>
+												<p>Edit your personal information</p>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="input-block">
+														<label class="form-label">First Name</label>
+														<input type="text" class="form-control"  id="first_name">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block">
+														<label class="form-label">Last Name</label>
+														<input type="text" class="form-control" id="last_name">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block">
+														<label class="form-label">User Name</label>
+														<input type="text" class="form-control" id="username">
+													</div>
+												</div>
+
+												<div class="col-md-6">
+													<div class="input-block">
+														<label class="form-label">Phone Number</label>
+														<input type="tel" class="form-control"  id="phone">
+													</div>
+												</div>
+												
+												
+												<div class="col-md-12">
+													<div class="input-block">
+														<label class="form-label">Bio</label>
+														<textarea rows="4" class="form-control" id="bio"></textarea>
+													</div>
+												</div>
+												<div class="col-md-12">
+													<button class="btn btn-primary" type="submit" id="profile_update">Update Profile</button>
+												</div>
+											</div>
+										</div>
+									</form>								
+								</div>
+							</div>
+						</div>	
+						<!-- /Instructor Settings -->
+						
+					</div>
+				</div>
+			</div>	
+{% endblock body %}
+
+			<!-- /Page Content -->
+
+			{% block script %}
+			<script>
+				let userprofileid=0;
+				const fileInput = document.getElementById('file-input');
+				const fileNameElement = document.getElementById('file-name');
+				const deleteButton = document.getElementById('delete-button');
+				const imgDeleteDiv = document.querySelector('.img-delete');
+				const updateButton = document.getElementById('profile_update');
+			
+				if (authenticated) {
+					console.log("called");
+					let token = authenticated;
+					const userApi = async () => {
+						await fetch(`${window.location.origin}/api/user/`, {
+							"method": "get",
+							"headers": {
+								"content-type": "application/json",
+								"Authorization": `Bearer ${token}`
+							}
+						}).then((response) => response.json())
+						.then((response) => {
+							if (response.success) {
+								userprofileid=response.data.id
+								console.log(response.data.image);
+								document.getElementById("profile_image").src = `${response.data.profile_picture}`;
+								document.getElementById("profile_image2").src = `${response.data.profile_picture}`;
+								document.getElementById("profile_username").innerHTML = `${response.data.username}`;
+			
+								if (response.data.username !== '') {
+									document.getElementById("username").value = response.data.username;
+									document.getElementById("avatar_username").innerHTML = response.data.username;
+								} else {
+									document.getElementById("username").placeholder = "Not Provided";
+								}
+			
+								if (response.data.first_name !== '') {
+									document.getElementById("first_name").value = response.data.first_name;
+								} else {
+									document.getElementById("first_name").placeholder = "Not Provided";
+								}
+			
+								if (response.data.last_name !== '') {
+									document.getElementById("last_name").value = response.data.last_name;
+								} else {
+									document.getElementById("last_name").placeholder = "Not Provided";
+								}
+			
+								if (response.data.phone) {
+									console.log("if phone");
+									document.getElementById("phone").value = response.data.phone;
+								} else {
+									console.log("else phone");
+									document.getElementById("phone").placeholder = "Not Provided";
+								}
+			
+								if (response.data.bio !== '') {
+									document.getElementById("bio").value = response.data.bio;
+								} else {
+									document.getElementById("bio").placeholder = "Not Provided";
+								}
+			
+								if (response.data.profile_picture) {
+									document.getElementById("profile_picture").src = response.data.profile_picture;
+								}
+							}
+							console.log(response);
+						});
+					};
+					userApi();
+				}
+			
+				// JavaScript to handle file input, display file name, and delete file
+				fileInput.addEventListener('change', function(event) {
+					if (fileInput.files.length > 0) {
+						const fileName = fileInput.files[0].name;
+						fileNameElement.textContent = fileName;
+						imgDeleteDiv.style.display = 'block';
+						fileNameElement.style.display = "block"; // Show the delete button
+					} else {
+						fileNameElement.textContent = '';
+						imgDeleteDiv.style.display = 'none';
+						fileNameElement.style.display = "none"; // Hide the delete button
+					}
+				});
+			
+				deleteButton.addEventListener('click', function(event) {
+					event.preventDefault();
+					fileInput.value = ''; // Clear the file input
+					fileNameElement.textContent = ''; // Reset the file name display
+					imgDeleteDiv.style.display = 'none'; // Hide the delete button
+				});
+			
+				// JavaScript to handle profile update
+				updateButton.addEventListener('click', async function(event) {
+					event.preventDefault()
+					card.style.display="none"
+			document.getElementById('phone').style.border="0.5px solid grey"
+			document.getElementById('username').style.border="0.5px solid grey"
+					const formData = new FormData();
+					formData.append('first_name', document.getElementById('first_name').value);
+					formData.append('last_name', document.getElementById('last_name').value);
+					formData.append('username', document.getElementById('username').value);
+					formData.append('phone', document.getElementById('phone').value);
+					formData.append('bio', document.getElementById('bio').value);
+			
+					if (fileInput.files.length > 0) {
+						formData.append('profile_picture', fileInput.files[0]);
+					}
+			
+					try {
+						const response = await fetch(`${window.location.origin}/api/user/${userprofileid}/`, {
+							method: 'PATCH',
+							headers: {
+								'Authorization': `Bearer ${authenticated}`
+							},
+							body: formData
+						}).then((response)=>{
+							return response.json()
+						}).then((response)=>{
+							if(response.success){
+								console.log('Profile updated successfully');
+								card.style.display = "flex";
+							card.style.borderLeft = "10px solid green";
+	
+							message_content.innerHTML = response.message;
+							message_type.innerHTML = "Success";
+							message_type.style.color = "green";
+							message_icon_parent.style.color = "green";
+							message_icon_child.classList = "fas fa-check-circle";
+	
+							setTimeout(()=>{
+								window.location.reload();
+							},2000)
+	
+							}
+							else{
+								if(response.message.username){
+
+									message_content.innerHTML = response.message.username[0];
+									document.getElementById('username').style.border="1px solid red"
+								}
+								if(response.message.profile_picture){
+									message_content.innerHTML = response.message.profile_picture[0];
+	
+								}
+								if(response.message.phone){
+									message_content.innerHTML = response.message.phone[0];
+									document.getElementById('phone').style.border="1px solid red"
+
+								}
+								if(response.message.bio){
+
+									message_content.innerHTML = response.message.bio[0];
+									document.getElementById('bio').style.border="1px solid red"
+								}
+								if(response.message.non_field_errors){
+
+									message_content.innerHTML = response.message.non_field_errors[0];
+								}
+							card.style.display = "flex";
+							card.style.borderLeft = "10px solid red";
+							message_type.innerHTML = "Error";
+							message_type.style.color = "red";
+							message_icon_parent.style.color = "red";
+							message_icon_child.classList = "fas fa-times-circle";
+							}
+						})
+					} catch (error) {
+						console.error('Error updating profile:', error);
+					}
+				});
+			</script>
+			{% endblock script %}
+			

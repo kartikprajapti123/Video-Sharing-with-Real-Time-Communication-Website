@@ -31,6 +31,7 @@ urlpatterns = [
     path('api/resend-otp/<str:token>/',ResendOtpViewSet.as_view({"post":"create"}))
     
     
+    
 
 ]
 

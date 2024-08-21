@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from user.models import User
 from utils.generate_otp import generate_otp
-
+import re
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
@@ -61,7 +61,43 @@ class UserMyProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id','username', 'first_name', 'last_name', 'email', 'profile_picture', 'phone', 'bio','uuid']
+        
+    def validate(self, attrs):
+        if not attrs.get('username'):
+            raise serializers.ValidationError("Username cannot be empty.")
+        
+        
+        user_id = self.instance.id if self.instance else None
+        
+        # Validate unique username
+        if User.objects.filter(username=attrs['username']).exclude(id=user_id).exists():
+            raise serializers.ValidationError("This username is already taken.")
+        
+        # Validate unique email
+        phone = attrs.get('phone')
+        if phone:
+            phone_regex = re.compile(r'^\+?1?\d{9,15}$')
+            if not phone_regex.match(phone):
+                raise serializers.ValidationError({"phone": "Invalid phone number format."})
 
+            # Check if phone number already exists for another user
+            if User.objects.filter(phone=phone).exclude(id=user_id).exists():
+                raise serializers.ValidationError({"phone": "A user with this phone number already exists."})
+
+        # Validate unique phone
+        profile_picture = attrs.get('profile_picture')
+        if profile_picture:
+            valid_extensions = ['jpg', 'jpeg', 'png']
+            file_extension = profile_picture.name.split('.')[-1].lower()
+            if file_extension not in valid_extensions:
+                raise serializers.ValidationError("Profile picture must be in jpg, jpeg, or png format.")
+        
+        # Profile picture validation (add any custom validation if needed)
+        bio = attrs.get('bio')
+        if bio and len(bio) < 50:
+            raise serializers.ValidationError("Bio must be at least 50 characters long.")
+        
+        return attrs
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
