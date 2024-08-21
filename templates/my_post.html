@@ -445,10 +445,9 @@
 
 
 
-	if (profile_authenticated) {
-
+	
 		console.log("Token found, making API call...");
-		let token = profile_authenticated;
+		let token = authenticated;
 
 		const userApi = async () => {
 			await fetch(`${window.location.origin}/api/user/`, {
@@ -479,9 +478,7 @@
 		userApi();
 
 
-	} else {
-		console.log("You are not logged in.");
-	}
+	
 	async function PostDelete(id) {
 		console.log("called")
 		let check = confirm("Are you sure you want to delete post ")
@@ -508,6 +505,9 @@
 					message_icon_parent.style.color = "green";
 					message_icon_child.classList = "fas fa-check-circle";
 
+					setTimeout(()=>{
+						card.style.display="none"
+					},3000)
 					userApi();
 				}
 				else {
