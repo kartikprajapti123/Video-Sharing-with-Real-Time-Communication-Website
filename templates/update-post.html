@@ -410,7 +410,10 @@ const postId = pathParts[pathParts.length - 2];
                 <!-- <span class="sr-only">Loading...</span> -->
               </div>`
               document.getElementById("post_save").disabled = true
+              document.getElementById("post_save").style.backgroundColor = "#159F46"
+              document.getElementById("post_save").style.color = "white"
 
+              
 
             const editorContent = window.editorInstance.getData();
             let formData = new FormData();
@@ -450,6 +453,12 @@ const postId = pathParts[pathParts.length - 2];
 
                         document.getElementById("post_save").innerHTML = `Save`
                         document.getElementById("post_save").disabled = false
+
+              document.getElementById("post_save").style.backgroundColor = "#159F46"
+              document.getElementById("post_save").style.color = "white"
+
+
+
   
   
                     }
@@ -464,6 +473,10 @@ const postId = pathParts[pathParts.length - 2];
 
             document.getElementById("post_save").innerHTML = `Save`
             document.getElementById("post_save").disabled = false
+            document.getElementById("post_save").style.backgroundColor = "#159F46"
+            document.getElementById("post_save").style.color = "white"
+
+
 
 
 
@@ -495,6 +508,8 @@ const postId = pathParts[pathParts.length - 2];
 
                        document.getElementById("post_load").style.display = "none"
         document.getElementById("post_save").style.display = "block"
+        document.getElementById("post_save").style.color = "#159F46"
+
                 }
             } catch (error) {
                 console.error('There was a problem updating the post.', error);

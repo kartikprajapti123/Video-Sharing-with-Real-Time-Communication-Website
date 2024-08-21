@@ -345,7 +345,7 @@
 						<div class="instructor-wrap">
 							<div class="about-instructor">
 								<div class="abt-instructor-img">
-									<a href="#" id="post_view_user_link"><img src="/static/img/user/user1.jpg" alt="img"
+									<a href="#" id="post_view_user_link"><img src="" alt="img"
 											class="img-fluid" id="post_view_user_image"></a>
 								</div>
 								<div class="instructor-detail">
@@ -645,13 +645,14 @@
 
 			post_view_bio.innerHTML = response.data.user_bio
 
-			post_view_user_profile_link.href = `/profile/${response.data.user_username}/`
+			post_view_user_profile_link.href = `/profile/${response.data.user_username}`
 
-			post_view_user_profile_image.src = `/media/${response.data.user_profile_picture}/`
+			post_view_user_profile_image.src = `/media/${response.data.user_profile_picture}`
 
 			//post_view_short_description.innerHTML = short_description
 			post_view_short_description.style.display = "none"
 
+			post_view_user_image.src=`/media/${response.data.user_profile_picture}`
 
 			post_view_title.innerHTML = response.data.title
 
@@ -659,15 +660,15 @@
 
 			post_view_description.innerHTML = response.data.description
 
-			post_view_user_link.href = `/profile/${response.data.user_username}/`
+			post_view_user_link.href = `/profile/${response.data.user_username}`
 
 			post_view_user_link.src = `/media/${response.data.user_profile_picture}`
 
 
-			post_view_user_profile_link_username.href = `/profile/${response.data.user_username}/`
+			post_view_user_profile_link_username.href = `/profile/${response.data.user_username}`
 			post_view_user_profile_link_username.innerHTML = response.data.user_username
 
-			post_view_user_profile_link_username2.href = `/profile/${response.data.user_username}/`
+			post_view_user_profile_link_username2.href = `/profile/${response.data.user_username}`
 			post_view_user_profile_link_username2.innerHTML = response.data.user_username
 
 
@@ -677,7 +678,7 @@
 
 			// Check if the video exists and set the video source and link
 			if (response.data.video) {
-				post_view_poster.src = `${response.data.video}/`;
+				post_view_poster.src = `${response.data.video}`;
 				//post_view_video_link.href = `${response.data.video}`;
 
 				// Add event listener to get the video duration once metadata is loaded
