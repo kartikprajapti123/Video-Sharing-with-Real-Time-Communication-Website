@@ -471,6 +471,10 @@ const postId = pathParts[pathParts.length - 2];
             document.getElementById("post_save").innerHTML = `<div class="spinner-border text-light" role="status">
                 <!-- <span class="sr-only">Loading...</span> -->
               </div>`
+
+              if ( document.getElementById("post_save").disabled) {
+                return;
+            }
               document.getElementById("post_save").disabled = true
               document.getElementById("post_save").style.backgroundColor = "#159F46"
               document.getElementById("post_save").style.color = "white"
