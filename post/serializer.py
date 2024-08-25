@@ -43,80 +43,79 @@ class PostSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
-        errors = {}
         print("serializer", data)
 
         # Title validation
         # if "title" not in data or not data["title"] or data["title"] == "":
-        #     errors["title"] = "Title is required."
+        #     raise serializers.ValidationError({"title": "Title is required."})
         # elif len(data["title"].strip()) <= 50:
-        #     errors["title"] = "Title must be more than 30 characters long."
+        #     raise serializers.ValidationError({"title": "Title must be more than 30 characters long."})
 
         # Description validations
         # description = data.get("description")
         # if not description or data["description"] == "":
-        #     errors["description"] = "Description is required."
+        #     raise serializers.ValidationError({"description": "Description is required."})
         # elif len(description.strip()) < 100:
-        #     errors["description"] = "Description must be at least 100 characters long."
+        #     raise serializers.ValidationError({"description": "Description must be at least 100 characters long."})
 
         # Thumbnail validation (optional field)
         thumbnail = data.get("thumbnail")
         if thumbnail:
             ext = os.path.splitext(thumbnail.name)[-1].lower()
             if ext not in [".png", ".jpeg", ".jpg"]:
-                errors["thumbnail"] = (
-                    "Invalid file type. Only .png, .jpeg, and .jpg files are allowed for thumbnails."
-                )
-                
+                raise serializers.ValidationError({
+                    "thumbnail": "Invalid file type. Only .png, .jpeg, and .jpg files are allowed for thumbnails."
+                })
+
+        # Price validation
         price = data.get("price")
         if price is None or price == "":
-            errors["price"] = "Price is required."
+            raise serializers.ValidationError({"price": "Price is required."})
         else:
             try:
-                # Attempt to convert price to a Decimal
                 decimal_price = Decimal(price)
             except InvalidOperation:
-                errors["price"] = (
-                    "Price must be a valid number with up to two decimal places."
-                )
+                raise serializers.ValidationError({
+                    "price": "Price must be a valid number with up to two decimal places."
+                })
 
-            # Check if the price is greater than 0
             if decimal_price <= 0:
-                errors["price"] = "Price must be greater than 0."
+                raise serializers.ValidationError({"price": "Price must be greater than 0."})
 
-            # Ensure the price has two decimal places
             if decimal_price != decimal_price.quantize(Decimal("0.00")):
-                errors["price"] = "Price must have up to two decimal places."
+                raise serializers.ValidationError({
+                    "price": "Price must have up to two decimal places."
+                })
 
-
-        # Video validation
-        instance = getattr(self, 'instance', None)
-
-        if not instance and 'video' not in data:
-            errors['video'] = "Video file is required."
-        elif 'video' in data:
-            video = data.get('video')
-            ext = os.path.splitext(video.name)[-1].lower()
-            if ext not in [".wav", ".mp4"]:
-                errors['video'] = "Invalid file type for video."
-            if video.size > 400 * 1024 * 1024:  # 400MB
-                errors['video'] = "Video file size should not exceed 400MB."
-
-        # Preview validation
         preview = data.get("preview")
         if preview:
             ext_preview = os.path.splitext(preview.name)[-1].lower()
             if ext_preview not in [".mp4", ".wav"]:
-                errors["preview"] = (
-                    "Invalid file type. Only '.mp4' and '.wav' files are allowed for previews."
-                )
+                raise serializers.ValidationError({
+                    "preview": "Invalid file type. Only '.mp4' and '.wav' files are allowed for previews."
+                })
             if preview.size > 100 * 1024 * 1024:  # 100MB
-                errors["preview"] = "Preview file size should not exceed 100MB."
+                raise serializers.ValidationError({
+                    "preview": "Preview file size should not exceed 100MB."
+                })
+                
+        # Video validation
+        instance = getattr(self, 'instance', None)
 
-        # Price validation
+        if not instance and 'video' not in data:
+            raise serializers.ValidationError({"video": "Video file is required."})
+        elif 'video' in data:
+            video = data.get('video')
+            ext = os.path.splitext(video.name)[-1].lower()
+            if ext not in [".wav", ".mp4"]:
+                raise serializers.ValidationError({"video": "Invalid file type for video."})
+            if video.size > 400 * 1024 * 1024:  # 400MB
+                raise serializers.ValidationError({
+                    "video": "Video file size should not exceed 400MB."
+                })
+
+        # Preview validation
         
-        if errors:
-            raise serializers.ValidationError(errors)
 
         return data
 
