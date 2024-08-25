@@ -66,6 +66,7 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "thumbnail": "Invalid file type. Only .png, .jpeg, and .jpg files are allowed for thumbnails."
                 })
+            return data
 
         # Price validation
         price = data.get("price")
@@ -86,7 +87,9 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "price": "Price must have up to two decimal places."
                 })
+            return data
 
+        # Preview validation
         preview = data.get("preview")
         if preview:
             ext_preview = os.path.splitext(preview.name)[-1].lower()
@@ -98,7 +101,8 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "preview": "Preview file size should not exceed 100MB."
                 })
-                
+            return data
+
         # Video validation
         instance = getattr(self, 'instance', None)
 
@@ -113,9 +117,7 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "video": "Video file size should not exceed 400MB."
                 })
-
-        # Preview validation
-        
+            return data
 
         return data
 
