@@ -5,17 +5,23 @@
 {% block style %}
 <style>
 	:root {
-        --plyr-color-main: #ff4667; /* Main color for the controls */
-        --plyr-control-color: #ff4667; /* Color for the control icons */
-        --plyr-control-background-hover:#fae2e0; /* Background color on hover */
-        --plyr-control-background: #fae2e0; /* Background color for controls */
-        --plyr-time-display-color: #ff4667; /* Color for the time display */
-    }
+		--plyr-color-main: #ff4667;
+		/* Main color for the controls */
+		--plyr-control-color: #ff4667;
+		/* Color for the control icons */
+		--plyr-control-background-hover: #fae2e0;
+		/* Background color on hover */
+		--plyr-control-background: #fae2e0;
+		/* Background color for controls */
+		--plyr-time-display-color: #ff4667;
+		/* Color for the time display */
+	}
 
-    /* Additional customization for light link-like color */
-    .plyr--video .plyr__controls button {
-        color: #fae2e0; /* Change this to your desired light link color */
-    }
+	/* Additional customization for light link-like color */
+	.plyr--video .plyr__controls button {
+		color: #fae2e0;
+		/* Change this to your desired light link color */
+	}
 </style>
 {% endblock style %}
 {% block link %}
@@ -32,10 +38,9 @@
 					<nav aria-label="breadcrumb" class="page-breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="/index/">Home</a></li>
-							<li class="breadcrumb-item" aria-current="page">posts</li>
+							<li class="breadcrumb-item" aria-current="page"> <a href="/mypost/">My Posts</a></li>
 							<!-- <li class="breadcrumb-item" aria-current="page">All posts</li> -->
-							<li class="breadcrumb-item" aria-current="page" id="post_view_title2">The Complete Web
-								Developer Course 2.0</li>
+							<li class="breadcrumb-item" aria-current="page" id="post_view_title2"></li>
 						</ol>
 					</nav>
 				</div>
@@ -57,7 +62,7 @@
 									class="img-fluid" id="post_view_user_profile_image"></a>
 						</div>
 						<div class="instructor-detail me-3">
-							<h5><a href="#" id="post_view_user_profile_link_username">Nicole Brown</a></h5>
+							<h5><a href="#" id="post_view_user_profile_link_username"></a></h5>
 							<!-- <p>UX/UI Designer</p> -->
 						</div>
 						<!-- <div class="rating mb-0">							
@@ -71,9 +76,8 @@
 					</div>
 					<!-- <span class="web-badge mb-3" >WEB DEVELPMENT</span> -->
 				</div>
-				<h2 id="post_view_title">The Complete Web Developer Course 2.0</h2>
-				<p id="post_view_short_description">Learn Web Development by building 25 websites and mobile apps using
-					HTML, CSS, Javascript, PHP, Python, MySQL & more!</p>
+				<h2 id="post_view_title"></h2>
+				<p id="post_view_short_description"></p>
 				<div class="course-info d-flex align-items-center border-bottom-0 m-0 p-0">
 					<!-- <div class="cou-info">
 									<img src="/static/img/icon/icon-01.svg" alt="Img">
@@ -104,45 +108,7 @@
 				<!-- Overview -->
 				<div class="card overview-sec">
 					<div class="card-body" id="post_view_description">
-						<h5 class="subs-title">Overview</h5>
-						<h6>Course Description</h6>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-							been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-							galley of type and scrambled it to make a type specimen book. It has survived not only five
-							centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-						</p>
-						<p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-							passages, and more recently with desktop publishing software like Aldus PageMaker including
-							versions of Lorem Ipsum.</p>
 
-						<h6>What you'll learn</h6>
-						<div class="row">
-							<div class="col-md-6">
-								<ul>
-									<li>Become a UX designer.</li>
-									<li>You will be able to add UX designer to your CV</li>
-									<li>Become a UI designer.</li>
-									<li>Build & test a full website design.</li>
-									<li>Build & test a full mobile app.</li>
-								</ul>
-							</div>
-							<div class="col-md-6">
-								<ul>
-									<li>Learn to design websites & mobile phone apps.</li>
-									<li>You'll learn how to choose colors.</li>
-									<li>Prototype your designs with interactions.</li>
-									<li>Export production ready assets.</li>
-									<li>All the techniques used by UX professionals</li>
-								</ul>
-							</div>
-						</div>
-						<h6>Requirements</h6>
-						<ul class="mb-0">
-							<li>You will need a copy of Adobe XD 2019 or above. A free trial can be downloaded from
-								Adobe.</li>
-							<li>No previous design experience is needed.</li>
-							<li class="mb-0">No previous Adobe XD skills are needed.</li>
-						</ul>
 					</div>
 				</div>
 				<!-- /Overview -->
@@ -345,8 +311,8 @@
 						<div class="instructor-wrap">
 							<div class="about-instructor">
 								<div class="abt-instructor-img">
-									<a href="#" id="post_view_user_link"><img src="" alt="img"
-											class="img-fluid" id="post_view_user_image"></a>
+									<a href="#" id="post_view_user_link"><img src="" alt="img" class="img-fluid"
+											id="post_view_user_image"></a>
 								</div>
 								<div class="instructor-detail">
 									<h5><a href="" id="post_view_user_profile_link_username2">Nicole Brown</a></h5>
@@ -397,10 +363,14 @@
 				<!-- /Instructor -->
 
 				<!-- Reviews -->
-				<div class="card review-sec">
-					<div class="card-body">
-						<h5 class="subs-title">Reviews</h5>
-						<div class="instructor-wrap">
+				<div class="card review-sec" id="main_comments">
+					<h5 class="subs-title" style="padding: 0px;
+    margin: 0px;
+    margin-left: 22px;
+    margin-top: 15px;
+">Comments (<span id="reviews_count"></span>)</h5>
+					<div class="card-body" id="post_reviews">
+						<!-- <div class="instructor-wrap">
 							<div class="about-instructor">
 								<div class="abt-instructor-img">
 									<a href="instructor-profile.html"><img src="/static/img/user/user1.jpg" alt="img"
@@ -411,21 +381,21 @@
 									<p>UX/UI Designer</p>
 								</div>
 							</div>
-							<!-- <div class="rating">							
+							<div class="rating">							
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star"></i>
 											<span class="d-inline-block average-rating">4.5 Instructor Rating</span>
-										</div> -->
+										</div>
 						</div>
 						<p class="rev-info">“ This is the second Photoshop course I have completed with Cristian. Worth
 							every penny and recommend it highly. To get the most out of this course, its best to to take
 							the Beginner to Advanced course first. The sound and video quality is of a good standard.
 							Thank you Cristian. “</p>
 						<a href="javascript:void(0);" class="btn btn-reply"><i class="feather-corner-up-left"></i>
-							Reply</a>
+							Reply</a> -->
 					</div>
 				</div>
 				<!-- /Reviews -->
@@ -437,24 +407,25 @@
 						<form>
 							<div class="row">
 								<div class="col-md-6">
-									<div class="input-block">
-										<input type="text" class="form-control" placeholder="Full Name">
-									</div>
+									<!-- <div class="input-block">
+										<input type="text" class="form-control" placeholder="Full Name" id="post_username">
+									</div> -->
 								</div>
 								<div class="col-md-6">
-									<div class="input-block">
-										<input type="email" class="form-control" placeholder="Email">
-									</div>
+									<!-- <div class="input-block">
+										<input type="email" class="form-control" placeholder="Email (Optional)" id="post_email">
+									</div> -->
 								</div>
 							</div>
 							<div class="input-block">
-								<input type="email" class="form-control" placeholder="Subject">
+								<!-- <input type="text" class="form-control" placeholder="Subject" id="post_subject"> -->
 							</div>
 							<div class="input-block">
-								<textarea rows="4" class="form-control" placeholder="Your Comments"></textarea>
+								<textarea rows="4" class="form-control" placeholder="Your Comments"
+									id="post_message"></textarea>
 							</div>
 							<div class="submit-section">
-								<button class="btn submit-btn" type="submit">Submit</button>
+								<button class="btn submit-btn" type="submit" id="post_comment_submit">Submit</button>
 							</div>
 						</form>
 					</div>
@@ -470,8 +441,8 @@
 					<div class="video-sec vid-bg">
 						<div class="card">
 							<div class="card-body">
-								<a href="#" class="video-thumbnail" id="post_view_video_link" data-fancybox="">
-									<video poster="#" controls   id="post_view_poster" src="#" playsinline style="width: 100%;
+								<a class="video-thumbnail" id="post_view_video_link" data-fancybox="">
+									<video poster="#" controls id="post_view_poster" src="#" playsinline style="width: 100%;
     height: 200px;
     object-fit: contain;
     object-position: center;">
@@ -494,13 +465,14 @@
 										<!-- <div class="col-md-6">
 														<a href="course-wishlist.html" class="btn btn-wish w-100"><i class="feather-heart"></i> Add to Wishlist</a>
 													</div> -->
-													<div class="col-md-6" style="width: 100%;">
-														<a href="javascript:void(0);" class="btn btn-wish w-100" id="shareButton" style="text-align: center;">
-															<i class="feather-share-2"></i> Share
-														</a>
-													</div>
-													
-													
+										<div class="col-md-6" style="width: 100%;">
+											<a href="javascript:void(0);" class="btn btn-wish w-100" id="shareButton"
+												style="text-align: center;">
+												<i class="feather-share-2"></i> Share
+											</a>
+										</div>
+
+
 									</div>
 									<a href="#" class="btn btn-enroll w-100">Purchase Now</a>
 								</div>
@@ -538,9 +510,10 @@
 									</span></li>
 								<li><img src="/static/img/icon/timer.svg" class="me-2" alt="Img"> Duration: <span
 										id="post_view_video_duration">20 hours</span></li>
-								<!-- <li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Chapters: <span>15</span></li>
-											<li><img src="/static/img/icon/video.svg" class="me-2" alt="Img"> Video:<span> 12 hours</span></li>
-											<li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Level: <span>Beginner</span></li> -->
+								<!-- <li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Chapters: <span>15</span></li> -->
+								<!-- <li><img src="/static/img/icon/video.svg" class="me-2" alt="Img"> Video:<span> 12 hours</span></li> -->
+								<li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Comments: <span
+										id="post_reviews_2"></span></li>
 							</ul>
 						</div>
 					</div>
@@ -602,12 +575,7 @@
 
 
 	fetch(`${window.location.origin}/api/upload-post/${postId}/`, {
-		"method": "get",
-		"headers": {
-			"content-type": "application/json",
-			"Authorization": `Bearer ${authenticated}`
-		},
-
+		"method": "get"
 	}).then((response) => {
 		return response.json()
 	}).then((response) => {
@@ -652,7 +620,7 @@
 			//post_view_short_description.innerHTML = short_description
 			post_view_short_description.style.display = "none"
 
-			post_view_user_image.src=`/media/${response.data.user_profile_picture}`
+			post_view_user_image.src = `/media/${response.data.user_profile_picture}`
 
 			post_view_title.innerHTML = response.data.title
 
@@ -702,21 +670,171 @@
 		controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
 	});
 	document.getElementById('shareButton').addEventListener('click', async () => {
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'Check this out!',
-                    text: 'Here is post link for you interesting I found.',
-                    url: window.location.href, // Share the current page URL
-                });
-                console.log('Sharing successful');
-            } catch (err) {
-                console.error('Error sharing:', err);
-            }
-        } else {
-            // Fallback for browsers that do not support the Web Share API
-            alert('Sharing not supported on this browser.');
-        }
-    });s
+		if (navigator.share) {
+			try {
+				await navigator.share({
+					title: 'Check this out!',
+					text: 'Here is post link for you interesting I found.',
+					url: window.location.href, // Share the current page URL
+				});
+				console.log('Sharing successful');
+			} catch (err) {
+				console.error('Error sharing:', err);
+			}
+		} else {
+			// Fallback for browsers that do not support the Web Share API
+			alert('Sharing not supported on this browser.');
+		}
+	});
+	document.getElementById("post_comment_submit").onclick = async (e) => {
+		card.style.display = "none";
+
+		e.preventDefault()
+		if (authenticated) {
+			data = {
+				"message": document.getElementById("post_message").value,
+				"post": postId
+			}
+			console.log(data)
+			await fetch(`${window.location.origin}/api/post-review/`, {
+				"method": "POST",
+				"headers": {
+					"content-type": "application/json",
+					"Authorization": `Bearer ${authenticated}`
+				},
+				"body": JSON.stringify(data)
+			}).then((response) => {
+				return response.json()
+			}).then((repsonse) => {
+				if (repsonse.success) {
+					card.style.display = "flex";
+					card.style.borderLeft = "10px solid green";
+
+					message_content.innerHTML = repsonse.message;
+					message_type.innerHTML = "Success";
+					message_type.style.color = "green";
+					message_icon_parent.style.color = "green";
+					message_icon_child.classList = "fas fa-check-circle";
+					document.getElementById("post_message").value = ""
+
+					setTimeout(() => {
+						card.style.display = "none"
+					}, 3000)
+					post_review_get(postId)
+				}
+				else {
+					if (repsonse.message.message) {
+
+						message_content.innerHTML = ` <b>Comment</b>:- ${repsonse.message.message[0]}`;
+					}
+					else {
+						message_content.innerHTML = repsonse.message;
+
+					}
+					card.style.display = "flex";
+					card.style.borderLeft = "10px solid red";
+					message_type.innerHTML = "Error";
+					message_type.style.color = "red";
+					message_icon_parent.style.color = "red";
+					message_icon_child.classList = "fas fa-times-circle";
+				}
+			})
+
+		}
+		else {
+			message_content.innerHTML = `Login to do comments`;
+			card.style.display = "flex";
+			card.style.borderLeft = "10px solid #3db5dc";
+			message_type.innerHTML = `Info`;
+			message_type.style.color = "#3db5dc";
+			message_icon_parent.style.color = "#3db5dc";
+			message_icon_child.classList = "fas fa-exclamation-circle";
+
+			setTimeout(() => {
+				card.style.display = "none"
+			}, 2500)
+		}
+	}
+
+	async function post_review_get(postID) {
+		await fetch(`${window.location.origin}/api/post-review/reviews-by-post/?no_pagination=true&post_id=${postID}`, {
+			method: "GET"
+		}).then((response) => {
+			return response.json()
+		}).then((response) => {
+			console.log("review", response)
+			if (response.success) {
+				console.log(response.data)
+				str = ``
+				count = 0
+				if (response.data.length > 0) {
+						document.getElementById('main_comments').style.display="block"
+					response.data.forEach((data) => {
+						str += `<div class="instructor-wrap" style="border-bottom:none;margin:0px;">
+							<div class="about-instructor">
+								<div class="abt-instructor-img">
+									<a href="instructor-profile.html"><img src="/media/${data.user_profile_picture}" alt="img"
+											class="img-fluid"></a>
+								</div>
+								<div class="instructor-detail">
+									<h5><a href="/profile/${data.user_username}/">${data.user_username}</a></h5>
+									<!-- <p>UX/UI Designer</p> -->
+								</div>
+							</div>
+							<ul class="nav">
+                            <li>
+                                <a href="/profile/${data.username}/" class="btn btn-success-dark"  style="height: 35px;background: #fae2e0;
+    border: 1px solid #fae2e0;
+    color: #ff4667;">View Profile</a>
+                            </li>
+                        </ul>
+							<!-- <div class="rating">							
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star"></i>
+								<span class="d-inline-block average-rating">4.5 Instructor Rating</span>
+							</div> -->
+						</div>
+						<p class="rev-info">“ ${data.message} “</p>
+						<hr>
+						<!-- <a href="javascript:void(0);" class="btn btn-reply"><i class="feather-corner-up-left"></i>
+							Reply</a> -->
+							
+							`
+
+						count = count + 1
+					})
+					document.getElementById('post_reviews').innerHTML = str
+					document.getElementById('reviews_count').innerHTML = count
+					document.getElementById('post_reviews_2').innerHTML = count
+
+
+				} else {
+					document.getElementById('main_comments').style.display="none"
+				}
+
+			} else {
+
+				message_content.innerHTML = "Oops ! Problem while getting comments";
+
+				card.style.display = "flex";
+				card.style.borderLeft = "10px solid red";
+				message_type.innerHTML = "Error";
+				message_type.style.color = "red";
+				message_icon_parent.style.color = "red";
+				message_icon_child.classList = "fas fa-times-circle";
+
+				setTimeout((repsonse) => {
+					card.style.display = "none"
+				}, 2000)
+			}
+
+		})
+	}
+	post_review_get(postId)
+
+
 </script>
 {% endblock script %}

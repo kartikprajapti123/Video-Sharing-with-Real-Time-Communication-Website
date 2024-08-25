@@ -113,10 +113,10 @@ class CreatorApprovalViewSet(ModelViewSet):
             )
 
         try:
-            instance = CreatorApproval.objects.get(user_id=user_id, deleted=0)
-            instance.deleted = 1
-            instance.status='Canceled'
-            instance.save()
+            instance = CreatorApproval.objects.get(user_id=user_id, deleted=0).delete()
+            # instance.deleted = 1
+            # instance.status='Canceled'
+            # instance.save()
             return Response(
                 {"success": True, "message": "Creator approval deleted successfully."},
                 status=status.HTTP_200_OK,

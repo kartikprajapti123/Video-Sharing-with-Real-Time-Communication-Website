@@ -8,6 +8,7 @@ from post.models import Post
 from moviepy.editor import VideoFileClip
 from decimal import Decimal, InvalidOperation
 from django.core.files.base import ContentFile
+from post.models import PostReview
 
 class PostSerializer(serializers.ModelSerializer):
     user_username = serializers.CharField(source="user.username", read_only=True)
@@ -16,7 +17,7 @@ class PostSerializer(serializers.ModelSerializer):
     )
     user_bio=serializers.CharField(source="user.bio",read_only=True)
     
-    
+    post_review_count=serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -37,6 +38,7 @@ class PostSerializer(serializers.ModelSerializer):
             "deleted",
             "created_at",
             "updated_at",
+            "post_review_count",
             "status",
         ]
 
@@ -45,17 +47,17 @@ class PostSerializer(serializers.ModelSerializer):
         print("serializer", data)
 
         # Title validation
-        if "title" not in data or not data["title"] or data["title"] == "":
-            errors["title"] = "Title is required."
-        elif len(data["title"].strip()) <= 30:
-            errors["title"] = "Title must be more than 30 characters long."
+        # if "title" not in data or not data["title"] or data["title"] == "":
+        #     errors["title"] = "Title is required."
+        # elif len(data["title"].strip()) <= 50:
+        #     errors["title"] = "Title must be more than 30 characters long."
 
         # Description validations
-        description = data.get("description")
-        if not description or data["description"] == "":
-            errors["description"] = "Description is required."
-        elif len(description.strip()) < 100:
-            errors["description"] = "Description must be at least 100 characters long."
+        # description = data.get("description")
+        # if not description or data["description"] == "":
+        #     errors["description"] = "Description is required."
+        # elif len(description.strip()) < 100:
+        #     errors["description"] = "Description must be at least 100 characters long."
 
         # Thumbnail validation (optional field)
         thumbnail = data.get("thumbnail")
@@ -179,3 +181,40 @@ class PostSerializer(serializers.ModelSerializer):
         if video and (instance.video != video):  # Check if video has changed
             validated_data['thumbnail'] = self.generate_thumbnail_from_video(video)
         return super().update(instance, validated_data)
+    
+    def get_post_review_count(self,obj):
+        id=obj.id
+        count=PostReview.objects.filter(post__id=id).count()
+        return count
+        
+        
+class PostReviewSerializer(serializers.ModelSerializer):
+    user_username = serializers.CharField(source='user.username', read_only=True)
+    post_title = serializers.CharField(source='post.title', read_only=True)  # Assuming the Post model has a title field
+    user_profile_picture=serializers.CharField(source='user.profile_picture', read_only=True)
+
+    class Meta:
+        model = PostReview
+        fields = [
+            'id',
+            'user',
+            'user_username',
+            "user_profile_picture",
+            'post',
+            'post_title',
+            'message',
+            'created_by',
+            'updated_by',
+            'deleted',
+            'created_at',
+            'updated_at'
+        ]
+        read_only_fields = ['created_at', 'updated_at']
+        
+        
+    # def validate(self, data):
+    #     message=data.get("message")
+    #     if len(message)<10:
+    #         return serializers.ValidationError("Comment length should be more than 10 chara")
+        
+    

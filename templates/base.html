@@ -115,7 +115,8 @@
 
 		<div id="card" style="transition-duration: 2s;width:100%">
 			<a href="#" id="common_message" style="display:flex;width:100%;">
-				<div class="icon" id="message-icon-parent" style="margin-right: 15px;"><i class="fas fa-times-circle " id="message-icon-child" ></i>
+				<div class="icon" id="message-icon-parent" style="margin-right: 15px;"><i class="fas fa-times-circle "
+						id="message-icon-child"></i>
 				</div>
 				<div class="subject" style="width: 100%;">
 					<h3 id="message-type">Success</h3>
@@ -259,7 +260,7 @@
 							<ul class="main-nav">
 								<li class="has-submenu">
 									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
-									<a href="#">Home </a>
+									<a href="/index/">Home </a>
 
 									<!-- <ul class="submenu">
 											<li class="active"><a href="/index/">Home</a></li>
@@ -400,12 +401,14 @@
 									</div>
 									<a class="dropdown-item" href="/myprofile/"><i class="feather-star me-1"></i>My
 										Profile</a>
-									<a class="dropdown-item" href="/mypost/"><i
-											class="feather-home me-1"></i>My Posts</a>
-									<a class="dropdown-item" href="/creator/"><i
-											class="feather-home me-1"></i>Creator Dashboared </a>
-									<a class="dropdown-item" href="/myprofileedit/"><i
-											class="feather-home me-1"></i>Settings </a>
+
+										<a class="dropdown-item" href="/upload-video/"><i class="feather-upload me-1"></i>Upload Video
+											</a>
+									<a class="dropdown-item" href="/mypost/"><i class="feather-home me-1"></i>My
+										Videos</a>
+									<a class="dropdown-item" href="/creator/"><i class="feather-pie-chart me-1"></i></i>Creator
+										Dashboared </a>
+									<a class="dropdown-item" href="/myprofileedit/"><i class="feather-settings me-1"></i>Settings </a>
 									<!-- <div class="dropdown-item night-mode">
 											<span><i class="feather-moon me-1"></i> Night Mode </span>
 											<div class="form-check form-switch check-on m-0">
@@ -604,9 +607,8 @@
 	<!-- Custom JS -->
 	<script src="/static/js/script.js"></script>
 
-
 	<script>
-		let profileId=0
+		let profileId = 0
 		const authenticated = localStorage.getItem("jerry_project_access_token");
 		const refresh_token = localStorage.getItem("jerry_project_refresh_token");
 
@@ -662,49 +664,49 @@
 					return response.json()
 				}).then((response) => {
 					if (response.success) {
-						profileId=response.data.id
+						profileId = response.data.id
 						console.log(response.data.image)
 						document.getElementById("profile_image").src = `${response.data.profile_picture}`
 						document.getElementById("profile_image2").src = `${response.data.profile_picture}`
 						document.getElementById("profile_username").innerHTML = `${response.data.username}`
-						if (response.data.profile_picture==""){
+						if (response.data.profile_picture == "") {
 
-							let profile_page_image=document.getElementById("profile_page_image")
-							if(profile_page_image){
+							let profile_page_image = document.getElementById("profile_page_image")
+							if (profile_page_image) {
 								profile_page_image.src = '/media/profile_pictures/default_profile_image.png'
 							}
-	
+
 						}
-						else{
-							let profile_page_image=document.getElementById("profile_page_image")
+						else {
+							let profile_page_image = document.getElementById("profile_page_image")
 							console.log(profile_page_image)
-							if(profile_page_image){
+							if (profile_page_image) {
 
 								profile_page_image.src = `${response.data.profile_picture}`
 							}
 						}
-	
-	
+
+
 						console.log(response.data.username)
 						if (response.data.username == "") {
-							let profile_page_username=document.getElementById("profile_page_username2")
-							if(profile_page_username){
+							let profile_page_username = document.getElementById("profile_page_username2")
+							if (profile_page_username) {
 
-								profile_page_username.innerHTML="username"
+								profile_page_username.innerHTML = "username"
 							}
-	
-	
+
+
 						}
 						else {
 
-							let profile_page_username=document.getElementById("profile_page_username2")
-							if (profile_page_username){
+							let profile_page_username = document.getElementById("profile_page_username2")
+							if (profile_page_username) {
 
-								profile_page_username.innerHTML=`${response.data.username.substring(0, 14)}...`;
+								profile_page_username.innerHTML = `${response.data.username.substring(0, 14)}...`;
 							}
-	
-	
-	
+
+
+
 						}
 						initializeWebSocket(response.data.uuid, response.data.id)
 						fetchNotificationNotRead(response.data.id)
@@ -908,20 +910,20 @@
 				console.log(existingNotification)
 				// Update the count in the existing notification
 				let countSpandot = existingNotification.querySelector('#notification_count');
-    if (!countSpandot) {
-        // Create the span if it doesn't exist
-        countSpandot = document.createElement('span');
-        countSpandot.id = 'notification_count';
-        countSpandot.style.cssText = "display: flex; position: absolute; top: 5px; left: 10px; width: 10px; height: 10px; background: green; color: #ffffff; justify-content: center; align-items: center; border-radius: 50%;";
+				if (!countSpandot) {
+					// Create the span if it doesn't exist
+					countSpandot = document.createElement('span');
+					countSpandot.id = 'notification_count';
+					countSpandot.style.cssText = "display: flex; position: absolute; top: 5px; left: 10px; width: 10px; height: 10px; background: green; color: #ffffff; justify-content: center; align-items: center; border-radius: 50%;";
 
-        // Append the span to the notification
-        const imgElement = existingNotification.querySelector('img'); // Assuming the span goes before the image
-        imgElement.parentNode.insertBefore(countSpandot, imgElement);
-    }
+					// Append the span to the notification
+					const imgElement = existingNotification.querySelector('img'); // Assuming the span goes before the image
+					imgElement.parentNode.insertBefore(countSpandot, imgElement);
+				}
 
 
 				const countSpan = existingNotification.querySelector('.dropdown-item span');
-				countSpan.style.display="block"
+				countSpan.style.display = "block"
 				const currentCount = parseInt(countSpan.textContent.replace('(', '').replace(')', ''));
 				countSpan.textContent = `(${currentCount + 1})`;
 
@@ -1012,7 +1014,7 @@
 								hour12: true
 							});
 
-							if (!data.is_read){
+							if (!data.is_read) {
 
 								str += `
 								<li data-notification-id="${data.id}" onclick="markAsRead('${data.id}')">
@@ -1042,10 +1044,10 @@
 								<hr>
 								`;
 								totalnotification += data.count;
-								}
+							}
 
-							else{
-								if (data.is_read){
+							else {
+								if (data.is_read) {
 
 									str += `
 									<li data-notification-id="${data.id}" onclick="markAsRead('${data.id}')">
@@ -1066,7 +1068,7 @@
 	
 											</div>
 											<p style="color: grey; padding: 0px 15px;">
-												<span style="float: right;">${formattedDate} ${formattedTime}</span>
+																								<span style="float: right;">${formattedDate} ${formattedTime}</span>
 											</p>
 										</a>
 									</li>
@@ -1076,11 +1078,11 @@
 								}
 							}
 						});
-if(totalnotification>0){
+						if (totalnotification > 0) {
 
-	notification_count.innerHTML = totalnotification;
-	notification_count.style.display = "block";
-}
+							notification_count.innerHTML = totalnotification;
+							notification_count.style.display = "block";
+						}
 					} else {
 						str = `
 							<li style="display: flex; justify-content: center; align-items: center; width: 100%; height: 80px;" id="notification-null">
@@ -1310,7 +1312,7 @@ if(totalnotification>0){
 
 							}
 						});
-						if(totalnotification>0){
+						if (totalnotification > 0) {
 
 							main_notification_count.innerHTML = totalnotification;
 							main_notification_count.style.display = "block";
@@ -1354,7 +1356,9 @@ if(totalnotification>0){
 	{% block script %}
 
 	{% endblock script %}
-	<script src="/static/js/owl.carousel.min.js"></script>
+
+
+
 
 </body>
 
