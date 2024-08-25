@@ -56,20 +56,20 @@
 
 
 <!-- New Course -->
-<section class="page-content course-sec" style="margin-top: 50px;">
+<section class="page-content course-sec" style="margin-top: 100px;">
     <div class="container" id="row1" style="display:block">
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="add-course-header">
-                    <h2>Update Post</h2>
+                    <h2>Update Videos</h2>
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
-                                <a href="/mypost/" class="btn btn-black">Back to Mypost</a>
+                                <a href="/mypost/" class="btn btn-black">Back to MyVideos</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Save</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -84,17 +84,17 @@
                         <div class="widget-setcount">
                             <ul id="progressbar">
                                 <li class="progress-active">
-                                    <p><span></span> Basic Information</p>
+                                    <p><span></span> Update Information</p>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <p><span></span> Post Media</p>
-                                </li>
+                                </li> -->
                                 <!-- <li>
 												<p><span></span> Curriculum</p>												
 											</li> -->
-                                <li>
+                                <!-- <li>
                                     <p><span></span> Price</p>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <!-- <div id="progress" style="display: block;">
@@ -107,12 +107,12 @@
                             <fieldset id="first">
                                 <div class="add-course-info">
                                     <div class="add-course-inner-header">
-                                        <h4>Basic Information</h4>
+                                        <h4>Update Content</h4>
                                     </div>
                                     <div class="add-course-form">
                                         <form action="#">
                                             <div class="input-block">
-                                                <label class="add-course-label">Post Title</label>
+                                                <label class="add-course-label">Title</label>
                                                 <input type="text" id="post_title" class="form-control"
                                                     placeholder="Post Title">
                                             </div>
@@ -144,15 +144,66 @@
                                                 <textarea id="description" name="description"
                                                     style="display:none;"></textarea>
                                             </div>
+                                            <div class="input-block">
+                                                <label class="add-course-label">Video </label>
+                                                <div class="relative-form">
+                                                    <span id="video-file-name">No File Selected</span>
+                                                    <label class="relative-file-upload" id="clear-video">
+                                                        Clear
+                                                    </label>
+                                                    <!-- <button  class="clear-button" style="display: none;">&times; Clear</button> -->
+                                                    <label class="relative-file-upload" id="upload-video-label">
+                                                        Upload File <input type="file" id="post_video" accept=".mp4, .wav">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="input-block">
+                                                <label class="add-course-label">Thumbnail (Leave this field empty. The thumbnail will be generated automatically from video.)</label>
+                                                <div class="relative-form">
+                                                    <span id="thumbnail-file-name">No File Selected</span>
+                                                    <label class="relative-file-upload" id="clear-thumbnail">
+                                                        Clear
+                                                    </label>
+                                                    <label class="relative-file-upload" id="upload-thumbnail-label">
+                                                        Upload File <input type="file" id="post_thumbnail" accept=".jpg ,jpeg,.png">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="input-block">
+                                                <label class="add-course-label">Preview Video (Optional) </label>
+                                                <div class="relative-form">
+                                                    <span id="preview-file-name">No File Selected</span>
+                                                    <label class="relative-file-upload" id="clear-preview">
+                                                        Clear
+                                                    </label>
+                                                    <label class="relative-file-upload" id="upload-preview-label">
+                                                        Upload File <input type="file" id="post_preview" accept=".mp4, .wav">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="input-block mb-0">
+                                                <label class="add-course-label">Price (Dollars)</label>
+                                                <input type="text" class="form-control" placeholder="example:-10.00"
+                                                    id="post_price">
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="widget-btn">
-                                        <a class="btn btn-black">Back</a>
-                                        <a class="btn btn-info-light next_btn">Continue</a>
+                                        <!-- <a class="btn btn-black">Back</a> -->
+                                        <!-- <a class="btn btn-info-light next_btn">Continue</a> -->
+                                        <ul class="nav">
+                                            <!-- <li>
+                                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                                            </li> -->
+                                            <li>
+                                                <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Update</a>
+                                            </li>
+                                            
+                                        </ul>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset class="field-card">
+                            <!-- <fieldset class="field-card">
                                 <div class="add-course-info">
                                     <div class="add-course-inner-header">
                                         <h4>Post Media</h4>
@@ -165,9 +216,9 @@
                                                     <span id="video-file-name">No File Selected</span>
                                                     <label class="relative-file-upload" id="clear-video">
                                                         Clear
-                                                    </label>
+                                                    </label> -->
                                                     <!-- <button  class="clear-button" style="display: none;">&times; Clear</button> -->
-                                                    <label class="relative-file-upload" id="upload-video-label">
+                                                    <!-- <label class="relative-file-upload" id="upload-video-label">
                                                         Upload File <input type="file" id="post_video">
                                                     </label>
                                                 </div>
@@ -225,7 +276,7 @@
 
                                     </div>
                                 </div>
-                            </fieldset>
+                            </fieldset> -->
                         </div>
                     </div>
                     <!-- /Course Wizard -->
@@ -269,7 +320,7 @@
                                 <div class="add-course-info">
                                     <div class="add-course-msg">
                                         <i class="fas fa-circle-check"></i>
-                                        <h4>Your Post has been successfully updated.</h4>
+                                        <h4>Your video has been successfully updated.</h4>
                                         <p>Our team will review your update to verify your content. This
                                             process typically takes around one day. You will be notified once
                                             the review is approved or rejected.</p>
@@ -359,7 +410,18 @@ const postId = pathParts[pathParts.length - 2];
 
         // Initialize the editor
         ClassicEditor
-            .create(document.querySelector('#editor2'))
+        .create(document.querySelector('#editor2'), {
+            removePlugins: [
+                'Image', 
+                'ImageToolbar', 
+                'ImageCaption', 
+                'ImageStyle', 
+                'ImageUpload', 
+                'EasyImage',
+                'CKFinder',
+                'MediaEmbed'
+            ]
+        })
             .then(editor => {
                 window.editorInstance = editor;
                 fetchPostData();
@@ -451,7 +513,7 @@ const postId = pathParts[pathParts.length - 2];
                         document.getElementById("row2").style.display = "block";
                         card.style.display="none"
 
-                        document.getElementById("post_save").innerHTML = `Save`
+                        document.getElementById("post_save").innerHTML = `Update`
                         document.getElementById("post_save").disabled = false
 
               document.getElementById("post_save").style.backgroundColor = "#159F46"
@@ -471,7 +533,7 @@ const postId = pathParts[pathParts.length - 2];
 			message_icon_parent.style.color = "#3db5dc";
 			message_icon_child.classList = "fas fa-exclamation-circle";
 
-            document.getElementById("post_save").innerHTML = `Save`
+            document.getElementById("post_save").innerHTML = `Update`
             document.getElementById("post_save").disabled = false
             document.getElementById("post_save").style.backgroundColor = "#159F46"
             document.getElementById("post_save").style.color = "white"
@@ -506,9 +568,11 @@ const postId = pathParts[pathParts.length - 2];
                     message_icon_child.classList = "fas fa-times-circle";
                     document.getElementById('post_form').style.display = "block";
 
-                       document.getElementById("post_load").style.display = "none"
-        document.getElementById("post_save").style.display = "block"
-        document.getElementById("post_save").style.color = "#159F46"
+                       //document.getElementById("post_load").style.display = "none"
+                       document.getElementById("post_save").innerHTML = `Update`
+                       document.getElementById("post_save").disabled = false
+                       document.getElementById("post_save").style.backgroundColor = "#159F46"
+                       document.getElementById("post_save").style.color = "white"
 
                 }
             } catch (error) {

@@ -9,7 +9,7 @@
 
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-bar breadcrumb-bar-info" style="margin-top: 74px;">
+<div class="breadcrumb-bar breadcrumb-bar-info" style="margin-top: 100px;">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-12">
@@ -51,7 +51,23 @@
 						</div>
 					</div>
 				</div>
-
+				<div class="card feature-sec">
+					<div class="card-body">
+						<div class="cat-title">
+							<h4>Highlights</h4>
+						</div>
+						<ul>
+							<li><img src="/static/img/icon/users.svg" class="me-2" alt="Img"> Followers  <span>0
+								</span></li>
+							<li><img src="/static/img/icon/timer.svg" class="me-2" alt="Img"> Videos: <span
+									id="post_view_video_duration">0 </span></li>
+							<!-- <li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Chapters: <span>15</span></li> -->
+							<!-- <li><img src="/static/img/icon/video.svg" class="me-2" alt="Img"> Video:<span> 12 hours</span></li> -->
+							<li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Video Purchased: <span
+									id="post_reviews_2">0</span></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 			<!-- /Sidebar -->
 
@@ -71,6 +87,7 @@
 										<p id="profile_page_username">Not Provided</p>
 									</div>
 								</div>
+
 								<div class="col-sm-6">
 									<div class="contact-info">
 										<h6>First Name</h6>
@@ -79,10 +96,18 @@
 								</div>
 								<div class="col-sm-6">
 									<div class="contact-info">
+										<h6>Email</h6>
+										<p id="profile_page_email">Not Provided</p>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="contact-info">
 										<h6>Last Name</h6>
 										<p id="profile_page_lastname">Not Provided</p>
 									</div>
 								</div>
+
+								
 
 
 
@@ -97,12 +122,68 @@
 					</div>
 				</div>
 
-			</div>
-			<!-- /Instructor profile -->
+				<!-- /Instructor profile -->
 
+
+				<div class="settings-widget card-info" style="margin-top: 20px;">
+					<div class="settings-menu p-0">
+						<div class="profile-heading">
+							<h3 id="other_user_username">User Videos</h3>
+							<p id="other_user_paragraph">Most Recent Videos by the User </p>
+						</div>
+						<div class="checkout-form pb-0">
+							<div class="wishlist-tab">
+								<ul class="nav">
+								</ul>
+							</div>
+
+							<div class="tab-content">
+								<div class="tab-pane fade show active" id="enroll-courses">
+									<div class="row" id="all_posts">
+
+										<!-- Course Grid -->
+
+										<!-- /Course Grid -->
+
+										<!-- Course Grid -->
+
+										<!-- /Course Grid -->
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="dash-pagination">
+					<div class="row align-items-center">
+						<div class="col-6">
+							<p class="pagination_list">Page 1 of 2</p>
+						</div>
+						<div class="col-6">
+							<ul class="pagination">
+								<li class="active">
+									<a href="#">1</a>
+								</li>
+								<li>
+									<a href="#">2</a>
+								</li>
+								<li>
+									<a href="#"><i class="bx bx-chevron-right"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>
+<!-- /Instructor Courses -->
+
 <!-- /Page Content -->
 {% endblock body %}
 
@@ -110,7 +191,7 @@
 <script>
 	const pathArray = window.location.pathname.split('/');
 	const username = pathArray[pathArray.length - 2];
-	let other_user="";
+	let other_user = "";
 	console.log("called")
 	userApi = async () => {
 		await fetch(`${window.location.origin}/api/user/retrieve-by-username/?username=${username}`, {
@@ -123,21 +204,22 @@
 		}).then((response) => {
 
 			if (response.success) {
-				other_user=response.data.id 
-				console.log(response.data.profile_picture)
+				other_user = response.data.user.id
 
-				if (response.data.profile_picture == "") {
+				console.log(response.data)
+
+				if (response.data.user.profile_picture == "") {
 					document.getElementById("profile_page_image").src = '/media/profile_pictures/default_profile_image.png'
 
 				}
 				else {
 
-					document.getElementById("profile_page_image").src = `${response.data.profile_picture}`
+					document.getElementById("profile_page_image").src = `${response.data.user.profile_picture}`
 				}
 
 
-				console.log(response.data.username)
-				if (response.data.username == "") {
+				console.log(response.data.user.username)
+				if (response.data.user.username == "") {
 					document.getElementById("profile_page_username").innerHTML = "Not Provided"
 					document.getElementById("profile_page_username2").innerHTML = "username"
 					document.getElementById("profile_page_username3").innerHTML = "Profile"
@@ -146,42 +228,56 @@
 
 				}
 				else {
-					document.getElementById("profile_page_username").innerHTML = `${response.data.username}`
-					document.getElementById("profile_page_username2").innerHTML = `${response.data.username.substring(0, 14)}...`;
-					document.getElementById("profile_page_username3").innerHTML = `${response.data.username}'s Profile`
+					document.getElementById("profile_page_username").innerHTML = `${response.data.user.username}`
+					document.getElementById("profile_page_username2").innerHTML = response.data.user.username.length > 14 ? `${response.data.user.username.substring(0, 14)}...` : response.data.user.username;
+					document.getElementById("profile_page_username3").innerHTML = `${response.data.user.username}'s Profile`
+
+	document.getElementById("other_user_username").innerHTML=`${response.data.user.username}'s Videos`
+	document.getElementById("other_user_paragraph").innerHTML=`Most Recent Videos by the ${response.data.user.username}`
+
 
 
 
 
 				}
 
-				if (response.data.first_name == "") {
+				if (response.data.user.first_name == "") {
 					document.getElementById("profile_page_firstname").innerHTML = "Not Provided"
 
 				}
 				else {
 
-					document.getElementById("profile_page_firstname").innerHTML = `${response.data.first_name}`
+					document.getElementById("profile_page_firstname").innerHTML = `${response.data.user.first_name}`
 				}
 
-				if (response.data.last_name == "") {
+				if (response.data.user.last_name == "") {
 					document.getElementById("profile_page_lastname").innerHTML = "Not Provided"
 
 				}
 				else {
 
-					document.getElementById("profile_page_lastname").innerHTML = `${response.data.last_name}`
+					document.getElementById("profile_page_lastname").innerHTML = `${response.data.user.last_name}`
 				}
-
-				if (response.data.bio == "") {
+				console.log("user_bio",response.data.user.bio )
+				if (response.data.user.bio == "") {
 					document.getElementById("profile_page_bio").innerHTML = "Not Provided"
 
 				}
 				else {
 
-					document.getElementById("profile_page_bio").innerHTML = `${response.data.bio}`
+					document.getElementById("profile_page_bio").innerHTML = `${response.data.user.bio}`
 				}
 
+				if (response.data.user.email == "") {
+					document.getElementById("profile_page_email").innerHTML = "Not Provided"
+
+				}
+				else {
+
+					document.getElementById("profile_page_email").innerHTML = `${response.data.user.email}`
+				}
+				console.log("other_user_id", other_user)
+				getUserPosts(other_user)
 
 
 			}
@@ -255,6 +351,126 @@
 
 		}
 	}
+
+
+	let currentPage = 1; // Track the current page
+let totalPages = 1;  // Total pages, initially set to 1
+
+const getUserPosts = async (id, page = 1) => {
+    await fetch(`${window.location.origin}/api/upload-post/user-approved-posts/?user_id=${id}&page=${page}`, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+        }
+    }).then(response => response.json())
+        .then(response => {
+            if (response.results) {
+                console.log("User posts fetched successfully:", response);
+
+                // Update total pages and current page
+                totalPages = Math.ceil(response.count / 10);
+				console.log(totalPages) // Assuming 10 posts per page
+                currentPage = page;
+
+                // Display posts
+                displayPosts(response.results);
+
+                // Update pagination UI
+                updatePagination();
+            } else {
+                console.log("Failed to fetch user posts.");
+            }
+        }).catch(error => {
+            console.error("Error fetching user posts:", error);
+        });
+};
+
+const displayPosts = (data) => {
+    let str = "";
+
+    if (data.data.length === 0) {
+        str = `
+        <div style="width: 100%; padding: 53px 10px; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
+            <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
+            <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
+                There are no approved posts of this user.
+            </h4>
+        </div>`;
+    } else {
+        data.data.forEach(post => {
+            const timestamp = new Date(post.created_at);
+            const formattedDate = timestamp.toLocaleDateString('en-US', {
+                month: '2-digit',
+                day: '2-digit',
+                year: 'numeric'
+            });
+            const formattedTime = timestamp.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+
+            const truncatedTitle = post.title.length > 60 ? `${post.title.substring(0, 60)}...` : post.title;
+            const videoSrc = post.preview || post.video;
+            const hoverAttributes = videoSrc ? 'onmouseover="this.play()" onmouseout="this.pause()"' : '';
+            const videoElement = videoSrc
+                ? `<video style="width: 100%; height: 200px; object-fit: contain; object-position: center;" alt="Img" src="${videoSrc}" poster="${post.thumbnail}" ${hoverAttributes} muted></video>`
+                : '<div class="video-error">No video available</div>';
+
+            str += `
+            <div class="col-xxl-4 col-md-6 d-flex">
+                <div class="course-box flex-fill">
+                    <div class="product">
+                        <div class="product-img">
+                            <a href="/post-view/${post.id}/">
+                                ${videoElement}
+                            </a>
+                            <div class="price">
+                                <h3>$${post.price}</h3>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="title instructor-text"><a href="/post-view/${post.id}/">${truncatedTitle}</a></h3>
+                            <div class="course-info d-flex align-items-center">
+                                <div class="course-view d-flex align-items-center">
+                                    <img src="/static/img/icon/icon-02.svg" alt="Img">
+                                    <p>${formattedDate} ${formattedTime}</p>
+                                </div>
+                            </div>
+                            <div class="course-edit-btn d-flex align-items-center justify-content-between">
+                                <a><i class="bx bx-comment me-2"></i>Reviews (<span>${post.post_review_count}</span>)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        });
+    }
+
+    document.getElementById('all_posts').innerHTML = str;
+};
+
+const updatePagination = () => {
+    const paginationList = document.getElementsByClassName("pagination_list")[0];
+    paginationList.innerHTML = `Page ${currentPage} of ${totalPages}`;
+
+    const pagination = document.querySelector('.pagination');
+    pagination.innerHTML = '';
+
+    // Add "Previous" button only if we're not on the first page
+    if (currentPage > 1) {
+        pagination.innerHTML += `<li><a  onclick="getUserPosts(${other_user}, ${currentPage - 1}) " style="box-shadow: 0px 0px 10px 0px gray;"><i class="bx bx-chevron-left" style="font-size:25px;"></i></a></li>`;
+    }
+
+    // Add "Next" button only if we're not on the last page
+    if (currentPage < totalPages) {
+        pagination.innerHTML += `<li><a  onclick="getUserPosts(${other_user}, ${currentPage + 1})" style="box-shadow: 0px 0px 10px 0px gray;"><i class="bx bx-chevron-right" style="font-size:25px;"></i></a></li>`;
+    }
+};
+
+// Initialize with the first page
+getUserPosts(other_user);
+
 
 </script>
 {% endblock script %}

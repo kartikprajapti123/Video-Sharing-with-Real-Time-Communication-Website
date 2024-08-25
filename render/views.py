@@ -76,4 +76,8 @@ def updatepost(request,id):
 
 def post_view(request,id):
     return render(request,"post-view.html")
+
+def search(request):
+    return render(request,"search.html")
+    
     

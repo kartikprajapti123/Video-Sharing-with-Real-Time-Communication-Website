@@ -1,6 +1,8 @@
 import threading
 from django.db import transaction
 from django.shortcuts import render
+from post.models import Post
+from post.serializer import PostSerializer
 from user.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -446,7 +448,8 @@ class UserViewSet(ModelViewSet):
     authentication_classes=[JWTAuthentication]
     
     def get_permissions(self):
-        if self.action == 'retrieve_by_username':
+        print(self.action)
+        if self.action == 'retrieve_by_username' or self.action=="get_other_users":
             self.permission_classes = [AllowAny]
             
         elif self.action == 'retrieve':
@@ -513,13 +516,18 @@ class UserViewSet(ModelViewSet):
             return Response({'success': False, 'message': 'You are not logged in refresh the page'}, status=status.HTTP_400_BAD_REQUEST)
         
         
-    @action(detail=False, methods=['post'],url_path='get-other-users')
+    @action(detail=False, methods=['GET'],url_path='get-other-users',permission_classes=[AllowAny])
     def get_other_users(self, request, *args, **kwargs):
         # Get the current authenticated user
         current_user = request.user
-        
+        print(current_user)
+        if current_user:
         # Exclude the current user from the queryset
-        users = User.objects.exclude(id=current_user.id)
+            users = User.objects.exclude(id=current_user.id)
+            
+        else:
+            users = User.objects.filter(id=current_user.id)
+            
         
         # Serialize the data
         serializer = UserSerializer(users, many=True)
@@ -536,8 +544,14 @@ class UserViewSet(ModelViewSet):
         
         try:
             user = User.objects.get(username=username)
+            
         except User.DoesNotExist:
             return Response({'success': False, 'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
         
-        serializer = UserDetailSerializer(user)
-        return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)
+        user_serilaizer = UserDetailSerializer(user)
+        
+        data={
+            "user":user_serilaizer.data,
+        
+        }
+        return Response({'success': True, 'data': data}, status=status.HTTP_200_OK)
