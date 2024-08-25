@@ -67,6 +67,27 @@ class PostSerializer(serializers.ModelSerializer):
                 errors["thumbnail"] = (
                     "Invalid file type. Only .png, .jpeg, and .jpg files are allowed for thumbnails."
                 )
+                
+        price = data.get("price")
+        if price is None or price == "":
+            errors["price"] = "Price is required."
+        else:
+            try:
+                # Attempt to convert price to a Decimal
+                decimal_price = Decimal(price)
+            except InvalidOperation:
+                errors["price"] = (
+                    "Price must be a valid number with up to two decimal places."
+                )
+
+            # Check if the price is greater than 0
+            if decimal_price <= 0:
+                errors["price"] = "Price must be greater than 0."
+
+            # Ensure the price has two decimal places
+            if decimal_price != decimal_price.quantize(Decimal("0.00")):
+                errors["price"] = "Price must have up to two decimal places."
+
 
         # Video validation
         instance = getattr(self, 'instance', None)
@@ -93,26 +114,7 @@ class PostSerializer(serializers.ModelSerializer):
                 errors["preview"] = "Preview file size should not exceed 100MB."
 
         # Price validation
-        price = data.get("price")
-        if price is None or price == "":
-            errors["price"] = "Price is required."
-        else:
-            try:
-                # Attempt to convert price to a Decimal
-                decimal_price = Decimal(price)
-            except InvalidOperation:
-                errors["price"] = (
-                    "Price must be a valid number with up to two decimal places."
-                )
-
-            # Check if the price is greater than 0
-            if decimal_price <= 0:
-                errors["price"] = "Price must be greater than 0."
-
-            # Ensure the price has two decimal places
-            if decimal_price != decimal_price.quantize(Decimal("0.00")):
-                errors["price"] = "Price must have up to two decimal places."
-
+        
         if errors:
             raise serializers.ValidationError(errors)
 

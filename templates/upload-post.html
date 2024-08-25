@@ -476,114 +476,96 @@
     //}
 
     document.getElementById("post_save").onclick = async (e) => {
-        console.log("called");
-        //document.getElementById("post_form").style.display = "none"
-        //document.getElementById("post_load").style.display = "block"
-        //document.getElementById("post_save").style.display = "none"
-        document.getElementById("post_save").innerHTML = `<div class="spinner-border text-light" role="status">
-                                    <!-- <span class="sr-only">Loading...</span> -->
-                                  </div>`
-                                  document.getElementById("post_save").disabled = true
-                    document.getElementById("post_save").style.backgroundColor = "#159F46"
-                    document.getElementById("post_save").style.color = "white"
-
-
-
         e.preventDefault();
-        //document.getElementById("progress").style.display = "block"
-        //updateProgressBar(10);
-
+    
+        // Disable the button and show the spinner
+        const postSaveButton = document.getElementById("post_save");
+        if (postSaveButton.disabled) {
+            return;
+        }
+        postSaveButton.innerHTML = `<div class="spinner-border text-light" role="status"></div>`;
+        postSaveButton.disabled = true;
+        postSaveButton.style.backgroundColor = "#159F46";
+        postSaveButton.style.color = "white";
+    
+        // Prepare the data to be sent
         const editorContent = window.editorInstance.getData();
-        card.style.display = "none";
-
         let formData = new FormData();
-        //updateProgressBar(40);
-        // Append text data
         formData.append("title", post_title.value);
         formData.append("description", editorContent);
         formData.append("price", post_price.value);
-
+    
         // Append files if they exist
         if (post_video.files[0]) {
             formData.append("video", post_video.files[0]);
         }
-
         if (post_thumbnail.files[0]) {
             formData.append("thumbnail", post_thumbnail.files[0]);
         }
-
         if (post_preview.files[0]) {
             formData.append("preview", post_preview.files[0]);
         }
-
-
-
-        await fetch(`${window.location.origin}/api/upload-post/`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${authenticated}`
-                // Note: Do not set "Content-Type" header; let the browser set it for FormData
-            },
-            body: formData
-        })
-            .then(response => response.json())
-            .then(response => {
-                if (response.success) {
-                    //updateProgressBar(100);
-
-                    card.style.display = "none";
-                    document.getElementById('row1').style.display = "none"
-                    document.getElementById("row2").style.display = "block"
-
-                    document.getElementById("post_save").innerHTML = `Publish`
-                      document.getElementById("post_save").disabled = false
-                      document.getElementById("post_save").style.backgroundColor = "#159F46"
-                      document.getElementById("post_save").style.color = "white"
-
-
-                    //document.getElementById("progress").style.display = "none"
-
-
-
-                } else {
-                    // Handle errors
-                    let errorMessage = "";
-                    if (response.message.title) {
-                        errorMessage = response.message.title[0];
-                    } else if (response.message.description) {
-                        errorMessage = response.message.description[0];
-                    } else if (response.message.video) {
-                        errorMessage = response.message.video[0];
-                    } else if (response.message.thumbnail) {
-                        errorMessage = response.message.thumbnail[0];
-                    } else if (response.message.preview) {
-                        errorMessage = response.message.preview[0];
-                    } else if (response.message.price) {
-                        errorMessage = response.message.price[0];
-                    }
-
-                    message_content.innerHTML = errorMessage;
-                    card.style.display = "flex";
-                    card.style.borderLeft = "10px solid red";
-                    message_type.innerHTML = "Error";
-                    message_type.style.color = "red";
-                    message_icon_parent.style.color = "red";
-                    message_icon_child.classList = "fas fa-times-circle";
-                    document.getElementById('post_form').style.display = "block"
-
-                    document.getElementById("post_save").innerHTML = `Publish`
-                    document.getElementById("post_save").disabled = false
-                    document.getElementById("post_save").style.backgroundColor = "#159F46"
-                    document.getElementById("post_save").style.color = "white"
-
-
-                    //document.getElementById("progress").style.display = "none"
-
-                    //updateProgressBar(0);
-
-                }
+    
+        try {
+            // Make the request
+            const response = await fetch(`${window.location.origin}/api/upload-post/`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${authenticated}`
+                },
+                body: formData
             });
+    
+            const result = await response.json();
+    
+            if (response.ok) {
+                // Handle success
+                document.getElementById('row1').style.display = "none";
+                document.getElementById("row2").style.display = "block";
+            } else {
+                // Handle errors
+                let errorMessage = "An error occurred";
+                if (result.message.title) {
+                    errorMessage = result.message.title[0];
+                } else if (result.message.description) {
+                    errorMessage = result.message.description[0];
+                } else if (result.message.video) {
+                    errorMessage = result.message.video[0];
+                } else if (result.message.thumbnail) {
+                    errorMessage = result.message.thumbnail[0];
+                } else if (result.message.preview) {
+                    errorMessage = result.message.preview[0];
+                } else if (result.message.price) {
+                    errorMessage = result.message.price[0];
+                }
+    
+                message_content.innerHTML = errorMessage;
+                card.style.display = "flex";
+                card.style.borderLeft = "10px solid red";
+                message_type.innerHTML = "Error";
+                message_type.style.color = "red";
+                message_icon_parent.style.color = "red";
+                message_icon_child.classList = "fas fa-times-circle";
+                document.getElementById('post_form').style.display = "block";
+            }
+        } catch (error) {
+            // Handle network or other unexpected errors
+            console.error('Error:', error);
+            message_content.innerHTML = "Failed to upload the post. Please try again later.";
+            card.style.display = "flex";
+            card.style.borderLeft = "10px solid red";
+            message_type.innerHTML = "Error";
+            message_type.style.color = "red";
+            message_icon_parent.style.color = "red";
+            message_icon_child.classList = "fas fa-times-circle";
+            document.getElementById('post_form').style.display = "block";
+        } finally {
+            // Re-enable the button
+            postSaveButton.innerHTML = `Publish`;
+            postSaveButton.disabled = false;
+        }
     };
+    
 
     function reversefunction(e) {
         window.location.reload()
