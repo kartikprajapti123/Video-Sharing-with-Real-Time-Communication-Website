@@ -59,6 +59,9 @@ class PostSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError({"description": "Description must be at least 100 characters long."})
 
         # Thumbnail validation (optional field)
+        instance = getattr(self, 'instance', None)
+        preview = data.get("preview")
+        price = data.get("price")
         thumbnail = data.get("thumbnail")
         if thumbnail:
             ext = os.path.splitext(thumbnail.name)[-1].lower()
@@ -66,13 +69,12 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "thumbnail": "Invalid file type. Only .png, .jpeg, and .jpg files are allowed for thumbnails."
                 })
-            return data
 
         # Price validation
-        price = data.get("price")
-        if price is None or price == "":
+        elif price is None or price == "":
             raise serializers.ValidationError({"price": "Price is required."})
-        else:
+        
+        elif price:
             try:
                 decimal_price = Decimal(price)
             except InvalidOperation:
@@ -87,11 +89,8 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "price": "Price must have up to two decimal places."
                 })
-            return data
 
-        # Preview validation
-        preview = data.get("preview")
-        if preview:
+        elif preview:
             ext_preview = os.path.splitext(preview.name)[-1].lower()
             if ext_preview not in [".mp4", ".wav"]:
                 raise serializers.ValidationError({
@@ -101,12 +100,10 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "preview": "Preview file size should not exceed 100MB."
                 })
-            return data
-
+                
         # Video validation
-        instance = getattr(self, 'instance', None)
 
-        if not instance and 'video' not in data:
+        elif not instance and 'video' not in data:
             raise serializers.ValidationError({"video": "Video file is required."})
         elif 'video' in data:
             video = data.get('video')
@@ -117,7 +114,9 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "video": "Video file size should not exceed 400MB."
                 })
-            return data
+
+        # Preview validation
+        
 
         return data
 
