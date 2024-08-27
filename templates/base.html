@@ -1359,25 +1359,29 @@
 		}
 
 		function sharebutton(username) {
-			document.getElementById('share-button').addEventListener('click', function(event) {
-				event.preventDefault();
-				
-				const shareUrl = `${window.location.origin}/user-profile/${username}`;
-		
-				if (navigator.share) {
-					navigator.share({
-						title: 'User profile',
-						text: 'Check out this Link!',
-						url: shareUrl, // Use the dynamic URL
-					}).then(() => {
-						console.log('Thanks for sharing!');
-					}).catch((error) => {
-						console.log('Something went wrong', error);
-					});
-				} else {
-					alert('Sharing not supported on this browser.');
-				}
-			});
+			const shareButtonElement = document.getElementById('share-button');
+			
+			if (shareButtonElement) {
+				shareButtonElement.addEventListener('click', function(event) {
+					event.preventDefault();
+					
+					const shareUrl = `${window.location.origin}/user-profile/${username}`;
+			
+					if (navigator.share) {
+						navigator.share({
+							title: 'User profile',
+							text: 'Check out this Link!',
+							url: shareUrl, // Use the dynamic URL
+						}).then(() => {
+							console.log('Thanks for sharing!');
+						}).catch((error) => {
+							console.log('Something went wrong', error);
+						});
+					} else {
+						alert('Sharing not supported on this browser.');
+					}
+				});
+			}
 		}
 		
 
