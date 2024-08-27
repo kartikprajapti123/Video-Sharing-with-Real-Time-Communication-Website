@@ -400,8 +400,14 @@
 							window.location.href = "/contact-list/";
 						}, 1000);
 					} else {
-						console.log(conversationData);
-						showMessage("Failed to create conversation.", "error");
+						card.style.display = "flex";
+			card.style.borderLeft = "10px solid #3db5dc";
+
+			message_content.innerHTML = "You cannot create conversations yourself.";
+			message_type.innerHTML = "Info";
+			message_type.style.color = "#3db5dc";
+			message_icon_parent.style.color = "#3db5dc";
+			message_icon_child.classList = "fas fa-exclamation-circle";
 					}
 				} else {
 					console.log(userData);
