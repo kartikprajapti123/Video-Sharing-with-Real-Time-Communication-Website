@@ -357,7 +357,7 @@
                                         </a>
                                         <a href="/upload-video/" class="add-course btn-primary">
                                             <i class="fas fa-upload"></i> Upload New Video
-                                          </a>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -571,15 +571,7 @@
                                 <div class="col-6"
                                     style="z-index: 1000 !important;display:flex;justify-content:center;">
                                     <ul class="pagination">
-                                        <li class="active">
-                                            <a href="#">1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="bx bx-chevron-right"></i></a>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -587,573 +579,321 @@
 
 
                         <div class="dashboard-title">
-                            <h4>Recently Uploaded Videos</h4>
+                            <h4>Uploaded Videos Status</h4>
                         </div>
-                        <div class="row" id="grid_videos">
+                        <div class="row">
 
                             <!-- Course Grid -->
-                            <div class="col-xxl-4 col-md-6 d-flex">
-                                <div class="course-box flex-fill">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <a href="course-details.html">
-                                                <img class="img-fluid" alt="Img" src="/static/img/course/course-02.jpg">
-                                            </a>
-                                            <div class="price">
-                                                <h3>$80 <span>$99.00</span></h3>
-                                            </div>
+
+                            <div class="settings-widget card-info">
+                                <div class="settings-menu p-0">
+                                    <div class="profile-heading">
+                                        <h3>Video Status</h3>
+                                        <p>Manage the status of your videos and updates here.</p>
+                                    </div>
+                                    <div class="checkout-form pb-0">
+                                        <div class="wishlist-tab">
+                                            <ul class="nav">
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="active" data-bs-toggle="tab"
+                                                        data-bs-target="#enroll-courses">Approved (<span
+                                                            id="approved_count"></span>)</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" data-bs-toggle="tab"
+                                                        data-bs-target="#active-courses">Pending (<span
+                                                            id="pending_count"></span>)</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" data-bs-toggle="tab"
+                                                        data-bs-target="#complete-courses">Canceled (<span
+                                                            id="canceled_count"></span>)</a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="product-content">
-                                            <div class="course-group d-flex">
-                                                <div class="course-group-img d-flex">
-                                                    <a href="instructor-profile.html"><img
-                                                            src="/static/img/user/user2.jpg" alt="Img"
-                                                            class="img-fluid"></a>
-                                                    <div class="course-name">
-                                                        <h4><a href="instructor-profile.html">Cooper</a></h4>
-                                                        <p>Instructor</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="course-share d-flex align-items-center justify-content-center">
-                                                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                                                </div>
-                                            </div>
-                                            <h3 class="title instructor-text"><a href="course-details.html">Wordpress
-                                                    for Beginners - Master Wordpress Quickly</a></h3>
-                                            <div class="course-info d-flex align-items-center">
-                                                <div class="rating-img d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-01.svg" alt="Img">
-                                                    <p>12+ Lesson</p>
-                                                </div>
-                                                <div class="course-view d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-02.svg" alt="Img">
-                                                    <p>70hr 30min</p>
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="enroll-courses">
+                                                <div class="row" id="video-approved">
+
+                                                    <!-- Course Grid -->
+
+                                                    <!-- /Course Grid -->
+
+                                                    <!-- Course Grid -->
+
+                                                    <!-- /Course Grid -->
+
                                                 </div>
                                             </div>
-                                            <div class="rating mb-0">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating"><span>5.0</span> (20)</span>
+
+                                            <div class="tab-pane fade" id="active-courses">
+                                                <div class="row" id="video-pending">
+
+                                                    <!-- Course Grid -->
+                                                    <!-- /Course Grid -->
+
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="complete-courses">
+                                                <div class="row" id="video-canceled">
+
+                                                    <!-- Course Grid -->
+                                                    <!-- /Course Grid -->
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- /Course Grid -->
 
-                            <!-- Course Grid -->
-                            <div class="col-xxl-4 col-md-6 d-flex">
-                                <div class="course-box flex-fill">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <a href="course-details.html">
-                                                <img class="img-fluid" alt="Img" src="/static/img/course/course-03.jpg">
-                                            </a>
-                                            <div class="price combo">
-                                                <h3>FREE</h3>
-                                            </div>
+                            <!-- <div class="dash-pagination">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <p class="pagination_list">Page 1 of 2</p>
                                         </div>
-                                        <div class="product-content">
-                                            <div class="course-group d-flex">
-                                                <div class="course-group-img d-flex">
-                                                    <a href="instructor-profile.html"><img
-                                                            src="/static/img/user/user5.jpg" alt="Img"
-                                                            class="img-fluid"></a>
-                                                    <div class="course-name">
-                                                        <h4><a href="instructor-profile.html">Jenny</a></h4>
-                                                        <p>Instructor</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="course-share d-flex align-items-center justify-content-center">
-                                                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                                                </div>
-                                            </div>
-                                            <h3 class="title instructor-text"><a href="course-details.html">Sketch from
-                                                    A to Z (2022): Become an app designer</a></h3>
-                                            <div class="course-info d-flex align-items-center">
-                                                <div class="rating-img d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-01.svg" alt="Img">
-                                                    <p>10+ Lesson</p>
-                                                </div>
-                                                <div class="course-view d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-02.svg" alt="Img">
-                                                    <p>40hr 10min</p>
-                                                </div>
-                                            </div>
-                                            <div class="rating mb-0">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating"><span>3.0</span> (18)</span>
-                                            </div>
+                                        <div class="col-6">
+                                            <ul class="pagination">
+                                                <li class="active">
+                                                    <a href="#">1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">2</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="bx bx-chevron-right"></i></a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- /Course Grid -->
+                                </div> -->
 
-                            <!-- Course Grid -->
-                            <div class="col-xxl-4 col-md-6 d-flex">
-                                <div class="course-box flex-fill">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <a href="course-details.html">
-                                                <img class="img-fluid" alt="Img" src="/static/img/course/course-04.jpg">
-                                            </a>
-                                            <div class="price">
-                                                <h3>$65 <span>$70.00</span></h3>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="course-group d-flex">
-                                                <div class="course-group-img d-flex">
-                                                    <a href="instructor-profile.html"><img
-                                                            src="/static/img/user/user4.jpg" alt="Img"
-                                                            class="img-fluid"></a>
-                                                    <div class="course-name">
-                                                        <h4><a href="instructor-profile.html">Nicole Brown</a></h4>
-                                                        <p>Instructor</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="course-share d-flex align-items-center justify-content-center">
-                                                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                                                </div>
-                                            </div>
-                                            <h3 class="title instructor-text"><a href="course-details.html">Learn
-                                                    Angular Fundamentals From beginning to advance lavel</a></h3>
-                                            <div class="course-info d-flex align-items-center">
-                                                <div class="rating-img d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-01.svg" alt="Img">
-                                                    <p>15+ Lesson</p>
-                                                </div>
-                                                <div class="course-view d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-02.svg" alt="Img">
-                                                    <p>80hr 40min</p>
-                                                </div>
-                                            </div>
-                                            <div class="rating mb-0">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating"><span>4.0</span> (10)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Course Grid -->
-
-                            <!-- Course Grid -->
-                            <div class="col-xxl-4 col-md-6 d-flex">
-                                <div class="course-box flex-fill">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <a href="course-details.html">
-                                                <img class="img-fluid" alt="Img" src="/static/img/course/course-05.jpg">
-                                            </a>
-                                            <div class="price combo">
-                                                <h3>FREE</h3>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="course-group d-flex">
-                                                <div class="course-group-img d-flex">
-                                                    <a href="instructor-profile.html"><img
-                                                            src="/static/img/user/user3.jpg" alt="Img"
-                                                            class="img-fluid"></a>
-                                                    <div class="course-name">
-                                                        <h4><a href="instructor-profile.html">John Smith</a></h4>
-                                                        <p>Instructor</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="course-share d-flex align-items-center justify-content-center">
-                                                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                                                </div>
-                                            </div>
-                                            <h3 class="title instructor-text"><a href="course-details.html">Build
-                                                    Responsive Real World Websites with Crash Course</a></h3>
-                                            <div class="course-info d-flex align-items-center">
-                                                <div class="rating-img d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-01.svg" alt="Img">
-                                                    <p>12+ Lesson</p>
-                                                </div>
-                                                <div class="course-view d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-02.svg" alt="Img">
-                                                    <p>70hr 30min</p>
-                                                </div>
-                                            </div>
-                                            <div class="rating mb-0">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating"><span>4.0</span> (15)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Course Grid -->
-
-                            <!-- Course Grid -->
-                            <div class="col-xxl-4 col-md-6 d-flex">
-                                <div class="course-box flex-fill">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <a href="course-details.html">
-                                                <img class="img-fluid" alt="Img" src="/static/img/course/course-07.jpg">
-                                            </a>
-                                            <div class="price">
-                                                <h3>$70 <span>$80.00</span></h3>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="course-group d-flex">
-                                                <div class="course-group-img d-flex">
-                                                    <a href="instructor-profile.html"><img
-                                                            src="/static/img/user/user6.jpg" alt="Img"
-                                                            class="img-fluid"></a>
-                                                    <div class="course-name">
-                                                        <h4><a href="instructor-profile.html">Stella Johnson</a></h4>
-                                                        <p>Instructor</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="course-share d-flex align-items-center justify-content-center">
-                                                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                                                </div>
-                                            </div>
-                                            <h3 class="title instructor-text"><a href="course-details.html">Learn
-                                                    JavaScript and Express to become a Expert</a></h3>
-                                            <div class="course-info d-flex align-items-center">
-                                                <div class="rating-img d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-01.svg" alt="Img">
-                                                    <p>15+ Lesson</p>
-                                                </div>
-                                                <div class="course-view d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-02.svg" alt="Img">
-                                                    <p>70hr 30min</p>
-                                                </div>
-                                            </div>
-                                            <div class="rating mb-0">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating"><span>4.6</span> (15)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Course Grid -->
-
-                            <!-- Course Grid -->
-                            <div class="col-xxl-4 col-md-6 d-flex">
-                                <div class="course-box flex-fill">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <a href="course-details.html">
-                                                <img class="img-fluid" alt="Img" src="/static/img/course/course-08.jpg">
-                                            </a>
-                                            <div class="price combo">
-                                                <h3>FREE</h3>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="course-group d-flex">
-                                                <div class="course-group-img d-flex">
-                                                    <a href="instructor-profile.html"><img
-                                                            src="/static/img/user/user1.jpg" alt="Img"
-                                                            class="img-fluid"></a>
-                                                    <div class="course-name">
-                                                        <h4><a href="instructor-profile.html">Nicole Brown</a></h4>
-                                                        <p>Instructor</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="course-share d-flex align-items-center justify-content-center">
-                                                    <a href="#"><i class="fa-regular fa-heart"></i></a>
-                                                </div>
-                                            </div>
-                                            <h3 class="title instructor-text"><a href="course-details.html">Introduction
-                                                    to Programming- Python & Java</a></h3>
-                                            <div class="course-info d-flex align-items-center">
-                                                <div class="rating-img d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-01.svg" alt="Img">
-                                                    <p>10+ Lesson</p>
-                                                </div>
-                                                <div class="course-view d-flex align-items-center">
-                                                    <img src="/static/img/icon/icon-02.svg" alt="Img">
-                                                    <p>70hr 30min</p>
-                                                </div>
-                                            </div>
-                                            <div class="rating mb-0">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating"><span>5.0</span> (13)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Course Grid -->
+                            <!-- /Instructor Courses -->
 
                         </div>
+                        <!-- /Course Grid -->
+
                     </div>
-                    <div class="dash-pagination">
-                        <div class="row align-items-center">
-                            <div class="col-6" style="z-index: 1000 !important;display:flex;justify-content:center;">
-                                <p class="pagination_list2" style="color: #ff4667;"></p>
-                            </div>
-                            <div class="col-6" style="z-index: 1000 !important;display:flex;justify-content:center;">
-                                <ul class="pagination2">
-                                    <li class="active">
-                                        <a href="#">1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="bx bx-chevron-right"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Student Dashboard -->
-
                 </div>
+
+                <!-- Student Dashboard -->
+
             </div>
         </div>
-        <!-- /Page Content -->
-
-        <!-- Footer -->
     </div>
+    <!-- /Page Content -->
 
-
-    <!-- /New Course -->
-
-    {% endblock body %}
     <!-- Footer -->
-    {% block script %}
-    <script>
-        const creater_become_save = document.getElementById("creater_become_save")
-        const creator_become_form = document.getElementById("creator_become_form")
-        const creator_become_list = document.getElementById("creator_become_list")
-
-        const pending = document.getElementById("pending")
-        const cancelled = document.getElementById("cancelled")
-        const approved = document.getElementById("approved")
-        const apply = document.getElementById("apply")
-
-        const apply_again = document.getElementById("apply_again")
-
-        const creator_become_success = document.getElementById("creator_become_success")
-        let user_id = 0;
-        let username = "";
-        userApi = async () => {
-            await fetch(`${window.location.origin}/api/user/`, {
-                "method": "get",
-                "headers": {
-                    "content-type": "application/json",
-                    "Authorization": `Bearer ${authenticated}`
-                }
-            }).then((response) => {
-                return response.json()
-            }).then((response) => {
-                if (response.success) {
-                    user_id = response.data.id
-                    username = response.data.username
-                    data = {
-                        "user": user_id
-                    }
-                    fetch(`${window.location.origin}/api/creator-approval/create_approval_status/`, {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json",
-                            "Authorization": `Bearer ${authenticated}`
-                        },
-                        body: JSON.stringify(data)
-                    }).then((response) => {
-                        return response.json()
-                    }).then((response) => {
-                        console.log("amin", response)
-                        if (response.status == 'pending') {
-                            pending.style.display = "block"
-                        }
-                        else if (response.status == "None") {
-                            apply.style.display = "block"
-                        }
-                        else if (response.status == "canceled") {
-                            console.log("cancelled")
-                            cancelled.style.display = "block"
-                        }
-                        else if (response.status == "approved") {
-                            approved.style.display = "block"
-                            getUserPosts(1);
-                            getUserPosts2(1);
-
-                            all_dashbored_data();
+</div>
 
 
+<!-- /New Course -->
 
-                        }
+{% endblock body %}
+<!-- Footer -->
+{% block script %}
+<script>
+    const creater_become_save = document.getElementById("creater_become_save")
+    const creator_become_form = document.getElementById("creator_become_form")
+    const creator_become_list = document.getElementById("creator_become_list")
 
-                    })
+    const pending = document.getElementById("pending")
+    const cancelled = document.getElementById("cancelled")
+    const approved = document.getElementById("approved")
+    const apply = document.getElementById("apply")
 
+    const apply_again = document.getElementById("apply_again")
 
-                }
-                console.log(response)
-            })
-        }
-        userApi()
-
-
-        creater_become_save.onclick = become_creator
-        async function become_creator(e) {
-            card.style.display = "none";
-            e.preventDefault();
-
-            // Get the values from the form
-            const terms_of_service = document.querySelector('input[name="terms_of_service"]:checked');
-            const age = document.querySelector('input[name="age"]:checked');
-            const gender = document.querySelector('input[name="gender"]:checked');
-
-            // Prepare the data object
-            const data = {
-                terms_of_service: terms_of_service ? terms_of_service.id === 'terms_yes' : null,
-                age: age ? age.id === 'age_above' : "",  // true for 'above 21', false for 'below 21'
-                gender: gender ? gender.id.replace('gender_', '') : null,
-                user: user_id,
-                // 'male', 'female', or 'other'
-            };
-
-            console.log(data)
-            // Send the data to the server
-            await fetch(`${window.location.origin}/api/creator-approval/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${authenticated}`
-                },
-                body: JSON.stringify(data)
-            }).then((response) => {
-                return response.json();
-            }).then((response) => {
-                if (response.success) {
-                    card.style.display = "none";
-
-                    creator_become_form.style.display = "none";
-                    creator_become_success.style.display = "block";
-                    creator_become_list.style.display = "none"
-                    creater_become_save.style.display = "none"
-                }
-                if (response.success == false) {
-                    if (response.message['gender']) {
-
-                        message_content.innerHTML = response.message["gender"][0];
-                    }
-                    else if (response.message['age']) {
-                        message_content.innerHTML = response.message["age"][0];
-
-                    }
-                    else if (response.message['terms_of_service']) {
-                        message_content.innerHTML = response.message["terms_of_service"][0];
-
-                    }
-                    else if (response.message['non_field_errors']) {
-                        message_content.innerHTML = response.message["non_field_errors"][0];
-
-                    }
-                    card.style.display = "block";
-                    card.style.borderLeft = "10px solid red";
-                    message_type.innerHTML = "Error";
-                    message_type.style.color = "red";
-                    message_icon_parent.style.color = "red";
-                    message_icon_child.classList = "fas fa-times-circle";
-                }
-            })
-        }
-
-        apply_again.onclick = apply_agagin
-        async function apply_agagin(e) {
-            e.preventDefault();
-            data = {
-                user_id: user_id
+    const creator_become_success = document.getElementById("creator_become_success")
+    let user_id = 0;
+    let username = "";
+    userApi = async () => {
+        await fetch(`${window.location.origin}/api/user/`, {
+            "method": "get",
+            "headers": {
+                "content-type": "application/json",
+                "Authorization": `Bearer ${authenticated}`
             }
-            // Get the values from the form
-            await fetch(`${window.location.origin}/api/creator-approval/delete-creator/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${authenticated}`
-                },
-                body: JSON.stringify(data)
-            }).then((response) => {
-                return response.json();
-            }).then((response) => {
-                if (response.success) {
-                    apply.style.display = "block"
-                    cancelled.style.display = "none"
+        }).then((response) => {
+            return response.json()
+        }).then((response) => {
+            if (response.success) {
+                user_id = response.data.id
+                username = response.data.username
+                data = {
+                    "user": user_id
                 }
-            })
-        }
-
-
-        const getUserPosts = async (page) => {
-            console.log(page)
-            await fetch(`${window.location.origin}/api/upload-post/?page=${page}&user_username=${username}`, {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json",
-                }
-            }).then(response => response.json())
-                .then(response => {
-                    if (response.results) {
-                        console.log("User posts fetched successfully:", response);
-
-                        // Update total pages and current page
-                        totalPages = Math.ceil(response.count / 10);
-                        console.log(totalPages) // Assuming 10 posts per page
-                        currentPage = page;
-
-                        // Display posts
-                        displayPosts(response.results);
-
-
-                        // Update pagination UI
-                        updatePagination();
-                    } else {
-                        console.log("Failed to fetch user posts.");
+                fetch(`${window.location.origin}/api/creator-approval/create_approval_status/`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${authenticated}`
+                    },
+                    body: JSON.stringify(data)
+                }).then((response) => {
+                    return response.json()
+                }).then((response) => {
+                    console.log("amin", response)
+                    if (response.status == 'pending') {
+                        pending.style.display = "block"
                     }
-                }).catch(error => {
-                    console.error("Error fetching user posts:", error);
-                });
+                    else if (response.status == "None") {
+                        apply.style.display = "block"
+                    }
+                    else if (response.status == "canceled") {
+                        console.log("cancelled")
+                        cancelled.style.display = "block"
+                    }
+                    else if (response.status == "approved") {
+                        approved.style.display = "block"
+                        getUserPosts(1);
+                        getUserPosts2(1);
+
+                        all_dashbored_data();
+
+
+
+                    }
+
+                })
+
+
+            }
+            console.log(response)
+        })
+    }
+    userApi()
+
+
+    creater_become_save.onclick = become_creator
+    async function become_creator(e) {
+        card.style.display = "none";
+        e.preventDefault();
+
+        // Get the values from the form
+        const terms_of_service = document.querySelector('input[name="terms_of_service"]:checked');
+        const age = document.querySelector('input[name="age"]:checked');
+        const gender = document.querySelector('input[name="gender"]:checked');
+
+        // Prepare the data object
+        const data = {
+            terms_of_service: terms_of_service ? terms_of_service.id === 'terms_yes' : null,
+            age: age ? age.id === 'age_above' : "",  // true for 'above 21', false for 'below 21'
+            gender: gender ? gender.id.replace('gender_', '') : null,
+            user: user_id,
+            // 'male', 'female', or 'other'
         };
 
-        const displayPosts = (data) => {
-            let str = "";
+        console.log(data)
+        // Send the data to the server
+        await fetch(`${window.location.origin}/api/creator-approval/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authenticated}`
+            },
+            body: JSON.stringify(data)
+        }).then((response) => {
+            return response.json();
+        }).then((response) => {
+            if (response.success) {
+                card.style.display = "none";
 
-            if (data.data.length === 0) {
-                str = `
+                creator_become_form.style.display = "none";
+                creator_become_success.style.display = "block";
+                creator_become_list.style.display = "none"
+                creater_become_save.style.display = "none"
+            }
+            if (response.success == false) {
+                if (response.message['gender']) {
+
+                    message_content.innerHTML = response.message["gender"][0];
+                }
+                else if (response.message['age']) {
+                    message_content.innerHTML = response.message["age"][0];
+
+                }
+                else if (response.message['terms_of_service']) {
+                    message_content.innerHTML = response.message["terms_of_service"][0];
+
+                }
+                else if (response.message['non_field_errors']) {
+                    message_content.innerHTML = response.message["non_field_errors"][0];
+
+                }
+                card.style.display = "block";
+                card.style.borderLeft = "10px solid red";
+                message_type.innerHTML = "Error";
+                message_type.style.color = "red";
+                message_icon_parent.style.color = "red";
+                message_icon_child.classList = "fas fa-times-circle";
+            }
+        })
+    }
+
+    apply_again.onclick = apply_agagin
+    async function apply_agagin(e) {
+        e.preventDefault();
+        data = {
+            user_id: user_id
+        }
+        // Get the values from the form
+        await fetch(`${window.location.origin}/api/creator-approval/delete-creator/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authenticated}`
+            },
+            body: JSON.stringify(data)
+        }).then((response) => {
+            return response.json();
+        }).then((response) => {
+            if (response.success) {
+                apply.style.display = "block"
+                cancelled.style.display = "none"
+            }
+        })
+    }
+
+
+    const getUserPosts = async (page) => {
+        console.log(page)
+        await fetch(`${window.location.origin}/api/upload-post/?page=${page}&user_username=${username}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+            }
+        }).then(response => response.json())
+            .then(response => {
+                if (response.results) {
+                    console.log("User posts fetched successfully:", response);
+
+                    // Update total pages and current page
+                    totalPages = Math.ceil(response.count / 10);
+                    console.log(totalPages) // Assuming 10 posts per page
+                    currentPage = page;
+
+                    // Display posts
+                    displayPosts(response.results);
+
+
+                    // Update pagination UI
+                    updatePagination();
+                } else {
+                    console.log("Failed to fetch user posts.");
+                }
+            }).catch(error => {
+                console.error("Error fetching user posts:", error);
+            });
+    };
+
+    const displayPosts = (data) => {
+        let str = "";
+
+        if (data.data.length === 0) {
+            str = `
                  <tr>
         <td colspan="3" style="text-align: center; padding: 53px 10px;">
             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
@@ -1172,13 +912,13 @@
             </div>
         </td>
     </tr>`;
-            } else {
-                data.data.forEach(post => {
+        } else {
+            data.data.forEach(post => {
 
 
-                    const truncatedTitle = post.title.length > 60 ? `${post.title.substring(0, 60)}...` : post.title;
+                const truncatedTitle = post.title.length > 60 ? `${post.title.substring(0, 60)}...` : post.title;
 
-                    str += `
+                str += `
                     <tr>
                                             <td>
                                                 <div class="table-course-detail">
@@ -1193,256 +933,284 @@
                                             <td>${post.status}</td>
                                         </tr>
                     `;
-                });
+            });
+        }
+
+        document.getElementById('list_videos').innerHTML = str;
+
+
+
+
+    };
+
+    const updatePagination = () => {
+        const paginationList = document.getElementsByClassName("pagination_list")[0];
+        if (totalPages > 1) {
+
+            paginationList.innerHTML = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        const pagination = document.querySelector('.pagination');
+        pagination.innerHTML = '';
+
+        // Add "Previous" button only if we're not on the first page
+        if (currentPage > 1) {
+            pagination.innerHTML += `<li><a onclick="getUserPosts(${currentPage - 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;"><i class="bx bx-chevron-left" style="font-size:25px;"></i></a></li>`;
+        }
+
+        // Add "Next" button only if we're not on the last page
+        if (currentPage < totalPages) {
+            pagination.innerHTML += `<li><a onclick="getUserPosts(${currentPage + 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;" ><i class="bx bx-chevron-right" style="font-size:25px;"></i></a></li>`;
+        }
+    };
+
+    const getUserPosts2 = async () => {
+        await fetch(`${window.location.origin}/api/upload-post/?user_username=${username}&no_pagination=true`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                "Authorization": `Bearer ${authenticated}`
             }
-
-            document.getElementById('list_videos').innerHTML = str;
-
-
-
-
-        };
-
-        const updatePagination = () => {
-            const paginationList = document.getElementsByClassName("pagination_list")[0];
-            if (totalPages > 1) {
-
-                paginationList.innerHTML = `Page ${currentPage} of ${totalPages}`;
-            }
-
-            const pagination = document.querySelector('.pagination');
-            pagination.innerHTML = '';
-
-            // Add "Previous" button only if we're not on the first page
-            if (currentPage > 1) {
-                pagination.innerHTML += `<li><a onclick="getUserPosts(${currentPage - 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;"><i class="bx bx-chevron-left" style="font-size:25px;"></i></a></li>`;
-            }
-
-            // Add "Next" button only if we're not on the last page
-            if (currentPage < totalPages) {
-                pagination.innerHTML += `<li><a onclick="getUserPosts(${currentPage + 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;" ><i class="bx bx-chevron-right" style="font-size:25px;"></i></a></li>`;
-            }
-        };
-
-        const getUserPosts2 = async (page) => {
-            console.log(page)
-            await fetch(`${window.location.origin}/api/upload-post/?page=${page}&user_username=${username}`, {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json",
+        }).then(response => response.json())
+            .then(response => {
+                console.log(response);
+                if (response.data) {
+                    console.log("User posts fetched successfully:", response);
+                    // Display posts
+                    displayPosts2(response.data);
+                } else {
+                    console.log("Failed to fetch user posts.");
                 }
-            }).then(response => response.json())
-                .then(response => {
-                    if (response.results) {
-                        console.log("User posts fetched successfully:", response);
+            }).catch(error => {
+                console.error("Error fetching user posts:", error);
+            });
+    };
+    const displayPosts2 = (data) => {
+        console.log(data);
+        //document.getElementsByClassName("pagination_list")[0].innerHTML = `Page ${currentPage} of ${Math.ceil(totalCount / 10)}`
 
-                        // Update total pages and current page
-                        totalPages2 = Math.ceil(response.count / 10);
-                        console.log(totalPages2) // Assuming 10 posts per page
-                        currentPage2 = page;
+        let pending = "";
+        let approved = "";
+        let canceled = "";
+        let pendingcount = 0;
+        let approvedcount = 0;
+        let canceledcount = 0;
 
-                        // Display posts
-                        displayPosts2(response.results);
+        data.forEach(data => {
+            const timestamp = new Date(data.created_at);
 
-                        // Update pagination UI
-                        updatePagination2();
-                    } else {
-                        console.log("Failed to fetch user posts.");
-                    }
-                }).catch(error => {
-                    console.error("Error fetching user posts:", error);
-                });
-        };
+            // Format the date and time
+            const formattedDate = timestamp.toLocaleDateString('en-US', {
+                month: '2-digit',
+                day: '2-digit',
+                year: 'numeric'
+            });
+            const formattedTime = timestamp.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
 
-        const displayPosts2 = (data) => {
-            let str = "";
+            // Truncate the title if it's longer than 60 characters
+            const truncatedTitle = data.title.length > 60 ? `${data.title.substring(0, 60)}...` : data.title;
 
-            if (data.data.length === 0) {
-                str = `
+            // Determine the video source and hover behavior
+            const videoSrc = data.preview || data.video; // Use preview if available, otherwise use video
+            const hoverAttributes = videoSrc
+                ? 'onmouseover="this.play()" onmouseout="this.pause()"'
+                : '';
+
+            // Ensure video source URL is valid
+            const videoElement = videoSrc
+                ? `<video style="width: 100%;
+        height: 151px;
+        object-fit: contain;
+        object-position: center;" alt="Img" src="${videoSrc}" poster="${data.thumbnail}" ${hoverAttributes} muted></video>`
+                : '<div class="video-error">No video available</div>'; // Show an error message if no video
+
+            const postHTML = (status) => `
+                    <div class="col-xxl-4 col-md-6 d-flex" style="height: fit-content;">
+                        <div class="course-box flex-fill">
+                            <div class="product">
+                                <div class="product-img">
+                                    <a href="/post-view/${data.id}/">
+                                        ${videoElement}
+                                    </a>
+                                    <div class="price" style="    box-shadow: 0px 0px 10px 0px gray;
+    ">
+                                        <h3>$${data.price}</h3>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <h3 class="title instructor-text"><a href="/post-view/${data.id}/">${truncatedTitle}</a></h3>
+                                    <div class="course-info d-flex align-items-center">
+                                        <div class="course-view d-flex align-items-center">
+                                            <img src="/static/img/icon/icon-02.svg" alt="Img">
+                                            <p>${formattedDate} ${formattedTime}</p>
+                                        </div>
+                                    </div>
+                                    <div class="course-edit-btn d-flex align-items-center justify-content-between">
+                                        <a href="/update-video/${data.id}"><i class="bx bx-edit me-2"></i>Edit</a>
+                                        <a href="#" onclick="PostDelete(${data.id})"><i class="bx bx-trash me-2"></i>Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+
+            if (data.status === "approved") {
+                approved += postHTML("approved");
+                approvedcount++;
+            }
+            if (data.status === "pending") {
+                pending += postHTML("pending");
+                pendingcount++;
+            }
+            if (data.status === "canceled") {
+                canceled += postHTML("canceled");
+                canceledcount++;
+            }
+        });
+
+        // Update the DOM with the generated HTML and counts
+        document.getElementById('video-approved').innerHTML = approved || `
                 <div style="width: 100%; padding: 53px 10px; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
                     <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
                     <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
-                        There are no Videos of Uploaded.
+                        There are no approved Video.
                     </h4>
-                                            <ul class="nav">
-                            <li>
-                                <a href="/upload-video/" class="btn btn-black " style="background: #ff4667;
-    border: 1px solid #ffffff;
-    color: #fff;">Upload Video</a>
-                            </li>
-                            
-                        </ul>
                 </div>`;
-            } else {
-                data.data.forEach(post => {
-                    const timestamp = new Date(post.created_at);
-                    const formattedDate = timestamp.toLocaleDateString('en-US', {
-                        month: '2-digit',
-                        day: '2-digit',
-                        year: 'numeric'
+        document.getElementById('video-pending').innerHTML = pending || `
+                <div style="width: 100%; padding: 53px 10px; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
+                    <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
+                    <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
+                        There are no pending Video.
+                    </h4>
+                </div>`;
+        document.getElementById('video-canceled').innerHTML = canceled || `
+                <div style="width: 100%; padding: 53px 10px;height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
+                    <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
+                    <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
+                        There are no canceled Video.
+                    </h4>
+                </div>`;
+
+        document.getElementById('approved_count').innerHTML = approvedcount;
+        document.getElementById('pending_count').innerHTML = pendingcount;
+        document.getElementById('canceled_count').innerHTML = canceledcount;
+
+        // Pagination controls
+        //const pagination = document.querySelector('.dash-pagination .pagination');
+        //pagination.innerHTML = '';
+
+        //const createPageLink = (page, text, isActive = false) => `
+        //	<li ${isActive ? 'class="active"' : ''}>
+        //		<a href="#" onclick="fetchPage(${page})" style="height: 40px;
+        //width: 40px;
+        //box-shadow: 0px 0px 5px gray;" >${text}</a>
+        //	</li>
+        //`;
+        //
+        //// Calculate total pages
+        //const totalPages = Math.ceil(totalCount / perPage);
+        //
+        //if (previousPage) {
+        //	pagination.innerHTML += createPageLink(currentPage - 1, '<i class="bx bx-chevron-left" style="font-size: 20px;color:black;"></i>');
+        //}
+        //for (let i = 1; i <= totalPages; i++) {
+        //	pagination.innerHTML += createPageLink(i, i, i === currentPage);
+        //}
+        //if (nextPage) {
+        //	pagination.innerHTML += createPageLink(currentPage + 1, '<i class="bx bx-chevron-right" style="font-size: 20px;color:black;"></i>');
+        //}
+    };
+
+    async function all_dashbored_data() {
+        await fetch(`${window.location.origin}/api/upload-post/?user_username=${username}&no_pagination=true`)
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                console.log(response);
+                if (response.success) {
+                    let count = 0;
+                    let pending = 0;
+                    let approved = 0;
+                    let canceled = 0;
+
+                    response.data.forEach((data) => {
+                        if (data.status == "pending") {
+                            pending++;
+                        } else if (data.status == "approved") {
+                            approved++;
+                        } else if (data.status == "canceled") {
+                            canceled++;
+                        }
+                        count++;
                     });
-                    const formattedTime = timestamp.toLocaleTimeString('en-US', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true
-                    });
 
-                    const truncatedTitle = post.title.length > 60 ? `${post.title.substring(0, 60)}...` : post.title;
-                    const videoSrc = post.preview || post.video;
-                    const hoverAttributes = videoSrc ? 'onmouseover="this.play()" onmouseout="this.pause()"' : '';
-                    const videoElement = videoSrc
-                        ? `<video style="width:100%; height: 151px; object-fit: contain; object-position: center;" alt="Img" src="${videoSrc}" poster="${post.thumbnail}" ${hoverAttributes} muted></video>`
-                        : '<div class="video-error">No video available</div>';
+                    // Ensure the numbers have at least two digits
+                    document.getElementById("total_videos").innerHTML = String(count).padStart(2, '0');
+                    document.getElementById("pending_videos").innerHTML = String(pending).padStart(2, '0');
+                    document.getElementById("approved_videos").innerHTML = String(approved).padStart(2, '0');
+                    document.getElementById("canceled_videos").innerHTML = String(canceled).padStart(2, '0');
+                }
+            });
+    }
 
 
+    async function PostDelete(id) {
+        console.log("called")
+        let check = confirm("Are you sure you want to delete Video ! After delete You wil not be Restore It ")
+        if (check) {
 
-                    str += `
-                    <div class="col-xxl-4 col-md-6 d-flex" style="height: fit-content;">
-					<div class="course-box flex-fill">
-						<div class="product">
-							<div class="product-img">
-								<a href="/post-view/${post.id}/">
-									${videoElement}
-								</a>
-								<div class="price" style="    box-shadow: 0px 0px 10px 0px gray;
-">
-									<h3>$${post.price}</h3>
-								</div>
-							</div>
-							<div class="product-content">
-								<h3 class="title instructor-text"><a href="/post-view/${post.id}/">${truncatedTitle}</a></h3>
-								<div class="course-info d-flex align-items-center">
-									<div class="course-view d-flex align-items-center">
-										<img src="/static/img/icon/icon-02.svg" alt="Img">
-										<p>${formattedDate} ${formattedTime}</p>
-									</div>
-								</div>
-								<div class=" course-edit-btn d-flex align-items-center justify-content-between">
-									<a href="/update-video/${post.id}"><i class="bx bx-edit me-2"></i>Edit</a>
-									<a href="#" onclick="PostDelete(${post.id})"><i class="bx bx-trash me-2"></i>Delete</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-                    `;
-                });
-            }
+            card.style.display = "none";
+            await fetch(`${window.location.origin}/api/upload-post/${id}/`, {
+                method: "DELETE",
+                headers: {
+                    "content-type": "application/json",
+                    "Authorization": `Bearer ${authenticated}`
+                }
 
-            document.getElementById('grid_videos').innerHTML = str;
+            }).then((response) => {
+                return response.json()
+            }).then((response) => {
+                if (response.success) {
+                    card.style.display = "flex";
+                    card.style.borderLeft = "10px solid green";
 
+                    message_content.innerHTML = response.message;
+                    message_type.innerHTML = "Success";
+                    message_type.style.color = "green";
+                    message_icon_parent.style.color = "green";
+                    message_icon_child.classList = "fas fa-check-circle";
 
-
-
-        };
-
-        const updatePagination2 = () => {
-            const paginationList2 = document.getElementsByClassName("pagination_list2")[0];
-            if (totalPages2 > 1) {
-
-                paginationList2.innerHTML = `Page ${currentPage2} of ${totalPages2}`;
-            }
-
-            const pagination2 = document.querySelector('.pagination2');
-            pagination2.innerHTML = '';
-
-            // Add "Previous" button only if we're not on the first page
-            if (currentPage2 > 1) {
-                pagination.innerHTML += `<li><a onclick="getUserPosts2(${currentPage2 - 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;"><i class="bx bx-chevron-left" style="font-size:25px;"></i></a></li>`;
-            }
-
-            // Add "Next" button only if we're not on the last page
-            if (currentPage2 < totalPages2) {
-                pagination2.innerHTML += `<li><a onclick="getUserPosts2(${currentPage2 + 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;" ><i class="bx bx-chevron-right" style="font-size:25px;"></i></a></li>`;
-            }
-        };
-
-        async function all_dashbored_data() {
-            await fetch(`${window.location.origin}/api/upload-post/?user_username=${username}&no_pagination=true`)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((response) => {
-                    console.log(response);
-                    if (response.success) {
-                        let count = 0;
-                        let pending = 0;
-                        let approved = 0;
-                        let canceled = 0;
-
-                        response.data.forEach((data) => {
-                            if (data.status == "pending") {
-                                pending++;
-                            } else if (data.status == "approved") {
-                                approved++;
-                            } else if (data.status == "canceled") {
-                                canceled++;
-                            }
-                            count++;
-                        });
-
-                        // Ensure the numbers have at least two digits
-                        document.getElementById("total_videos").innerHTML = String(count).padStart(2, '0');
-                        document.getElementById("pending_videos").innerHTML = String(pending).padStart(2, '0');
-                        document.getElementById("approved_videos").innerHTML = String(approved).padStart(2, '0');
-                        document.getElementById("canceled_videos").innerHTML = String(canceled).padStart(2, '0');
-                    }
-                });
+                    setTimeout(() => {
+                        card.style.display = "none"
+                    }, 3000)
+                    userApi();
+                }
+                else {
+                    message_content.innerHTML = response.message;
+                    card.style.display = "flex";
+                    card.style.borderLeft = "10px solid red";
+                    message_type.innerHTML = "Error";
+                    message_type.style.color = "red";
+                    message_icon_parent.style.color = "red";
+                    message_icon_child.classList = "fas fa-times-circle";
+                }
+            })
+        }
+        else {
+            return
         }
 
+    }
 
-        async function PostDelete(id) {
-            console.log("called")
-            let check = confirm("Are you sure you want to delete Video ! After delete You wil not be Restore It ")
-            if (check) {
-
-                card.style.display = "none";
-                await fetch(`${window.location.origin}/api/upload-post/${id}/`, {
-                    method: "DELETE",
-                    headers: {
-                        "content-type": "application/json",
-                        "Authorization": `Bearer ${authenticated}`
-                    }
-
-                }).then((response) => {
-                    return response.json()
-                }).then((response) => {
-                    if (response.success) {
-                        card.style.display = "flex";
-                        card.style.borderLeft = "10px solid green";
-
-                        message_content.innerHTML = response.message;
-                        message_type.innerHTML = "Success";
-                        message_type.style.color = "green";
-                        message_icon_parent.style.color = "green";
-                        message_icon_child.classList = "fas fa-check-circle";
-
-                        setTimeout(() => {
-                            card.style.display = "none"
-                        }, 3000)
-                        userApi();
-                    }
-                    else {
-                        message_content.innerHTML = response.message;
-                        card.style.display = "flex";
-                        card.style.borderLeft = "10px solid red";
-                        message_type.innerHTML = "Error";
-                        message_type.style.color = "red";
-                        message_icon_parent.style.color = "red";
-                        message_icon_child.classList = "fas fa-times-circle";
-                    }
-                })
-            }
-            else {
-                return
-            }
-
-        }
-
-        // Initialize with the first page
+    // Initialize with the first page
 
 
 
 
-    </script>
-    {% endblock script %}
+</script>
+{% endblock script %}
