@@ -493,7 +493,7 @@
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
-                                        <h5>Purchased Videos</h5>
+                                        <h5>Video Purchased</h5>
                                         <h2 id="purchased_videos">00</h2>
                                     </div>
                                 </div>
@@ -1291,7 +1291,7 @@
                     const videoSrc = post.preview || post.video;
                     const hoverAttributes = videoSrc ? 'onmouseover="this.play()" onmouseout="this.pause()"' : '';
                     const videoElement = videoSrc
-                        ? `<video style="width:314px; height: 151px; object-fit: contain; object-position: center;" alt="Img" src="${videoSrc}" poster="${post.thumbnail}" ${hoverAttributes} muted></video>`
+                        ? `<video style="width:100%; height: 151px; object-fit: contain; object-position: center;" alt="Img" src="${videoSrc}" poster="${post.thumbnail}" ${hoverAttributes} muted></video>`
                         : '<div class="video-error">No video available</div>';
 
 
