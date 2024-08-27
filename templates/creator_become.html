@@ -251,7 +251,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12">
-                    <div class="add-course-header" >
+                    <div class="add-course-header">
                         <h2>Creator's Status Cancelled</h2>
                         <div class="add-course-btns">
                             <ul class="nav">
@@ -345,15 +345,19 @@
                             <div class="settings-menu">
                                 <div class="profile-bg">
                                     <div class="profile-img">
-                                        <a href="instructor-profile.html"><img src="/static/img/user/user-17.jpg"
-                                                alt="Img"></a>
+                                        <a href="/myprofile/"><img id="profile_page_image"
+                                                src="/media/profile_pictures/default_profile_image.png" alt="Img"></a>
                                     </div>
                                 </div>
                                 <div class="profile-group">
                                     <div class="profile-name text-center">
-                                        <h4><a href="instructor-profile.html">Eugene Andre</a></h4>
-                                        <p>Instructor</p>
-                                        <a href="add-course.html" class="add-course btn-primary">Add New Course</a>
+                                        <h4 id="profile_page_username2"> Username</h4>
+                                        <a href="#" class="add-course btn-primary" id="share-button">
+                                            <i class="fas fa-share-alt"></i> Share
+                                        </a>
+                                        <a href="/upload-video/" class="add-course btn-primary">
+                                            <i class="fas fa-upload"></i> Upload New Video
+                                          </a>
                                     </div>
                                 </div>
                             </div>
@@ -363,16 +367,21 @@
                                 <h3>Dashboard</h3>
                                 <ul>
                                     <li class="nav-item active">
-                                        <a href="instructor-dashboard.html" class="nav-link">
+                                        <a href="/creator/" class="nav-link ">
                                             <i class="bx bxs-tachometer"></i>Dashboard
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="instructor-profile.html" class="nav-link">
+                                    <li class="nav-item ">
+                                        <a href="/myprofile/" class="nav-link">
                                             <i class="bx bxs-user"></i>My Profile
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="/mypost/" class="nav-link">
+                                            <i class="bx bxs-tachometer"></i>My Videos
+                                        </a>
+                                    </li>
+                                    <!-- <li class="nav-item">
                                         <a href="instructor-enrolled-course.html" class="nav-link">
                                             <i class="bx bxs-graduation"></i>Enrolled Courses
                                         </a>
@@ -406,13 +415,13 @@
                                         <a href="instructor-referral.html" class="nav-link">
                                             <i class="bx bxs-user-plus"></i>Referrals
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item">
-                                        <a href="instructor-chat.html" class="nav-link">
+                                        <a href="/contact-list/" class="nav-link">
                                             <i class="bx bxs-chat"></i>Messages
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="instructor-notifications.html" class="nav-link">
                                             <i class="bx bxs-bell"></i>Notifications
                                         </a>
@@ -421,9 +430,9 @@
                                         <a href="instructor-tickets.html" class="nav-link">
                                             <i class="bx bxs-coupon"></i>Support Tickets
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
-                                <h3>Instructor</h3>
+                                <!-- <h3>Instructor</h3>
                                 <ul>
                                     <li class="nav-item">
                                         <a href="instructor-course.html" class="nav-link ">
@@ -455,18 +464,20 @@
                                             <i class="bx bxs-badge-dollar"></i>Earnings
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> -->
                                 <h3>Account Settings</h3>
                                 <ul>
                                     <li class="nav-item">
-                                        <a href="instructor-settings.html" class="nav-link ">
+                                        <a href="/myprofileedit/" class="nav-link ">
                                             <i class="bx bxs-cog"></i>Settings
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="index.html" class="nav-link">
-                                            <i class="bx bxs-log-out"></i>Logout
-                                        </a>
+                                        <div class="nav-link" onClick="LogoutApi()"><a href="#">
+
+                                                <i class="bx bxs-log-out"></i>Logout
+                                            </a>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -482,40 +493,40 @@
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
-                                        <h5>Enrolled Courses</h5>
-                                        <h2>13</h2>
+                                        <h5>Purchased Videos</h5>
+                                        <h2 id="purchased_videos">00</h2>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
-                                        <h5>Active Courses</h5>
-                                        <h2>08</h2>
+                                        <h5>Approved Videos</h5>
+                                        <h2 id="approved_videos"></h2>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
-                                        <h5>Completed Courses</h5>
-                                        <h2>06</h2>
+                                        <h5>Pending Videos</h5>
+                                        <h2 id="pending_videos"></h2>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
-                                        <h5>Total Students</h5>
-                                        <h2>5</h2>
+                                        <h5>Cancelled Videos</h5>
+                                        <h2 id="canceled_videos"></h2>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
-                                        <h5>Total Courses</h5>
-                                        <h2>11</h2>
+                                        <h5>Total Videos</h5>
+                                        <h2 id="total_videos"></h2>
                                     </div>
                                 </div>
                             </div>
@@ -523,7 +534,7 @@
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
                                         <h5>Total Earnings</h5>
-                                        <h2>$486</h2>
+                                        <h2 id="total_earnings">$00.00</h2>
                                     </div>
                                 </div>
                             </div>
@@ -532,7 +543,7 @@
 
                         <div class="instructor-course-table">
                             <div class="dashboard-title">
-                                <h4>Recently Created Courses</h4>
+                                <h4 id="tabel_list">All Videos Overview</h4>
                             </div>
                             <div class="table-responsive custom-table">
 
@@ -540,87 +551,45 @@
                                 <table class="table table-nowrap mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Courses</th>
-                                            <th>Enrolled</th>
+                                            <th>Videos</th>
+                                            <th>Purchase</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="table-course-detail">
-                                                    <a href="course-details.html" class="course-table-img">
-                                                        <span><img src="/static/img/instructor/instructor-table-01.jpg"
-                                                                alt="Img"></span>
-                                                        Complete HTML, CSS and Javascript Course
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>0</td>
-                                            <td>Published</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-course-detail">
-                                                    <a href="course-details.html" class="course-table-img">
-                                                        <span><img src="/static/img/instructor/instructor-table-05.jpg"
-                                                                alt="Img"></span>
-                                                        Complete Course on Fullstack Web Developer
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>2</td>
-                                            <td>Published</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-course-detail">
-                                                    <a href="course-details.html" class="course-table-img">
-                                                        <span><img src="/static/img/instructor/instructor-table-02.jpg"
-                                                                alt="Img"></span>
-                                                        Data Science Fundamentals and Advanced Bootcamp
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>2</td>
-                                            <td>Published</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-course-detail">
-                                                    <a href="course-details.html" class="course-table-img">
-                                                        <span><img src="/static/img/instructor/instructor-table-03.jpg"
-                                                                alt="Img"></span>
-                                                        Master Microservices with Spring Boot and Spring Cloud
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>Published</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-course-detail">
-                                                    <a href="course-details.html" class="course-table-img">
-                                                        <span><img src="/static/img/instructor/instructor-table-04.jpg"
-                                                                alt="Img"></span>
-                                                        Information About UI/UX Design Degree
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>3</td>
-                                            <td>Published</td>
-                                        </tr>
+                                    <tbody id="list_videos">
                                     </tbody>
                                 </table>
+
+                            </div>
+                        </div>
+                        <div class="dash-pagination">
+                            <div class="row align-items-center">
+                                <div class="col-6"
+                                    style="z-index: 1000 !important;display:flex;justify-content:center;">
+                                    <p class="pagination_list" style="color: #ff4667;"></p>
+                                </div>
+                                <div class="col-6"
+                                    style="z-index: 1000 !important;display:flex;justify-content:center;">
+                                    <ul class="pagination">
+                                        <li class="active">
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="bx bx-chevron-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
 
                         <div class="dashboard-title">
-                            <h4>Recently Enrolled Courses</h4>
+                            <h4>Recently Uploaded Videos</h4>
                         </div>
-                        <div class="row">
+                        <div class="row" id="grid_videos">
 
                             <!-- Course Grid -->
                             <div class="col-xxl-4 col-md-6 d-flex">
@@ -947,27 +916,28 @@
                             <!-- /Course Grid -->
 
                         </div>
-                        <div class="dash-pagination">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <p>Page 1 of 2</p>
-                                </div>
-                                <div class="col-6">
-                                    <ul class="pagination">
-                                        <li class="active">
-                                            <a href="#">1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="bx bx-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
+                    </div>
+                    <div class="dash-pagination">
+                        <div class="row align-items-center">
+                            <div class="col-6" style="z-index: 1000 !important;display:flex;justify-content:center;">
+                                <p class="pagination_list2" style="color: #ff4667;"></p>
+                            </div>
+                            <div class="col-6" style="z-index: 1000 !important;display:flex;justify-content:center;">
+                                <ul class="pagination2">
+                                    <li class="active">
+                                        <a href="#">1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="bx bx-chevron-right"></i></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
+
                     <!-- Student Dashboard -->
 
                 </div>
@@ -998,6 +968,7 @@
 
         const creator_become_success = document.getElementById("creator_become_success")
         let user_id = 0;
+        let username = "";
         userApi = async () => {
             await fetch(`${window.location.origin}/api/user/`, {
                 "method": "get",
@@ -1010,6 +981,7 @@
             }).then((response) => {
                 if (response.success) {
                     user_id = response.data.id
+                    username = response.data.username
                     data = {
                         "user": user_id
                     }
@@ -1023,7 +995,7 @@
                     }).then((response) => {
                         return response.json()
                     }).then((response) => {
-                        console.log(response.status)
+                        console.log("amin", response)
                         if (response.status == 'pending') {
                             pending.style.display = "block"
                         }
@@ -1036,9 +1008,18 @@
                         }
                         else if (response.status == "approved") {
                             approved.style.display = "block"
+                            getUserPosts(1);
+                            getUserPosts2(1);
+
+                            all_dashbored_data();
+
+
+
                         }
 
                     })
+
+
                 }
                 console.log(response)
             })
@@ -1078,45 +1059,45 @@
                 return response.json();
             }).then((response) => {
                 if (response.success) {
-            card.style.display = "none";
+                    card.style.display = "none";
 
                     creator_become_form.style.display = "none";
                     creator_become_success.style.display = "block";
                     creator_become_list.style.display = "none"
                     creater_become_save.style.display = "none"
                 }
-                if(response.success==false){
-                    if(response.message['gender']){
+                if (response.success == false) {
+                    if (response.message['gender']) {
 
                         message_content.innerHTML = response.message["gender"][0];
                     }
-                    else if(response.message['age']){
+                    else if (response.message['age']) {
                         message_content.innerHTML = response.message["age"][0];
 
                     }
-                    else if(response.message['terms_of_service']){
+                    else if (response.message['terms_of_service']) {
                         message_content.innerHTML = response.message["terms_of_service"][0];
 
                     }
-                    else if(response.message['non_field_errors']){
+                    else if (response.message['non_field_errors']) {
                         message_content.innerHTML = response.message["non_field_errors"][0];
 
                     }
-					card.style.display = "block";
-					card.style.borderLeft = "10px solid red";
-					message_type.innerHTML = "Error";
-					message_type.style.color = "red";
-					message_icon_parent.style.color = "red";
-					message_icon_child.classList = "fas fa-times-circle";
+                    card.style.display = "block";
+                    card.style.borderLeft = "10px solid red";
+                    message_type.innerHTML = "Error";
+                    message_type.style.color = "red";
+                    message_icon_parent.style.color = "red";
+                    message_icon_child.classList = "fas fa-times-circle";
                 }
             })
         }
 
-        apply_again.onclick=apply_agagin
+        apply_again.onclick = apply_agagin
         async function apply_agagin(e) {
             e.preventDefault();
-            data={
-                user_id:user_id
+            data = {
+                user_id: user_id
             }
             // Get the values from the form
             await fetch(`${window.location.origin}/api/creator-approval/delete-creator/`, {
@@ -1130,11 +1111,337 @@
                 return response.json();
             }).then((response) => {
                 if (response.success) {
-                    apply.style.display="block"
-                    cancelled.style.display="none"
+                    apply.style.display = "block"
+                    cancelled.style.display = "none"
                 }
             })
         }
+
+
+        const getUserPosts = async (page) => {
+            console.log(page)
+            await fetch(`${window.location.origin}/api/upload-post/?page=${page}&user_username=${username}`, {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                }
+            }).then(response => response.json())
+                .then(response => {
+                    if (response.results) {
+                        console.log("User posts fetched successfully:", response);
+
+                        // Update total pages and current page
+                        totalPages = Math.ceil(response.count / 10);
+                        console.log(totalPages) // Assuming 10 posts per page
+                        currentPage = page;
+
+                        // Display posts
+                        displayPosts(response.results);
+
+
+                        // Update pagination UI
+                        updatePagination();
+                    } else {
+                        console.log("Failed to fetch user posts.");
+                    }
+                }).catch(error => {
+                    console.error("Error fetching user posts:", error);
+                });
+        };
+
+        const displayPosts = (data) => {
+            let str = "";
+
+            if (data.data.length === 0) {
+                str = `
+                 <tr>
+        <td colspan="3" style="text-align: center; padding: 53px 10px;">
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
+                <h4 style="text-align: center; margin: 10px; color: gray;">
+                    There are no Videos Uploaded.
+                </h4>
+                                   <ul class="nav">
+                            <li>
+                                <a href="/upload-video/" class="btn btn-black" style="background: #ff4667;
+    border: 1px solid #ffffff;
+    color: #fff;">Upload Video</a>
+                            </li>
+                            
+                        </ul>
+            </div>
+        </td>
+    </tr>`;
+            } else {
+                data.data.forEach(post => {
+
+
+                    const truncatedTitle = post.title.length > 60 ? `${post.title.substring(0, 60)}...` : post.title;
+
+                    str += `
+                    <tr>
+                                            <td>
+                                                <div class="table-course-detail">
+                                                    <a href="course-details.html" class="course-table-img">
+                                                        <span><img src="${post.thumbnail}"
+                                                                alt="Img" style="object-position:center;object-fit:contain;"></span>
+                                                        ${post.title}
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>0</td>
+                                            <td>${post.status}</td>
+                                        </tr>
+                    `;
+                });
+            }
+
+            document.getElementById('list_videos').innerHTML = str;
+
+
+
+
+        };
+
+        const updatePagination = () => {
+            const paginationList = document.getElementsByClassName("pagination_list")[0];
+            if (totalPages > 1) {
+
+                paginationList.innerHTML = `Page ${currentPage} of ${totalPages}`;
+            }
+
+            const pagination = document.querySelector('.pagination');
+            pagination.innerHTML = '';
+
+            // Add "Previous" button only if we're not on the first page
+            if (currentPage > 1) {
+                pagination.innerHTML += `<li><a onclick="getUserPosts(${currentPage - 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;"><i class="bx bx-chevron-left" style="font-size:25px;"></i></a></li>`;
+            }
+
+            // Add "Next" button only if we're not on the last page
+            if (currentPage < totalPages) {
+                pagination.innerHTML += `<li><a onclick="getUserPosts(${currentPage + 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;" ><i class="bx bx-chevron-right" style="font-size:25px;"></i></a></li>`;
+            }
+        };
+
+        const getUserPosts2 = async (page) => {
+            console.log(page)
+            await fetch(`${window.location.origin}/api/upload-post/?page=${page}&user_username=${username}`, {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                }
+            }).then(response => response.json())
+                .then(response => {
+                    if (response.results) {
+                        console.log("User posts fetched successfully:", response);
+
+                        // Update total pages and current page
+                        totalPages2 = Math.ceil(response.count / 10);
+                        console.log(totalPages2) // Assuming 10 posts per page
+                        currentPage2 = page;
+
+                        // Display posts
+                        displayPosts2(response.results);
+
+                        // Update pagination UI
+                        updatePagination2();
+                    } else {
+                        console.log("Failed to fetch user posts.");
+                    }
+                }).catch(error => {
+                    console.error("Error fetching user posts:", error);
+                });
+        };
+
+        const displayPosts2 = (data) => {
+            let str = "";
+
+            if (data.data.length === 0) {
+                str = `
+                <div style="width: 100%; padding: 53px 10px; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
+                    <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
+                    <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
+                        There are no Videos of Uploaded.
+                    </h4>
+                                            <ul class="nav">
+                            <li>
+                                <a href="/upload-video/" class="btn btn-black " style="background: #ff4667;
+    border: 1px solid #ffffff;
+    color: #fff;">Upload Video</a>
+                            </li>
+                            
+                        </ul>
+                </div>`;
+            } else {
+                data.data.forEach(post => {
+                    const timestamp = new Date(post.created_at);
+                    const formattedDate = timestamp.toLocaleDateString('en-US', {
+                        month: '2-digit',
+                        day: '2-digit',
+                        year: 'numeric'
+                    });
+                    const formattedTime = timestamp.toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+
+                    const truncatedTitle = post.title.length > 60 ? `${post.title.substring(0, 60)}...` : post.title;
+                    const videoSrc = post.preview || post.video;
+                    const hoverAttributes = videoSrc ? 'onmouseover="this.play()" onmouseout="this.pause()"' : '';
+                    const videoElement = videoSrc
+                        ? `<video style="width:314px; height: 151px; object-fit: contain; object-position: center;" alt="Img" src="${videoSrc}" poster="${post.thumbnail}" ${hoverAttributes} muted></video>`
+                        : '<div class="video-error">No video available</div>';
+
+
+
+                    str += `
+                    <div class="col-xxl-4 col-md-6 d-flex" style="height: fit-content;">
+					<div class="course-box flex-fill">
+						<div class="product">
+							<div class="product-img">
+								<a href="/post-view/${post.id}/">
+									${videoElement}
+								</a>
+								<div class="price" style="    box-shadow: 0px 0px 10px 0px gray;
+">
+									<h3>$${post.price}</h3>
+								</div>
+							</div>
+							<div class="product-content">
+								<h3 class="title instructor-text"><a href="/post-view/${post.id}/">${truncatedTitle}</a></h3>
+								<div class="course-info d-flex align-items-center">
+									<div class="course-view d-flex align-items-center">
+										<img src="/static/img/icon/icon-02.svg" alt="Img">
+										<p>${formattedDate} ${formattedTime}</p>
+									</div>
+								</div>
+								<div class=" course-edit-btn d-flex align-items-center justify-content-between">
+									<a href="/update-video/${post.id}"><i class="bx bx-edit me-2"></i>Edit</a>
+									<a href="#" onclick="PostDelete(${post.id})"><i class="bx bx-trash me-2"></i>Delete</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                    `;
+                });
+            }
+
+            document.getElementById('grid_videos').innerHTML = str;
+
+
+
+
+        };
+
+        const updatePagination2 = () => {
+            const paginationList2 = document.getElementsByClassName("pagination_list2")[0];
+            if (totalPages2 > 1) {
+
+                paginationList2.innerHTML = `Page ${currentPage2} of ${totalPages2}`;
+            }
+
+            const pagination2 = document.querySelector('.pagination2');
+            pagination2.innerHTML = '';
+
+            // Add "Previous" button only if we're not on the first page
+            if (currentPage2 > 1) {
+                pagination.innerHTML += `<li><a onclick="getUserPosts2(${currentPage2 - 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;"><i class="bx bx-chevron-left" style="font-size:25px;"></i></a></li>`;
+            }
+
+            // Add "Next" button only if we're not on the last page
+            if (currentPage2 < totalPages2) {
+                pagination2.innerHTML += `<li><a onclick="getUserPosts2(${currentPage2 + 1}); document.getElementById('tabel_list').scrollIntoView({ behavior: 'smooth' });" style="box-shadow: 0px 0px 10px 0px gray;" ><i class="bx bx-chevron-right" style="font-size:25px;"></i></a></li>`;
+            }
+        };
+
+        async function all_dashbored_data() {
+            await fetch(`${window.location.origin}/api/upload-post/?user_username=${username}&no_pagination=true`)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((response) => {
+                    console.log(response);
+                    if (response.success) {
+                        let count = 0;
+                        let pending = 0;
+                        let approved = 0;
+                        let canceled = 0;
+
+                        response.data.forEach((data) => {
+                            if (data.status == "pending") {
+                                pending++;
+                            } else if (data.status == "approved") {
+                                approved++;
+                            } else if (data.status == "canceled") {
+                                canceled++;
+                            }
+                            count++;
+                        });
+
+                        // Ensure the numbers have at least two digits
+                        document.getElementById("total_videos").innerHTML = String(count).padStart(2, '0');
+                        document.getElementById("pending_videos").innerHTML = String(pending).padStart(2, '0');
+                        document.getElementById("approved_videos").innerHTML = String(approved).padStart(2, '0');
+                        document.getElementById("canceled_videos").innerHTML = String(canceled).padStart(2, '0');
+                    }
+                });
+        }
+
+
+        async function PostDelete(id) {
+            console.log("called")
+            let check = confirm("Are you sure you want to delete Video ! After delete You wil not be Restore It ")
+            if (check) {
+
+                card.style.display = "none";
+                await fetch(`${window.location.origin}/api/upload-post/${id}/`, {
+                    method: "DELETE",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${authenticated}`
+                    }
+
+                }).then((response) => {
+                    return response.json()
+                }).then((response) => {
+                    if (response.success) {
+                        card.style.display = "flex";
+                        card.style.borderLeft = "10px solid green";
+
+                        message_content.innerHTML = response.message;
+                        message_type.innerHTML = "Success";
+                        message_type.style.color = "green";
+                        message_icon_parent.style.color = "green";
+                        message_icon_child.classList = "fas fa-check-circle";
+
+                        setTimeout(() => {
+                            card.style.display = "none"
+                        }, 3000)
+                        userApi();
+                    }
+                    else {
+                        message_content.innerHTML = response.message;
+                        card.style.display = "flex";
+                        card.style.borderLeft = "10px solid red";
+                        message_type.innerHTML = "Error";
+                        message_type.style.color = "red";
+                        message_icon_parent.style.color = "red";
+                        message_icon_child.classList = "fas fa-times-circle";
+                    }
+                })
+            }
+            else {
+                return
+            }
+
+        }
+
+        // Initialize with the first page
+
+
 
 
     </script>

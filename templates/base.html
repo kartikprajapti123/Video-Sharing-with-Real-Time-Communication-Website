@@ -399,7 +399,7 @@
 											<h6 id="profile_username">Eugene Andre</h6>
 										</div>
 									</div>
-									<a class="dropdown-item" href="/myprofile/"><i class="feather-star me-1"></i>My
+									<a class="dropdown-item profile-update" href="/myprofile/" ><i class="feather-star me-1"></i>My
 										Profile</a>
 
 										<a class="dropdown-item" href="/upload-video/"><i class="feather-upload me-1"></i>Upload Video
@@ -666,6 +666,8 @@
 					if (response.success) {
 						profileId = response.data.id
 						console.log(response.data.image)
+
+						sharebutton(response.data.username)
 						document.getElementById("profile_image").src = `${response.data.profile_picture}`
 						document.getElementById("profile_image2").src = `${response.data.profile_picture}`
 						document.getElementById("profile_username").innerHTML = `${response.data.username}`
@@ -702,7 +704,11 @@
 							let profile_page_username = document.getElementById("profile_page_username2")
 							if (profile_page_username) {
 
-								profile_page_username.innerHTML = `${response.data.username.substring(0, 14)}...`;
+								if (response.data.username.length > 14) {
+    profile_page_username.innerHTML = `${response.data.username.substring(0, 14)}...`;
+} else {
+    profile_page_username.innerHTML = response.data.username;
+}
 							}
 
 
@@ -1352,11 +1358,30 @@
 			})
 		}
 
+		function sharebutton(username){
+			document.getElementById('share-button').addEventListener('click', function(event) {
+				event.preventDefault();
+				
+				if (navigator.share) {
+					navigator.share({
+						title: 'User profile',
+						text: 'Check out this Link!',
+						url: `https://localhost:8000/user-profile/${username}`, // Replace with the URL you want to share
+					}).then(() => {
+						console.log('Thanks for sharing!');
+					}).catch((error) => {
+						console.log('Something went wrong', error);
+					});
+				} else {
+					alert('Sharing not supported on this browser.');
+				}
+			});
+		}
+
 	</script>
 	{% block script %}
 
 	{% endblock script %}
-
 
 
 

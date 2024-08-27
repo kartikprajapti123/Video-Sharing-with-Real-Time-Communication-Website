@@ -38,14 +38,20 @@
 					<div class="settings-menu">
 						<div class="profile-bg">
 							<div class="profile-img">
-								<a href="/myprofile/"><img id="profile_page_image"
+								<a href="/myprofile/" class="profile-update"><img id="profile_page_image"
 										src="/media/profile_pictures/default_profile_image.png" alt="Img"></a>
 							</div>
 						</div>
 						<div class="profile-group">
 							<div class="profile-name text-center">
 								<h4 id="profile_page_username2"> Username</h4>
-								<a href="/upload-video/" class="add-course btn-primary">Upload New Video</a>
+								<a href="#" class="add-course btn-primary" id="share-button">
+									<i class="fas fa-share-alt"></i> Share
+								</a>
+								<a href="/upload-video/" class="add-course btn-primary">
+									<i class="fas fa-upload"></i> Upload New Video
+								  </a>
+								
 							</div>
 						</div>
 					</div>
@@ -60,7 +66,7 @@
 								</a>
 							</li>
 							<li class="nav-item ">
-								<a href="/myprofile/" class="nav-link">
+								<a href="/myprofile/" class="nav-link profile-update">
 									<i class="bx bxs-user"></i>My Profile
 								</a>
 							</li>
@@ -342,20 +348,21 @@
 			// Ensure video source URL is valid
 			const videoElement = videoSrc
 				? `<video style="width: 100%;
-    height: 200px;
+    height: 151px;
     object-fit: contain;
     object-position: center;" alt="Img" src="${videoSrc}" poster="${data.thumbnail}" ${hoverAttributes} muted></video>`
 				: '<div class="video-error">No video available</div>'; // Show an error message if no video
 
 			const postHTML = (status) => `
-				<div class="col-xxl-4 col-md-6 d-flex">
+				<div class="col-xxl-4 col-md-6 d-flex" style="height: fit-content;">
 					<div class="course-box flex-fill">
 						<div class="product">
 							<div class="product-img">
 								<a href="/post-view/${data.id}/">
 									${videoElement}
 								</a>
-								<div class="price">
+								<div class="price" style="    box-shadow: 0px 0px 10px 0px gray;
+">
 									<h3>$${data.price}</h3>
 								</div>
 							</div>
@@ -481,7 +488,7 @@
 	
 	async function PostDelete(id) {
 		console.log("called")
-		let check = confirm("Are you sure you want to delete post ")
+		let check = confirm("Are you sure you want to delete Video ! After delete You wil not be Restore It ")
 		if (check) {
 
 			card.style.display = "none";
@@ -525,6 +532,8 @@
 			return
 		}
 	}
+
+	
 
 
 </script>
