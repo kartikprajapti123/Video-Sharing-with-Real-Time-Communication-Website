@@ -65,7 +65,7 @@
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
-                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                                <a href="/myprofile/" class="btn btn-black profile-update">Back to Profile</a>
                             </li>
                             
                         </ul>
@@ -116,7 +116,7 @@
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
-                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                                <a href="/myprofile/" class="btn btn-black profile-update">Back to Profile</a>
                             </li>
                             <!-- <li>
                                 <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Save</a>
@@ -346,7 +346,7 @@
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
-                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                                <a href="/myprofile/" class="btn btn-black profile-update">Back to Profile</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);" class="btn btn-success-dark"
@@ -522,6 +522,8 @@
                 // Handle success
                 document.getElementById('row1').style.display = "none";
                 document.getElementById("row2").style.display = "block";
+                card.style.display = "none";
+
             } else {
                 // Handle errors
                 let errorMessage = "An error occurred";

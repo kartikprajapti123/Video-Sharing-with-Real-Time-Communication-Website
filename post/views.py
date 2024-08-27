@@ -132,8 +132,7 @@ class PostViewSet(ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        instance.deleted = 1  # Assuming you have a `deleted` field for soft deletion
-        instance.save()
+        instance.delete()
         return Response(
             {"success": True, "message": "Post deleted successfully."},
             status=status.HTTP_200_OK,

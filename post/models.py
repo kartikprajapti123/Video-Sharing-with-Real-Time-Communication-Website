@@ -41,12 +41,11 @@ class Post(models.Model):
         
         if self.status == "pending":
             return
-        if (self.status=="canceled"):
-            notification_message =f"<b style='color:black;'>Post Update:</b> Your post titled <b>{self.title}</b> has been <b>Rejected</b>. Please contact support if you have any questions."
-            
-        
-        elif (self.status=="approved"):
-            notification_message = f"<b style='color:black;'>Post Update:</b>Your post <b>{self.title}</b> has been <b>Approved</b>."
+        if self.status == "canceled":
+            notification_message = f"<b>Post Update:</b> Your post <b>{self.title}</b> has been <b>rejected</b>. Contact support."
+
+        elif self.status == "approved":
+            notification_message = f"<b>Post Update:</b> Your post <b>{self.title}</b> has been <b>approved</b>."
             
         
         

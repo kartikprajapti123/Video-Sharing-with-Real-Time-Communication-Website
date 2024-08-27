@@ -81,3 +81,7 @@ def search(request):
     return render(request,"search.html")
     
     
+def other_video(request,id):
+    return render(request,"other_video.html")
+    
+    

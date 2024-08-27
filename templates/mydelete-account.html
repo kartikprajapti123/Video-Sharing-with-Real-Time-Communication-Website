@@ -37,14 +37,19 @@
 								<div class="settings-menu">
 									<div class="profile-bg">
 										<div class="profile-img">
-											<a href="/myprofile/"><img id="profile_page_image"
+											<a href="/myprofile/" class="profile-update"><img id="profile_page_image"
 												src="/media/profile_pictures/default_profile_image.png" alt="Img"></a>
 										</div>
 									</div>
 									<div class="profile-group">
 										<div class="profile-name text-center">
 											<h4 id="profile_page_username2"> Username</h4>
-											<a href="/upload-post/" class="add-course btn-primary">Upload New Post</a>
+											<a href="#" class="add-course btn-primary" id="share-button">
+												<i class="fas fa-share-alt"></i> Share
+											</a>
+											<a href="/upload-video/" class="add-course btn-primary">
+												<i class="fas fa-upload"></i> Upload New Video
+											  </a>
 										</div>
 									</div>
 								</div>
@@ -59,7 +64,7 @@
 											</a>
 										</li>
 										<li class="nav-item ">
-											<a href="/myprofile/" class="nav-link">
+											<a href="/myprofile/" class="nav-link profile-update">
 												<i class="bx bxs-user"></i>My Profile
 											</a>
 										</li>
