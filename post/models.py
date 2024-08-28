@@ -69,7 +69,7 @@ class Post(models.Model):
                 'notification_id': mainnotification.id,
                 'message': notification_message,
                 'timestamp': str(now()),
-                'link': "/upload-post/",
+                'link': "/mypost/",
             }
         )
 
