@@ -46,12 +46,16 @@
 						<div class="profile-group">
 							<div class="profile-name text-center">
 								<h4 id="other_profile_page_username"> Username</h4>
-								<a href="#" class="add-course btn-primary" id="share-button">
+								<div class="add-course btn-primary" id="follow-button" style="margin-top: 20px;">
+									<i class="fas fa-user-plus"></i> Follow
+								  </div>
+								<a href="#" class="add-course btn-primary" id="share-button" style="margin-top: 10px;">
 									<i class="fas fa-share-alt"></i> Share
 								</a>
-								<div class="add-course btn-primary" id="Send_Message">
-									<i class="fas fa-envelope"></i> Contact
+								<div class="add-course btn-primary" id="Send_Message" style="margin-top: 10px;">
+									<i class="fas fa-paper-plane"></i> Send Message
 								  </div>
+								  
 							</div>
 						</div>
 					</div>
@@ -114,6 +118,16 @@
 							<li class="nav-item">
 								<a class="nav-link">
 									<i class="bx bxs-chat"></i>Start Video call
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link" id="link_followers">
+									<i class="bx bxs-group"></i>followers
+								</a>
+							</li>
+                            <li class="nav-item">
+								<a href="#" class="nav-link" id="link_following">
+									<i class="bx bxs-user-plus"></i>following
 								</a>
 							</li>
 							<!-- <li class="nav-item">
@@ -261,8 +275,21 @@
 
 				console.log(response.data)
 
+				/////followers////
+				if (response.is_following){
+					document.getElementById("follow-button").innerHTML=`<i class="fas fa-user-plus" data-follow-id="${response.follow_id}"></i> unfollow`
+				}
+				else{
+document.getElementById("follow-button").innerHTML=`<i class="fas fa-user-plus"></i> follow`
+				}
+				/////end followers////
+
+
+
 				document.getElementById("other_user_video").href=`/user-video/${response.data.user.username}`
 				document.getElementById("other_user_profile").href=`/user-profile/${response.data.user.username}`
+				document.getElementById("link_following").href=`/following/${response.data.user.username}`
+                document.getElementById("link_followers").href=`/followers/${response.data.user.username}`
 
 				if (response.data.user.profile_picture == "") {
 					document.getElementById("other_profile_page_image").src = '/media/profile_pictures/default_profile_image.png'
@@ -276,24 +303,28 @@
 
 				console.log(response.data.user.username)
 				if (response.data.user.username == "") {
+					//document.getElementById("profile_page_username").innerHTML = "Not Provided"
 					document.getElementById("other_profile_page_username").innerHTML = "username"
 
 
 
 				}
 				else {
-					document.getElementById("other_profile_page_username").innerHTML = response.data.user.username.length > 14 ? `${response.data.user.username.substring(0, 14)}...` : response.data.user.username;
-
-					document.getElementById("other_user_username").innerHTML = `${response.data.user.username}'s Videos`
-					document.getElementById("other_user_paragraph").innerHTML = `Most Recent Videos by the ${response.data.user.username}`
-
-
-
-
+					//document.getElementById("profile_page_username").innerHTML = `${response.data.user.username}`
+					document.getElementById("other_profile_page_username").innerHTML = `@${response.data.user.username.length > 14 ? `${response.data.user.username.substring(0, 14)}...` : response.data.user.username}`;
 
 				}
 
-				getUserPosts(other_user)
+				getUserPosts(other_user);
+
+				/////folllow////
+				if(authenticated){
+
+					follow_unfollow(response.data.user.id)
+				}
+				/////end folllow////
+
+				console.log("other_user_id", other_user)
 
 
 			}
@@ -388,6 +419,124 @@
 		}
 	}
 
+	////follow/////
+	document.getElementById("follow-button").addEventListener('click', async () => {
+		let followButton = document.getElementById("follow-button");
+		let followIcon = followButton.querySelector('i'); // Select the <i> element within the button
+		let isFollowing = followIcon.getAttribute('data-follow-id') !== null; // Check if data-follow-id is present
+	
+		if (authenticated) {
+			let url = `${window.location.origin}/api/follow/`;
+			let body = {
+				"to_user": other_user
+			};
+	
+			// Handle Follow (POST)
+			if (!isFollowing) {
+				await fetch(url, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${authenticated}`
+					},
+					body: JSON.stringify(body)
+				}).then(response => response.json())
+				  .then(response => {
+					if (response.success) {
+						console.log(response);
+						// Store the Follow ID in the <i> tag
+						followIcon.setAttribute('data-follow-id', response.follow_id); // Assuming response contains follow_id
+						// Update the button text to UnFollow
+						followButton.innerHTML = `<i class="fas fa-user-plus" data-follow-id="${response.data.id}"></i> unfollow`;
+					} else {
+						handleError(response.message);
+					}
+				}).catch(error => {
+					console.log("Network error:", error);
+				});
+			}
+	
+			// Handle Unfollow (DELETE)
+			else {
+				let followId = followIcon.getAttribute('data-follow-id');
+				console.log(followId)
+				if (followId) {
+					let deleteUrl = `${url}${followId}/`; // Append the followId to the URL
+					await fetch(deleteUrl, {
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${authenticated}`
+						}
+					}).then(response => response.json())
+					  .then(response => {
+						console.log(response)
+						if (response.success) {
+							console.log(response);
+							// Remove the Follow ID from the <i> tag after successful deletion
+							followIcon.removeAttribute('data-follow-id');
+							// Update the button text to Follow
+							followButton.innerHTML = `<i class="fas fa-user-plus"></i> follow`;
+						} else {
+							handleError(response.message);
+						}
+					}).catch(error => {
+						console.log("Network error:", error);
+					});
+				} else {
+					console.log("Error: Follow ID is not available for deletion.");
+				}
+			}
+		} else {
+			showLoginPrompt();
+		}
+	});
+	
+	function handleError(message) {
+		if (message.non_field_errors) {
+			card.style.display = "flex";
+			card.style.borderLeft = "10px solid #3db5dc";
+			message_content.innerHTML = message.non_field_errors;
+			message_type.innerHTML = "Info";
+			message_type.style.color = "#3db5dc";
+			message_icon_parent.style.color = "#3db5dc";
+			message_icon_child.classList = "fas fa-exclamation-circle";
+		}
+		console.log("Error occurred:", message);
+	}
+	
+	function showLoginPrompt() {
+		card.style.display = "flex";
+		card.style.borderLeft = "10px solid #3db5dc";
+		message_content.innerHTML = "Please log in to follow creators.";
+		message_type.innerHTML = "Info";
+		message_type.style.color = "#3db5dc";
+		message_icon_parent.style.color = "#3db5dc";
+		message_icon_child.classList = "fas fa-exclamation-circle";
+	}
+
+	async function follow_unfollow(id){
+		await fetch(`${window.location.origin}/api/follow/user-is-following/?to_user=${id}`,{
+			"method":"get",
+			headers:{
+				"Content-Type": "application/json",
+							"Authorization": `Bearer ${authenticated}`
+			},
+			
+		}).then((response)=>{
+			return response.json()
+		}).then((response)=>{
+			if(response.success){
+				document.getElementById("follow-button").innerHTML=`<i class="fas fa-user-plus" data-follow-id="${response.data.id}"></i> unfollow`
+			}
+			else{
+				document.getElementById("follow-button").innerHTML=`<i class="fas fa-user-plus"></i> follow`
+				console.log("follow Unfollow",response)
+			}
+		})
+
+	}
+/////end follow////
 
 	let currentPage = 1; // Track the current page
 	let totalPages = 1;  // Total pages, initially set to 1

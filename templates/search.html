@@ -907,10 +907,10 @@
                                         <div class="product-content">
                                             <div class="course-group d-flex">
                                                 <div class="course-group-img d-flex">
-                                                    <a href="/profile/${post.user_username}/"><img src="/media/${post.user_profile_picture}" alt="Img"
+                                                    <a href="/user-profile/${post.user_username}/"><img src="/media/${post.user_profile_picture}" alt="Img"
                                                             class="img-fluid"></a>
                                                     <div class="course-name">
-                                                        <h4><a href="/profile/${post.user_username}/">${post.user_username}</a></h4>
+                                                        <h4><a href="/user-profile/${post.user_username}/">${post.user_username}</a></h4>
                                                         <!-- <p>Instructor</p> -->
                                                     </div>
                                                 </div>
@@ -1017,7 +1017,7 @@
 						response.data.forEach((data)=>{
 							str+=`<li>
 												<div class="post-thumb">
-													<a href="course-details.html">
+													<a href="/post-view/${data.id}/">
 														<img class="img-fluid" src="${data.thumbnail}" alt="Img" style="width: 100px;
     /* max-height: 50px; */
     max-height: 71px;

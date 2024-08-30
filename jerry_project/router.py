@@ -7,6 +7,7 @@ from chat.views import ConversationViewSet,MessageViewSet,UplaodedImaeViewSet
 from notification.views import NotificationViewSet,MainNotificationViewSet
 from creator.views import CreatorApprovalViewSet
 from post.views import PostViewSet,PostReviewViewSet
+from follow.views import FollowViewSet
 
 routers=DefaultRouter()
 
@@ -27,11 +28,7 @@ routers.register(r'main-notification',MainNotificationViewSet,basename="main-not
 routers.register(r'creator-approval',CreatorApprovalViewSet,basename="creator-approval")
 routers.register(r'upload-post',PostViewSet,basename="upload-post")
 routers.register(r'post-review',PostReviewViewSet,basename="post-review")
-
-
-
-
-
+routers.register(r'follow',FollowViewSet,basename="follow")
 
 
 from django.urls import path
