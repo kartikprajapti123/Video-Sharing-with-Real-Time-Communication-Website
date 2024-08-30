@@ -936,11 +936,7 @@
     });
     async function searchFollowers(query) {
         await fetch(`${window.location.origin}/api/follow/?by_user=${other_user}&to_user_username=${query}&no_pagination=true`, {
-            method: "GET",
-            headers: {
-                "content-type": "application/json",
-                "Authorization": `Bearer ${authenticated}`
-            }
+            method: "GET"
         }).then((response) => {
             return response.json();
         }).then(async (response) => {
