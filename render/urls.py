@@ -33,6 +33,13 @@ urlpatterns = [
     path('post-view/<str:id>/',views.post_view,name="update-post"),
     path('search/',views.search,name="search"),
     
+    path('myfollowers/',views.myfollowers,name="followers"),
+    path('myfollowing/',views.myfollowing,name="following"),
+    
+    path('following/<str:id>/',views.following,name="following"),
+    path('followers/<str:id>/',views.followers,name="followers")
+    
+    
     
     
     

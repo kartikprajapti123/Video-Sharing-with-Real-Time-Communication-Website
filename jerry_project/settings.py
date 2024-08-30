@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'chat',
     'notification',
     'creator',
-    'post'
+    'post',
+    'follow',
     
 ]
 

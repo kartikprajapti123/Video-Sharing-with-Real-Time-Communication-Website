@@ -705,7 +705,7 @@
 							if (profile_page_username) {
 
 								if (response.data.username.length > 14) {
-    profile_page_username.innerHTML = `${response.data.username.substring(0, 14)}...`;
+									document.getElementById("profile_page_username2").innerHTML = `@${response.data.username.length > 14 ? `${response.data.username.substring(0, 14)}...` : response.data.username}`;
 } else {
     profile_page_username.innerHTML = response.data.username;
 }

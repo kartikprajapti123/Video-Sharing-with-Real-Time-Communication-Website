@@ -421,6 +421,16 @@
                                             <i class="bx bxs-chat"></i>Messages
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="/myfollowers/" class="nav-link">
+                                            <i class="bx bxs-group"></i> My Followers
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/myfollowing/" class="nav-link">
+                                            <i class="bx bxs-user-plus"></i> Me Following
+                                        </a>
+                                    </li>
                                     <!-- <li class="nav-item">
                                         <a href="instructor-notifications.html" class="nav-link">
                                             <i class="bx bxs-bell"></i>Notifications
@@ -490,6 +500,26 @@
 
                         <!-- Dashboard Grid -->
                         <div class="row justify-content-center">
+                            <div class="col-lg-4 col-md-6 d-flex">
+                                <div class="card dash-info flex-fill">
+                                        <a href="/myfollowers/">
+                                        <div class="card-body">
+                                            <h5>Followers</h5>
+                                            <h2 id="followers">00</h2>
+                                        </div>
+                                    </a>
+                                    </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex">
+                                <div class="card dash-info flex-fill">
+                                    <a href="/myfollowing/">
+                                    <div class="card-body">
+                                        <h5>Following</h5>
+                                        <h2 id="following">00</h2>
+                                    </div>
+                                </a>
+                                </div>
+                            </div>
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
@@ -753,6 +783,8 @@
 
                         all_dashbored_data();
 
+                        followers_following();
+
 
 
                     }
@@ -922,7 +954,7 @@
                     <tr>
                                             <td>
                                                 <div class="table-course-detail">
-                                                    <a href="course-details.html" class="course-table-img">
+                                                    <a href="/post-view/${post.id}/" class="course-table-img">
                                                         <span><img src="${post.thumbnail}"
                                                                 alt="Img" style="object-position:center;object-fit:contain;"></span>
                                                         ${post.title}
@@ -1210,6 +1242,33 @@
     // Initialize with the first page
 
 
+    async function followers_following(id) {
+        fetch(`${window.location.origin}/api/follow/get-followers-following/?user_id=${user_id}`, {
+            method: "get",
+            headers: {
+                "content-type": "application/json",
+                "Authorization": `Bearer ${authenticated}`
+            },
+
+        }).then((response) => {
+            return response.json()
+        }).then((response) => {
+            console.log(response)
+            if (response.success) {
+                document.getElementById("followers").innerHTML = String(response.data.followers).padStart(2, '0');
+                document.getElementById("following").innerHTML = String(response.data.following).padStart(2, '0');
+            }
+            else {
+                message_content.innerHTML = response.message;
+                card.style.display = "flex";
+                card.style.borderLeft = "10px solid red";
+                message_type.innerHTML = "Error";
+                message_type.style.color = "red";
+                message_icon_parent.style.color = "red";
+                message_icon_child.classList = "fas fa-times-circle";
+            }
+        })
+    }
 
 
 </script>

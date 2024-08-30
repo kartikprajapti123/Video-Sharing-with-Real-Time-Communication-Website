@@ -118,6 +118,16 @@
 									<i class="bx bxs-chat"></i>Messages
 								</a>
 							</li>
+							<li class="nav-item">
+								<a href="/myfollowers/" class="nav-link">
+									<i class="bx bxs-group"></i> My Followers
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="/myfollowing/" class="nav-link">
+									<i class="bx bxs-user-plus"></i> Me Following
+								</a>
+							</li>
 							<!-- <li class="nav-item">
 								<a href="instructor-notifications.html" class="nav-link">
 									<i class="bx bxs-bell"></i>Notifications
@@ -273,13 +283,12 @@
 					console.log(response.data.username)
 					if (response.data.username == "") {
 						document.getElementById("profile_page_username").innerHTML = "Not Provided"
-						document.getElementById("profile_page_username2").innerHTML = "username"
-
-
+						//document.getElementById("profile_page_username2").innerHTML = "username"
 					}
 					else {
 						document.getElementById("profile_page_username").innerHTML = `${response.data.username}`
-						document.getElementById("profile_page_username2").innerHTML = `${response.data.username.substring(0, 14)}...`;
+						//document.getElementById("profile_page_username2").innerHTML = `@${response.data.username.length > 14 ? `${response.data.username.substring(0, 14)}...` : response.data.username}`;
+
 
 
 

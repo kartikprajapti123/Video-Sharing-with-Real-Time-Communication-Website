@@ -83,5 +83,18 @@ def search(request):
     
 def other_video(request,id):
     return render(request,"other_video.html")
+
+def myfollowers(request):
+    return render(request,"myfollowers.html")
+    
+    
+def myfollowing(request):
+    return render(request,"myfollowing.html")
+    
+def followers(request,id):
+    return render(request,"other_followers.html")
+    
+def following(request,id):
+    return render(request,"other_following.html")
     
     
