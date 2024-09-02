@@ -46,23 +46,22 @@
 							<div class="profile-name text-center">
 								<h4 id="profile_page_username2"> Username</h4>
 								<a href="#" class="add-course btn-primary" id="share-button">
-									<i class="fas fa-share-alt"></i> Share
+									<i class="fas fa-share-alt"></i> Share Profile URL
 								</a>
 								<a href="/upload-video/" class="add-course btn-primary">
 									<i class="fas fa-upload"></i> Upload New Video
-								  </a>
-								
+								</a>
+
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="settings-widget account-settings">
 					<div class="settings-menu">
-						<h3>Dashboard</h3>
+						<h3>Creators' Corner</h3>
 						<ul>
 							<li class="nav-item">
-								<a href="/creator/" class="nav-link">
-									<i class="bx bxs-tachometer"></i>Dashboard
+								<a href="/creator/" class="nav-link" id="creator_check">
 								</a>
 							</li>
 							<li class="nav-item ">
@@ -115,16 +114,7 @@
 									<i class="bx bxs-chat"></i>Messages
 								</a>
 							</li>
-							<li class="nav-item">
-								<a href="/myfollowers/" class="nav-link">
-									<i class="bx bxs-group"></i> My Followers
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="/myfollowing/" class="nav-link">
-									<i class="bx bxs-user-plus"></i> Me Following
-								</a>
-							</li>
+							
 							<!-- <li class="nav-item">
 								<a href="instructor-notifications.html" class="nav-link">
 									<i class="bx bxs-bell"></i>Notifications
@@ -363,35 +353,77 @@
     object-position: center;" alt="Img" src="${videoSrc}" poster="${data.thumbnail}" ${hoverAttributes} muted></video>`
 				: '<div class="video-error">No video available</div>'; // Show an error message if no video
 
+			//const postHTML = (status) => `
+			//	<div class="col-xxl-4 col-md-6 d-flex" style="height: fit-content;">
+			//		<div class="course-box flex-fill">
+			//			<div class="product">
+			//				<div class="product-img">
+			//					<a href="/post-view/${data.id}/">
+			//						${videoElement}
+			//					</a>
+			//					<div class="price" style="    box-shadow: 0px 0px 10px 0px gray;">
+			//						<h3>$${data.price}</h3>
+			//					</div>
+			//				</div>
+			//				<div class="product-content">
+			//					<h3 class="title instructor-text"><a href="/post-view/${data.id}/">${truncatedTitle}</a></h3>
+			//					<div class="course-info d-flex align-items-center">
+			//						<div class="course-view d-flex align-items-center">
+			//							<img src="/static/img/icon/icon-02.svg" alt="Img">
+			//							<p>${formattedDate} ${formattedTime}</p>
+			//						</div>
+			//					</div>
+			//					<div class="course-edit-btn d-flex align-items-center justify-content-between">
+			//						<a href="/update-video/${data.id}"><i class="bx bx-edit me-2"></i>Edit</a>
+			//						<a href="#" onclick="PostDelete(${data.id})"><i class="bx bx-trash me-2"></i>Delete</a>
+			//					</div>
+			//				</div>
+			//			</div>
+			//		</div>
+			//	</div>`;
 			const postHTML = (status) => `
-				<div class="col-xxl-4 col-md-6 d-flex" style="height: fit-content;">
-					<div class="course-box flex-fill">
-						<div class="product">
-							<div class="product-img">
-								<a href="/post-view/${data.id}/">
-									${videoElement}
-								</a>
-								<div class="price" style="    box-shadow: 0px 0px 10px 0px gray;
-">
-									<h3>$${data.price}</h3>
+				<div class="col-lg-12 col-md-12 d-flex">
+									<div class="course-box course-design list-course d-flex">
+										<div class="product">
+											<div class="product-img">
+												<a href="/post-view/${data.id}/">
+													${videoElement}
+												</a>
+												<div class="price" style="box-shadow: 0px 0px 10px 0px grey;">
+													<h3>$${data.price} </h3>
+												</div>
+											</div>
+											<div class="product-content">
+												<div class="head-course-title">
+													<h3 class="title"><a href="/post-view/${data.id}/">${data.title}</a></h3>
+													<div class="all-btn all-category d-flex align-items-center">
+														<a href="#" class="btn btn-primary">BUY NOW</a>
+													</div>
+												</div>
+												<div class="course-info border-bottom-0 pb-0 d-flex align-items-center">
+													
+													
+													
+												</div>
+												<div class="course-edit-btn d-flex align-items-center justify-content-between" style="color:grey;">
+									<a href="/update-video/${data.id}" style="color:grey;"><i class="bx bx-edit me-2" style="color:grey;"></i>Edit</a>
+									<a href="#" onclick="PostDelete(${data.id})" style="color:grey;"><i class="bx bx-trash me-2" style="color:grey;"></i>Delete</a>
 								</div>
-							</div>
-							<div class="product-content">
-								<h3 class="title instructor-text"><a href="/post-view/${data.id}/">${truncatedTitle}</a></h3>
-								<div class="course-info d-flex align-items-center">
-									<div class="course-view d-flex align-items-center">
-										<img src="/static/img/icon/icon-02.svg" alt="Img">
-										<p>${formattedDate} ${formattedTime}</p>
+												</div>
+												
+																		
+													
+												<div class="course-group d-flex mb-0">
+													<div class="course-group-img d-flex">
+														
+														
+													</div>
+													
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="course-edit-btn d-flex align-items-center justify-content-between">
-									<a href="/update-video/${data.id}"><i class="bx bx-edit me-2"></i>Edit</a>
-									<a href="#" onclick="PostDelete(${data.id})"><i class="bx bx-trash me-2"></i>Delete</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>`;
+								</div>`;
 
 			if (data.status === "approved") {
 				approved += postHTML("approved");
@@ -462,40 +494,40 @@
 
 
 
-	
-		console.log("Token found, making API call...");
-		let token = authenticated;
 
-		const userApi = async () => {
-			await fetch(`${window.location.origin}/api/user/`, {
-				method: "GET",
-				headers: {
-					"content-type": "application/json",
-					"Authorization": `Bearer ${token}`
+	console.log("Token found, making API call...");
+	let token = authenticated;
+
+	const userApi = async () => {
+		await fetch(`${window.location.origin}/api/user/`, {
+			method: "GET",
+			headers: {
+				"content-type": "application/json",
+				"Authorization": `Bearer ${token}`
+			}
+		}).then(response => response.json())
+			.then(response => {
+				if (response.success) {
+					console.log("User authenticated:", response);
+					const username = response.data.username; // Retrieve the username
+					localStorage.setItem("username", username);
+					// Store username in localStorage
+					// Call the API to get user posts
+					getUserPosts(token, username);
+				} else {
+					console.log("User authentication failed.");
 				}
-			}).then(response => response.json())
-				.then(response => {
-					if (response.success) {
-						console.log("User authenticated:", response);
-						const username = response.data.username; // Retrieve the username
-						localStorage.setItem("username", username);
-						// Store username in localStorage
-						// Call the API to get user posts
-						getUserPosts(token, username);
-					} else {
-						console.log("User authentication failed.");
-					}
-				}).catch(error => {
-					console.error("Error fetching user data:", error);
-				});
-		};
+			}).catch(error => {
+				console.error("Error fetching user data:", error);
+			});
+	};
 
 
 
-		userApi();
+	userApi();
 
 
-	
+
 	async function PostDelete(id) {
 		console.log("called")
 		let check = confirm("Are you sure you want to delete Video ! After delete You wil not be Restore It ")
@@ -522,9 +554,9 @@
 					message_icon_parent.style.color = "green";
 					message_icon_child.classList = "fas fa-check-circle";
 
-					setTimeout(()=>{
-						card.style.display="none"
-					},3000)
+					setTimeout(() => {
+						card.style.display = "none"
+					}, 3000)
 					userApi();
 				}
 				else {
@@ -543,7 +575,7 @@
 		}
 	}
 
-	
+
 
 
 </script>

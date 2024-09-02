@@ -449,7 +449,7 @@ class UserViewSet(ModelViewSet):
     
     def get_permissions(self):
         print(self.action)
-        if self.action == 'retrieve_by_username' or self.action=="get_other_users":
+        if self.action in ['retrieve_by_username','get_all_users']:
             self.permission_classes = [AllowAny]
             
         elif self.action == 'retrieve':
@@ -555,3 +555,21 @@ class UserViewSet(ModelViewSet):
         
         }
         return Response({'success': True, 'data': data}, status=status.HTTP_200_OK)
+    
+    
+    @action(detail=False, methods=['get'], url_path='get-other-users')
+    def get_other_users(self, request, *args, **kwargs):
+        current_user = request.user
+        if current_user.is_authenticated:
+            users = User.objects.exclude(id=current_user.id)
+        else:
+            return Response({'success': False, 'message': 'User not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        serializer = UserSerializer(users, many=True)
+        return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'], url_path='get-all-users', permission_classes=[AllowAny])
+    def get_all_users(self, request, *args, **kwargs):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)

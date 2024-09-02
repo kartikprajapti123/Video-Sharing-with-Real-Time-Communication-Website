@@ -179,9 +179,9 @@
                                                             <li><a href="index-four.html">Home Four</a></li>
                                                         </ul> -->
                                                 </li>
-                                                <li class="has-submenu">
+                                                <!-- <li class="has-submenu"> -->
                                                     <!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
-                                                    <a href="#">Today's Feed </a>
+                                                    <!-- <a href="#">Today's Feed </a> -->
 
                                                     <!-- <ul class="submenu">
                                                             <li class="active"><a href="/index/">Home</a></li>
@@ -189,16 +189,16 @@
                                                             <li><a href="index-three.html">Home Three</a></li>
                                                             <li><a href="index-four.html">Home Four</a></li>
                                                         </ul> -->
-                                                </li>
+                                                <!-- </li> -->
                                                 <li class="has-submenu">
-                                                    <a href="#">Dashboard <i class="fas fa-chevron-down"></i></a>
+                                                    <a href="#">Dashboard </a>
 
                                                     <!-- <a class="" href="#">Dashboard</a> -->
-                                                    <ul class="submenu">
-                                                        <li><a href="#">Fan Dashbored</a></li>
-                                                        <li><a href="/creator/">Creator Dashbored</a></li>
-                                                    </ul>
-                                                </li>
+                                                    <!-- <ul class="submenu"> -->
+                                                        <!-- <li><a href="#">Fan Dashbored</a></li> -->
+                                                        <!-- <li><a href="/creator/">Creator Dashbored</a></li> -->
+                                                    <!-- </ul> -->
+                                                <!-- </li> -->
                                                 <li class="has-submenu">
                                                     <a href="#">Creator's <i class="fas fa-chevron-down"></i></a>
                                                     <ul class="submenu">
@@ -596,7 +596,7 @@
                                 <div class="chat-avatar">
                                     <img src="/media/${data.sender1_profile_picture}" class="rounded-circle dreams_chat" alt="image">
                                 </div>
-                                <div class="chat-content">
+                                <div class="chat-content" style="width: fit-content;">
                                     <div class="chat-profile-name">
                                         <h6 style="text-wrap: nowrap;" >${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
@@ -612,7 +612,7 @@
                                 <div class="chat-avatar">
                                     <img src="/media/${data.sender1_profile_picture}" class="rounded-circle dreams_chat" alt="image">
                                 </div>
-                                <div class="chat-content">
+                                <div class="chat-content"  style="width: fit-content;">
                                     <div class="chat-profile-name">
                                         <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
@@ -629,7 +629,7 @@
                                 if (data.file_url != null || data.file_url == '') {
                                     str += `<div class="chats chats-right">
 									  
-									  <div class="chat-content">
+									  <div class="chat-content"  style="width: fit-content;">
 										  <div class="chat-profile-name">
 											  <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
@@ -647,7 +647,7 @@
 
 
                                     str += `<div class="chats chats-right">
-                                        <div class="chat-content">
+                                        <div class="chat-content"  style="width: fit-content;">
                                             <div class="chat-profile-name text-end">
                                                 <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                             </div>
@@ -776,7 +776,7 @@
                             if (message.file_url != null) {
                                 str = `<div class="chats chats-right">
 									  
-									  <div class="chat-content">
+									  <div class="chat-content"  style="width: fit-content;">
 										  <div class="chat-profile-name">
 											  <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
@@ -792,7 +792,7 @@
                             else {
 
                                 str = `<div class="chats chats-right">
-                        <div class="chat-content">
+                        <div class="chat-content"  style="width: fit-content;">
                             <div class="chat-profile-name text-end">
                                         <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
@@ -855,7 +855,7 @@
                                 <div class="chat-avatar">
                                     <img src="${message.profile_picture}" class="rounded-circle dreams_chat" alt="image">
                                 </div>
-                                <div class="chat-content">
+                                <div class="chat-content"  style="width: fit-content;">
                                     <div class="chat-profile-name">
                                         <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
@@ -870,7 +870,7 @@
                                     <div class="chat-avatar">
                                         <img src="${message.profile_picture}" class="rounded-circle dreams_chat" alt="image">
                                     </div>
-                                    <div class="chat-content">
+                                    <div class="chat-content"  style="width: fit-content;">
                                         <div class="chat-profile-name">
                                             <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
                                         </div>
@@ -897,7 +897,7 @@
                                                         <img src="${message.profile_picture}"
                                                             class="rounded-circle dreams_chat" alt="image">
                                                     </div>
-                                                    <div class="chat-content">
+                                                    <div class="chat-content"  style="width: fit-content;">
                                                         <div class="chat-bubble">
                                                             <div class="typing">
                                                               <div class="dot"></div>

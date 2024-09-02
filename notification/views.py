@@ -267,4 +267,37 @@ class MainNotificationViewSet(ModelViewSet):
             {"success": True, "data": serializer.data},
             status=status.HTTP_200_OK
         )
-    
+    @action(detail=False, methods=['POST'], url_path="mark-all-user-notifications-read")
+    def mark_all_user_notifications_read(self, request):
+        user_id = request.data.get('user_id')
+        
+        if not user_id:
+            return Response(
+                {"success": False, "message": "user_id parameter is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            return Response(
+                {"success": False, "message": "user_id must be an integer."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Filter notifications for the specified user that are not deleted
+        updated_count = MainNotification.objects.filter(
+            user_id=user_id,
+            deleted=0,
+            is_read=False
+        ).update(is_read=True)
+        
+        if updated_count == 0:
+                return Response(
+                {"success": False, "message": "No notifications to mark as read."},
+                status=status.HTTP_200_OK
+            )
+        return Response(
+            {"success": True, "message": f"Marked {updated_count} notifications as read."},
+            status=status.HTTP_200_OK
+        )

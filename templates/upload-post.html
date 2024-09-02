@@ -621,8 +621,10 @@
         })
     }
     userApi()
-    document.getElementsByClassName("footer")[0].style.display="none"
-
+    //document.getElementsByClassName("footer")[0].style.display="none"
+    document.getElementsByClassName("footer-top")[0].classList.remove("aos");
+    document.getElementsByClassName("footer-top")[0].setAttribute("data-aos", "");
+    
 
 </script>
 {% endblock script %}

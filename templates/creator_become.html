@@ -32,7 +32,7 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="add-course-header">
-                        <h2>Creator</h2>
+                        <h2>Become Creator</h2>
                         <div class="add-course-btns">
                             <ul class="nav">
                                 <li>
@@ -201,7 +201,7 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="add-course-header">
-                        <h2>Creator's Status Pending</h2>
+                        <h2>Creator's Status is Pending</h2>
                         <div class="add-course-btns">
                             <ul class="nav">
                                 <li>
@@ -252,7 +252,7 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="add-course-header">
-                        <h2>Creator's Status Cancelled</h2>
+                        <h2>Creator's Status is Cancelled</h2>
                         <div class="add-course-btns">
                             <ul class="nav">
                                 <li>
@@ -353,7 +353,7 @@
                                     <div class="profile-name text-center">
                                         <h4 id="profile_page_username2"> Username</h4>
                                         <a href="#" class="add-course btn-primary" id="share-button">
-                                            <i class="fas fa-share-alt"></i> Share
+                                            <i class="fas fa-share-alt"></i> Share Profile URL
                                         </a>
                                         <a href="/upload-video/" class="add-course btn-primary">
                                             <i class="fas fa-upload"></i> Upload New Video
@@ -364,11 +364,10 @@
                         </div>
                         <div class="settings-widget account-settings">
                             <div class="settings-menu">
-                                <h3>Dashboard</h3>
+                                <h3>Creators' Corner</h3>
                                 <ul>
-                                    <li class="nav-item active">
-                                        <a href="/creator/" class="nav-link ">
-                                            <i class="bx bxs-tachometer"></i>Dashboard
+                                    <li class="nav-item">
+                                        <a href="/creator/" class="nav-link" id="creator_check">
                                         </a>
                                     </li>
                                     <li class="nav-item ">
@@ -421,16 +420,7 @@
                                             <i class="bx bxs-chat"></i>Messages
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="/myfollowers/" class="nav-link">
-                                            <i class="bx bxs-group"></i> My Followers
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/myfollowing/" class="nav-link">
-                                            <i class="bx bxs-user-plus"></i> Me Following
-                                        </a>
-                                    </li>
+                                    
                                     <!-- <li class="nav-item">
                                         <a href="instructor-notifications.html" class="nav-link">
                                             <i class="bx bxs-bell"></i>Notifications
@@ -500,34 +490,9 @@
 
                         <!-- Dashboard Grid -->
                         <div class="row justify-content-center">
-                            <div class="col-lg-4 col-md-6 d-flex">
-                                <div class="card dash-info flex-fill">
-                                        <a href="/myfollowers/">
-                                        <div class="card-body">
-                                            <h5>Followers</h5>
-                                            <h2 id="followers">00</h2>
-                                        </div>
-                                    </a>
-                                    </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 d-flex">
-                                <div class="card dash-info flex-fill">
-                                    <a href="/myfollowing/">
-                                    <div class="card-body">
-                                        <h5>Following</h5>
-                                        <h2 id="following">00</h2>
-                                    </div>
-                                </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 d-flex">
-                                <div class="card dash-info flex-fill">
-                                    <div class="card-body">
-                                        <h5>Video Purchased</h5>
-                                        <h2 id="purchased_videos">00</h2>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            
+                            
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
@@ -557,6 +522,14 @@
                                     <div class="card-body">
                                         <h5>Total Videos</h5>
                                         <h2 id="total_videos"></h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 d-flex">
+                                <div class="card dash-info flex-fill">
+                                    <div class="card-body">
+                                        <h5>Videos Bought</h5>
+                                        <h2 id="purchased_videos">00</h2>
                                     </div>
                                 </div>
                             </div>
@@ -783,7 +756,7 @@
 
                         all_dashbored_data();
 
-                        followers_following();
+                        //followers_following();
 
 
 
@@ -1061,34 +1034,48 @@
                 : '<div class="video-error">No video available</div>'; // Show an error message if no video
 
             const postHTML = (status) => `
-                    <div class="col-xxl-4 col-md-6 d-flex" style="height: fit-content;">
-                        <div class="course-box flex-fill">
-                            <div class="product">
-                                <div class="product-img">
-                                    <a href="/post-view/${data.id}/">
-                                        ${videoElement}
-                                    </a>
-                                    <div class="price" style="    box-shadow: 0px 0px 10px 0px gray;
-    ">
-                                        <h3>$${data.price}</h3>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="title instructor-text"><a href="/post-view/${data.id}/">${truncatedTitle}</a></h3>
-                                    <div class="course-info d-flex align-items-center">
-                                        <div class="course-view d-flex align-items-center">
-                                            <img src="/static/img/icon/icon-02.svg" alt="Img">
-                                            <p>${formattedDate} ${formattedTime}</p>
-                                        </div>
-                                    </div>
-                                    <div class="course-edit-btn d-flex align-items-center justify-content-between">
-                                        <a href="/update-video/${data.id}"><i class="bx bx-edit me-2"></i>Edit</a>
-                                        <a href="#" onclick="PostDelete(${data.id})"><i class="bx bx-trash me-2"></i>Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
+                    <div class="col-lg-12 col-md-12 d-flex">
+									<div class="course-box course-design list-course d-flex">
+										<div class="product">
+											<div class="product-img">
+												<a href="/post-view/${data.id}/">
+													${videoElement}
+												</a>
+												<div class="price" style="box-shadow: 0px 0px 10px 0px grey;">
+													<h3>$${data.price} </h3>
+												</div>
+											</div>
+											<div class="product-content">
+												<div class="head-course-title">
+													<h3 class="title"><a href="/post-view/${data.id}/">${data.title}</a></h3>
+													<div class="all-btn all-category d-flex align-items-center">
+														<a href="#" class="btn btn-primary">BUY NOW</a>
+													</div>
+												</div>
+												<div class="course-info border-bottom-0 pb-0 d-flex align-items-center">
+													
+													
+													
+												</div>
+												<div class="course-edit-btn d-flex align-items-center justify-content-between" style="color:grey;">
+									<a href="/update-video/${data.id}" style="color:grey;"><i class="bx bx-edit me-2" style="color:grey;"></i>Edit</a>
+									<a href="#" onclick="PostDelete(${data.id})" style="color:grey;"><i class="bx bx-trash me-2" style="color:grey;"></i>Delete</a>
+								</div>
+												</div>
+												
+																		
+													
+												<div class="course-group d-flex mb-0">
+													<div class="course-group-img d-flex">
+														
+														
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>`;
 
             if (data.status === "approved") {
                 approved += postHTML("approved");
@@ -1242,33 +1229,33 @@
     // Initialize with the first page
 
 
-    async function followers_following(id) {
-        fetch(`${window.location.origin}/api/follow/get-followers-following/?user_id=${user_id}`, {
-            method: "get",
-            headers: {
-                "content-type": "application/json",
-                "Authorization": `Bearer ${authenticated}`
-            },
-
-        }).then((response) => {
-            return response.json()
-        }).then((response) => {
-            console.log(response)
-            if (response.success) {
-                document.getElementById("followers").innerHTML = String(response.data.followers).padStart(2, '0');
-                document.getElementById("following").innerHTML = String(response.data.following).padStart(2, '0');
-            }
-            else {
-                message_content.innerHTML = response.message;
-                card.style.display = "flex";
-                card.style.borderLeft = "10px solid red";
-                message_type.innerHTML = "Error";
-                message_type.style.color = "red";
-                message_icon_parent.style.color = "red";
-                message_icon_child.classList = "fas fa-times-circle";
-            }
-        })
-    }
+    //async function followers_following(id) {
+    //    fetch(`${window.location.origin}/api/follow/get-followers-following/?user_id=${user_id}`, {
+    //        method: "get",
+    //        headers: {
+    //            "content-type": "application/json",
+    //            "Authorization": `Bearer ${authenticated}`
+    //        },
+//
+    //    }).then((response) => {
+    //        return response.json()
+    //    }).then((response) => {
+    //        console.log(response)
+    //        if (response.success) {
+    //            document.getElementById("followers").innerHTML = String(response.data.followers).padStart(2, '0');
+    //            document.getElementById("following").innerHTML = String(response.data.following).padStart(2, '0');
+    //        }
+    //        else {
+    //            message_content.innerHTML = response.message;
+    //            card.style.display = "flex";
+    //            card.style.borderLeft = "10px solid red";
+    //            message_type.innerHTML = "Error";
+    //            message_type.style.color = "red";
+    //            message_icon_parent.style.color = "red";
+    //            message_icon_child.classList = "fas fa-times-circle";
+    //        }
+    //    })
+    //}
 
 
 </script>
