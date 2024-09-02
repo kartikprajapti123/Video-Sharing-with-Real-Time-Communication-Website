@@ -363,7 +363,7 @@
 				<!-- /Instructor -->
 
 				<!-- Reviews -->
-				<div class="card review-sec" id="main_comments">
+				<!-- <div class="card review-sec" id="main_comments">
 					<h5 class="subs-title" style="padding: 0px;
     margin: 0px;
     margin-left: 22px;
@@ -396,31 +396,31 @@
 							Thank you Cristian. “</p>
 						<a href="javascript:void(0);" class="btn btn-reply"><i class="feather-corner-up-left"></i>
 							Reply</a> -->
-					</div>
-				</div>
+					<!-- </div> -->
+				<!-- </div> -->
 				<!-- /Reviews -->
 
 				<!-- Comment -->
-				<div class="card comment-sec">
-					<div class="card-body">
-						<h5 class="subs-title">Post A comment</h5>
-						<form>
-							<div class="row">
-								<div class="col-md-6">
+				<!-- <div class="card comment-sec"> -->
+					<!-- <div class="card-body"> -->
+						<!-- <h5 class="subs-title">Post A comment</h5> -->
+						<!-- <form> -->
+							<!-- <div class="row"> -->
+								<!-- <div class="col-md-6"> -->
 									<!-- <div class="input-block">
 										<input type="text" class="form-control" placeholder="Full Name" id="post_username">
 									</div> -->
-								</div>
-								<div class="col-md-6">
+								<!-- </div> -->
+								<!-- <div class="col-md-6"> -->
 									<!-- <div class="input-block">
 										<input type="email" class="form-control" placeholder="Email (Optional)" id="post_email">
 									</div> -->
-								</div>
-							</div>
-							<div class="input-block">
+								<!-- </div> -->
+							<!-- </div> -->
+							<!-- <div class="input-block"> -->
 								<!-- <input type="text" class="form-control" placeholder="Subject" id="post_subject"> -->
-							</div>
-							<div class="input-block">
+							<!-- </div> -->
+							<!-- <div class="input-block">
 								<textarea rows="4" class="form-control" placeholder="Your Comments"
 									id="post_message"></textarea>
 							</div>
@@ -429,7 +429,7 @@
 							</div>
 						</form>
 					</div>
-				</div>
+				</div> --> 
 				<!-- /Comment -->
 
 			</div>
@@ -506,14 +506,14 @@
 								<h4>Highlights</h4>
 							</div>
 							<ul>
-								<li><img src="/static/img/icon/users.svg" class="me-2" alt="Img"> Purchased By <span>0
-									</span></li>
+								<!-- <li><img src="/static/img/icon/users.svg" class="me-2" alt="Img"> Purchased By <span>0
+									</span></li> -->
 								<li><img src="/static/img/icon/timer.svg" class="me-2" alt="Img"> Duration: <span
-										id="post_view_video_duration">20 hours</span></li>
+										id="post_view_video_duration">00 hours</span></li>
 								<!-- <li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Chapters: <span>15</span></li> -->
 								<!-- <li><img src="/static/img/icon/video.svg" class="me-2" alt="Img"> Video:<span> 12 hours</span></li> -->
-								<li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Comments: <span
-										id="post_reviews_2"></span></li>
+								<!-- <li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Comments: <span
+										id="post_reviews_2"></span></li> -->
 							</ul>
 						</div>
 					</div>
@@ -538,19 +538,6 @@
 	const postId = pathParts[pathParts.length - 2];
 
 	/////////////////////varialibel//////////////////////////////
-	//post_view_title2
-	//post_view_user_profile_link
-	//post_view_user_profile_image
-	//post_view_short_description
-	//post_view_title
-	//post_view_time
-	//post_view_user_purchased_number
-	//post_view_description
-	//post_view_user_link
-	//post_view_user_username
-	//post_view_user_profile_link_username
-
-	//post_view_user_username=document.getElementById("post_view_user_username")
 	post_view_title2 = document.getElementById("post_view_title2")
 	post_view_user_profile_link = document.getElementById("post_view_user_profile_link")
 	post_view_user_profile_image = document.getElementById("post_view_user_profile_image")
@@ -686,154 +673,154 @@
 			alert('Sharing not supported on this browser.');
 		}
 	});
-	document.getElementById("post_comment_submit").onclick = async (e) => {
-		card.style.display = "none";
-
-		e.preventDefault()
-		if (authenticated) {
-			data = {
-				"message": document.getElementById("post_message").value,
-				"post": postId
-			}
-			console.log(data)
-			await fetch(`${window.location.origin}/api/post-review/`, {
-				"method": "POST",
-				"headers": {
-					"content-type": "application/json",
-					"Authorization": `Bearer ${authenticated}`
-				},
-				"body": JSON.stringify(data)
-			}).then((response) => {
-				return response.json()
-			}).then((repsonse) => {
-				if (repsonse.success) {
-					card.style.display = "flex";
-					card.style.borderLeft = "10px solid green";
-
-					message_content.innerHTML = repsonse.message;
-					message_type.innerHTML = "Success";
-					message_type.style.color = "green";
-					message_icon_parent.style.color = "green";
-					message_icon_child.classList = "fas fa-check-circle";
-					document.getElementById("post_message").value = ""
-
-					setTimeout(() => {
-						card.style.display = "none"
-					}, 3000)
-					post_review_get(postId)
-				}
-				else {
-					if (repsonse.message.message) {
-
-						message_content.innerHTML = ` <b>Comment</b>:- ${repsonse.message.message[0]}`;
-					}
-					else {
-						message_content.innerHTML = repsonse.message;
-
-					}
-					card.style.display = "flex";
-					card.style.borderLeft = "10px solid red";
-					message_type.innerHTML = "Error";
-					message_type.style.color = "red";
-					message_icon_parent.style.color = "red";
-					message_icon_child.classList = "fas fa-times-circle";
-				}
-			})
-
-		}
-		else {
-			message_content.innerHTML = `Login to do comments`;
-			card.style.display = "flex";
-			card.style.borderLeft = "10px solid #3db5dc";
-			message_type.innerHTML = `Info`;
-			message_type.style.color = "#3db5dc";
-			message_icon_parent.style.color = "#3db5dc";
-			message_icon_child.classList = "fas fa-exclamation-circle";
-
-			setTimeout(() => {
-				card.style.display = "none"
-			}, 2500)
-		}
-	}
-
-	async function post_review_get(postID) {
-		await fetch(`${window.location.origin}/api/post-review/reviews-by-post/?no_pagination=true&post_id=${postID}`, {
-			method: "GET"
-		}).then((response) => {
-			return response.json()
-		}).then((response) => {
-			console.log("review", response)
-			if (response.success) {
-				console.log(response.data)
-				str = ``
-				count = 0
-				if (response.data.length > 0) {
-						document.getElementById('main_comments').style.display="block"
-					response.data.forEach((data) => {
-						str += `<div class="instructor-wrap" style="border-bottom:none;margin:0px;">
-							<div class="about-instructor">
-								<div class="abt-instructor-img">
-									<a href="instructor-profile.html"><img src="/media/${data.user_profile_picture}" alt="img"
-											class="img-fluid"></a>
-								</div>
-								<div class="instructor-detail">
-									<h5><a href="/profile/${data.user_username}/">${data.user_username}</a></h5>
-									<!-- <p>UX/UI Designer</p> -->
-								</div>
-							</div>
-							<ul class="nav">
-                            <li>
-                                <a href="/profile/${data.username}/" class="btn btn-success-dark"  style="height: 35px;background: #fae2e0;
-    border: 1px solid #fae2e0;
-    color: #ff4667;">View Profile</a>
-                            </li>
-                        </ul>
-							<!-- <div class="rating">							
-								<i class="fas fa-star filled"></i>
-								<i class="fas fa-star filled"></i>
-								<i class="fas fa-star filled"></i>
-								<i class="fas fa-star filled"></i>
-								<i class="fas fa-star"></i>
-								<span class="d-inline-block average-rating">4.5 Instructor Rating</span>
-							</div> -->
-						</div>
-						<p class="rev-info">“ ${data.message} “</p>
-						<hr>
-						<!-- <a href="javascript:void(0);" class="btn btn-reply"><i class="feather-corner-up-left"></i>
-							Reply</a> -->
-							
-							`
-
-						count = count + 1
-					})
-					document.getElementById('post_reviews').innerHTML = str
-					document.getElementById('reviews_count').innerHTML = count
-					document.getElementById('post_reviews_2').innerHTML = count
-
-
-				} else {
-					document.getElementById('main_comments').style.display="none"
-				}
-
-			} else {
-
-				message_content.innerHTML = "Oops ! Problem while getting comments";
-
-				card.style.display = "flex";
-				card.style.borderLeft = "10px solid red";
-				message_type.innerHTML = "Error";
-				message_type.style.color = "red";
-				message_icon_parent.style.color = "red";
-				message_icon_child.classList = "fas fa-times-circle";
-
-				setTimeout((repsonse) => {
-					card.style.display = "none"
-				}, 2000)
-			}
-
-		})
-	}
-	post_review_get(postId)
+	//document.getElementById("post_comment_submit").onclick = async (e) => {
+	//	card.style.display = "none";
+//
+	//	e.preventDefault()
+	//	if (authenticated) {
+	//		data = {
+	//			"message": document.getElementById("post_message").value,
+	//			"post": postId
+	//		}
+	//		console.log(data)
+	//		await fetch(`${window.location.origin}/api/post-review/`, {
+	//			"method": "POST",
+	//			"headers": {
+	//				"content-type": "application/json",
+	//				"Authorization": `Bearer ${authenticated}`
+	//			},
+	//			"body": JSON.stringify(data)
+	//		}).then((response) => {
+	//			return response.json()
+	//		}).then((repsonse) => {
+	//			if (repsonse.success) {
+	//				card.style.display = "flex";
+	//				card.style.borderLeft = "10px solid green";
+//
+	//				message_content.innerHTML = repsonse.message;
+	//				message_type.innerHTML = "Success";
+	//				message_type.style.color = "green";
+	//				message_icon_parent.style.color = "green";
+	//				message_icon_child.classList = "fas fa-check-circle";
+	//				document.getElementById("post_message").value = ""
+//
+	//				setTimeout(() => {
+	//					card.style.display = "none"
+	//				}, 3000)
+	//				post_review_get(postId)
+	//			}
+	//			else {
+	//				if (repsonse.message.message) {
+//
+	//					message_content.innerHTML = ` <b>Comment</b>:- ${repsonse.message.message[0]}`;
+	//				}
+	//				else {
+	//					message_content.innerHTML = repsonse.message;
+//
+	//				}
+	//				card.style.display = "flex";
+	//				card.style.borderLeft = "10px solid red";
+	//				message_type.innerHTML = "Error";
+	//				message_type.style.color = "red";
+	//				message_icon_parent.style.color = "red";
+	//				message_icon_child.classList = "fas fa-times-circle";
+	//			}
+	//		})
+//
+	//	}
+	//	else {
+	//		message_content.innerHTML = `Login to do comments`;
+	//		card.style.display = "flex";
+	//		card.style.borderLeft = "10px solid #3db5dc";
+	//		message_type.innerHTML = `Info`;
+	//		message_type.style.color = "#3db5dc";
+	//		message_icon_parent.style.color = "#3db5dc";
+	//		message_icon_child.classList = "fas fa-exclamation-circle";
+//
+	//		setTimeout(() => {
+	//			card.style.display = "none"
+	//		}, 2500)
+	//	}
+	//}
+//
+	//async function post_review_get(postID) {
+	//	await fetch(`${window.location.origin}/api/post-review/reviews-by-post/?no_pagination=true&post_id=${postID}`, {
+	//		method: "GET"
+	//	}).then((response) => {
+	//		return response.json()
+	//	}).then((response) => {
+	//		console.log("review", response)
+	//		if (response.success) {
+	//			console.log(response.data)
+	//			str = ``
+	//			count = 0
+	//			if (response.data.length > 0) {
+	//					document.getElementById('main_comments').style.display="block"
+	//				response.data.forEach((data) => {
+	//					str += `<div class="instructor-wrap" style="border-bottom:none;margin:0px;">
+	//						<div class="about-instructor">
+	//							<div class="abt-instructor-img">
+	//								<a href="instructor-profile.html"><img src="/media/${data.user_profile_picture}" alt="img"
+	//										class="img-fluid"></a>
+	//							</div>
+	//							<div class="instructor-detail">
+	//								<h5><a href="/profile/${data.user_username}/">${data.user_username}</a></h5>
+	//								<!-- <p>UX/UI Designer</p> -->
+	//							</div>
+	//						</div>
+	//						<ul class="nav">
+    //                        <li>
+    //                            <a href="/profile/${data.username}/" class="btn btn-success-dark"  style="height: 35px;background: #fae2e0;
+    //border: 1px solid #fae2e0;
+    //color: #ff4667;">View Profile</a>
+    //                        </li>
+    //                    </ul>
+	//						<!-- <div class="rating">							
+	//							<i class="fas fa-star filled"></i>
+	//							<i class="fas fa-star filled"></i>
+	//							<i class="fas fa-star filled"></i>
+	//							<i class="fas fa-star filled"></i>
+	//							<i class="fas fa-star"></i>
+	//							<span class="d-inline-block average-rating">4.5 Instructor Rating</span>
+	//						</div> -->
+	//					</div>
+	//					<p class="rev-info">“ ${data.message} “</p>
+	//					<hr>
+	//					<!-- <a href="javascript:void(0);" class="btn btn-reply"><i class="feather-corner-up-left"></i>
+	//						Reply</a> -->
+	//						
+	//						`
+//
+	//					count = count + 1
+	//				})
+	//				document.getElementById('post_reviews').innerHTML = str
+	//				document.getElementById('reviews_count').innerHTML = count
+	//				document.getElementById('post_reviews_2').innerHTML = count
+//
+//
+	//			} else {
+	//				document.getElementById('main_comments').style.display="none"
+	//			}
+//
+	//		} else {
+//
+	//			message_content.innerHTML = "Oops ! Problem while getting comments";
+//
+	//			card.style.display = "flex";
+	//			card.style.borderLeft = "10px solid red";
+	//			message_type.innerHTML = "Error";
+	//			message_type.style.color = "red";
+	//			message_icon_parent.style.color = "red";
+	//			message_icon_child.classList = "fas fa-times-circle";
+//
+	//			setTimeout((repsonse) => {
+	//				card.style.display = "none"
+	//			}, 2000)
+	//		}
+//
+	//	})
+	//}
+	//post_review_get(postId)
 
 
 </script>
