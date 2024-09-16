@@ -8,7 +8,7 @@ from notification.views import NotificationViewSet,MainNotificationViewSet
 from creator.views import CreatorApprovalViewSet
 from post.views import PostViewSet,PostReviewViewSet
 from follow.views import FollowViewSet
-
+from pages.views import PagesViewSet
 routers=DefaultRouter()
 
 routers.register(r'register',RegisterViewSet,basename="register")
@@ -29,6 +29,9 @@ routers.register(r'creator-approval',CreatorApprovalViewSet,basename="creator-ap
 routers.register(r'upload-post',PostViewSet,basename="upload-post")
 routers.register(r'post-review',PostReviewViewSet,basename="post-review")
 routers.register(r'follow',FollowViewSet,basename="follow")
+routers.register(r'page',PagesViewSet,basename="page")
+
+
 
 
 from django.urls import path

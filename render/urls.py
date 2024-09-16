@@ -13,7 +13,6 @@ urlpatterns = [
     path('forgot-password/',views.forgot_password,name="forgot_password"),
     path('reset-password/<str:token>/',views.reset_password,name="reset-password"),
     path('myprofile/',views.myprofile,name="my-profile"),
-    path('user-profile/<str:id>/',views.others_profile,name="others-profile"),
     path('user-video/<str:id>/',views.other_video,name="others-video"),
     
     path('contact-list/',views.contact_list,name="chating"),
@@ -32,6 +31,10 @@ urlpatterns = [
     path('update-video/<str:id>/',views.updatepost,name="update-post"),
     path('post-view/<str:id>/',views.post_view,name="update-post"),
     path('search/',views.search,name="search"),
+    path('<str:id>/',views.others_profile,name="others-profile"),
+    
+    path('page/<str:id>/',views.pages_func,name="pages"),
+    
     
     # path('myfollowers/',views.myfollowers,name="followers"),
     # path('myfollowing/',views.myfollowing,name="following"),

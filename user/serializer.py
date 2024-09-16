@@ -20,8 +20,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         password2 = attrs.get('password2')
         email=attrs.get('email')
         
+        if username:
+            username = ' '.join(username.split()).replace(' ', '_')  # Remove extra spaces and replace with underscores
+            attrs['username'] = username  # Update the `username` in `attrs`
+
+        
         if username and User.objects.filter(username=username,email_verified=True).exists():
             raise serializers.ValidationError("Username is already registered! Try another.")
+        
+        
         
         if email and User.objects.filter(email=email,email_verified=True).exists():
             raise serializers.ValidationError("Email is already registered! Try another.")

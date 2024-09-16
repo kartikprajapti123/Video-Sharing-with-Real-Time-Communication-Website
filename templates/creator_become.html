@@ -38,10 +38,7 @@
                                 <li>
                                     <a href="/index/" class="btn btn-black">Back to Home</a>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0);" class="btn btn-success-dark"
-                                        id="creater_become_save">Save</a>
-                                </li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -99,7 +96,7 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="widget-btn">
+                                            <div class="widget-btn" style="justify-content: flex-start;">
 
                                                 <a class="btn btn-info-light next_btn">Next</a>
                                             </div>
@@ -129,8 +126,8 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="widget-btn">
-                                                <a class="btn btn-black prev_btn">Previous</a>
+                                            <div class="widget-btn" style="justify-content: flex-start;">
+                                                <a class="btn btn-black prev_btn" style="margin:0px 10px">Previous</a>
                                                 <a class="btn btn-info-light next_btn">Next</a>
                                             </div>
                                         </div>
@@ -164,8 +161,14 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="widget-btn">
-                                                <a class="btn btn-black prev_btn">Previous</a>
+                                            <div class="widget-btn" style="justify-content: flex-start;">
+                                                <a class="btn btn-black prev_btn" style="margin:0px 10px" >Previous</a>
+                                                <ul class="nav">
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="btn btn-success-dark"
+                                                            id="creater_become_save">Save</a>
+                                                    </li>
+                                                </ul>
 
                                             </div>
                                         </div>
@@ -366,7 +369,7 @@
                             <div class="settings-menu">
                                 <h3>Creators' Corner</h3>
                                 <ul>
-                                    <li class="nav-item">
+                                    <li class="nav-item active">
                                         <a href="/creator/" class="nav-link" id="creator_check">
                                         </a>
                                     </li>
@@ -468,8 +471,8 @@
                                 <h3>Account Settings</h3>
                                 <ul>
                                     <li class="nav-item">
-                                        <a href="/myprofileedit/" class="nav-link ">
-                                            <i class="bx bxs-cog"></i>Settings
+                                        <a href="/mychangepassword/" class="nav-link ">
+                                            <i class="bx bxs-cog"></i>Change Password
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -512,7 +515,7 @@
                             <div class="col-lg-4 col-md-6 d-flex">
                                 <div class="card dash-info flex-fill">
                                     <div class="card-body">
-                                        <h5>Cancelled Videos</h5>
+                                        <h5>Approval Denied</h5>
                                         <h2 id="canceled_videos"></h2>
                                     </div>
                                 </div>
@@ -609,7 +612,7 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="javascript:void(0);" data-bs-toggle="tab"
-                                                        data-bs-target="#complete-courses">Canceled (<span
+                                                        data-bs-target="#complete-courses">Approval Denied (<span
                                                             id="canceled_count"></span>)</a>
                                                 </li>
                                             </ul>
@@ -1048,9 +1051,9 @@
 											<div class="product-content">
 												<div class="head-course-title">
 													<h3 class="title"><a href="/post-view/${data.id}/">${data.title}</a></h3>
-													<div class="all-btn all-category d-flex align-items-center">
+													<!-- <div class="all-btn all-category d-flex align-items-center">
 														<a href="#" class="btn btn-primary">BUY NOW</a>
-													</div>
+													</div> -->
 												</div>
 												<div class="course-info border-bottom-0 pb-0 d-flex align-items-center">
 													
@@ -1110,7 +1113,7 @@
                 <div style="width: 100%; padding: 53px 10px;height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
                     <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
                     <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
-                        There are no canceled Video.
+                        There are no Approval Denied Video.
                     </h4>
                 </div>`;
 

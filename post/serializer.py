@@ -104,15 +104,17 @@ class PostSerializer(serializers.ModelSerializer):
 
         # Preview validation
         preview = data.get("preview")
-        if preview:
+        if not preview:
+            errors["preview"] = "Preview video is required."
+        else:
+            # Check the file extension
             ext_preview = os.path.splitext(preview.name)[-1].lower()
             if ext_preview not in [".mp4", ".wav"]:
-                errors["preview"] = (
-                    "Invalid file type. Only '.mp4' and '.wav' files are allowed for previews."
-                )
-            if preview.size > 100 * 1024 * 1024:  # 100MB
-                errors["preview"] = "Preview file size should not exceed 100MB."
-
+                errors["preview"] = "Invalid file type. Only '.mp4' and '.wav' files are allowed for previews."
+            # Check the file size
+            if preview.size > 10 * 1024 * 1024:  # 100MB
+                        errors["preview"] = "Preview file size should not exceed 10MB."
+            
         # Price validation
         
         if errors:

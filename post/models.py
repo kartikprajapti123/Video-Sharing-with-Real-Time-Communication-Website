@@ -35,43 +35,46 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    class Meta:
+        verbose_name = "Video"  # Change model name in admin to "Video"
+        verbose_name_plural = "Videos"
     
-    def create_notification_and_send_message(self, admin_user):
-        # Create a notification for the user
+    # def create_notification_and_send_message(self, admin_user):
+    #     # Create a notification for the user
         
-        if self.status == "pending":
-            return
-        if self.status == "canceled":
-            notification_message = f"<b>Post Update:</b> Your post <b>{self.title}</b> has been <b>rejected</b>. Contact support."
+    #     if self.status == "pending":
+    #         return
+    #     if self.status == "canceled":
+    #         notification_message = f"<b>Post Update:</b> Your post <b>{self.title}</b> has been <b>rejected</b>. Contact support."
 
-        elif self.status == "approved":
-            notification_message = f"<b>Post Update:</b> Your post <b>{self.title}</b> has been <b>approved</b>."
+    #     elif self.status == "approved":
+    #         notification_message = f"<b>Post Update:</b> Your post <b>{self.title}</b> has been <b>approved</b>."
             
         
         
-        mainnotification=MainNotification.objects.create(
-            user=self.user,
-            message=notification_message,
-            link="/mypost/"
-        )
+    #     mainnotification=MainNotification.objects.create(
+    #         user=self.user,
+    #         message=notification_message,
+    #         link="/mypost/"
+    #     )
         
-        print(mainnotification)
+    #     print(mainnotification)
 
-        # Send WebSocket notification
-        from channels.layers import get_channel_layer
-        from asgiref.sync import async_to_sync
+    #     # Send WebSocket notification
+    #     from channels.layers import get_channel_layer
+    #     from asgiref.sync import async_to_sync
 
-        channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)(
-            f"user_{self.user.uuid}",
-            {
-                'type': 'send_main_notification',
-                'notification_id': mainnotification.id,
-                'message': notification_message,
-                'timestamp': str(now()),
-                'link': "/mypost/",
-            }
-        )
+    #     channel_layer = get_channel_layer()
+    #     async_to_sync(channel_layer.group_send)(
+    #         f"user_{self.user.uuid}",
+    #         {
+    #             'type': 'send_main_notification',
+    #             'notification_id': mainnotification.id,
+    #             'message': notification_message,
+    #             'timestamp': str(now()),
+    #             'link': "/mypost/",
+    #         }
+    #     )
 
 class PostReview(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="posts_review_user")

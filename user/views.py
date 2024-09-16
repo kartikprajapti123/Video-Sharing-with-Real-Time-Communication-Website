@@ -15,7 +15,9 @@ from user.serializer import RegisterSerializer,UserSerializer,UserDetailSerializ
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework_simplejwt.tokens import OutstandingToken, BlacklistedToken
+from faker import Faker
 
+faker=Faker()
 
 from utils.register_email_verfication import (
     send_email_verfication,
@@ -388,7 +390,9 @@ class LoginWithGoogleViewSet(ModelViewSet):
 
                     email = user_info["email"]
                     username = user_info["name"]
-
+                    if username is None or username =="":
+                        username=faker("username")
+                        
                     user = User.objects.filter(email=email)
                     if user.exists():
                         user[0].is_active = True
@@ -414,12 +418,18 @@ class LoginWithGoogleViewSet(ModelViewSet):
                         user.set_password("password@123")
                         user.email_verified = True
                         user.save()
+                        refresh_token = RefreshToken.for_user(user)
+                        access_token = str(refresh_token.access_token)
 
                     # Process user info, create user, or authenticate user as needed
                     return Response(
                         {
-                            "success": True,
-                            "message": "Google authentication successfully done",
+                             "success": True,
+                                "message": "Google authentication Successfully done",
+                                "token": {
+                                    "access_token": access_token,
+                                    "refresh_token": str(refresh_token),
+                                },
                         },
                         status=status.HTTP_200_OK,
                     )
