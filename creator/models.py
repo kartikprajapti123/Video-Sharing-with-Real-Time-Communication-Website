@@ -51,7 +51,7 @@ class CreatorApproval(models.Model):
         if self.status == "pending":
             return
         if self.status == "canceled":
-            notification_message = f"<b>Creator Update:</b> Your info has been <b>rejected</b>. Contact support."
+            notification_message = f"<b>Creator Update:</b> Your info has been <b>rejected</b>. Apply Again."
 
         elif self.status == "approved":
             notification_message = f"<b>Creator Update:</b> Your info has been <b>approved</b>."

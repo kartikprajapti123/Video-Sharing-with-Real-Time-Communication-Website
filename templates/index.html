@@ -1557,6 +1557,8 @@
 		
 		if (searchValue) {
 			url += `search=${encodeURIComponent(searchValue)}`;
+		window.location.href = url;
+
 		}
 		
 		if (categoryValue) {
@@ -1564,55 +1566,88 @@
 				url += '&';
 			}
 			url += `search=${encodeURIComponent(categoryValue)}`;
+		window.location.href = url;
+
 		}
 		
-		window.location.href = url;
 	}
-	if (authenticated){
-		get_other_user_index()
+	if (authenticated) {
+
+		console.log("called")
+		let token = authenticated
+		userApi = async () => {
+			await fetch(`${window.location.origin}/api/user/`, {
+				"method": "get",
+				"headers": {
+					"content-type": "application/json",
+					"Authorization": `Bearer ${token}`
+				}
+			}).then((response) => {
+				return response.json()
+			}).then((response) => {
+				if (response.success) {
+					profileId = response.data.id
+					get_other_user_index(profileId)
+
+				}
+				console.log(response)
+			})
+		}
+		userApi()
 	}
-	else{
-		get_all_user_index()
+	else {
+		talking_to_empty_index()
 	}
-	async function get_other_user_index(){
-		await fetch(`${window.location.origin}/api/user/get-other-users/`,{
-			method:"GET",
+	
+
+	async function get_other_user_index(id) {
+		await fetch(`${window.location.origin}/api/conversations/user-conversations/?user_id=${id}`, {
+			method: "GET",
 			headers: {
 				"content-type": "application/json",
 				"Authorization": `Bearer ${authenticated}`
 			}
 
 
-		}).then((response)=>{
+		}).then((response) => {
 			return response.json()
-		}).then((response)=>{
-			if (response.success){
-				str=`<option value="">Creator's</option>`
-				response.data.forEach((data)=>{
-					str+=`<option value="${data.username}">${data.username}</option>`
-				})
-				document.getElementById("categorySelect").innerHTML=str
+		}).then((response) => {
+			console.log("index",response)
+			if (response.success) {
+				if (response.data.length > 0) {
+
+					str = ""
+					let main_username = ""
+
+					str=`<option value="">Your contact-list</option>`
+					response.data.forEach((data) => {
+						if (data.user1 == id) {
+							console.log("if")
+							main_username = data.user2_username
+						}
+						else {
+							console.log("else")
+
+							main_username = data.user1_username
+
+						}
+						console.log(main_username)
+						str+=`<option value="${main_username}">${main_username}</option>`
+					})
+					document.getElementById("categorySelect").innerHTML=str
+				}
+				else {
+					let str=`<option value="">Your contact-list is empty</option>`
+					document.getElementById("categorySelect").innerHTML=str
+
+				}
 			}
 		})
 	}
-	async function get_all_user_index(){
-		await fetch(`${window.location.origin}/api/user/get-all-users/`,{
-			method:"GET",
-
-
-		}).then((response)=>{
-			return response.json()
-		}).then((response)=>{
-			if (response.success){
-				str=`<option value="">Creators's</option>`
-				response.data.forEach((data)=>{
-					str+=`<option value="${data.username}">${data.username}</option>`
-				})
-				document.getElementById("categorySelect").innerHTML=str
-			}
-		})
+	function talking_to_empty_index() {
+		let str=`<option value="">Your contact-list is empty Login and create contact's</option>`
+		document.getElementById("categorySelect").innerHTML=str
 	}
-
 
 </script>
 {% endblock script %}

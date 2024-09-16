@@ -22,6 +22,23 @@
 		color: #fae2e0;
 		/* Change this to your desired light link color */
 	}
+	.plyr--fullscreen .responsive-video {
+		width: 100%;
+		height: 100%; /* Use the full height in fullscreen mode */
+	}.responsive-video {
+		width: 100%;
+		height: auto; /* Maintain aspect ratio */
+		object-fit: contain;
+		object-position: center;
+	}
+	.plyr__controls__item.plyr__control--volume {
+		max-width: 100px; /* Adjust this value to reduce/increase the width */
+	}
+	
+	/* Make sure the progress bar has a full width */
+	.plyr__controls__item.plyr__progress {
+		flex-grow: 1; /* Ensure the progress bar takes more space */
+	}
 </style>
 {% endblock style %}
 {% block link %}
@@ -84,13 +101,13 @@
 									<p>12+ Lesson</p>
 								</div> -->
 					<div class="cou-info">
-						<img src="/static/img/icon/timer-icon.svg" alt="Img">
-						<p id="post_view_time"></p>
+						<!-- <img src="/static/img/icon/timer-icon.svg" alt="Img"> -->
+						<!-- <p id="post_view_time"></p> -->
 					</div>
-					<div class="cou-info">
+					<!-- <div class="cou-info">
 						<img src="/static/img/icon/people.svg" alt="Img">
 						<p id="post_view_user_purchased_number">0 Purchased</p>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -396,31 +413,31 @@
 							Thank you Cristian. “</p>
 						<a href="javascript:void(0);" class="btn btn-reply"><i class="feather-corner-up-left"></i>
 							Reply</a> -->
-					<!-- </div> -->
+				<!-- </div> -->
 				<!-- </div> -->
 				<!-- /Reviews -->
 
 				<!-- Comment -->
 				<!-- <div class="card comment-sec"> -->
-					<!-- <div class="card-body"> -->
-						<!-- <h5 class="subs-title">Post A comment</h5> -->
-						<!-- <form> -->
-							<!-- <div class="row"> -->
-								<!-- <div class="col-md-6"> -->
-									<!-- <div class="input-block">
+				<!-- <div class="card-body"> -->
+				<!-- <h5 class="subs-title">Post A comment</h5> -->
+				<!-- <form> -->
+				<!-- <div class="row"> -->
+				<!-- <div class="col-md-6"> -->
+				<!-- <div class="input-block">
 										<input type="text" class="form-control" placeholder="Full Name" id="post_username">
 									</div> -->
-								<!-- </div> -->
-								<!-- <div class="col-md-6"> -->
-									<!-- <div class="input-block">
+				<!-- </div> -->
+				<!-- <div class="col-md-6"> -->
+				<!-- <div class="input-block">
 										<input type="email" class="form-control" placeholder="Email (Optional)" id="post_email">
 									</div> -->
-								<!-- </div> -->
-							<!-- </div> -->
-							<!-- <div class="input-block"> -->
-								<!-- <input type="text" class="form-control" placeholder="Subject" id="post_subject"> -->
-							<!-- </div> -->
-							<!-- <div class="input-block">
+				<!-- </div> -->
+				<!-- </div> -->
+				<!-- <div class="input-block"> -->
+				<!-- <input type="text" class="form-control" placeholder="Subject" id="post_subject"> -->
+				<!-- </div> -->
+				<!-- <div class="input-block">
 								<textarea rows="4" class="form-control" placeholder="Your Comments"
 									id="post_message"></textarea>
 							</div>
@@ -429,7 +446,7 @@
 							</div>
 						</form>
 					</div>
-				</div> --> 
+				</div> -->
 				<!-- /Comment -->
 
 			</div>
@@ -442,10 +459,7 @@
 						<div class="card">
 							<div class="card-body">
 								<a class="video-thumbnail" id="post_view_video_link" data-fancybox="">
-									<video poster="#" controls id="post_view_poster" src="#" playsinline style="width: 100%;
-    height: 200px;
-    object-fit: contain;
-    object-position: center;">
+									<video poster="#" controls id="post_view_poster" src="#" playsinline class="responsive-video">
 										<!-- You can add other video formats here -->
 									</video>
 									<!-- Uncomment the following block if you want to include a play icon overlay -->
@@ -455,11 +469,10 @@
 									</div>
 									-->
 								</a>
-
 								<div class="video-details">
 									<div class="course-fee">
 										<h2 id="post_view_price">$10.00</h2>
-										<p>50% off</p>
+										<!-- <p>50% off</p> -->
 									</div>
 									<div class="row gx-2">
 										<!-- <div class="col-md-6">
@@ -510,6 +523,10 @@
 									</span></li> -->
 								<li><img src="/static/img/icon/timer.svg" class="me-2" alt="Img"> Duration: <span
 										id="post_view_video_duration">00 hours</span></li>
+										<li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Format: <span
+											id="post_view_video_format"></span></li>
+											<li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Dimensions: <span
+												id="post_view_video_dimensions"></span></li>
 								<!-- <li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Chapters: <span>15</span></li> -->
 								<!-- <li><img src="/static/img/icon/video.svg" class="me-2" alt="Img"> Video:<span> 12 hours</span></li> -->
 								<!-- <li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Comments: <span
@@ -543,8 +560,6 @@
 	post_view_user_profile_image = document.getElementById("post_view_user_profile_image")
 	post_view_short_description = document.getElementById("post_view_short_description")
 	post_view_title = document.getElementById("post_view_title")
-	post_view_time = document.getElementById("post_view_time")
-	post_view_user_purchased_number = document.getElementById("post_view_user_purchased_number")
 	post_view_description = document.getElementById("post_view_description")
 	post_view_user_link = document.getElementById("post_view_user_link")
 	post_view_user_image = document.getElementById("post_view_user_image")
@@ -603,7 +618,6 @@
 			post_view_user_profile_link.href = `/profile/${response.data.user_username}`
 
 			post_view_user_profile_image.src = `/media/${response.data.user_profile_picture}`
-
 			//post_view_short_description.innerHTML = short_description
 			post_view_short_description.style.display = "none"
 
@@ -611,7 +625,6 @@
 
 			post_view_title.innerHTML = response.data.title
 
-			post_view_time.innerHTML = `${formattedDate} ${formattedTime}`
 
 			post_view_description.innerHTML = response.data.description
 
@@ -632,15 +645,30 @@
 			}
 
 			// Check if the video exists and set the video source and link
-			if (response.data.video) {
-				post_view_poster.src = `${response.data.video}`;
-				//post_view_video_link.href = `${response.data.video}`;
+			const previewElement = document.getElementById('post_view_poster');
 
-				// Add event listener to get the video duration once metadata is loaded
-				const videoElement = document.getElementById('post_view_poster');
-				videoElement.addEventListener('loadedmetadata', () => {
-					const duration = videoElement.duration;
-					console.log(`Video Duration: ${duration} seconds`);
+			// Create a hidden video element programmatically
+			const hiddenVideoElement = document.createElement('video');
+			hiddenVideoElement.style.display = 'none';
+			document.body.appendChild(hiddenVideoElement);
+
+			if (response.data.preview) {
+				// Set the preview
+				previewElement.src = `${response.data.preview}`;
+			//post_view_video_link.href=`${response.data.preview}`
+
+			}
+
+			// Load the full video metadata using the hidden video element
+			if (response.data.video) {
+				hiddenVideoElement.src = `${response.data.video}`;
+
+				hiddenVideoElement.addEventListener('loadedmetadata', () => {
+					const duration = hiddenVideoElement.duration;
+					const width=hiddenVideoElement.videoWidth
+					const height=hiddenVideoElement.videoHeight
+					const format=hiddenVideoElement.src.split(".").pop()
+
 
 					// Format the duration to "MM:SS"
 					const minutes = Math.floor(duration / 60);
@@ -649,6 +677,12 @@
 
 					// Update the DOM element with the formatted duration
 					post_view_video_duration.innerHTML = `${formattedDuration}`;
+					post_view_video_format.innerHTML = `${format.toUpperCase()}`; // Convert format to uppercase
+        			post_view_video_dimensions.innerHTML = `${width}x${height}`;
+
+
+					// Optionally, remove the hidden video element if no longer needed
+					document.body.removeChild(hiddenVideoElement);
 				});
 			}
 		}
@@ -661,8 +695,8 @@
 			try {
 				await navigator.share({
 					title: 'Check this out!',
-					text: 'Here is post link for you interesting I found.',
-					url: window.location.href, // Share the current page URL
+					text: 'Here is Video link for you interesting I found.',
+					url: document.getElementById("post_view_poster").src, // Share the current page URL
 				});
 				console.log('Sharing successful');
 			} catch (err) {
@@ -673,9 +707,14 @@
 			alert('Sharing not supported on this browser.');
 		}
 	});
+	//document.getElementById("post_view_video_link").onClick(function(e){
+	//	console.log("called")
+//
+	//	window.location.href=`${e.href}`
+	//})
 	//document.getElementById("post_comment_submit").onclick = async (e) => {
 	//	card.style.display = "none";
-//
+	//
 	//	e.preventDefault()
 	//	if (authenticated) {
 	//		data = {
@@ -696,14 +735,14 @@
 	//			if (repsonse.success) {
 	//				card.style.display = "flex";
 	//				card.style.borderLeft = "10px solid green";
-//
+	//
 	//				message_content.innerHTML = repsonse.message;
 	//				message_type.innerHTML = "Success";
 	//				message_type.style.color = "green";
 	//				message_icon_parent.style.color = "green";
 	//				message_icon_child.classList = "fas fa-check-circle";
 	//				document.getElementById("post_message").value = ""
-//
+	//
 	//				setTimeout(() => {
 	//					card.style.display = "none"
 	//				}, 3000)
@@ -711,12 +750,12 @@
 	//			}
 	//			else {
 	//				if (repsonse.message.message) {
-//
+	//
 	//					message_content.innerHTML = ` <b>Comment</b>:- ${repsonse.message.message[0]}`;
 	//				}
 	//				else {
 	//					message_content.innerHTML = repsonse.message;
-//
+	//
 	//				}
 	//				card.style.display = "flex";
 	//				card.style.borderLeft = "10px solid red";
@@ -726,7 +765,7 @@
 	//				message_icon_child.classList = "fas fa-times-circle";
 	//			}
 	//		})
-//
+	//
 	//	}
 	//	else {
 	//		message_content.innerHTML = `Login to do comments`;
@@ -736,13 +775,13 @@
 	//		message_type.style.color = "#3db5dc";
 	//		message_icon_parent.style.color = "#3db5dc";
 	//		message_icon_child.classList = "fas fa-exclamation-circle";
-//
+	//
 	//		setTimeout(() => {
 	//			card.style.display = "none"
 	//		}, 2500)
 	//	}
 	//}
-//
+	//
 	//async function post_review_get(postID) {
 	//	await fetch(`${window.location.origin}/api/post-review/reviews-by-post/?no_pagination=true&post_id=${postID}`, {
 	//		method: "GET"
@@ -769,13 +808,13 @@
 	//							</div>
 	//						</div>
 	//						<ul class="nav">
-    //                        <li>
-    //                            <a href="/profile/${data.username}/" class="btn btn-success-dark"  style="height: 35px;background: #fae2e0;
-    //border: 1px solid #fae2e0;
-    //color: #ff4667;">View Profile</a>
-    //                        </li>
-    //                    </ul>
-	//						<!-- <div class="rating">							
+	//                        <li>
+	//                            <a href="/profile/${data.username}/" class="btn btn-success-dark"  style="height: 35px;background: #fae2e0;
+	//border: 1px solid #fae2e0;
+	//color: #ff4667;">View Profile</a>
+	//                        </li>
+	//                    </ul>
+	//						<!-- <div class="rating">
 	//							<i class="fas fa-star filled"></i>
 	//							<i class="fas fa-star filled"></i>
 	//							<i class="fas fa-star filled"></i>
@@ -788,36 +827,36 @@
 	//					<hr>
 	//					<!-- <a href="javascript:void(0);" class="btn btn-reply"><i class="feather-corner-up-left"></i>
 	//						Reply</a> -->
-	//						
+	//
 	//						`
-//
+	//
 	//					count = count + 1
 	//				})
 	//				document.getElementById('post_reviews').innerHTML = str
 	//				document.getElementById('reviews_count').innerHTML = count
 	//				document.getElementById('post_reviews_2').innerHTML = count
-//
-//
+	//
+	//
 	//			} else {
 	//				document.getElementById('main_comments').style.display="none"
 	//			}
-//
+	//
 	//		} else {
-//
+	//
 	//			message_content.innerHTML = "Oops ! Problem while getting comments";
-//
+	//
 	//			card.style.display = "flex";
 	//			card.style.borderLeft = "10px solid red";
 	//			message_type.innerHTML = "Error";
 	//			message_type.style.color = "red";
 	//			message_icon_parent.style.color = "red";
 	//			message_icon_child.classList = "fas fa-times-circle";
-//
+	//
 	//			setTimeout((repsonse) => {
 	//				card.style.display = "none"
 	//			}, 2000)
 	//		}
-//
+	//
 	//	})
 	//}
 	//post_review_get(postId)

@@ -191,7 +191,7 @@
                                                         </ul> -->
                                                 <!-- </li> -->
                                                 <li class="has-submenu">
-                                                    <a href="#">Dashboard </a>
+                                                    <a href="/creator/">Creator Dashboard </a>
 
                                                     <!-- <a class="" href="#">Dashboard</a> -->
                                                     <!-- <ul class="submenu"> -->
@@ -199,23 +199,16 @@
                                                         <!-- <li><a href="/creator/">Creator Dashbored</a></li> -->
                                                     <!-- </ul> -->
                                                 <!-- </li> -->
+                                                </li>
                                                 <li class="has-submenu">
-                                                    <a href="#">Creator's <i class="fas fa-chevron-down"></i></a>
-                                                    <ul class="submenu">
-                                                        <!-- <li class="has-submenu">
-                                                                <a href="#">Instructor</a>
-                                                                <ul class="submenu">
-                                                                    <li><a href="#">List</a></li>
-                                                                    <li><a href="#">Grid</a></li>
-                                                                </ul>
-                                                            </li> -->
-                                                        <li><a href="#">Popular</a></li>
-                                                        <li><a href="#">Men</a></li>
-                                                        <li><a href="#">Women</a></li>
-                                                        <li><a href="#">Common</a></li>
+                                                    <a href="/myprofile/">My Profile </a>
 
-
-                                                    </ul>
+                                                    <!-- <a class="" href="#">Dashboard</a> -->
+                                                    <!-- <ul class="submenu"> -->
+                                                        <!-- <li><a href="#">Fan Dashbored</a></li> -->
+                                                        <!-- <li><a href="/creator/">Creator Dashbored</a></li> -->
+                                                    <!-- </ul> -->
+                                                <!-- </li> -->
                                                 </li>
 
                                                 <!-- <li class="has-submenu">
@@ -537,7 +530,7 @@
                                 const otherUserProfilePicture = userID === conversationData.data.user1 ? conversationData.data.user2_profile_picture : conversationData.data.user1_profile_picture;
                                 const otherUsername = userID === conversationData.data.user1 ? conversationData.data.user2_username : conversationData.data.user1_username;
                                 document.getElementById('other_user_image').src = `/media/${otherUserProfilePicture}`;
-                                document.getElementById('other_user_username').innerHTML = otherUsername;
+                                document.getElementById('other_user_username').innerHTML = `<a href="/${otherUsername}/">${otherUsername}</a>`;
                                 fetchMessagesAndConnectWebSocket(userID, conversationId, userProfiePicture, userUsername);
                             } else {
                                 showError("You are not allowed to access this");
@@ -581,6 +574,7 @@
 
                 const displayMessages = (messages, userID) => {
                     let str = '';
+                    console.log("messages",messages.length)
                     if (messages.length > 0) {
 
 
@@ -590,6 +584,11 @@
                                 minute: '2-digit', 
                                 hour12: true 
                             });
+                            let formattedDate = new Date(data.timestamp).toLocaleDateString('en-US', { 
+                                month: '2-digit', // e.g., '09'
+                                day: '2-digit', // e.g., '15'
+                                year: 'numeric' // e.g., '2024'
+                            });
                             if (userID !== data.sender) {
                                 if (data.file_url != null || data.file_url == '') {
                                     str += `<div class="chats">
@@ -598,11 +597,12 @@
                                 </div>
                                 <div class="chat-content" style="width: fit-content;">
                                     <div class="chat-profile-name">
-                                        <h6 style="text-wrap: nowrap;" >${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;" >${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
-                                    <div class="message-content award-link chat-award-link">
-                                        <a href="${data.file_url}"   style="color:white;"  style="color:black;" target="_blank">${data.file_url}</a>
-                                        <img src="${data.file_url}" class="img-fluid" alt="img">										  </div>
+                                    <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px; word-break: break-word; ">
+                                        <a href="${data.file_url}"   style="color:black;"  style="color:black;" target="_blank">${data.file_url}
+                                        <img src="${data.file_url}" class="img-fluid message_image"  alt="img" ></div>
+                                        </a>
                                     </div>
                                 </div>`
                                 }
@@ -614,7 +614,7 @@
                                 </div>
                                 <div class="chat-content"  style="width: fit-content;">
                                     <div class="chat-profile-name">
-                                        <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content" style="width: fit-content;
     float: left;">
@@ -631,11 +631,13 @@
 									  
 									  <div class="chat-content"  style="width: fit-content;">
 										  <div class="chat-profile-name">
-											  <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+											  <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
-										  <div class="message-content award-link chat-award-link">
-											  <a href="${data.file_url}"   style="color:white;"  style="color:black;" target="_blank">${data.file_url}</a>
-											  <img src="${data.file_url}" class="img-fluid" alt="img">										  </div>
+										  <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px;  word-break: break-word;">
+											  <a href="${data.file_url}"   style="color:black;"  style="color:black;" target="_blank">${data.file_url}
+											  <img src="${data.file_url}" class="img-fluid message_image" alt="img">
+                                            </a>
+                                            </div>
 									  </div>
                                       <div class="chat-avatar">
 										  <img src="/media/${data.sender1_profile_picture}" class="rounded-circle dreams_chat" alt="image">
@@ -649,10 +651,10 @@
                                     str += `<div class="chats chats-right">
                                         <div class="chat-content"  style="width: fit-content;">
                                             <div class="chat-profile-name text-end">
-                                                <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
+                                                <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                             </div>
                                             <div class="message-content " style="width: fit-content;
-    float: right;">
+    float: right; word-break: break-word;">
                                                 ${data.content}
                                             </div>
                                         </div>
@@ -780,9 +782,11 @@
 										  <div class="chat-profile-name">
 											  <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
-										  <div class="message-content award-link chat-award-link">
-											  <a href="${message.file_url}"   style="color:white;"  style="color:black;" target="_blank">${message.file_url}</a>
-											  <img src="${message.file_url}" class="img-fluid" alt="img">										  </div>
+										  <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px; word-break: break-word;">
+											  <a href="${message.file_url}"   style="color:black;"  style="color:black;" target="_blank">${message.file_url}</a>
+											  <img src="${message.file_url}" class="img-fluid message_image" alt="img">
+                                            </a>
+                                            </div>
 									  </div>
                                       <div class="chat-avatar">
 										  <img src="${message.profile_picture}" class="rounded-circle dreams_chat" alt="image">
@@ -797,7 +801,7 @@
                                         <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content " style="width: fit-content;
-    float: right;">
+    float: right; word-break: break-word;">
                                        ${message.content}
                                     </div>
                                 </div>
@@ -859,9 +863,11 @@
                                     <div class="chat-profile-name">
                                         <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
-                                    <div class="message-content award-link chat-award-link">
-                                        <a href="${message.file_url}" style="color:black;" target="_blank">${message.file_url}</a>
-                                        <img src="${message.file_url}" class="img-fluid" alt="img">										  </div>
+                                    <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px; word-break: break-word;">
+                                        <a href="${message.file_url}" style="color:black;" target="_blank">${message.file_url}
+                                        <img src="${message.file_url}" class="img-fluid message_image"  alt="img">		
+                                    </a>
+                                </div>
                                     </div>
                                 </div>`
                             }
@@ -1197,34 +1203,34 @@
                     console.log(conversationsData.data.length);
                     if (conversationsData.data.length > 0) {
                         for (const data of conversationsData.data) {
-                            let unreadmessages = 0;
-            
-                            // Fetch unread messages
-                            const unreadMessagesResponse = await fetch(`${window.location.origin}/api/messages/unread-messages/?conversation_id=${data.id}`, {
-                                method: "GET",
-                                headers: {
-                                    "content-type": "application/json",
-                                    "Authorization": `Bearer ${authenticated}`
+                                let unreadmessages = 0;
+                                
+                                // Fetch unread messages
+                                const unreadMessagesResponse = await fetch(`${window.location.origin}/api/messages/unread-messages/?conversation_id=${data.id}`, {
+                                    method: "GET",
+                                    headers: {
+                                        "content-type": "application/json",
+                                        "Authorization": `Bearer ${authenticated}`
+                                    }
+                                });
+                                const unreadMessagesData = await unreadMessagesResponse.json();
+                                
+                                if (unreadMessagesData.success) {
+                                    unreadmessages = unreadMessagesData.data.length;
                                 }
-                            });
-                            const unreadMessagesData = await unreadMessagesResponse.json();
-            
-                            if (unreadMessagesData.success) {
-                                unreadmessages = unreadMessagesData.data.length;
-                            }
-            
-                            let contact_list_image = "";
-                            let contact_list_username = "";
-            
-                            if (userId === data.user1) {
-                                contact_list_image = data.user2_profile_picture;
-                                contact_list_username = data.user2_username;
-                            } else {
-                                contact_list_image = data.user1_profile_picture;
-                                contact_list_username = data.user1_username;
-                            }
-            
-                            str += `
+                                
+                                let contact_list_image = "";
+                                let contact_list_username = "";
+                                
+                                if (userId === data.user1) {
+                                    contact_list_image = data.user2_profile_picture;
+                                    contact_list_username = data.user2_username;
+                                } else {
+                                    contact_list_image = data.user1_profile_picture;
+                                    contact_list_username = data.user1_username;
+                                }
+                                
+                                str += `
                                 <li class="user-list-item chat-user-list" data-id="${data.id}">
                                     <a href="javascript:void(0);" class="chat-link" style="border-left: none;">
                                         <div class="avatar">
@@ -1251,7 +1257,8 @@
                                         </div>
                                     </div>
                                 </li>
-                            `;
+                                `;
+                            //}
                         }
             
                         document.getElementById("contact-list").innerHTML = str;
@@ -1320,7 +1327,14 @@
                 messages_list(itemId);
                 Read_all_chat_notification(itemId, userId);
             }
-            
+
+            //Array.from(document.getElementsByClassName("message_image")).forEach((element) => {
+            //    element.onclick = () => {
+            //        console.log("called")
+            //        // Ensure `element.src` gives the correct URL
+            //        window.location.href = `${element.src}`;
+            //    };
+            //});
         </script>
 
 </body>

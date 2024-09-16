@@ -232,7 +232,7 @@ class MessageViewSet(ModelViewSet):
             status=status.HTTP_200_OK,
         )
 
-    @action(detail=False, methods=['get'],url_path="conversation-messages")
+    @action(detail=False, methods=['get'], url_path="conversation-messages")
     def conversation_messages(self, request):
         conversation_id = request.query_params.get('conversation_id')
         if not conversation_id:
@@ -240,30 +240,32 @@ class MessageViewSet(ModelViewSet):
                 {"success": False, "message": "Conversation ID is required."},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        try:
-            messages = Message.objects.filter(conversation_id=conversation_id)
-        except Message.DoesNotExist:
+        # Fetch messages for the given conversation_id
+        messages = Message.objects.filter(conversation_id=conversation_id)
+        
+        if not messages.exists():
             return Response(
-                {"success": False, "message": "No messages found for this conversation."},
-                status=status.HTTP_404_NOT_FOUND
+                {"success": True, "message": "No messages found for this conversation.", "data": []},
+                status=status.HTTP_200_OK
             )
+
         serializer = self.get_serializer(messages, many=True)
         return Response(
             {"success": True, "data": serializer.data},
             status=status.HTTP_200_OK
         )
         
-    @action(detail=False, methods=['get'], url_path="conversation-messages")
-    def conversation_messages(self, request):
-        conversation_id = request.query_params.get('conversation_id')
-        if not conversation_id:
-            return Response({"success": False, "message": "Conversation ID is required."}, status=status.HTTP_400_BAD_REQUEST)
-        try:
-            messages = Message.objects.filter(conversation_id=conversation_id)
-        except Message.DoesNotExist:
-            return Response({"success": False, "message": "No messages found for this conversation."}, status=status.HTTP_404_NOT_FOUND)
-        serializer = self.get_serializer(messages, many=True)
-        return Response({"success": True, "data": serializer.data}, status=status.HTTP_200_OK)
+    # @action(detail=False, methods=['get'], url_path="conversation-messages")
+    # def conversation_messages(self, request):
+    #     conversation_id = request.query_params.get('conversation_id')
+    #     if not conversation_id:
+    #         return Response({"success": False, "message": "Conversation ID is required."}, status=status.HTTP_400_BAD_REQUEST)
+    #     try:
+    #         messages = Message.objects.filter(conversation_id=conversation_id)
+    #     except Message.DoesNotExist:
+    #         return Response({"success": False, "message": "No messages found for this conversation."}, status=status.HTTP_404_NOT_FOUND)
+    #     serializer = self.get_serializer(messages, many=True)
+    #     return Response({"success": True, "data": serializer.data}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'], url_path="unread-messages")
     def get_unread_messages(self, request):

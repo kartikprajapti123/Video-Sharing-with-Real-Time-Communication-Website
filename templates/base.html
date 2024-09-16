@@ -156,7 +156,7 @@
 									<i class="fas fa-times"></i>
 								</a>
 							</div>
-							<ul class="main-nav">
+							<ul class="main-nav" id="menu-add-authenticated">
 								<li class="has-submenu">
 									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
 									<a href="/index/">Home </a>
@@ -169,10 +169,10 @@
 										</ul> -->
 								</li>
 								<!-- <li class="has-submenu"> -->
-									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
-									<!-- <a href="#">Today's Feed </a> -->
+								<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+								<!-- <a href="#">Today's Feed </a> -->
 
-									<!-- <ul class="submenu">
+								<!-- <ul class="submenu">
 											<li class="active"><a href="/index/">Home</a></li>
 											<li><a href="index-two.html">Home Two</a></li>
 											<li><a href="index-three.html">Home Three</a></li>
@@ -180,7 +180,7 @@
 										</ul> -->
 								<!-- </li> -->
 								<li class="has-submenu" id="user_dashbored">
-									
+
 
 									<!-- <a class="" href="#">Dashboard</a> -->
 									<!-- <ul class="submenu">
@@ -189,7 +189,7 @@
 									</ul> -->
 								</li>
 								<li class="has-submenu">
-									<a href="#">Creator's <i class="fas fa-chevron-down"></i></a>
+									<a href="#">You Chatted With<i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu" id="all_creators_authenticated">
 										<!-- <li class="has-submenu">
 												<a href="#">Instructor</a>
@@ -204,10 +204,10 @@
 									</ul>
 								</li>
 								<!-- <li class="has-submenu"> -->
-									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
-									<!-- <a href="#">Contact Us </a> -->
+								<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+								<!-- <a href="#">Contact Us </a> -->
 
-									<!-- <ul class="submenu">
+								<!-- <ul class="submenu">
 											<li class="active"><a href="/index/">Home</a></li>
 											<li><a href="index-two.html">Home Two</a></li>
 											<li><a href="index-three.html">Home Three</a></li>
@@ -254,10 +254,10 @@
 									<i class="fas fa-times"></i>
 								</a>
 							</div>
-							<ul class="main-nav">
+							<ul class="main-nav" id="menu-add-unauthenticated">
 								<li class="has-submenu">
 									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
-									<a href="/index/">Home </a>
+									<a href="/index/" class="">Home </a>
 
 									<!-- <ul class="submenu">
 											<li class="active"><a href="/index/">Home</a></li>
@@ -267,10 +267,10 @@
 										</ul> -->
 								</li>
 								<!-- <li class="has-submenu"> -->
-									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
-									<!-- <a href="#">Today's Feed </a> -->
+								<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+								<!-- <a href="#">Today's Feed </a> -->
 
-									<!-- <ul class="submenu">
+								<!-- <ul class="submenu">
 											<li class="active"><a href="/index/">Home</a></li>
 											<li><a href="index-two.html">Home Two</a></li>
 											<li><a href="index-three.html">Home Three</a></li>
@@ -279,7 +279,7 @@
 								<!-- </li> -->
 
 								<li class="has-submenu">
-									<a href="#">Creator's <i class="fas fa-chevron-down"></i></a>
+									<a href="#">You Talked with's <i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu" id="all_creators_unauthenticated">
 										<!-- <li class="has-submenu">
 												<a href="#">Instructor</a>
@@ -297,19 +297,19 @@
 									</ul>
 								</li>
 								<!-- <li class="has-submenu"> -->
-									<!-- <a href="#">About Us <i class="fas fa-chevron-down"></i></a> -->
+								<!-- <a href="#">About Us <i class="fas fa-chevron-down"></i></a> -->
 
-									<!-- <a class="" href="#">Dashboard</a> -->
-									<!-- <ul class="submenu"> -->
-										<!-- <li><a href="#">Pricing Policy </a></li> -->
-										<!-- <li><a href="/creator/">Creator Dashbored</a></li> -->
-									<!-- </ul> -->
+								<!-- <a class="" href="#">Dashboard</a> -->
+								<!-- <ul class="submenu"> -->
+								<!-- <li><a href="#">Pricing Policy </a></li> -->
+								<!-- <li><a href="/creator/">Creator Dashbored</a></li> -->
+								<!-- </ul> -->
 								<!-- </li> -->
 								<!-- <li class="has-submenu"> -->
-									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
-									<!-- <a href="#">Contact Us </a> -->
+								<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+								<!-- <a href="#">Contact Us </a> -->
 
-									<!-- <ul class="submenu">
+								<!-- <ul class="submenu">
 											<li class="active"><a href="/index/">Home</a></li>
 											<li><a href="index-two.html">Home Two</a></li>
 											<li><a href="index-three.html">Home Three</a></li>
@@ -362,8 +362,8 @@
 								<ul class="dropdown-menu dropdown-menu-end" id="notification_all"
 									style="width: 300px; max-height: 400px; overflow: auto; scrollbar-width: none; -ms-overflow-style: none; ">
 								</ul>
-								
-								
+
+
 							</li>
 							<li class="nav-item dropdown">
 
@@ -379,7 +379,7 @@
 									id="main_notification_all">
 
 								</ul>
-								
+
 							</li>
 							<li class="nav-item user-nav">
 								<a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
@@ -409,9 +409,8 @@
 									</a>
 									<a class="dropdown-item" href="/mypost/"><i class="feather-home me-1"></i>My
 										Videos</a>
+
 									
-									<a class="dropdown-item" href="/myprofileedit/"><i
-											class="feather-settings me-1"></i>Settings </a>
 									<!-- <div class="dropdown-item night-mode">
 											<span><i class="feather-moon me-1"></i> Night Mode </span>
 											<div class="form-check form-switch check-on m-0">
@@ -450,71 +449,90 @@
 			<!-- Footer Top -->
 			<div class="footer-top aos" data-aos="fade-up">
 				<div class="container">
-					<div class="row">
-						<div class="col-lg-4 col-md-6">
-
+					<div class="row" style="display: flex;
+    justify-content: space-between;padding: 20px 0px;
+">
+						<div class="col-lg-4 col-md-6" >
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
 									<img src="/static/img/logo.svg" alt="logo">
 								</div>
 								<div class="footer-about-content">
-									<p>elcome to DreamsLMS! A platform where you can showcase your videos and connect with an audience. Share your passion and creativity with the world.</p>
+									<p>Welcome to DreamsLMS! Showcase your videos and connect with an audience. Share your passion and creativity with the world.</p>
 								</div>
 							</div>
 							<!-- /Footer Widget -->
-
 						</div>
-
-						<div class="col-lg-2 col-md-6">
-
+		
+						<div class="col-lg-2 col-md-6 footer-authentication"  >
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">Index</h2>
+								<h2 class="footer-title">Quick Links</h2>
 								<ul>
-									<li><a href="#">Profile</a></li>
-									<li><a href="#">Login</a></li>
-									<li><a href="#">Register</a></li>
-									<li><a href="#">Instructor</a></li>
-									<li><a href="#"> Dashboard</a></li>
+									<li><a href="/index/">Home</a></li>
+									<li><a href="/creator/">Creator Dashboared</a></li>
+									<li><a href="/upload-video/">Upload-Video</a></li>
+
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
-
 						</div>
-
-						<div class="col-lg-2 col-md-6">
-
+						<div class="col-lg-2 col-md-6 footer-authentication"  >
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">For Student</h2>
+								<h2 class="footer-title">More Quick Links</h2>
 								<ul>
-									<li><a href="#">Profile</a></li>
-									<li><a href="#">Login</a></li>
-									<li><a href="#">Register</a></li>
-									<li><a href="#">Student</a></li>
-									<li><a href="#"> Dashboard</a></li>
+									<li><a href="/myprofile/">My Profile</a></li>
+									<li><a href="/mypost/">My videos</a></li>
+									<li><a href="#" onclick="LogoutApi()">Logout</a></li>
+
 								</ul>
 							</div>
 							<!-- /Footer Widget -->
-
 						</div>
+		
+		
+						<div class="col-lg-2 col-md-6 footer-unauthentication"  >
+							<!-- Footer Widget -->
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">Quick Links</h2>
+								<ul>
+									<li><a href="/index/">Home</a></li>
 
+
+
+
+								</ul>
+							</div>
+							<!-- /Footer Widget -->
+						</div>
+						<div class="col-lg-2 col-md-6 footer-unauthentication"  >
+							<!-- Footer Widget -->
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">More Quick Links</h2>
+								<ul>
+									<li><a href="/signup/">Signup</a></li>
+									<li><a href="/signin/">Login</a></li>
+									<li><a href="/forgot-password/">Forgot Password</a></li>
+
+
+
+
+								</ul>
+							</div>
+							<!-- /Footer Widget -->
+						</div>
+		
+		
 						<div class="col-lg-4 col-md-6">
-
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-contact">
-								<h2 class="footer-title">News letter</h2>
-								<div class="news-letter">
-									<form>
-										<input type="text" class="form-control" placeholder="Enter your email address"
-											name="email">
-									</form>
-								</div>
+								<h2 class="footer-title">Contact Us</h2>
 								<div class="footer-contact-info">
 									<div class="footer-address">
 										<img src="/static/img/icon/icon-20.svg" alt="Img" class="img-fluid">
-										<p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
+										<p>3556 Beech Street, San Francisco,<br> California, CA 94108</p>
 									</div>
 									<p>
 										<img src="/static/img/icon/icon-19.svg" alt="Img" class="img-fluid">
@@ -527,43 +545,36 @@
 								</div>
 							</div>
 							<!-- /Footer Widget -->
-
 						</div>
-
 					</div>
 				</div>
 			</div>
 			<!-- /Footer Top -->
-
+		
 			<!-- Footer Bottom -->
 			<div class="footer-bottom">
 				<div class="container">
-
-					<!-- Copyright -->
-					<div class="copyright">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="privacy-policy">
-									<ul>
-										<li><a href="term-condition.html">Terms</a></li>
-										<li><a href="privacy-policy.html">Privacy</a></li>
-									</ul>
-								</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="privacy-policy">
+								<ul>
+									<li><a href="term-condition.html">Terms</a></li>
+									<li><a href="privacy-policy.html">Privacy</a></li>
+								</ul>
 							</div>
-							<div class="col-md-6">
-								<div class="copyright-text">
-									<p class="mb-0">&copy; 2024 DreamsLMS. All rights reserved.</p>
-								</div>
+						</div>
+						<div class="col-md-6 text-md-end">
+							<div class="copyright-text">
+								<p class="mb-0">&copy; 2024 DreamsLMS. All rights reserved.</p>
 							</div>
 						</div>
 					</div>
-					<!-- /Copyright -->
-
 				</div>
 			</div>
 			<!-- /Footer Bottom -->
-
+		
 		</footer>
+		
 		<!-- /Footer -->
 
 	</div>
@@ -667,6 +678,8 @@
 				}).then((response) => {
 					if (response.success) {
 						profileId = response.data.id
+						get_other_user(profileId)
+
 						console.log(response.data.image)
 						sharebutton(response.data.username)
 						check_user_creator()
@@ -680,7 +693,6 @@
 							if (profile_page_image) {
 								profile_page_image.src = '/media/profile_pictures/default_profile_image.png'
 							}
-
 						}
 						else {
 							let profile_page_image = document.getElementById("profile_page_image")
@@ -725,6 +737,9 @@
 				})
 			}
 			userApi()
+		}
+		else {
+			talking_to_empty()
 		}
 		async function LogoutApi() {
 			card.style.display = "none";
@@ -861,7 +876,7 @@
 			const message_icon_parent = document.getElementById("message-icon-parent");
 			const message_icon_child = document.getElementById("message-icon-child");
 			const link_common_message = document.getElementById("common_message");
-		
+
 			link_common_message.href = `${data.link}`;
 			message_content.innerHTML = `You have received a new message from ${data.sender_username}`;
 			card.style.display = "flex";
@@ -870,24 +885,24 @@
 			message_type.style.color = "#3db5dc";
 			message_icon_parent.style.color = "#3db5dc";
 			message_icon_child.classList = "fas fa-exclamation-circle";
-		
+
 			link_common_message.onclick = function () {
 				markAsRead(data.notification_id);
 			};
-		
+
 			const notification_null = document.getElementById('notification-null');
 			if (notification_null) {
 				notification_null.remove();  // Remove the "empty list" message if present
 			}
-		
+
 			const notification_all = document.getElementById("notification_all");
 			const notification_count = document.getElementById("notification_count");
-		
+
 			// Parse and format the timestamp
 			const timestamp = new Date(data.timestamp);
 			const formattedDate = timestamp.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 			const formattedTime = timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-		
+
 			// Check if a notification with the same ID already exists
 			let existingNotification = null;
 			const notificationItems = notification_all.querySelectorAll('li');
@@ -898,18 +913,18 @@
 					break;
 				}
 			}
-		
+
 			if (existingNotification) {
 				// Update existing notification
 				const countSpan = existingNotification.querySelector('.dropdown-item span');
 				countSpan.style.display = "block";
 				const currentCount = parseInt(countSpan.textContent.replace('(', '').replace(')', ''));
 				countSpan.textContent = `(${currentCount + 1})`;
-				console.log("currentcount",currentCount)
-		
+				console.log("currentcount", currentCount)
+
 				const messageParagraph = existingNotification.querySelector('.dropdown-item div:last-child');
 				messageParagraph.innerHTML = `${data.message}`;
-		
+
 				//const timestampSpan = existingNotification.querySelector('p span');
 				//timestampSpan.textContent = `${formattedDate} ${formattedTime}`;
 			} else {
@@ -933,28 +948,28 @@
 								<hr style="margin-bottom:0px;">
 
 				`;
-				notificationbottom=document.getElementById('notificationbottom')
-				if(!notificationbottom){
-					newNotification+=`
+				notificationbottom = document.getElementById('notificationbottom')
+				if (!notificationbottom) {
+					newNotification += `
 							<div id="notificationbottom" style="position: sticky; bottom: 0; background-color: #fff; padding: 10px; text-align: center; border-top: 1px solid #ddd;">
 		<a href="/contact-list/" style="color: #ff4667; font-weight: 500;">
 			See All in Inbox
 		</a>
 	</div>`
 				}
-				notification_all.innerHTML += newNotification;
+				notification_all.insertAdjacentHTML('afterbegin', newNotification);
 			}
-		
+
 			// Update the main notification count
 			notification_count.style.display = "block";
 			const currentMainCount = parseInt(notification_count.innerHTML) || 0;
 			notification_count.innerHTML = currentMainCount + 1;
 		}
-		
+
 		async function fetchNotificationNotRead(userid) {
 			const url = new URL(`${window.location.origin}/api/notification/unread-for-user/`);
 			url.searchParams.append('user_id', userid);
-		
+
 			await fetch(url, {
 				method: "GET",
 				headers: {
@@ -969,13 +984,13 @@
 					const notification_count = document.getElementById("notification_count");
 					let str = "";
 					let totalnotification = 0;
-		
+
 					if (response.data.length > 0) {
 						response.data.forEach((data) => {
 							const timestamp = new Date(data.timestamp);
 							const formattedDate = timestamp.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 							const formattedTime = timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-		
+
 							str += `
 								<li data-notification-id="${data.id}" onclick="markAsRead('${data.id}')">
 									<a href="${data.link}">
@@ -997,22 +1012,22 @@
 							if (!data.is_read) totalnotification += data.count;
 						});
 
-						
 
-						
+
+
 
 						if (totalnotification > 0) {
-							
+
 							notification_count.innerHTML = totalnotification;
 							notification_count.style.display = "block";
 						}
-						str+=`
+						str += `
 							<div id="notificationbottom" style="position: sticky; bottom: 0; background-color: #fff; padding: 10px; text-align: center; border-top: 1px solid #ddd;">
 		<a href="/contact-list/" style="color: #ff4667; font-weight: 500;">
 			See All in Inbox
 		</a>
 	</div>`
-					notification_all.innerHTML = str;
+						notification_all.innerHTML = str;
 
 					} else {
 						str = `
@@ -1022,16 +1037,16 @@
 						`;
 						notification_count.style.display = "none";
 						notification_count.innerHTML = "0";
-					notification_all.innerHTML = str;
+						notification_all.innerHTML = str;
 
 					}
-		
-					
+
+
 
 				}
 			});
 		}
-		
+
 
 		async function markAsRead(notificationid) {
 			const url = `${window.location.origin}/api/notification/single-mark-as-read/`;
@@ -1140,9 +1155,9 @@
 
 				`;
 
-			chatbottom=document.getElementById("chatbottom")
-			if (!chatbottom){
-				str+=`<div id="chatbottom" style="position: sticky; bottom: 0; background-color: #fff; padding: 10px; text-align: center; border-top: 1px solid #ddd;" onClick="mark_all_notification_as_read(${userid})">
+			chatbottom = document.getElementById("chatbottom")
+			if (!chatbottom) {
+				str += `<div id="chatbottom" style="position: sticky; bottom: 0; background-color: #fff; padding: 10px; text-align: center; border-top: 1px solid #ddd;" onClick="mark_all_notification_as_read(${userid})">
 		<a href="/contact-list/" style="color: #ff4667; font-weight: 500;">
 			Mark All Read
 		</a>
@@ -1264,7 +1279,7 @@
 							main_notification_count.innerHTML = totalnotification;
 							main_notification_count.style.display = "block";
 						}
-						str+=`<div id="chatbottom" style="position: sticky; bottom: 0; background-color: #fff; padding: 10px; text-align: center; border-top: 1px solid #ddd;" onClick="mark_all_notification_as_read(${userid})">
+						str += `<div id="chatbottom" style="position: sticky; bottom: 0; background-color: #fff; padding: 10px; text-align: center; border-top: 1px solid #ddd;" onClick="mark_all_notification_as_read(${userid})">
 		<a href="#" style="color: #ff4667; font-weight: 500;">
 			Mark All Read
 		</a>
@@ -1272,7 +1287,7 @@
 						main_notification_all.innerHTML = str;
 
 
-					
+
 					} else {
 						str = `
 							<li style="display: flex; justify-content: center; align-items: center; width: 100%; height: 80px;" id="main_notification-null">
@@ -1314,7 +1329,7 @@
 				shareButtonElement.addEventListener('click', function (event) {
 					event.preventDefault();
 
-					const shareUrl = `${window.location.origin}/user-profile/${username}`;
+					const shareUrl = `${window.location.origin}/${username}/`;
 
 					if (navigator.share) {
 						navigator.share({
@@ -1334,131 +1349,138 @@
 
 		}
 
-		if (authenticated){
-			get_other_user()
-		}
-		else{
-			get_all_user()
-		}
 
-		async function get_other_user(){
-			await fetch(`${window.location.origin}/api/user/get-other-users/`,{
-				method:"GET",
+
+		async function get_other_user(id) {
+			await fetch(`${window.location.origin}/api/conversations/user-conversations/?user_id=${id}`, {
+				method: "GET",
 				headers: {
 					"content-type": "application/json",
 					"Authorization": `Bearer ${authenticated}`
 				}
 
 
-			}).then((response)=>{
+			}).then((response) => {
 				return response.json()
-			}).then((response)=>{
-				if (response.success){
-					str=""
-					response.data.forEach((data)=>{
-						str+=`<li><a href="/user-profile/${data.username}/">${data.username}</a></li>`
-					})
-					document.getElementById("all_creators_authenticated").innerHTML=str
+			}).then((response) => {
+				console.log("base",response)
+		fetch_pages()
+				
+				if (response.success) {
+					if (response.data.length > 0) {
+
+						str = ""
+						let main_username = ""
+
+						response.data.forEach((data) => {
+							if (data.user1 == id) {
+								console.log("if")
+								main_username = data.user2_username
+							}
+							else {
+								console.log("else")
+
+								main_username = data.user1_username
+
+							}
+							console.log(main_username)
+							str += `<li><a href="/${main_username}/">${main_username}</a></li>`
+						})
+						document.getElementById("all_creators_authenticated").innerHTML = str
+					}
+					else {
+						let str = `<li><a href="##">Your contact-list is empty</a></li>`
+						document.getElementById("all_creators_authenticated").innerHTML = str
+					}
 				}
 			})
 		}
-		async function get_all_user(){
-			await fetch(`${window.location.origin}/api/user/get-all-users/`,{
-				method:"GET",
+		function talking_to_empty() {
+		fetch_pages()
 
-
-			}).then((response)=>{
-				return response.json()
-			}).then((response)=>{
-				if (response.success){
-					str=""
-					response.data.forEach((data)=>{
-						str+=`<li><a href="/user-profile/${data.username}/">${data.username}</a></li>`
-					})
-					document.getElementById("all_creators_unauthenticated").innerHTML=str
-				}
-			})
+			let str = `<li><a href="##">Your contact-list is empty Login and create contact's</a></li>`
+			document.getElementById("all_creators_unauthenticated").innerHTML = str
 		}
 
-		async function check_user_creator(){
-			await fetch(`${window.location.origin}/api/creator-approval/create_approval_status/`,{
-				method:"POST",
+		async function check_user_creator() {
+			await fetch(`${window.location.origin}/api/creator-approval/create_approval_status/`, {
+				method: "POST",
 				headers: {
 					"content-type": "application/json",
 					"Authorization": `Bearer ${authenticated}`
 				},
-				body:JSON.stringify({"user":profileId})
+				body: JSON.stringify({ "user": profileId })
 
 
-			}).then((response)=>{
+			}).then((response) => {
 				return response.json()
-			}).then((response)=>{
-				if (response.success){
-					str=``
-					str2=``
-					if (response.status=="approved"){
+			}).then((response) => {
+				if (response.success) {
+					str = ``
+					str2 = ``
+					if (response.status == "approved") {
 
-						str=`<a href="/creator/" >Creator Dashbored</a>`
-						str2=`<i class="bx bxs-tachometer"></i>Dashboard`
+						str = `<a href="/creator/" >Creator Dashbored</a>`
+						str2 = `<i class="bx bxs-tachometer"></i>Dashboard`
 					}
-					else{
-						str=`<a href="/creator/" >Become a Creator</a>`
-						str2=`<i class="bx bxs-tachometer"></i>Become a Creator`
+					else {
+						str = `<a href="/creator/" >Become a Creator</a>`
+						str2 = `<i class="bx bxs-tachometer"></i>Become a Creator`
 
 					}
-					document.getElementById("user_dashbored").innerHTML=str
-					if (document.getElementById("creator_check")){
-						document.getElementById("creator_check").innerHTML=str2
+					document.getElementById("user_dashbored").innerHTML = str
+					if (document.getElementById("creator_check")) {
+						document.getElementById("creator_check").innerHTML = str2
 					}
 				}
 			})
 		}
 
-		async function mark_all_notification_as_read (userid){
-			card.style.display="block"
+		async function mark_all_notification_as_read(userid) {
+			card.style.display = "block"
 			await fetch(`${window.location.origin}/api/main-notification/
-			mark-all-user-notifications-read/`,{
-				method:"POST",
+			mark-all-user-notifications-read/`, {
+				method: "POST",
 				headers: {
 					"content-type": "application/json",
 					"Authorization": `Bearer ${authenticated}`
 				},
-				body:JSON.stringify({"user_id":userid})
+				body: JSON.stringify({ "user_id": userid })
 
 
-			}).then((response)=>{
+			}).then((response) => {
 				return response.json()
-			}).then((response)=>{
-				if (response.success){
+			}).then((response) => {
+				if (response.success) {
 					card.style.display = "flex";
-						card.style.borderLeft = "10px solid green";
+					card.style.borderLeft = "10px solid green";
 
-						message_content.innerHTML = response.message;
-						message_type.innerHTML = "Success";
-						message_type.style.color = "green";
-						message_icon_parent.style.color = "green";
-						message_icon_child.classList = "fas fa-check-circle";
-						mainFetchNotification(userid)
-						main_notification_count.innerHTML = '0';
-							main_notification_count.style.display = "none";
-						
+					message_content.innerHTML = response.message;
+					message_type.innerHTML = "Success";
+					message_type.style.color = "green";
+					message_icon_parent.style.color = "green";
+					message_icon_child.classList = "fas fa-check-circle";
+					mainFetchNotification(userid)
+					main_notification_count.innerHTML = '0';
+					main_notification_count.style.display = "none";
+
 				}
-				else{
+				else {
 					card.style.display = "flex";
-                    card.style.borderLeft = "10px solid #3db5dc";
-                    message_content.innerHTML = response.message;
-                    message_type.innerHTML = "Info";
-                    message_type.style.color = "#3db5dc";
-                    message_icon_parent.style.color = "#3db5dc";
-                    message_icon_child.classList = "fas fa-exclamation-circle";
+					card.style.borderLeft = "10px solid #3db5dc";
+					message_content.innerHTML = response.message;
+					message_type.innerHTML = "Info";
+					message_type.style.color = "#3db5dc";
+					message_icon_parent.style.color = "#3db5dc";
+					message_icon_child.classList = "fas fa-exclamation-circle";
 				}
 			})
 		}
 
-		document.addEventListener('DOMContentLoaded', function() {
+		document.addEventListener('DOMContentLoaded', function () {
 			function handleContentVisibility() {
 				var content = document.getElementById('user_not_authenticatd');
-			
+
 				if (window.innerWidth <= 767) {
 					if (authenticated) {
 						// Add the class to show content
@@ -1471,22 +1493,56 @@
 				}
 			}
 
-		// Initial check on page load
-		handleContentVisibility();
+			// Initial check on page load
+			handleContentVisibility();
 
-	})
-
-		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/64ca808494cf5d49dc6806c5/1h72ccdoo';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+		})
 
 
+
+		if (authenticated) {
+			Array.from(document.getElementsByClassName("footer-authentication")).forEach((e) => {
+				e.style.display = "block";
+			});
+			Array.from(document.getElementsByClassName("footer-unauthentication")).forEach((e) => {
+				e.style.display = "none";
+			});
+		} else {
+			Array.from(document.getElementsByClassName("footer-unauthentication")).forEach((e) => {
+				e.style.display = "block";
+			});
+			Array.from(document.getElementsByClassName("footer-authentication")).forEach((e) => {
+				e.style.display = "none";
+			});
+		}
+
+		async function fetch_pages(){
+			await fetch(`${window.location.origin}/api/page/?no_pagination=true`,{
+				'method':"get",
+			}).then((response)=>{
+				return response.json()
+			}).then((response)=>{
+				console.log("base_pages",response)
+				if (response.success){
+					if(response.data.length>0){
+						str=``
+						response.data.forEach((data)=>{
+							if (data.show_in_menu){
+
+								str+=`<li class="has-submenu">
+									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+									<a href="/page/${data.page_url}/">${data.page_name} </a>
+								</li>`
+								}
+						})
+						console.log("str",str)
+						document.getElementById("menu-add-authenticated").innerHTML+=str
+						document.getElementById("menu-add-unauthenticated").innerHTML+=str
+					}
+				}
+			})
+		}
+		
 
 	</script>
 	{% block script %}

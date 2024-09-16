@@ -97,4 +97,10 @@ def followers(request,id):
 def following(request,id):
     return render(request,"other_following.html")
     
+def pages_func(request,id):
+    return render(request,"pages.html")
+
+def custom_404_view(request, exception):
+    return render(request, 'error-404.html', status=404)
+    
     

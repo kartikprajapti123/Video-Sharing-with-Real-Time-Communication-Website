@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from render.urls import urlpatterns as render_urlpatterns
 from jerry_project.router import routers
 from user.views import VerifyEmailViewset,ResetPasswordViewSet,ResendOtpViewSet
+from render.views import custom_404_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +29,8 @@ urlpatterns = [
     path('api/',include(routers.urls)),
     path('api/verify-otp/<str:token>/',VerifyEmailViewset.as_view({"post":"create"})),
     path('api/reset-password/<str:token>/',ResetPasswordViewSet.as_view({"post":"create"})),
-    path('api/resend-otp/<str:token>/',ResendOtpViewSet.as_view({"post":"create"}))
+    path('api/resend-otp/<str:token>/',ResendOtpViewSet.as_view({"post":"create"})),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     
     
     
@@ -37,3 +39,5 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'render.views.custom_404_view'
