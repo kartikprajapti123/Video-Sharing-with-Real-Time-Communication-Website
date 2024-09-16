@@ -143,9 +143,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+# STATICFILES_DIRS = [
+    # BASE_DIR / 'static',
+# ]
 # if os.getenv('DJANGO_ENV') == 'production':
 #     STATIC_ROOT = BASE_DIR / 'static'
 #     STATICFILES_DIRS = []
