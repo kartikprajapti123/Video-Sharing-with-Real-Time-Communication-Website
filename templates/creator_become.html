@@ -379,7 +379,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="/mypost/" class="nav-link">
+                                        <a href="/myvideo/" class="nav-link">
                                             <i class="bx bxs-tachometer"></i>My Videos
                                         </a>
                                     </li>
@@ -868,7 +868,7 @@
 
     const getUserPosts = async (page) => {
         console.log(page)
-        await fetch(`${window.location.origin}/api/upload-post/?page=${page}&user_username=${username}`, {
+        await fetch(`${window.location.origin}/api/upload-video/?page=${page}&user_username=${username}`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -876,7 +876,7 @@
         }).then(response => response.json())
             .then(response => {
                 if (response.results) {
-                    console.log("User posts fetched successfully:", response);
+                    console.log("User videos fetched successfully:", response);
 
                     // Update total pages and current page
                     totalPages = Math.ceil(response.count / 10);
@@ -930,7 +930,7 @@
                     <tr>
                                             <td>
                                                 <div class="table-course-detail">
-                                                    <a href="/post-view/${post.id}/" class="course-table-img">
+                                                    <a href="/video-view/${post.id}/" class="course-table-img">
                                                         <span><img src="${post.thumbnail}"
                                                                 alt="Img" style="object-position:center;object-fit:contain;"></span>
                                                         ${post.title}
@@ -973,7 +973,7 @@
     };
 
     const getUserPosts2 = async () => {
-        await fetch(`${window.location.origin}/api/upload-post/?user_username=${username}&no_pagination=true`, {
+        await fetch(`${window.location.origin}/api/upload-video/?user_username=${username}&no_pagination=true`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
@@ -1041,7 +1041,7 @@
 									<div class="course-box course-design list-course d-flex">
 										<div class="product">
 											<div class="product-img">
-												<a href="/post-view/${data.id}/">
+												<a href="/video-view/${data.id}/">
 													${videoElement}
 												</a>
 												<div class="price" style="box-shadow: 0px 0px 10px 0px grey;">
@@ -1050,7 +1050,7 @@
 											</div>
 											<div class="product-content">
 												<div class="head-course-title">
-													<h3 class="title"><a href="/post-view/${data.id}/">${data.title}</a></h3>
+													<h3 class="title"><a href="/video-view/${data.id}/">${data.title}</a></h3>
 													<!-- <div class="all-btn all-category d-flex align-items-center">
 														<a href="#" class="btn btn-primary">BUY NOW</a>
 													</div> -->
@@ -1148,7 +1148,7 @@
     };
 
     async function all_dashbored_data() {
-        await fetch(`${window.location.origin}/api/upload-post/?user_username=${username}&no_pagination=true`)
+        await fetch(`${window.location.origin}/api/upload-video/?user_username=${username}&no_pagination=true`)
             .then((response) => {
                 return response.json();
             })
@@ -1187,7 +1187,7 @@
         if (check) {
 
             card.style.display = "none";
-            await fetch(`${window.location.origin}/api/upload-post/${id}/`, {
+            await fetch(`${window.location.origin}/api/upload-video/${id}/`, {
                 method: "DELETE",
                 headers: {
                     "content-type": "application/json",

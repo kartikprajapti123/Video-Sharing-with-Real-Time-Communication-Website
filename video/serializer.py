@@ -4,23 +4,23 @@ import tempfile
 from PIL import Image
 import numpy as np
 from rest_framework import serializers
-from post.models import Post
+from video.models import Video
 from moviepy.editor import VideoFileClip
 from decimal import Decimal, InvalidOperation
 from django.core.files.base import ContentFile
-from post.models import PostReview
+# from video.models import PostReview
 
-class PostSerializer(serializers.ModelSerializer):
+class VideoSerializer(serializers.ModelSerializer):
     user_username = serializers.CharField(source="user.username", read_only=True)
     user_profile_picture = serializers.CharField(
         source="user.profile_picture", read_only=True
     )
     user_bio=serializers.CharField(source="user.bio",read_only=True)
     
-    post_review_count=serializers.SerializerMethodField()
+    # post_review_count=serializers.SerializerMethodField()
 
     class Meta:
-        model = Post
+        model = Video
         fields = [
             "id",
             "title",
@@ -38,7 +38,7 @@ class PostSerializer(serializers.ModelSerializer):
             "deleted",
             "created_at",
             "updated_at",
-            "post_review_count",
+            # "post_review_count",
             "status",
         ]
 
@@ -186,39 +186,39 @@ class PostSerializer(serializers.ModelSerializer):
             validated_data['thumbnail'] = self.generate_thumbnail_from_video(video)
         return super().update(instance, validated_data)
     
-    def get_post_review_count(self,obj):
-        id=obj.id
-        count=PostReview.objects.filter(post__id=id).count()
-        return count
+    # def get_post_review_count(self,obj):
+        # id=obj.id
+        # count=PostReview.objects.filter(post__id=id).count()
+        # return count
         
         
-class PostReviewSerializer(serializers.ModelSerializer):
-    user_username = serializers.CharField(source='user.username', read_only=True)
-    post_title = serializers.CharField(source='post.title', read_only=True)  # Assuming the Post model has a title field
-    user_profile_picture=serializers.CharField(source='user.profile_picture', read_only=True)
+# class PostReviewSerializer(serializers.ModelSerializer):
+#     user_username = serializers.CharField(source='user.username', read_only=True)
+#     post_title = serializers.CharField(source='post.title', read_only=True)  # Assuming the Post model has a title field
+#     user_profile_picture=serializers.CharField(source='user.profile_picture', read_only=True)
 
-    class Meta:
-        model = PostReview
-        fields = [
-            'id',
-            'user',
-            'user_username',
-            "user_profile_picture",
-            'post',
-            'post_title',
-            'message',
-            'created_by',
-            'updated_by',
-            'deleted',
-            'created_at',
-            'updated_at'
-        ]
-        read_only_fields = ['created_at', 'updated_at']
+#     class Meta:
+#         model = PostReview
+#         fields = [
+#             'id',
+#             'user',
+#             'user_username',
+#             "user_profile_picture",
+#             'post',
+#             'post_title',
+#             'message',
+#             'created_by',
+#             'updated_by',
+#             'deleted',
+#             'created_at',
+#             'updated_at'
+#         ]
+#         read_only_fields = ['created_at', 'updated_at']
         
         
-    # def validate(self, data):
-    #     message=data.get("message")
-    #     if len(message)<10:
-    #         return serializers.ValidationError("Comment length should be more than 10 chara")
+#     # def validate(self, data):
+#     #     message=data.get("message")
+#     #     if len(message)<10:
+#     #         return serializers.ValidationError("Comment length should be more than 10 chara")
         
     

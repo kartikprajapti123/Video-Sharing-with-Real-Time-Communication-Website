@@ -407,10 +407,10 @@
 									<a class="dropdown-item" href="/upload-video/"><i
 											class="feather-upload me-1"></i>Upload Video
 									</a>
-									<a class="dropdown-item" href="/mypost/"><i class="feather-home me-1"></i>My
+									<a class="dropdown-item" href="/myvideo/"><i class="feather-home me-1"></i>My
 										Videos</a>
 
-									
+
 									<!-- <div class="dropdown-item night-mode">
 											<span><i class="feather-moon me-1"></i> Night Mode </span>
 											<div class="form-check form-switch check-on m-0">
@@ -452,79 +452,38 @@
 					<div class="row" style="display: flex;
     justify-content: space-between;padding: 20px 0px;
 ">
-						<div class="col-lg-4 col-md-6" >
+						<div class="col-lg-4 col-md-6">
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-about">
 								<div class="footer-logo">
 									<img src="/static/img/logo.svg" alt="logo">
 								</div>
 								<div class="footer-about-content">
-									<p>Welcome to DreamsLMS! Showcase your videos and connect with an audience. Share your passion and creativity with the world.</p>
+									<p>Welcome to DreamsLMS! Showcase your videos and connect with an audience. Share
+										your passion and creativity with the world.</p>
 								</div>
 							</div>
 							<!-- /Footer Widget -->
 						</div>
-		
-						<div class="col-lg-2 col-md-6 footer-authentication"  >
-							<!-- Footer Widget -->
-							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">Quick Links</h2>
-								<ul>
-									<li><a href="/index/">Home</a></li>
-									<li><a href="/creator/">Creator Dashboared</a></li>
-									<li><a href="/upload-video/">Upload-Video</a></li>
 
-								</ul>
-							</div>
+
+						<div class="col-lg-2 col-md-6 " id="footer-authentication">
+							<!-- Footer Widget -->
 							<!-- /Footer Widget -->
 						</div>
-						<div class="col-lg-2 col-md-6 footer-authentication"  >
+						<div class="col-lg-2 col-md-6" id="footer-unauthentication">
 							<!-- Footer Widget -->
-							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">More Quick Links</h2>
-								<ul>
-									<li><a href="/myprofile/">My Profile</a></li>
-									<li><a href="/mypost/">My videos</a></li>
-									<li><a href="#" onclick="LogoutApi()">Logout</a></li>
-
-								</ul>
-							</div>
 							<!-- /Footer Widget -->
 						</div>
-		
-		
-						<div class="col-lg-2 col-md-6 footer-unauthentication"  >
+
+
+
+						<div class="col-lg-2 col-md-6" id="footer-common-links">
 							<!-- Footer Widget -->
-							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">Quick Links</h2>
-								<ul>
-									<li><a href="/index/">Home</a></li>
-
-
-
-
-								</ul>
-							</div>
 							<!-- /Footer Widget -->
 						</div>
-						<div class="col-lg-2 col-md-6 footer-unauthentication"  >
-							<!-- Footer Widget -->
-							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">More Quick Links</h2>
-								<ul>
-									<li><a href="/signup/">Signup</a></li>
-									<li><a href="/signin/">Login</a></li>
-									<li><a href="/forgot-password/">Forgot Password</a></li>
 
 
-
-
-								</ul>
-							</div>
-							<!-- /Footer Widget -->
-						</div>
-		
-		
 						<div class="col-lg-4 col-md-6">
 							<!-- Footer Widget -->
 							<div class="footer-widget footer-contact">
@@ -550,7 +509,7 @@
 				</div>
 			</div>
 			<!-- /Footer Top -->
-		
+
 			<!-- Footer Bottom -->
 			<div class="footer-bottom">
 				<div class="container">
@@ -572,9 +531,9 @@
 				</div>
 			</div>
 			<!-- /Footer Bottom -->
-		
+
 		</footer>
-		
+
 		<!-- /Footer -->
 
 	</div>
@@ -676,6 +635,7 @@
 				}).then((response) => {
 					return response.json()
 				}).then((response) => {
+
 					if (response.success) {
 						profileId = response.data.id
 						get_other_user(profileId)
@@ -1363,9 +1323,9 @@
 			}).then((response) => {
 				return response.json()
 			}).then((response) => {
-				console.log("base",response)
-		fetch_pages()
-				
+				console.log("base", response)
+				fetch_pages()
+
 				if (response.success) {
 					if (response.data.length > 0) {
 
@@ -1396,7 +1356,7 @@
 			})
 		}
 		function talking_to_empty() {
-		fetch_pages()
+			fetch_pages()
 
 			let str = `<li><a href="##">Your contact-list is empty Login and create contact's</a></li>`
 			document.getElementById("all_creators_unauthenticated").innerHTML = str
@@ -1432,6 +1392,8 @@
 					if (document.getElementById("creator_check")) {
 						document.getElementById("creator_check").innerHTML = str2
 					}
+
+					document.getElementById('footer-creator-link').innerHTML="Creator Dashboared"
 				}
 			})
 		}
@@ -1501,48 +1463,84 @@
 
 
 		if (authenticated) {
-			Array.from(document.getElementsByClassName("footer-authentication")).forEach((e) => {
-				e.style.display = "block";
-			});
-			Array.from(document.getElementsByClassName("footer-unauthentication")).forEach((e) => {
-				e.style.display = "none";
-			});
+			document.getElementById("footer-authentication").innerHTML = `<div class="footer-widget footer-menu">
+								<h2 class="footer-title footer-policy-link">Creator Links</h2>
+								<ul>
+									<li><a href="/index/">Home</a></li>
+									<li><a href="/myprofile/">My Profile</a></li>
+									<li><a href="/myvideo/">My videos</a></li>
+									<!-- <li><a href="/contact-list/">Contact-List</a></li> -->
+									<li><a href="/creator/" id="footer-creator-link">Become Creator</a></li>
+									<!-- <li><a href="/upload-video/">Uplaod-Videos</a></li> -->
+
+
+
+									<li><a href="#" onclick="LogoutApi()">Logout</a></li>
+
+								</ul>
+							</div>`
+
+							
+			document.getElementById("footer-authentication").style.display="block"
+			document.getElementById("footer-unauthentication").style.display="none"
+			
 		} else {
-			Array.from(document.getElementsByClassName("footer-unauthentication")).forEach((e) => {
-				e.style.display = "block";
-			});
-			Array.from(document.getElementsByClassName("footer-authentication")).forEach((e) => {
-				e.style.display = "none";
-			});
+			document.getElementById("footer-unauthentication").innerHTML = `<div class="footer-widget footer-menu">
+				<h2 class="footer-title footer-policy-link">Creator Links</h2>
+								<ul>
+									<li><a href="/index/">Home</a></li>
+									<li><a href="/signin/">Login</a></li>
+									<li><a href="/signup/">Signu Up</a></li>
+									<li><a href="/forgot-password/">Forgot Password</a></li>
+								</ul>
+			</div>`
+
+			document.getElementById("footer-authentication").style.display="None"
+			document.getElementById("footer-unauthentication").style.display="block"
+
 		}
 
-		async function fetch_pages(){
-			await fetch(`${window.location.origin}/api/page/?no_pagination=true`,{
-				'method':"get",
-			}).then((response)=>{
+		async function fetch_pages() {
+			await fetch(`${window.location.origin}/api/page/?no_pagination=true`, {
+				'method': "get",
+			}).then((response) => {
 				return response.json()
-			}).then((response)=>{
-				console.log("base_pages",response)
-				if (response.success){
-					if(response.data.length>0){
-						str=``
-						response.data.forEach((data)=>{
-							if (data.show_in_menu){
-
-								str+=`<li class="has-submenu">
+			}).then((response) => {
+				console.log("base_pages", response)
+				if (response.success) {
+					if (response.data.length > 0) {
+						str = ``
+						footer_common_links=``
+						response.data.forEach((data) => {
+							console.log("show_in_footer",data.show_in_footer)
+							if (data.show_in_menu) {
+								
+								str += `<li class="has-submenu">
 									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
 									<a href="/page/${data.page_url}/">${data.page_name} </a>
 								</li>`
-								}
+							}
+							if (data.show_in_footer){
+										
+								footer_common_links+=`<li><a href="/page/${data.page_url}/">${data.page_name}</a></li>`
+							}
 						})
-						console.log("str",str)
-						document.getElementById("menu-add-authenticated").innerHTML+=str
-						document.getElementById("menu-add-unauthenticated").innerHTML+=str
+						console.log("str", str)
+						document.getElementById("menu-add-authenticated").innerHTML += str
+						document.getElementById("menu-add-unauthenticated").innerHTML += str
+						console.log("footer_common_links",footer_common_links)
+						document.getElementById("footer-common-links").innerHTML=`<div class="footer-widget footer-menu">
+							<h2 class="footer-title">Support & Policy</h2>
+							<ul>
+								${footer_common_links}
+
+							</ul>
+						</div>`
 					}
 				}
 			})
 		}
-		
+
 
 	</script>
 	{% block script %}

@@ -21,15 +21,15 @@ urlpatterns = [
     path('chatting/',views.chatting2,name="chattting"),
     path('creator/',views.become_creator,name="become_creator"),
     path('terms_of_service/',views.terms_of_service,name="terms_of_service"),
-    path('upload-video/',views.upload_post,name="uplaod_Post"),
-    path('mypost/',views.my_post,name="my-post"),
-    path('myprofileedit/',views.myprofileedit,name="my-post"),
+    path('upload-video/',views.upload_video,name="uplaod_video"),
+    path('myvideo/',views.my_video,name="my-video"),
+    path('myprofileedit/',views.myprofileedit,name="my-video"),
     
-    path('mychangepassword/',views.changepassword,name="my-post"),
-    path('mydelete-account/',views.mydeleteaccount,name="my-post"),
+    path('mychangepassword/',views.changepassword,name="my-vdieo"),
+    path('mydelete-account/',views.mydeleteaccount,name="my-video"),
     
-    path('update-video/<str:id>/',views.updatepost,name="update-post"),
-    path('post-view/<str:id>/',views.post_view,name="update-post"),
+    path('update-video/<str:id>/',views.updatevideo,name="update-video"),
+    path('video-view/<str:id>/',views.video_view,name="update-video"),
     path('search/',views.search,name="search"),
     path('<str:id>/',views.others_profile,name="others-profile"),
     

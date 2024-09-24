@@ -527,13 +527,13 @@
 
 	const getUserPosts = async (id, page = 1) => {
 		console.log("id",id)
-		await fetch(`${window.location.origin}/api/upload-post/user-approved-posts/?user_id=${id}&page=${page}`, {
+		await fetch(`${window.location.origin}/api/upload-video/user-approved-posts/?user_id=${id}&page=${page}`, {
 			method: "GET",
 		}).then(response => response.json())
 			.then(response => {
 				console.log(response)
 				if (response.results) {
-					console.log("User posts fetched successfully:", response);
+					console.log("User videos fetched successfully:", response);
 
 					// Update total pages and current page
 					totalPages = Math.ceil(response.count / 10);
@@ -546,10 +546,10 @@
 					// Update pagination UI
 					updatePagination();
 				} else {
-					console.log("Failed to fetch user posts.");
+					console.log("Failed to fetch user videos.");
 				}
 			}).catch(error => {
-				console.error("Error fetching user posts:", error);
+				console.error("Error fetching user videos:", error);
 			});
 	};
 
@@ -590,7 +590,7 @@
 									<div class="course-box course-design list-course d-flex">
 										<div class="product">
 											<div class="product-img">
-												<a href="/post-view/${post.id}/">
+												<a href="/video-view/${post.id}/">
 													${videoElement}
 												</a>
 												<div class="price" style="box-shadow: 0px 0px 10px 0px grey;">
@@ -599,7 +599,7 @@
 											</div>
 											<div class="product-content">
 												<div class="head-course-title">
-													<h3 class="title"><a href="/post-view/${post.id}/">${post.title}</a></h3>
+													<h3 class="title"><a href="/video-view/${post.id}/">${post.title}</a></h3>
 													<div class="all-btn all-category d-flex align-items-center">
 														<a href="#" class="btn btn-primary">BUY NOW</a>
 													</div>

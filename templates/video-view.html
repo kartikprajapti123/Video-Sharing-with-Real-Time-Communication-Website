@@ -55,7 +55,7 @@
 					<nav aria-label="breadcrumb" class="page-breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="/index/">Home</a></li>
-							<li class="breadcrumb-item" aria-current="page"> <a href="/mypost/">My Posts</a></li>
+							<li class="breadcrumb-item" aria-current="page"> <a href="/myvideo/">My Videos</a></li>
 							<!-- <li class="breadcrumb-item" aria-current="page">All posts</li> -->
 							<li class="breadcrumb-item" aria-current="page" id="post_view_title2"></li>
 						</ol>
@@ -576,7 +576,7 @@
 	post_view_video_duration = document.getElementById("post_view_video_duration")
 
 
-	fetch(`${window.location.origin}/api/upload-post/${postId}/`, {
+	fetch(`${window.location.origin}/api/upload-video/${postId}/`, {
 		"method": "get"
 	}).then((response) => {
 		return response.json()

@@ -1,6 +1,6 @@
-from django.contrib import admin
+# from django.contrib import admin
 
-# Register your models here.
-from pages.models import Pages
+# # Register your models here.
+# from pages.models import Pages
 
-admin.site.register(Pages)
+# admin.site.register(Pages)

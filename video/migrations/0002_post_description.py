@@ -6,12 +6,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('post', '0001_initial'),
+        ('video', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
+            model_name='video',
             name='description',
             field=models.TextField(blank=True, null=True),
         ),
