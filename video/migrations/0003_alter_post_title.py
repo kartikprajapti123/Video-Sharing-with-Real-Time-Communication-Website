@@ -6,12 +6,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('post', '0002_post_description'),
+        ('video', '0002_post_description'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
+            model_name='video',
             name='title',
             field=models.CharField(blank=True, max_length=255, null=True),
         ),

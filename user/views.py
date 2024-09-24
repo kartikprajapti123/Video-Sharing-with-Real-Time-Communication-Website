@@ -1,8 +1,8 @@
 import threading
 from django.db import transaction
 from django.shortcuts import render
-from post.models import Post
-from post.serializer import PostSerializer
+from video.models import Video
+from video.serializer import VideoSerializer
 from user.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -393,7 +393,9 @@ class LoginWithGoogleViewSet(ModelViewSet):
                     if username is None or username =="":
                         username=faker("username")
                         
+                    username = ' '.join(username.split()).replace(' ', '_')
                     user = User.objects.filter(email=email)
+                    
                     if user.exists():
                         user[0].is_active = True
                         user[0].save()

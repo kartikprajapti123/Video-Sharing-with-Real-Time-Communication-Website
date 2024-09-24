@@ -6,7 +6,7 @@ from notification.consumers import NotificationConsumer
 from chat.views import ConversationViewSet,MessageViewSet,UplaodedImaeViewSet
 from notification.views import NotificationViewSet,MainNotificationViewSet
 from creator.views import CreatorApprovalViewSet
-from post.views import PostViewSet,PostReviewViewSet
+from video.views import VideoViewSet
 from follow.views import FollowViewSet
 from pages.views import PagesViewSet
 routers=DefaultRouter()
@@ -26,8 +26,8 @@ routers.register(r'notification',NotificationViewSet,basename="notification")
 routers.register(r'main-notification',MainNotificationViewSet,basename="main-notification")
 
 routers.register(r'creator-approval',CreatorApprovalViewSet,basename="creator-approval")
-routers.register(r'upload-post',PostViewSet,basename="upload-post")
-routers.register(r'post-review',PostReviewViewSet,basename="post-review")
+routers.register(r'upload-video',VideoViewSet,basename="upload-video")
+# routers.register(r'post-review',PostReviewViewSet,basename="post-review")
 routers.register(r'follow',FollowViewSet,basename="follow")
 routers.register(r'page',PagesViewSet,basename="page")
 

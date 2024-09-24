@@ -49,15 +49,15 @@ def terms_of_service(request):
     return render(request,"terms_of_service.html")
 
 
-def upload_post(request):
-    return render(request,"upload-post.html")
+def upload_video(request):
+    return render(request,"upload-video.html")
     
 
 
 
 
-def my_post(request):
-    return render(request,"my_post.html")
+def my_video(request):
+    return render(request,"my_video.html")
 
 
 def myprofileedit(request):
@@ -70,12 +70,12 @@ def changepassword(request):
 def mydeleteaccount(request):
     return render(request,"mydelete-account.html")
     
-def updatepost(request,id):
-    return render(request,"update-post.html")
+def updatevideo(request,id):
+    return render(request,"update-video.html")
     
 
-def post_view(request,id):
-    return render(request,"post-view.html")
+def video_view(request,id):
+    return render(request,"video-view.html")
 
 def search(request):
     return render(request,"search.html")

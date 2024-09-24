@@ -155,7 +155,7 @@
 
 	const getUserPosts = async (search,page) => {
 		console.log(page)
-		await fetch(`${window.location.origin}/api/upload-post/?page=${page}&search=${search}`, {
+		await fetch(`${window.location.origin}/api/upload-video/?page=${page}&search=${search}`, {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -163,7 +163,7 @@
 		}).then(response => response.json())
 			.then(response => {
 				if (response.results) {
-					console.log("User posts fetched successfully:", response);
+					console.log("User videos fetched successfully:", response);
 
 					// Update total pages and current page
 					totalPages = Math.ceil(response.count / 10);
@@ -227,7 +227,7 @@
 											<div class="product-img" style="display: flex;
     justify-content: center;
     align-items: center;">
-												<a href="/post-view/${post.id}/">
+												<a href="/video-view/${post.id}/">
 													${videoElement}
 												</a>
 												<div class="price" style="box-shadow: 0px 0px 10px 0px grey;">
@@ -237,7 +237,7 @@
 											<div class="product-content">
 												
 												<div class="head-course-title">
-													<h3 class="title"><a href="/post-view/${post.id}/">${post.title}</a></h3>
+													<h3 class="title"><a href="/video-view/${post.id}/">${post.title}</a></h3>
 													<div class="all-btn all-category d-flex align-items-center">
 														<a href="#" class="btn btn-primary">BUY NOW</a>
 													</div>

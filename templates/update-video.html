@@ -57,71 +57,19 @@
 
 <!-- New Course -->
 <section class="page-content course-sec" style="margin-top: 100px;">
-    <div class="container" id="become_creator" style="display:none;">
+    <div class="container" id="row1" style="display:block">
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="add-course-header">
-                    <h2>Become Creator</h2>
+                    <h2>Update Videos</h2>
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
-                                <a href="/myprofile/" class="btn btn-black profile-update">Back to Profile</a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <!-- Course Wizard -->
-                    <div class="widget-set">
-                        <div class="widget-setcount">
-                            <ul id="progressbar">
-
-                            </ul>
-                        </div>
-                        <div class="widget-content multistep-form">
-                            <fieldset class="field-card" style="display: block;">
-                                <div class="add-course-info">
-                                    <div class="add-course-msg">
-                                        <i class="fas fa-excalmation-check"></i>
-                                        <h4>You are not a creator yet.</h4>
-                                        <ul class="nav" style="display: flex;
-    justify-content: center;">
-                                            <li>
-                                                <a href="/creator/" class="btn btn-success-dark"
-                                                   >Become a Creator</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-                    <!-- /Course Wizard -->
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="container" id="row1" style="display:none">
-        <div class="row align-items-center">
-            <div class="col-md-12">
-                <div class="add-course-header">
-                    <h2>Add New Video</h2>
-                    <div class="add-course-btns">
-                        <ul class="nav">
-                            <li>
-                                <a href="/myprofile/" class="btn btn-black profile-update">Back to Profile</a>
+                                <a href="/myvideo/" class="btn btn-black">Back to MyVideos</a>
                             </li>
                             <!-- <li>
                                 <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Save</a>
                             </li> -->
-                            
                         </ul>
                     </div>
                 </div>
@@ -136,7 +84,7 @@
                         <div class="widget-setcount">
                             <ul id="progressbar">
                                 <li class="progress-active">
-                                    <p><span></span> Publish Video</p>
+                                    <p><span></span> Update Information</p>
                                 </li>
                                 <!-- <li>
                                     <p><span></span> Post Media</p>
@@ -159,7 +107,7 @@
                             <fieldset id="first">
                                 <div class="add-course-info">
                                     <div class="add-course-inner-header">
-                                        <h4>Publish Video</h4>
+                                        <h4>Update Content</h4>
                                     </div>
                                     <div class="add-course-form">
                                         <form action="#">
@@ -187,9 +135,9 @@
 															</select>
 														</div> -->
                                             <div class="input-block mb-0">
-                                                <label class="add-course-label">Description <span
+                                                <label class="add-course-label">Post Description <span
                                                         style="font-size: 14px;">
-                                                        (We recommend to create detailed description highlighting key
+                                                        (For sales, provide a detailed description highlighting key
                                                         features and benefits.)
                                                     </span></label>
                                                 <div id="editor2"></div>
@@ -241,17 +189,17 @@
                                         </form>
                                     </div>
                                     <div class="widget-btn">
-                                    <ul class="nav">
-                                        <!-- <li>
-                                            <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
-                                        </li> -->
-                                        <li>
-                                            <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Publish</a>
-                                        </li>
-                                        
-                                    </ul>
                                         <!-- <a class="btn btn-black">Back</a> -->
                                         <!-- <a class="btn btn-info-light next_btn">Continue</a> -->
+                                        <ul class="nav">
+                                            <!-- <li>
+                                                <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
+                                            </li> -->
+                                            <li>
+                                                <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Update</a>
+                                            </li>
+                                            
+                                        </ul>
                                     </div>
                                 </div>
                             </fieldset>
@@ -271,19 +219,19 @@
                                                     </label> -->
                                                     <!-- <button  class="clear-button" style="display: none;">&times; Clear</button> -->
                                                     <!-- <label class="relative-file-upload" id="upload-video-label">
-                                                        Upload File <input type="file" id="post_video" accept=".mp4, .wav">
+                                                        Upload File <input type="file" id="post_video">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="input-block">
-                                                <label class="add-course-label">Post Thumbnail (Leave this field empty. The thumbnail will be generated automatically from video.)</label>
+                                                <label class="add-course-label">Post Thumbnail  (Leave this field empty. The thumbnail will be generated automatically from video.)</label>
                                                 <div class="relative-form">
                                                     <span id="thumbnail-file-name">No File Selected</span>
                                                     <label class="relative-file-upload" id="clear-thumbnail">
                                                         Clear
                                                     </label>
                                                     <label class="relative-file-upload" id="upload-thumbnail-label">
-                                                        Upload File <input type="file" id="post_thumbnail" accept=".jpg ,jpeg,.png">
+                                                        Upload File <input type="file" id="post_thumbnail">
                                                     </label>
                                                 </div>
                                             </div>
@@ -295,7 +243,7 @@
                                                         Clear
                                                     </label>
                                                     <label class="relative-file-upload" id="upload-preview-label">
-                                                        Upload File <input type="file" id="post_preview" accept=".mp4, .wav">
+                                                        Upload File <input type="file" id="post_preview">
                                                     </label>
                                                 </div>
                                             </div>
@@ -342,15 +290,15 @@
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="add-course-header">
-                    <h2>Add New Post</h2>
+                    <h2>Your Post Updated successfully</h2>
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
-                                <a href="/myprofile/" class="btn btn-black profile-update">Back to Profile</a>
+                                <a href="/myvideo/" class="btn btn-black">Back to Myvideo</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);" class="btn btn-success-dark"
-                                    onclick="reversefunction()">Add Another Post</a>
+                                    onclick="reversefunction()">Update again video</a>
                             </li>
                         </ul>
                     </div>
@@ -372,8 +320,8 @@
                                 <div class="add-course-info">
                                     <div class="add-course-msg">
                                         <i class="fas fa-circle-check"></i>
-                                        <h4>Your Video has been successfully submitted.</h4>
-                                        <p>Our team will review your video to verify your content. This
+                                        <h4>Your video has been successfully updated.</h4>
+                                        <p>Our team will review your update to verify your content. This
                                             process typically takes around one day. You will be notified once
                                             the review is approved or rejected.</p>
                                     </div>
@@ -390,13 +338,21 @@
     </div>
 </section>
 
-</div>
+
+
 
 <!-- /New Course -->
 {% endblock body %}
 {% block script %}
 <script>
+    const pathname = window.location.pathname;
 
+// Split the pathname into parts
+const pathParts = pathname.split('/');
+
+// Extract the ID (assuming it's the second-to-last part)
+const postId = pathParts[pathParts.length - 2];
+    console.log(postId)
     post_title = document.getElementById("post_title")
     description = document.getElementById("description")
     post_video = document.getElementById("post_video")
@@ -407,224 +363,237 @@
 
     document.addEventListener('DOMContentLoaded', function () {
 
-        function updateFileName(inputId, spanId, clearId, uploadLabelId) {
-            var input = document.getElementById(inputId);
-            var span = document.getElementById(spanId);
-            var clearButton = document.getElementById(clearId);
-            var uploadLabel = document.getElementById(uploadLabelId);
-
+        function updateFileName(inputId, spanId, clearId, uploadLabelId, fileUrl = null) {
+            const input = document.getElementById(inputId);
+            const span = document.getElementById(spanId);
+            const clearButton = document.getElementById(clearId);
+            const uploadLabel = document.getElementById(uploadLabelId);
+        
             if (!input || !span || !clearButton || !uploadLabel) {
                 console.error(`Elements not found. IDs: ${inputId}, ${spanId}, ${clearId}, ${uploadLabelId}`);
                 return;
             }
-
-            input.addEventListener('change', function () {
-                if (input.files.length > 0) {
-                    span.textContent = input.files[0].name;
-                    clearButton.style.display = 'inline'; // Show the clear button
-                    uploadLabel.style.display = 'none'; // Hide the upload label
-                } else {
-                    span.textContent = 'No File Selected';
+        
+            function getFileNameFromUrl(url) {
+                return url.substring(url.lastIndexOf('/') + 1);
+            }
+        
+            if (fileUrl) {
+                span.textContent = getFileNameFromUrl(fileUrl);
+                clearButton.style.display = 'inline'; // Show the clear button
+                uploadLabel.style.display = 'none'; // Hide the upload label
+            } else {
+                input.addEventListener('change', function () {
+                    if (input.files.length > 0) {
+                        span.textContent = input.files[0].name;
+                        clearButton.style.display = 'inline'; // Show the clear button
+                        uploadLabel.style.display = 'none'; // Hide the upload label
+                    } else {
+                        span.textContent = 'No File Selected';
+                        clearButton.style.display = 'none'; // Hide the clear button
+                        uploadLabel.style.display = 'inline'; // Show the upload label
+                    }
+                });
+        
+                clearButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    input.value = ''; // Clear the file input
+                    span.textContent = 'No File Selected'; // Reset the file name display
                     clearButton.style.display = 'none'; // Hide the clear button
                     uploadLabel.style.display = 'inline'; // Show the upload label
-                }
-            });
-
-            clearButton.addEventListener('click', function (e) {
-                e.preventDefault()
-                input.value = ''; // Clear the file input
-                span.textContent = 'No File Selected'; // Reset the file name display
-                clearButton.style.display = 'none'; // Hide the clear button
-                uploadLabel.style.display = 'inline'; // Show the upload label
-            });
+                });
+            }
         }
-
         // Initialize file input listeners
         updateFileName('post_video', 'video-file-name', 'clear-video', 'upload-video-label');
         updateFileName('post_thumbnail', 'thumbnail-file-name', 'clear-thumbnail', 'upload-thumbnail-label');
         updateFileName('post_preview', 'preview-file-name', 'clear-preview', 'upload-preview-label');
-    });
 
-    ClassicEditor
-    .create(document.querySelector('#editor2'), {
-        removePlugins: [
-            'Image', 
-            'ImageToolbar', 
-            'ImageCaption', 
-            'ImageStyle', 
-            'ImageUpload', 
-            'EasyImage',
-            'CKFinder',
-            'MediaEmbed'
-        ]
-    })
-    .then(editor => {
-        console.log("done");
-
-        // Attach the editor instance to a global variable for later use
-        window.editorInstance = editor;
-    })
-    .catch(error => {
-        console.error('There was a problem initializing the editor.', error);
-    });
-
-    //function updateProgressBar(percentage) {
-    //    const progressBar = document.getElementById('mainprogress');
-    //    if (!progressBar) return;
-    //    progressBar.setAttribute('aria-valuenow', percentage);
-    //    progressBar.style.setProperty('--value', percentage + '%');
-    //}
-
-    document.getElementById("post_save").onclick = async (e) => {
-        e.preventDefault();
-    
-        // Disable the button and show the spinner
-        const postSaveButton = document.getElementById("post_save");
-        if (postSaveButton.disabled) {
-            return;
-        }
-        postSaveButton.innerHTML = `<div class="spinner-border text-light" role="status"></div>`;
-        postSaveButton.disabled = true;
-        postSaveButton.style.backgroundColor = "#159F46";
-        postSaveButton.style.color = "white";
-    
-        // Prepare the data to be sent
-        const editorContent = window.editorInstance.getData();
-        let formData = new FormData();
-        formData.append("title", post_title.value);
-        formData.append("description", editorContent);
-        formData.append("price", post_price.value);
-    
-        // Append files if they exist
-        if (post_video.files[0]) {
-            formData.append("video", post_video.files[0]);
-        }
-        if (post_thumbnail.files[0]) {
-            formData.append("thumbnail", post_thumbnail.files[0]);
-        }
-        if (post_preview.files[0]) {
-            formData.append("preview", post_preview.files[0]);
-        }
-    
-        try {
-            // Make the request
-            const response = await fetch(`${window.location.origin}/api/upload-post/`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${authenticated}`
-                },
-                body: formData
+        // Initialize the editor
+        ClassicEditor
+        .create(document.querySelector('#editor2'), {
+            removePlugins: [
+                'Image', 
+                'ImageToolbar', 
+                'ImageCaption', 
+                'ImageStyle', 
+                'ImageUpload', 
+                'EasyImage',
+                'CKFinder',
+                'MediaEmbed'
+            ]
+        })
+            .then(editor => {
+                window.editorInstance = editor;
+                fetchPostData();
+            })
+            .catch(error => {
+                console.error('There was a problem initializing the editor.', error);
             });
-    
-            const result = await response.json();
-    
-            if (response.ok) {
-                // Handle success
-                document.getElementById('row1').style.display = "none";
-                document.getElementById("row2").style.display = "block";
-                card.style.display = "none";
 
-            } else {
-                // Handle errors
-                let errorMessage = "An error occurred";
-                if (result.message.title) {
-                    errorMessage = result.message.title[0];
-                } else if (result.message.description) {
-                    errorMessage = result.message.description[0];
-                } else if (result.message.video) {
-                    errorMessage = result.message.video[0];
-                } else if (result.message.thumbnail) {
-                    errorMessage = result.message.thumbnail[0];
-                } else if (result.message.preview) {
-                    errorMessage = result.message.preview[0];
-                } else if (result.message.price) {
-                    errorMessage = result.message.price[0];
+            async function fetchPostData() {
+                try {
+                    const response = await fetch(`${window.location.origin}/api/upload-video/${postId}/`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${authenticated}`
+                        }
+                    });
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Fetched post data:', data);
+            
+                        post_title.value = data.data.title;
+                        post_price.value = data.data.price;
+                        window.editorInstance.setData(data.data.description);
+            
+                        if (data.data.video) {
+                            updateFileName('post_video', 'video-file-name', 'clear-video', 'upload-video-label', data.data.video);
+                        }
+                        if (data.data.thumbnail) {
+                            updateFileName('post_thumbnail', 'thumbnail-file-name', 'clear-thumbnail', 'upload-thumbnail-label', data.data.thumbnail);
+                        }
+                        if (data.data.preview) {
+                            updateFileName('post_preview', 'preview-file-name', 'clear-preview', 'upload-preview-label', data.data.preview);
+                        }
+                    } else {
+                        console.error('Failed to fetch video data.');
+                    }
+                } catch (error) {
+                    console.error('Error fetching video data:', error);
                 }
-    
-                message_content.innerHTML = errorMessage;
-                card.style.display = "flex";
-                card.style.borderLeft = "10px solid red";
-                message_type.innerHTML = "Error";
-                message_type.style.color = "red";
-                message_icon_parent.style.color = "red";
-                message_icon_child.classList = "fas fa-times-circle";
-                document.getElementById('post_form').style.display = "block";
             }
-        } catch (error) {
-            // Handle network or other unexpected errors
-            console.error('Error:', error);
-            message_content.innerHTML = "Failed to upload the post. Please try again later.";
-            card.style.display = "flex";
-            card.style.borderLeft = "10px solid red";
-            message_type.innerHTML = "Error";
-            message_type.style.color = "red";
-            message_icon_parent.style.color = "red";
-            message_icon_child.classList = "fas fa-times-circle";
-            document.getElementById('post_form').style.display = "block";
-        } finally {
-            // Re-enable the button
-            postSaveButton.innerHTML = `Publish`;
-            postSaveButton.disabled = false;
-        }
-    };
+        document.getElementById("post_save").onclick = async (e) => {
+            e.preventDefault();
+            //document.getElementById("post_form").style.display = "none";
+            card.style.display="none"
+
+            document.getElementById("post_save").innerHTML = `<div class="spinner-border text-light" role="status">
+                <!-- <span class="sr-only">Loading...</span> -->
+              </div>`
+
+              if ( document.getElementById("post_save").disabled) {
+                return;
+            }
+              document.getElementById("post_save").disabled = true
+              document.getElementById("post_save").style.backgroundColor = "#159F46"
+              document.getElementById("post_save").style.color = "white"
+
+              
+
+            const editorContent = window.editorInstance.getData();
+            let formData = new FormData();
+            formData.append("title", post_title.value);
+            formData.append("description", editorContent);
+            formData.append("price", post_price.value);
+
+            console.log(post_video.files[0])
+            if (post_video.files[0]) {
+                formData.append("video", post_video.files[0]);
+            }
     
+            if (post_thumbnail.files[0]) {
+                formData.append("thumbnail", post_thumbnail.files[0]);
+            }
+    
+            if (post_preview.files[0]) {
+                formData.append("preview", post_preview.files[0]);
+            }
+
+            try {
+                const response = await fetch(`${window.location.origin}/api/upload-video/${postId}/`, {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": `Bearer ${authenticated}`
+                    },
+                    body: formData
+                });
+
+                const responseData = await response.json();
+                if (responseData.success) {
+                    if(responseData.changes==true){
+
+                        document.getElementById('row1').style.display = "none";
+                        document.getElementById("row2").style.display = "block";
+                        card.style.display="none"
+
+                        document.getElementById("post_save").innerHTML = `Update`
+                        document.getElementById("post_save").disabled = false
+
+              document.getElementById("post_save").style.backgroundColor = "#159F46"
+              document.getElementById("post_save").style.color = "white"
+
+
+
+  
+  
+                    }
+                    else{
+                        message_content.innerHTML = `No changes made`;
+			card.style.display = "flex";
+			card.style.borderLeft = "10px solid #3db5dc";
+			message_type.innerHTML = `Info`;
+			message_type.style.color = "#3db5dc";
+			message_icon_parent.style.color = "#3db5dc";
+			message_icon_child.classList = "fas fa-exclamation-circle";
+
+            document.getElementById("post_save").innerHTML = `Update`
+            document.getElementById("post_save").disabled = false
+            document.getElementById("post_save").style.backgroundColor = "#159F46"
+            document.getElementById("post_save").style.color = "white"
+
+
+
+
+
+                    }
+                } else {
+                    let errorMessage = "";
+                    if (responseData.message.title) {
+                        errorMessage = responseData.message.title[0];
+                    } else if (responseData.message.description) {
+                        errorMessage = responseData.message.description[0];
+                    } else if (responseData.message.video) {
+                        errorMessage = responseData.message.video[0];
+                    } else if (responseData.message.thumbnail) {
+                        errorMessage = responseData.message.thumbnail[0];
+                    } else if (responseData.message.preview) {
+                        errorMessage = responseData.message.preview[0];
+                    } else if (responseData.message.price) {
+                        errorMessage = responseData.message.price[0];
+                    }
+
+                    message_content.innerHTML = errorMessage;
+                    card.style.display = "flex";
+                    card.style.borderLeft = "10px solid red";
+                    message_type.innerHTML = "Error";
+                    message_type.style.color = "red";
+                    message_icon_parent.style.color = "red";
+                    message_icon_child.classList = "fas fa-times-circle";
+                    document.getElementById('post_form').style.display = "block";
+
+                       //document.getElementById("post_load").style.display = "none"
+                       document.getElementById("post_save").innerHTML = `Update`
+                       document.getElementById("post_save").disabled = false
+                       document.getElementById("post_save").style.backgroundColor = "#159F46"
+                       document.getElementById("post_save").style.color = "white"
+
+                }
+            } catch (error) {
+                console.error('There was a problem updating the post.', error);
+            }
+        };
+
+    });
 
     function reversefunction(e) {
         window.location.reload()
     }
-
-    userApi = async () => {
-        await fetch(`${window.location.origin}/api/user/`, {
-            "method": "get",
-            "headers": {
-                "content-type": "application/json",
-                "Authorization": `Bearer ${authenticated}`
-            }
-        }).then((response) => {
-            return response.json()
-        }).then(async (response) => {
-            userId=response.data.id
-            if (response.success) {
-                const approvalResponse = await fetch(`${window.location.origin}/api/upload-post/check-approval/?user_id=${userId}`, {
-                    method: "GET",
-                    headers: {
-                        "content-type": "application/json",
-                        "Authorization": `Bearer ${authenticated}`
-                    }
-                });
-    
-                const approvalData = await approvalResponse.json();
-    
-                if (approvalData.success) {
-                    console.log('User approval status:', approvalData);
-                    // Handle the approval status here
-                    if (approvalData.success) {
-                        // User is approved
-                        document.getElementById("become_creator").style.display="none"
-                        document.getElementById('row1').style.display = "block"
-                    document.getElementById("row2").style.display = "none"
-                        // You can now proceed with actions for approved users
-                    } else {
-                        // User is not approved
-                        console.log('User is not approved');
-                        // Handle cases where the user is not approved
-                    }
-                } else {
-                    document.getElementById("become_creator").style.display="block"
-                        document.getElementById('row1').style.display = "none"
-                    document.getElementById("row2").style.display = "none"
-                }
-
-
-            }
-            console.log(response)
-        })
-    }
-    userApi()
-    //document.getElementsByClassName("footer")[0].style.display="none"
     document.getElementsByClassName("footer-top")[0].classList.remove("aos");
-    document.getElementsByClassName("footer-top")[0].setAttribute("data-aos", "");
-    
+document.getElementsByClassName("footer-top")[0].setAttribute("data-aos", "");
+
+
 
 </script>
 {% endblock script %}

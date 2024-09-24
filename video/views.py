@@ -5,18 +5,18 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 # from rest_framework .authentication import BasicAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
-from post.models import Post,PostReview
-from post.serializer import PostSerializer
+from video.models import Video
+from video.serializer import VideoSerializer
 from utils.pagination import Pagination
 from rest_framework.decorators import action
 # from user.models import User
 from creator.models import CreatorApproval
-from post.serializer import PostReviewSerializer
+# from video.serializer import PostReviewSerializer
 
 
-class PostViewSet(ModelViewSet):
-    queryset = Post.objects.filter(deleted=0).order_by("-created_at")
-    serializer_class = PostSerializer
+class VideoViewSet(ModelViewSet):
+    queryset = Video.objects.filter(deleted=0).order_by("-created_at")
+    serializer_class = VideoSerializer
     pagination_class = Pagination
     filter_backends = [SearchFilter, OrderingFilter]
     permission_classes = [IsAuthenticated]
@@ -75,7 +75,7 @@ class PostViewSet(ModelViewSet):
         data["created_by"] = request.user.id
 
         # Pass the combined data to the serializer
-        serializer = PostSerializer(
+        serializer = VideoSerializer(
             data=data
         )  # Automatically associate the post with the current user
 
@@ -169,7 +169,7 @@ class PostViewSet(ModelViewSet):
             )
         
         queryset = self.filter_queryset(
-            Post.objects.filter(user__id=user_id, status="approved", deleted=0).order_by("-created_at")
+            Video.objects.filter(user__id=user_id, status="approved", deleted=0).order_by("-created_at")
         )
         
         page = self.paginate_queryset(queryset)
@@ -185,7 +185,7 @@ class PostViewSet(ModelViewSet):
         print("random_posts")
         try:
             # Get a count of all non-deleted posts
-            total_posts = Post.objects.filter(deleted=0).count()
+            total_posts = Video.objects.filter(deleted=0).count()
             if total_posts == 0:
                 return Response(
                     {"success": False, "message": "No posts available."},
@@ -194,7 +194,7 @@ class PostViewSet(ModelViewSet):
 
             # Get a random sample of posts
             sample_size = min(15, total_posts)  # Adjust sample size as needed
-            random_posts = Post.objects.filter(deleted=0).order_by('?')[:sample_size]
+            random_posts = Video.objects.filter(deleted=0).order_by('?')[:sample_size]
 
             # Instantiate the pagination class and paginate the random posts
             paginator = Pagination()
@@ -218,7 +218,7 @@ class PostViewSet(ModelViewSet):
     def latest_posts(self, request, *args, **kwargs):
         try:
             # Get the latest 5 posts
-            latest_posts = Post.objects.filter(deleted=0).order_by("-created_at")[:5]
+            latest_posts = Video.objects.filter(deleted=0).order_by("-created_at")[:5]
 
             # Serialize the posts
             serializer = self.get_serializer(latest_posts, many=True)
@@ -234,109 +234,109 @@ class PostViewSet(ModelViewSet):
     
     
 
-class PostReviewViewSet(ModelViewSet):
-    queryset = PostReview.objects.filter(deleted=0).order_by("-created_at")
-    serializer_class = PostReviewSerializer
-    pagination_class = Pagination
-    filter_backends = [SearchFilter, OrderingFilter]
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+# class PostReviewViewSet(ModelViewSet):
+#     queryset = PostReview.objects.filter(deleted=0).order_by("-created_at")
+#     serializer_class = PostReviewSerializer
+#     pagination_class = Pagination
+#     filter_backends = [SearchFilter, OrderingFilter]
+#     permission_classes = [IsAuthenticated]
+#     authentication_classes = [JWTAuthentication]
 
-    search_fields = [
-        "message",
-        "user__username",
-        "post__title",
-    ]
-    ordering_fields = ["created_at", "updated_at"]
+#     search_fields = [
+#         "message",
+#         "user__username",
+#         "post__title",
+#     ]
+#     ordering_fields = ["created_at", "updated_at"]
     
     
             
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+#     def list(self, request, *args, **kwargs):
+#         queryset = self.filter_queryset(self.get_queryset())
 
-        no_pagination = request.query_params.get("no_pagination")
+#         no_pagination = request.query_params.get("no_pagination")
 
-        if no_pagination:
-            serializer = self.serializer_class(queryset, many=True)
-            return Response({"success": True, "data": serializer.data})
+#         if no_pagination:
+#             serializer = self.serializer_class(queryset, many=True)
+#             return Response({"success": True, "data": serializer.data})
 
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.serializer_class(page, many=True)
-            return self.get_paginated_response({"success": True, "data": serializer.data})
+#         page = self.paginate_queryset(queryset)
+#         if page is not None:
+#             serializer = self.serializer_class(page, many=True)
+#             return self.get_paginated_response({"success": True, "data": serializer.data})
 
-        serializer = self.serializer_class(queryset, many=True)
-        return Response({"success": True, "data": serializer.data})
+#         serializer = self.serializer_class(queryset, many=True)
+#         return Response({"success": True, "data": serializer.data})
 
-    def create(self, request, *args, **kwargs):
-        data = request.data
-        data["user"] = request.user.id
-        data["created_by"] = request.user.id
+#     def create(self, request, *args, **kwargs):
+#         data = request.data
+#         data["user"] = request.user.id
+#         data["created_by"] = request.user.id
 
-        serializer = self.serializer_class(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"success": True, "data": serializer.data,"message":"Your comment beeen successfully submitted"},
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(
-            {"success": False, "message": serializer.errors},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+#         serializer = self.serializer_class(data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(
+#                 {"success": True, "data": serializer.data,"message":"Your comment beeen successfully submitted"},
+#                 status=status.HTTP_201_CREATED,
+#             )
+#         return Response(
+#             {"success": False, "message": serializer.errors},
+#             status=status.HTTP_400_BAD_REQUEST,
+#         )
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        data = request.data
-        data["updated_by"] = request.user.id
+#     def update(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         data = request.data
+#         data["updated_by"] = request.user.id
 
-        serializer = self.serializer_class(instance, data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"success": True, "data": serializer.data},
-                status=status.HTTP_200_OK,
-            )
-        return Response(
-            {"success": False, "message": serializer.errors},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+#         serializer = self.serializer_class(instance, data=data, partial=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(
+#                 {"success": True, "data": serializer.data},
+#                 status=status.HTTP_200_OK,
+#             )
+#         return Response(
+#             {"success": False, "message": serializer.errors},
+#             status=status.HTTP_400_BAD_REQUEST,
+#         )
 
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.deleted = 1  # Assuming you have a `deleted` field for soft deletion
-        instance.save()
-        return Response(
-            {"success": True, "message": "Post review deleted successfully."},
-            status=status.HTTP_200_OK,
-        )
+#     def destroy(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         instance.deleted = 1  # Assuming you have a `deleted` field for soft deletion
+#         instance.save()
+#         return Response(
+#             {"success": True, "message": "Post review deleted successfully."},
+#             status=status.HTTP_200_OK,
+#         )
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.serializer_class(instance)
-        return Response(
-            {"success": True, "data": serializer.data},
-            status=status.HTTP_200_OK,
-        )
+#     def retrieve(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         serializer = self.serializer_class(instance)
+#         return Response(
+#             {"success": True, "data": serializer.data},
+#             status=status.HTTP_200_OK,
+#         )
         
-    @action(detail=False, methods=["get"], url_path="reviews-by-post",permission_classes=[AllowAny])
-    def get_reviews_by_post(self, request):
-        post_id = request.query_params.get("post_id")
+#     @action(detail=False, methods=["get"], url_path="reviews-by-post",permission_classes=[AllowAny])
+#     def get_reviews_by_post(self, request):
+#         post_id = request.query_params.get("post_id")
         
-        if not post_id:
-            return Response(
-                {"success": False, "message": "post_id query parameter is required."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+#         if not post_id:
+#             return Response(
+#                 {"success": False, "message": "post_id query parameter is required."},
+#                 status=status.HTTP_400_BAD_REQUEST,
+#             )
         
-        post_reviews = PostReview.objects.filter(post_id=post_id, deleted=0).order_by("-created_at")
+#         post_reviews = PostReview.objects.filter(post_id=post_id, deleted=0).order_by("-created_at")
 
-        # page = self.paginate_queryset(post_reviews)
-        # if page is not None:
-            # serializer = self.serializer_class(page, many=True)
-            # return self.get_paginated_response({"success": True, "data": serializer.data})
+#         # page = self.paginate_queryset(post_reviews)
+#         # if page is not None:
+#             # serializer = self.serializer_class(page, many=True)
+#             # return self.get_paginated_response({"success": True, "data": serializer.data})
 
-        serializer = self.serializer_class(post_reviews, many=True)
-        return Response({"success": True, "data": serializer.data})
+#         serializer = self.serializer_class(post_reviews, many=True)
+#         return Response({"success": True, "data": serializer.data})
     
     
