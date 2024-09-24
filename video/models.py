@@ -59,20 +59,20 @@ class Video(models.Model):
         )
         
 
-        from channels.layers import get_channel_layer
-        from asgiref.sync import async_to_sync
+        # from channels.layers import get_channel_layer
+        # from asgiref.sync import async_to_sync
 
-        channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)(
-            f"user_{self.user.uuid}",
-            {
-                'type': 'send_main_notification',
-                'notification_id': mainnotification.id,
-                'message': notification_message,
-                'timestamp': str(now()),
-                'link': "/myvideo/",
-            }
-        )
+        # channel_layer = get_channel_layer()
+        # async_to_sync(channel_layer.group_send)(
+        #     f"user_{self.user.uuid}",
+        #     {
+        #         'type': 'send_main_notification',
+        #         'notification_id': mainnotification.id,
+        #         'message': notification_message,
+        #         'timestamp': str(now()),
+        #         'link': "/myvideo/",
+        #     }
+        # )
 
 # class PostReview(models.Model):
 #     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="posts_review_user")

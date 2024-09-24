@@ -279,7 +279,7 @@
 								<!-- </li> -->
 
 								<li class="has-submenu">
-									<a href="#">You Talked with's <i class="fas fa-chevron-down"></i></a>
+									<a href="#">You Chatted With <i class="fas fa-chevron-down"></i></a>
 									<ul class="submenu" id="all_creators_unauthenticated">
 										<!-- <li class="has-submenu">
 												<a href="#">Instructor</a>
@@ -1386,6 +1386,8 @@
 
 						str = `<a href="/creator/" >Creator Dashbored</a>`
 						str2 = `<i class="bx bxs-tachometer"></i>Dashboard`
+					document.getElementById('footer-creator-link').innerHTML="Creator Dashboared"
+
 					}
 					else {
 						str = `<a href="/creator/" >Become a Creator</a>`
@@ -1397,7 +1399,6 @@
 						document.getElementById("creator_check").innerHTML = str2
 					}
 
-					document.getElementById('footer-creator-link').innerHTML="Creator Dashboared"
 				}
 			})
 		}
