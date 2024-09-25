@@ -61,6 +61,8 @@ class CreatorApprovalViewSet(ModelViewSet):
 
         data = request.data
         data["created_by"] = request.user.id
+        data["updated_by"] = request.user.id
+        
         serializer = self.serializer_class(data=data)
 
         if serializer.is_valid():

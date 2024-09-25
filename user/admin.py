@@ -100,6 +100,7 @@ admin_admin_site.register(Notification, NotificationAdmin)
 class MainNotificationAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'is_read', 'timestamp', 'link')
     list_filter = ('is_read', 'timestamp')
+    fields = ('user', 'message', 'link')
     search_fields = ('user__username', 'message')
     ordering = ['-timestamp']
     readonly_fields = ('timestamp',)
@@ -143,6 +144,7 @@ admin_admin_site.register(UploadedImage, UploadedImageAdmin)
 class PagesAdmin(admin.ModelAdmin):
     list_display = ('page_name', 'page_url', 'show_in_menu','show_in_footer')
     search_fields = ('page_name',)
+    fields = ('page_name', 'page_url', 'show_in_menu','show_in_footer','content')
     ordering = ('page_name',)
 
 creator_admin_site.register(Pages, PagesAdmin)
