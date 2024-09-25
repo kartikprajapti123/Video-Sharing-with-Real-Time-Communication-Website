@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block title %}
+  Creator Dashboared
+{% endblock title %}
 {% block style %}
 
 {% endblock style %}
@@ -348,7 +351,7 @@
                             <div class="settings-menu">
                                 <div class="profile-bg">
                                     <div class="profile-img">
-                                        <a href="/myprofile/"><img id="profile_page_image"
+                                        <a href="/myprofile/" id="profile_picture_link2"><img id="profile_page_image"
                                                 src="/media/profile_pictures/default_profile_image.png" alt="Img"></a>
                                     </div>
                                 </div>
@@ -1060,9 +1063,9 @@
 													
 													
 												</div>
-												<div class="course-edit-btn d-flex align-items-center justify-content-between" style="color:grey;">
-									<a href="/update-video/${data.id}" style="color:grey;"><i class="bx bx-edit me-2" style="color:grey;"></i>Edit</a>
-									<a href="#" onclick="PostDelete(${data.id})" style="color:grey;"><i class="bx bx-trash me-2" style="color:grey;"></i>Delete</a>
+												<div class="course-edit-btn d-flex align-items-center " style="color:grey;justify-content:flex-start;">
+									<a href="/update-video/${data.id}" style="color:grey;margin-right:10px;"><i class="bx bx-edit me-2" style="color:grey;"></i>Edit</a>
+									<a  onclick="PostDelete(${data.id})" style="color:grey;cursor:pointer;"><i class="bx bx-trash me-2" style="color:grey;"></i>Delete</a>
 								</div>
 												</div>
 												

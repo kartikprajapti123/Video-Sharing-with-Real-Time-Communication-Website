@@ -5,6 +5,10 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<meta property="og:title" content="User Profile">
+<meta property="og:description" content="Here is a Profile link I wanted to share with you!">
+<meta property="og:image" content="/static/img/logo.svg">
+<meta property="og:url" content="https://www.bmy.fan">
 	<title>{% block title %}
 
 		{% endblock title %}</title>
@@ -288,10 +292,6 @@
 													<li><a href="#">Grid</a></li>
 												</ul>
 											</li> -->
-										<li><a href="#">Popular</a></li>
-										<li><a href="#">Men</a></li>
-										<li><a href="#">Women</a></li>
-										<li><a href="#">Common</a></li>
 
 
 									</ul>
@@ -397,7 +397,7 @@
 												class="avatar-img rounded-circle">
 										</div>
 										<div class="user-text">
-											<h6 id="profile_username">Eugene Andre</h6>
+											<a href="" id="profile_username_link"><h6 id="profile_username">Eugene Andre</h6></a>
 										</div>
 									</div>
 									<a class="dropdown-item profile-update" href="/myprofile/"><i
@@ -407,9 +407,11 @@
 									<a class="dropdown-item" href="/upload-video/"><i
 											class="feather-upload me-1"></i>Upload Video
 									</a>
+
 									<a class="dropdown-item" href="/myvideo/"><i class="feather-home me-1"></i>My
 										Videos</a>
 
+										<a class="dropdown-item" href="/contact-list/"><i class="feather-home me-1"></i>Messages</a>
 
 									<!-- <div class="dropdown-item night-mode">
 											<span><i class="feather-moon me-1"></i> Night Mode </span>
@@ -495,7 +497,7 @@
 									</div>
 									<p>
 										<img src="/static/img/icon/icon-19.svg" alt="Img" class="img-fluid">
-										dreamslms@example.com
+										<a href="mailto:dreamslms@example.com">dreamslms@example.com</a>
 									</p>
 									<p class="mb-0">
 										<img src="/static/img/icon/icon-21.svg" alt="Img" class="img-fluid">
@@ -648,9 +650,15 @@
 						sharebutton(response.data.username)
 						check_user_creator()
 
+						if (document.getElementById("profile_picture_link2")){
+
+							document.getElementById("profile_picture_link2").href=`${response.data.profile_picture}`
+						}
 						document.getElementById("profile_image").src = `${response.data.profile_picture}`
 						document.getElementById("profile_image2").src = `${response.data.profile_picture}`
 						document.getElementById("profile_username").innerHTML = `${response.data.username}`
+						document.getElementById("profile_username_link").href = `/${response.data.username}/`
+
 						if (response.data.profile_picture == "") {
 
 							let profile_page_image = document.getElementById("profile_page_image")
@@ -1298,13 +1306,14 @@
 					if (navigator.share) {
 						navigator.share({
 							title: 'User profile',
-							text: 'Check out this Link!',
+							text: 'Check out this amazing user profile! You will find all the details about their Videos, Content and contact information. Don’t miss out on connecting with them for exciting opportunities.',
 							url: shareUrl, // Use the dynamic URL
 						}).then(() => {
 							console.log('Thanks for sharing!');
 						}).catch((error) => {
 							console.log('Something went wrong', error);
 						});
+					
 					} else {
 						alert('Sharing not supported on this browser.');
 					}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  
+  Search
 {% endblock title %}
 
 {% block link %}
@@ -270,7 +270,7 @@
                                                 <div class="course-share d-flex align-items-center justify-content-center">
                                                     <ul class="nav">
                                         
-                                            <a href="/user-video/${data.user_username}/" class="btn btn-success-dark" id="post_save" style="    height: 33px;
+                                            <a href="/user-video/${post.user_username}/" class="btn btn-success-dark" id="post_save" style="    height: 33px;
                 color: red;
                 background: #fae2e0;
                 border: none;
@@ -321,7 +321,7 @@
 				}
 				function searchCalled() {
 					const searchValue = document.getElementById('search').value;
-					if (searchValue.length>4){
+					if (searchValue.length>2){
 						getUserPosts(searchValue,1)
 					}else{
 						document.getElementById("search_result_count").innerHTML=`Your search "${searchValue}" returned 0 results.`

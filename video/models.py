@@ -13,9 +13,7 @@ class Video(models.Model):
     STATUS_CHOICE=[
         ("pending","pending"),
         ("approved","approved"),
-        ("canceled","canceled")
-        
-        
+        ("canceled","canceled")    
     ]
     
     title = models.CharField(max_length=255,null=True,blank=True)
@@ -36,8 +34,8 @@ class Video(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = "Video"  # Change model name in admin to "Video"
-        verbose_name_plural = "Videos"
+        verbose_name = "Video Approval"  # Change model name in admin to "Video"
+        verbose_name_plural = "Video Approvals"
     
     def create_notification_and_send_message(self, admin_user):
         # Create a notification for the user

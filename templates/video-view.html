@@ -2,6 +2,9 @@
 {% block title %}
 
 {% endblock title %}
+{% block title %}
+  Video-View
+{% endblock title %}
 {% block style %}
 <style>
 	:root {
@@ -32,7 +35,7 @@
 		object-position: center;
 	}
 	.plyr__controls__item.plyr__control--volume {
-		max-width: 100px; /* Adjust this value to reduce/increase the width */
+		max-width: 200px; /* Adjust this value to reduce/increase the width */
 	}
 	
 	/* Make sure the progress bar has a full width */
@@ -487,7 +490,7 @@
 
 
 									</div>
-									<a href="#" class="btn btn-enroll w-100">Purchase Now</a>
+									<a href="#" class="btn btn-enroll w-100" >Purchase Now</a>
 								</div>
 							</div>
 						</div>
@@ -525,8 +528,8 @@
 										id="post_view_video_duration">00 hours</span></li>
 										<li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Format: <span
 											id="post_view_video_format"></span></li>
-											<li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Dimensions: <span
-												id="post_view_video_dimensions"></span></li>
+											<!-- <li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Dimensions: <span
+												id="post_view_video_dimensions"></span></li> -->
 								<!-- <li><img src="/static/img/icon/chapter.svg" class="me-2" alt="Img"> Chapters: <span>15</span></li> -->
 								<!-- <li><img src="/static/img/icon/video.svg" class="me-2" alt="Img"> Video:<span> 12 hours</span></li> -->
 								<!-- <li><img src="/static/img/icon/chart.svg" class="me-2" alt="Img"> Comments: <span
@@ -563,6 +566,7 @@
 	post_view_description = document.getElementById("post_view_description")
 	post_view_user_link = document.getElementById("post_view_user_link")
 	post_view_user_image = document.getElementById("post_view_user_image")
+	post_view_price=document.getElementById("post_view_price")
 
 	post_view_user_profile_link_username = document.getElementById("post_view_user_profile_link_username")
 	post_view_user_profile_link_username2 = document.getElementById("post_view_user_profile_link_username2")
@@ -615,7 +619,7 @@
 
 			post_view_bio.innerHTML = response.data.user_bio
 
-			post_view_user_profile_link.href = `/profile/${response.data.user_username}`
+			post_view_user_profile_link.href = `/${response.data.user_username}/`
 
 			post_view_user_profile_image.src = `/media/${response.data.user_profile_picture}`
 			//post_view_short_description.innerHTML = short_description
@@ -625,18 +629,19 @@
 
 			post_view_title.innerHTML = response.data.title
 
+			post_view_price.innerHTML=`$${response.data.price}`
 
 			post_view_description.innerHTML = response.data.description
 
-			post_view_user_link.href = `/profile/${response.data.user_username}`
+			post_view_user_link.href = `/${response.data.user_username}/`
 
 			post_view_user_link.src = `/media/${response.data.user_profile_picture}`
 
 
-			post_view_user_profile_link_username.href = `/profile/${response.data.user_username}`
+			post_view_user_profile_link_username.href = `/${response.data.user_username}/`
 			post_view_user_profile_link_username.innerHTML = response.data.user_username
 
-			post_view_user_profile_link_username2.href = `/profile/${response.data.user_username}`
+			post_view_user_profile_link_username2.href = `/${response.data.user_username}/`
 			post_view_user_profile_link_username2.innerHTML = response.data.user_username
 
 
@@ -678,7 +683,7 @@
 					// Update the DOM element with the formatted duration
 					post_view_video_duration.innerHTML = `${formattedDuration}`;
 					post_view_video_format.innerHTML = `${format.toUpperCase()}`; // Convert format to uppercase
-        			post_view_video_dimensions.innerHTML = `${width}x${height}`;
+        			//post_view_video_dimensions.innerHTML = `${width}x${height}`;
 
 
 					// Optionally, remove the hidden video element if no longer needed
@@ -688,14 +693,44 @@
 		}
 	})
 	const player = new Plyr('#post_view_poster', {
-		controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
+		controls: ['play', 'progress', 'current-time', 'fullscreen'],
+		i18n: {
+			mute: 'Toggle Audio',  // Change the label of the mute button
+		}
 	});
+	
+	// Custom function to toggle audio on/off
+	const toggleAudio = () => {
+		player.muted = !player.muted;  // Toggle mute state
+		updateAudioButtonIcon();
+	};
+	
+	// Function to update the icon based on mute state
+	const updateAudioButtonIcon = () => {
+		if (player.muted) {
+			customButton.innerHTML = '<i class="fas fa-volume-mute"></i>';  // Mute icon
+		} else {
+			customButton.innerHTML = '<i class="fas fa-volume-up"></i>';  // Volume on icon
+		}
+	};
+	
+	// Add custom audio on/off button
+	const customButton = document.createElement('button');
+	customButton.classList.add('plyr__control');  // Apply Plyr control styling
+	updateAudioButtonIcon();  // Set the initial icon
+	customButton.addEventListener('click', toggleAudio);  // Add toggle function
+	
+	// Append the custom button to the controls
+	const controls = document.querySelector('.plyr__controls');
+	controls.appendChild(customButton);
+	
+	// Share button logic
 	document.getElementById('shareButton').addEventListener('click', async () => {
 		if (navigator.share) {
 			try {
 				await navigator.share({
 					title: 'Check this out!',
-					text: 'Here is Video link for you interesting I found.',
+					text: 'Here is a video link for something interesting I found.',
 					url: document.getElementById("post_view_poster").src, // Share the current page URL
 				});
 				console.log('Sharing successful');
@@ -707,6 +742,7 @@
 			alert('Sharing not supported on this browser.');
 		}
 	});
+	
 	//document.getElementById("post_view_video_link").onClick(function(e){
 	//	console.log("called")
 //

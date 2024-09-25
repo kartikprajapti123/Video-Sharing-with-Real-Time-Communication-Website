@@ -1,6 +1,6 @@
 {% extends "base.html" %}			
 {% block title %}
-  
+  profile-edit
 {% endblock title %}
 {% block link %}
 
@@ -45,7 +45,7 @@
 								<div class="settings-menu">
 									<div class="profile-bg">
 										<div class="profile-img">
-											<a href="/myprofile/" class="profile-update"><img id="profile_page_image"
+											<a href="/myprofile/" id="profile_picture_link2" class="profile-update"><img id="profile_page_image"
 												src="/media/profile_pictures/default_profile_image.png" alt="Img"></a>
 										</div>
 									</div>
@@ -208,7 +208,7 @@
 									<form action="#">
 										<div class="course-group profile-upload-group mb-0 d-flex">									
 											<div class="course-group-img profile-edit-field d-flex align-items-center">
-												<a href="student-profile.html" class="profile-pic"><img src="/static/img/user/user-17.jpg" alt="Img" class="img-fluid" id="profile_picture"></a>
+												<a href="" class="profile-pic" id="profile_picture_link"><img src="/static/img/user/user-17.jpg" alt="Img" class="img-fluid" id="profile_picture"></a>
 												<div class="profile-upload-head">
 													<h4 id="avatar_username"></a></h4>
 													<p>PNG, JPEG, and JPG are only supported</p>
@@ -351,6 +351,8 @@
 			
 								if (response.data.profile_picture) {
 									document.getElementById("profile_picture").src = response.data.profile_picture;
+									document.getElementById("profile_picture_link").href = response.data.profile_picture;
+
 								}
 							}
 							console.log(response);

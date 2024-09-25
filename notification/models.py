@@ -66,7 +66,7 @@ class MainNotification(models.Model):
         
     
     class Meta:
-        verbose_name="Notification"
+        verbose_name="Send Notification To User"
         
 
     

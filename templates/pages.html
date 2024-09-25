@@ -3,7 +3,6 @@
   
 {% endblock style %}
 {% block title %}
-  
 {% endblock title %}
 {% block body %}
   <div class="container" style="margin-top:120px;">
@@ -21,6 +20,7 @@
 	// Extract the ID (assuming it's the second-to-last part)
 	const page_name = pathParts[pathParts.length - 2];
 
+    document.title=page_name
     async function get_content(){
         card.style.display = "none";
 

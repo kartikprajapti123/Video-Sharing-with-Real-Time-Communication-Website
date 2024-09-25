@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Dreams LMS</title>
+    <title>Contact-list</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.svg">
@@ -597,7 +597,7 @@
                                 </div>
                                 <div class="chat-content" style="width: fit-content;">
                                     <div class="chat-profile-name">
-                                        <h6 style="text-wrap: nowrap;" >${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;" >${data.sender1_username}<span>${formattedDate}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px; word-break: break-word; ">
                                         <a href="${data.file_url}"   style="color:black;"  style="color:black;" target="_blank">${data.file_url}
@@ -614,7 +614,7 @@
                                 </div>
                                 <div class="chat-content"  style="width: fit-content;">
                                     <div class="chat-profile-name">
-                                        <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content" style="width: fit-content;
     float: left;">
@@ -631,10 +631,10 @@
 									  
 									  <div class="chat-content"  style="width: fit-content;">
 										  <div class="chat-profile-name">
-											  <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+											  <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
 										  <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px;  word-break: break-word;">
-											  <a href="${data.file_url}"   style="color:black;"  style="color:black;" target="_blank">${data.file_url}
+											  <a href="${data.file_url}"   style="color:white;"  style="color:black;" target="_blank">${data.file_url}
 											  <img src="${data.file_url}" class="img-fluid message_image" alt="img">
                                             </a>
                                             </div>
@@ -651,7 +651,7 @@
                                     str += `<div class="chats chats-right">
                                         <div class="chat-content"  style="width: fit-content;">
                                             <div class="chat-profile-name text-end">
-                                                <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate} ${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
+                                                <h6 style="text-wrap: nowrap;">${data.sender1_username}<span>${formattedDate}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                             </div>
                                             <div class="message-content " style="width: fit-content;
     float: right; word-break: break-word;">
@@ -770,6 +770,11 @@
                             minute: '2-digit', 
                             hour12: true 
                         });
+                        let formattedDate = new Date(message.timestamp).toLocaleDateString('en-US', { 
+                            month: '2-digit', // e.g., '09'
+                            day: '2-digit', // e.g., '15'
+                            year: 'numeric' // e.g., '2024'
+                        });
                         let str = '';
 
                         if (message.sender === userID) {
@@ -780,10 +785,10 @@
 									  
 									  <div class="chat-content"  style="width: fit-content;">
 										  <div class="chat-profile-name">
-											  <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+											  <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedDate}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
 										  </div>
 										  <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px; word-break: break-word;">
-											  <a href="${message.file_url}"   style="color:black;"  style="color:black;" target="_blank">${message.file_url}</a>
+											  <a href="${message.file_url}"   style="color:white;" target="_blank">${message.file_url}</a>
 											  <img src="${message.file_url}" class="img-fluid message_image" alt="img">
                                             </a>
                                             </div>
@@ -798,7 +803,7 @@
                                 str = `<div class="chats chats-right">
                         <div class="chat-content"  style="width: fit-content;">
                             <div class="chat-profile-name text-end">
-                                        <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedDate}</span><span class="check-star msg-star-one d-none"><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content " style="width: fit-content;
     float: right; word-break: break-word;">
@@ -861,7 +866,7 @@
                                 </div>
                                 <div class="chat-content"  style="width: fit-content;">
                                     <div class="chat-profile-name">
-                                        <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
+                                        <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedDate}</span><span class="check-star msg-star-three d-none" ><i class="bx bxs-star"></i></span></h6>
                                     </div>
                                     <div class="message-content award-link chat-award-link" style="    padding: 8px;margin: 0px; word-break: break-word;">
                                         <a href="${message.file_url}" style="color:black;" target="_blank">${message.file_url}
@@ -878,7 +883,7 @@
                                     </div>
                                     <div class="chat-content"  style="width: fit-content;">
                                         <div class="chat-profile-name">
-                                            <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedTime}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
+                                            <h6 style="text-wrap: nowrap;">${message.username}<span>${formattedDate}</span><span class="check-star msg-star d-none"><i class="bx bxs-star"></i></span></h6>
                                         </div>
                                         <div class="message-content" style="width: fit-content;
     float: left;">
