@@ -32,7 +32,7 @@ urlpatterns = [
     path('api/reset-password/<str:token>/',ResetPasswordViewSet.as_view({"post":"create"})),
     path('api/resend-otp/<str:token>/',ResendOtpViewSet.as_view({"post":"create"})),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
-    path('admin/content-management/', creator_admin_site.urls),
+    path('admin/', creator_admin_site.urls),
     path('admin/database-management/', admin_admin_site.urls), 
     path('',include(render_urlpatterns)),
 ]
