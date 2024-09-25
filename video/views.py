@@ -73,6 +73,8 @@ class VideoViewSet(ModelViewSet):
         # Add the user ID to the data
         data["user"] = request.user.id
         data["created_by"] = request.user.id
+        data["updated_by"] = request.user.id
+        
 
         # Pass the combined data to the serializer
         serializer = VideoSerializer(

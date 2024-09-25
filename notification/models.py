@@ -34,7 +34,15 @@ class MainNotification(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='main_notifications', on_delete=models.CASCADE)
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    link = models.CharField(blank=True, null=True,default="#",max_length=100,verbose_name="Redirect Link",help_text="Example :- /policy/")
+    link = models.CharField(
+    blank=True,
+    null=True,
+    default="#",
+    max_length=100,
+    verbose_name="Redirect Link",
+    help_text="Example: https://www.bmy.fan/page/policy/ - The user will be redirected to the specified page upon clicking."
+)
+
     is_read = models.BooleanField(default=False)
     deleted = models.IntegerField(default=0)
     
