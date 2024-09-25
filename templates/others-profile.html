@@ -2,6 +2,9 @@
 {% block style %}
 
 {% endblock style %}
+{% block title %}
+  Profile
+{% endblock title %}
 {% block link %}
 
 {% endblock link %}
@@ -39,7 +42,7 @@
 					<div class="settings-menu">
 						<div class="profile-bg">
 							<div class="profile-img">
-								<a><img id="other_profile_page_image" src="/media/profile_pictures/default_profile_image.png"
+								<a href="#" id="profile_picture_link2"><img id="other_profile_page_image" src="/media/profile_pictures/default_profile_image.png"
 										alt="Img"></a>
 							</div>
 						</div>
@@ -271,7 +274,7 @@
 //document.getElementById("follow-button").innerHTML=`<i class="fas fa-user-plus"></i> follow`
 //				}
 				document.getElementById("other_user_video").href=`/user-video/${response.data.user.username}`
-				document.getElementById("other_user_profile").href=`/user-profile/${response.data.user.username}`
+				document.getElementById("other_user_profile").href=`/${response.data.user.username}/`
 				//document.getElementById("link_following").href=`/following/${response.data.user.username}`
                 //document.getElementById("link_followers").href=`/followers/${response.data.user.username}`
 
@@ -348,7 +351,7 @@
 			card.style.display = "flex";
 			card.style.borderLeft = "10px solid #3db5dc";
 
-			message_content.innerHTML = "No user Found with this username ! try again";
+			message_content.innerHTML = "Invalid Link ! No user found with this username";
 			message_type.innerHTML = "Info";
 			message_type.style.color = "#3db5dc";
 			message_icon_parent.style.color = "#3db5dc";
@@ -559,7 +562,7 @@
 			shareButtonElement.addEventListener('click', function (event) {
 				event.preventDefault();
 
-				const shareUrl = `${window.location.origin}/user-profile/${username}`;
+				const shareUrl = `${window.location.origin}/${username}/`;
 
 				if (navigator.share) {
 					navigator.share({

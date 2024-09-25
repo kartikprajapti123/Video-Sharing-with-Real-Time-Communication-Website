@@ -17,4 +17,7 @@ class Pages(models.Model):
     def __str__(self) :
         return self.page_url
     
+    class Meta:
+        verbose_name="Create New Page"
+    
     

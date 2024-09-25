@@ -15,6 +15,9 @@ class Conversation(models.Model):
     def __str__(self):
         return f"Conversation between {self.user1} and {self.user2} (Last message at {self.last_message_timestamp})"
 
+    class Meta:
+        verbose_name="Conversation Thread Between User"
+
 class Message(models.Model):
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -33,6 +36,12 @@ class Message(models.Model):
         self.conversation.last_message_timestamp = self.timestamp
         self.conversation.save(update_fields=['last_message_timestamp'])
         super(Message, self).save(*args, **kwargs)
+        
+    class Meta:
+        verbose_name="Conversation Messages (Here you will see all the messages of all conversations)"
+        verbose_name_plural="Conversation Messages (Here you will see all the messages of all conversations)"
+        
+
 
 class UploadedImage(models.Model):
     image = models.ImageField(upload_to='profile_pictures/')
@@ -46,5 +55,5 @@ class UploadedImage(models.Model):
         return self.uploaded_at.strftime('%Y-%m-%d %H:%M:%S')  # Format the upload time
 
     class Meta:
-        verbose_name = "Uploaded Image"
+        verbose_name = "Uploaded Image "
         verbose_name_plural = "Uploaded Images"
