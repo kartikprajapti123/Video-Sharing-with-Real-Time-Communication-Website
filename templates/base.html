@@ -6,9 +6,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<meta property="og:title" content="User Profile">
-<meta property="og:description" content="Here is a Profile link I wanted to share with you!">
-<meta property="og:image" content="/static/img/logo.svg">
-<meta property="og:url" content="https://www.bmy.fan">
+	<meta property="og:description" content="Here is a Profile link I wanted to share with you!">
+	<meta property="og:image" content="/static/img/logo.svg">
+	<meta property="og:url" content="https://www.bmy.fan">
 	<title>{% block title %}
 
 		{% endblock title %}</title>
@@ -397,7 +397,9 @@
 												class="avatar-img rounded-circle">
 										</div>
 										<div class="user-text">
-											<a href="" id="profile_username_link"><h6 id="profile_username">Eugene Andre</h6></a>
+											<a href="" id="profile_username_link">
+												<h6 id="profile_username">Eugene Andre</h6>
+											</a>
 										</div>
 									</div>
 									<a class="dropdown-item profile-update" href="/myprofile/"><i
@@ -411,7 +413,8 @@
 									<a class="dropdown-item" href="/myvideo/"><i class="feather-home me-1"></i>My
 										Videos</a>
 
-										<a class="dropdown-item" href="/contact-list/"><i class="feather-home me-1"></i>Messages</a>
+									<a class="dropdown-item" href="/contact-list/"><i
+											class="feather-home me-1"></i>Messages</a>
 
 									<!-- <div class="dropdown-item night-mode">
 											<span><i class="feather-moon me-1"></i> Night Mode </span>
@@ -637,7 +640,7 @@
 				}).then((response) => {
 					return response.json()
 				}).then((response) => {
-					if(response.code=="user_not_found" && response.detail=="User not found"){
+					if (response.code == "user_not_found" && response.detail == "User not found") {
 						localStorage.removeItem("jerry_project_access_token")
 						localStorage.removeItem("jerry_project_refresh_token")
 						window.location.reload()
@@ -650,9 +653,9 @@
 						sharebutton(response.data.username)
 						check_user_creator()
 
-						if (document.getElementById("profile_picture_link2")){
+						if (document.getElementById("profile_picture_link2")) {
 
-							document.getElementById("profile_picture_link2").href=`${response.data.profile_picture}`
+							document.getElementById("profile_picture_link2").href = `${response.data.profile_picture}`
 						}
 						document.getElementById("profile_image").src = `${response.data.profile_picture}`
 						document.getElementById("profile_image2").src = `${response.data.profile_picture}`
@@ -896,6 +899,28 @@
 
 				const messageParagraph = existingNotification.querySelector('.dropdown-item div:last-child');
 				messageParagraph.innerHTML = `${data.message}`;
+
+				const greenDot = existingNotification.querySelector('#notification_count');
+				if (greenDot) {
+					greenDot.style.display = "flex";  // Show the green dot
+					greenDot.style.background = "green"; // Make sure the background is green
+				} else {
+					// If the green dot is missing, add it
+					const newGreenDot = document.createElement('span');
+					newGreenDot.id = "notification_count";
+					newGreenDot.style.display = "flex";
+					newGreenDot.style.position = "absolute";
+					newGreenDot.style.top = "5px";
+					newGreenDot.style.left = "10px";
+					newGreenDot.style.width = "10px";
+					newGreenDot.style.height = "10px";
+					newGreenDot.style.background = "green";
+					newGreenDot.style.color = "#ffffff";
+					newGreenDot.style.justifyContent = "center";
+					newGreenDot.style.alignItems = "center";
+					newGreenDot.style.borderRadius = "50%";
+					existingNotification.querySelector('div[style*="display: flex;"]').appendChild(newGreenDot);
+				}
 
 				//const timestampSpan = existingNotification.querySelector('p span');
 				//timestampSpan.textContent = `${formattedDate} ${formattedTime}`;
@@ -1313,7 +1338,7 @@
 						}).catch((error) => {
 							console.log('Something went wrong', error);
 						});
-					
+
 					} else {
 						alert('Sharing not supported on this browser.');
 					}
@@ -1395,7 +1420,7 @@
 
 						str = `<a href="/creator/" >Creator Dashbored</a>`
 						str2 = `<i class="bx bxs-tachometer"></i>Dashboard`
-					document.getElementById('footer-creator-link').innerHTML="Creator Dashboared"
+						document.getElementById('footer-creator-link').innerHTML = "Creator Dashboared"
 
 					}
 					else {
@@ -1494,10 +1519,10 @@
 								</ul>
 							</div>`
 
-							
-			document.getElementById("footer-authentication").style.display="block"
-			document.getElementById("footer-unauthentication").style.display="none"
-			
+
+			document.getElementById("footer-authentication").style.display = "block"
+			document.getElementById("footer-unauthentication").style.display = "none"
+
 		} else {
 			document.getElementById("footer-unauthentication").innerHTML = `<div class="footer-widget footer-menu">
 				<h2 class="footer-title footer-policy-link">Creator Links</h2>
@@ -1509,8 +1534,8 @@
 								</ul>
 			</div>`
 
-			document.getElementById("footer-authentication").style.display="None"
-			document.getElementById("footer-unauthentication").style.display="block"
+			document.getElementById("footer-authentication").style.display = "None"
+			document.getElementById("footer-unauthentication").style.display = "block"
 
 		}
 
@@ -1524,26 +1549,26 @@
 				if (response.success) {
 					if (response.data.length > 0) {
 						str = ``
-						footer_common_links=``
+						footer_common_links = ``
 						response.data.forEach((data) => {
-							console.log("show_in_footer",data.show_in_footer)
+							console.log("show_in_footer", data.show_in_footer)
 							if (data.show_in_menu) {
-								
+
 								str += `<li class="has-submenu">
 									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
 									<a href="/page/${data.page_url}/">${data.page_name} </a>
 								</li>`
 							}
-							if (data.show_in_footer){
-										
-								footer_common_links+=`<li><a href="/page/${data.page_url}/">${data.page_name}</a></li>`
+							if (data.show_in_footer) {
+
+								footer_common_links += `<li><a href="/page/${data.page_url}/">${data.page_name}</a></li>`
 							}
 						})
 						console.log("str", str)
 						document.getElementById("menu-add-authenticated").innerHTML += str
 						document.getElementById("menu-add-unauthenticated").innerHTML += str
-						console.log("footer_common_links",footer_common_links)
-						document.getElementById("footer-common-links").innerHTML=`<div class="footer-widget footer-menu">
+						console.log("footer_common_links", footer_common_links)
+						document.getElementById("footer-common-links").innerHTML = `<div class="footer-widget footer-menu">
 							<h2 class="footer-title">Support & Policy</h2>
 							<ul>
 								${footer_common_links}
