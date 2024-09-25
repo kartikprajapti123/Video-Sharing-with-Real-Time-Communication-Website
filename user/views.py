@@ -93,7 +93,7 @@ class VerifyEmailViewset(ModelViewSet):
             payload = decode_token(token)
         except Exception:
             return Response(
-                {"success": False, "message": "Link Expired"},
+                {"success": False, "message": "Invalid or Expired Links"},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
