@@ -10,10 +10,13 @@
 {% endblock link %}
 {% block body %}
 
+<div id="all-main" style="display: none;">
+
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-bar breadcrumb-bar-info" style="margin-top: 100px;">
-	<div class="container">
+<div id="profile-main-content">
+	 <div class="breadcrumb-bar breadcrumb-bar-info" style="margin-top: 100px;">
+		 <div class="container">
 		<div class="row">
 			<div class="col-md-12 col-12">
 				<div class="breadcrumb-list">
@@ -232,13 +235,14 @@
 						</div>
 					</div>
 				</div>
-
+				
 				<!-- /Instructor profile -->
-
-
+				
+				
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <!-- /Instructor Courses -->
 
@@ -262,6 +266,7 @@
 		}).then((response) => {
 
 			if (response.success) {
+				document.getElementById("all-main").style.display="block"
 				sharebutton2(response.data.user.username)
 
 				other_user = response.data.user.id
@@ -348,18 +353,29 @@
 
 			}
 			else{
-			card.style.display = "flex";
-			card.style.borderLeft = "10px solid #3db5dc";
-
-			message_content.innerHTML = "Invalid Link ! No user found with this username";
-			message_type.innerHTML = "Info";
-			message_type.style.color = "#3db5dc";
-			message_icon_parent.style.color = "#3db5dc";
-			message_icon_child.classList = "fas fa-exclamation-circle";
-
-			}
+			
 			console.log(response)
+			document.getElementById("all-main").style.display="block"
 
+			document.getElementById("all-main").innerHTML=`<div class="main-wrapper" style="margin-top:100px;">
+				
+				<div class="error-box">
+					<div class="error-logo">
+						<a href="index.html">
+							<img src="/static/img/logo.svg" class="img-fluid" alt="Logo">
+						</a>
+					</div>
+					<div class="error-box-img">
+						<img src="/static/img/error-01.png" alt="Img" class="img-fluid" >
+					</div>
+					<h3 class="h2 mb-3"> Oh No! Error 404</h3>
+					<p class="h4 font-weight-normal">This page you requested counld not found. May the force be with you!</p>
+					<a href="/" class="btn btn-primary">Back to Home</a>
+				</div>
+			
+			</div>`
+			
+		}
 			
 		})
 
@@ -434,7 +450,8 @@
 			message_type.style.color = "#3db5dc";
 			message_icon_parent.style.color = "#3db5dc";
 			message_icon_child.classList = "fas fa-exclamation-circle";
-
+			
+			
 		}
 	}
 

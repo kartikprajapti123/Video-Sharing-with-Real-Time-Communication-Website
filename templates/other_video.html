@@ -10,6 +10,8 @@
 {% endblock link %}
 {% block body %}
 
+<div id="all-main" style="display: none;">
+
 
 <!-- Breadcrumb -->
 <div class="breadcrumb-bar breadcrumb-bar-info" style="margin-top: 100px;">
@@ -236,6 +238,8 @@
 		</div>
 	</div>
 </div>
+</div>
+
 <!-- /Instructor Courses -->
 
 <!-- /Page Content -->
@@ -257,6 +261,7 @@
 			return response.json()
 		}).then((response) => {
 			if (response.success) {
+				document.getElementById("all-main").style.display="block"
 				sharebutton2(response.data.user.username)
 				other_user = response.data.user.id
 
@@ -316,14 +321,26 @@
 
 			}
 			else{
-			card.style.display = "flex";
-			card.style.borderLeft = "10px solid #3db5dc";
 
-			message_content.innerHTML = "No user Found with this username ! try again";
-			message_type.innerHTML = "Info";
-			message_type.style.color = "#3db5dc";
-			message_icon_parent.style.color = "#3db5dc";
-			message_icon_child.classList = "fas fa-exclamation-circle";
+				document.getElementById("all-main").innerHTML=`<div class="main-wrapper" style="margin-top:100px;">
+					
+					<div class="error-box">
+						<div class="error-logo">
+							<a href="index.html">
+								<img src="/static/img/logo.svg" class="img-fluid" alt="Logo">
+							</a>
+						</div>
+						<div class="error-box-img">
+							<img src="/static/img/error-01.png" alt="Img" class="img-fluid" >
+						</div>
+						<h3 class="h2 mb-3"> Oh No! Error 404</h3>
+						<p class="h4 font-weight-normal">This page you requested counld not found. May the force be with you!</p>
+						<a href="/" class="btn btn-primary">Back to Home</a>
+					</div>
+				
+				</div>`
+				document.getElementById("all-main").style.display="block"
+
 
 			}
 			console.log(response)
