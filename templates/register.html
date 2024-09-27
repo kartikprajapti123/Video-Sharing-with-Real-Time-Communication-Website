@@ -87,7 +87,7 @@
                         <div class="img-logo">
                             <img src="/static/img/logo.svg" class="img-fluid" alt="Logo">
                             <div class="back-home">
-                                <a href="/index/">Back to Home</a>
+                                <a href="/">Back to Home</a>
                             </div>
                         </div>
                         <!-- Success messagae start  -->
@@ -389,7 +389,7 @@
 					localStorage.setItem("jerry_project_refresh_token", response.token.refresh_token);
 
 					setTimeout(()=>{
-						window.location.href=`/index/`
+						window.location.href=`/`
 					},2000)
                 } else {
                     console.log(response.message);

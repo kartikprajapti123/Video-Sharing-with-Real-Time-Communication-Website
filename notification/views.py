@@ -294,7 +294,7 @@ class MainNotificationViewSet(ModelViewSet):
         
         if updated_count == 0:
                 return Response(
-                {"success": False, "message": "No notifications to mark as read."},
+                {"success": False, "message": "All notifications are already marked as read."},
                 status=status.HTTP_200_OK
             )
         return Response(

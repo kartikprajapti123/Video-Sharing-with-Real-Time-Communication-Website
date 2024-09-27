@@ -5,8 +5,8 @@ from render import views
 
 
 urlpatterns = [
-    path('',views.home,name="home"),
-    path('index/',views.index,name="index"),
+    # path('',views.home,name="home"),
+    path('',views.index,name="index"),
     path('signin/',views.signin,name="signin"),
     path('signup/',views.signup,name="signup"),
     path('verify-otp/<str:token>/',views.verify_otp,name="signup"),
