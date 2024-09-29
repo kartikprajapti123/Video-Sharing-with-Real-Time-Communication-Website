@@ -42,6 +42,9 @@ class PostAdmin(admin.ModelAdmin):
                 obj.create_notification_and_send_message(request.user)
 
         super().save_model(request, obj, form, change)
+        
+    def has_add_permission(self, request):
+        return False
 
 creator_admin_site.register(Video, PostAdmin)
 
@@ -68,6 +71,9 @@ class CreatorApprovalAdmin(admin.ModelAdmin):
             if old_status != new_status:
                 obj.create_notification_and_send_message(request.user)
         super().save_model(request, obj, form, change)
+        
+    def has_add_permission(self, request):
+        return False
 
 creator_admin_site.register(CreatorApproval, CreatorApprovalAdmin)
 
