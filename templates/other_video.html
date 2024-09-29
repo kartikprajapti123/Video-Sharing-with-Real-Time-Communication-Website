@@ -388,7 +388,7 @@
 
 					if (conversationResponse.ok && conversationData.success) {
 						setTimeout(() => {
-							window.location.href = "/contact-list/";
+							window.location.href = `/contact-list/?conversation_id=${conversationData.data.id}`;
 						}, 1000);
 					} else {
 						card.style.display = "flex";
