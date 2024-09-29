@@ -191,7 +191,7 @@
                                                         </ul> -->
                                                 <!-- </li> -->
                                                 <li class="has-submenu">
-                                                    <a href="/creator/">Creator Dashboard </a>
+                                                    <a href="/creator/" id="chat_message_creator_dashboared"> </a>
 
                                                     <!-- <a class="" href="#">Dashboard</a> -->
                                                     <!-- <ul class="submenu"> -->
@@ -439,7 +439,7 @@
                             global_websocket_connection(userData.data.uuid, userData.data.id)
                             console.log(userData.data)
                             const profileID = userData.data.id;
-
+                            check_user_creator(profileID)
                             contact_list_update(profileID)
                         }
                             
@@ -1340,6 +1340,35 @@
             //        window.location.href = `${element.src}`;
             //    };
             //});
+
+            async function check_user_creator(id) {
+                await fetch(`${window.location.origin}/api/creator-approval/create_approval_status/`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${authenticated}`
+                    },
+                    body: JSON.stringify({ "user": id })
+    
+    
+                }).then((response) => {
+                    return response.json()
+                }).then((response) => {
+                    if (response.success) {
+                        if (response.status == "approved") {
+                            if (document.getElementById("chat_message_creator_dashboared")){
+                                document.getElementById("chat_message_creator_dashboared").innerHTML="Creator Dashboared"
+                            }
+                        }
+                        else {
+                            if (document.getElementById("chat_message_creator_dashboared")){
+                                document.getElementById("chat_message_creator_dashboared").innerHTML="Become a Creator"
+                            }
+                        }
+    
+                    }
+                })
+            }
         </script>
 
 </body>
