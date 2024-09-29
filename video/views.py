@@ -70,6 +70,7 @@ class VideoViewSet(ModelViewSet):
     @action(detail=False,methods=["GET"],url_path="search-video-approved")
     def search_video_approved(self,request,*args,**kwargs):
         queryset=self.filter_queryset(self.get_queryset())
+        queryset=queryset.filter(status="approved")
         no_pagination = request.query_params.get("no_pagination")
         if no_pagination:
             serializer = self.serializer_class(queryset, many=True)
