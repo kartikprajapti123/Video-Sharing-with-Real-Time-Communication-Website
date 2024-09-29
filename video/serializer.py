@@ -44,20 +44,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         errors = {}
-        print("serializer", data)
-
-        # Title validation
-        # if "title" not in data or not data["title"] or data["title"] == "":
-        #     errors["title"] = "Title is required."
-        # elif len(data["title"].strip()) <= 50:
-        #     errors["title"] = "Title must be more than 30 characters long."
-
-        # Description validations
-        # description = data.get("description")
-        # if not description or data["description"] == "":
-        #     errors["description"] = "Description is required."
-        # elif len(description.strip()) < 100:
-        #     errors["description"] = "Description must be at least 100 characters long."
+        print("serializer data:", data)
 
         # Thumbnail validation (optional field)
         thumbnail = data.get("thumbnail")
@@ -67,7 +54,8 @@ class VideoSerializer(serializers.ModelSerializer):
                 errors["thumbnail"] = (
                     "Invalid file type. Only .png, .jpeg, and .jpg files are allowed for thumbnails."
                 )
-                
+
+        # Price validation
         price = data.get("price")
         if price is None or price == "":
             errors["price"] = "Price is required."
@@ -76,9 +64,7 @@ class VideoSerializer(serializers.ModelSerializer):
                 # Attempt to convert price to a Decimal
                 decimal_price = Decimal(price)
             except InvalidOperation:
-                errors["price"] = (
-                    "Price must be a valid number with up to two decimal places."
-                )
+                errors["price"] = "Price must be a valid number with up to two decimal places."
 
             # Check if the price is greater than 0
             if decimal_price <= 0:
@@ -88,40 +74,44 @@ class VideoSerializer(serializers.ModelSerializer):
             if decimal_price != decimal_price.quantize(Decimal("0.00")):
                 errors["price"] = "Price must have up to two decimal places."
 
-
         # Video validation
         instance = getattr(self, 'instance', None)
-
-        if not instance and 'video' not in data:
-            errors['video'] = "Video file is required."
-        elif 'video' in data:
-            video = data.get('video')
+        video = data.get("video")
+        if not instance and not video:
+            # Create case: video is required
+            errors["video"] = "Video file is required."
+        elif video:
+            # Validate the video only if provided
             ext = os.path.splitext(video.name)[-1].lower()
             if ext not in [".wav", ".mp4"]:
-                errors['video'] = "Invalid file type for video."
-            if video.size > 400 * 1024 * 1024:  # 400MB
-                errors['video'] = "Video file size should not exceed 400MB."
+                errors["video"] = "Invalid file type for video. Only '.mp4' and '.wav' are allowed."
+            if video.size > 400 * 1024 * 1024:  # 400MB limit
+                errors["video"] = "Video file size should not exceed 400MB."
 
         # Preview validation
         preview = data.get("preview")
-        if not preview:
-            errors["preview"] = "Preview video is required."
-        else:
-            # Check the file extension
+        if not instance and not preview:
+            # Create case: preview is required
+            errors["preview"] = "Preview file is required."
+        elif preview:
             ext_preview = os.path.splitext(preview.name)[-1].lower()
             if ext_preview not in [".mp4", ".wav"]:
-                errors["preview"] = "Invalid file type. Only '.mp4' and '.wav' files are allowed for previews."
-            # Check the file size
-            if preview.size > 10 * 1024 * 1024:  # 100MB
-                        errors["preview"] = "Preview file size should not exceed 10MB."
-            
-        # Price validation
-        
+                errors["preview"] = "Invalid file type for preview. Only '.mp4' and '.wav' are allowed."
+            if preview.size > 10 * 1024 * 1024:  # 10MB limit
+                errors["preview"] = "Preview file size should not exceed 10MB."
+
+        # If updating and no new video is provided, keep the existing video
+        if instance:
+            if "video" in data and data.get("video") is None:
+                errors['video'] = "Video file is required."
+
+            if "preview" in data and data.get("preview") is None:
+                errors['preview'] = "Preview file is required."
+        # Raise any validation errors if found
         if errors:
             raise serializers.ValidationError(errors)
 
         return data
-
     def generate_thumbnail_from_video(self,video, thumbnail_time=1, thumbnail_size=(1500, 1500), frame_ratio=0.5):
         """
         Generate a thumbnail image from the first frame of the video.

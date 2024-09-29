@@ -293,7 +293,7 @@
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="add-course-header">
-                    <h2>Your Post Updated successfully</h2>
+                    <h2>Your Video Updated successfully</h2>
                     <div class="add-course-btns">
                         <ul class="nav">
                             <li>
@@ -495,13 +495,25 @@ const postId = pathParts[pathParts.length - 2];
             if (post_video.files[0]) {
                 formData.append("video", post_video.files[0]);
             }
+            else if (document.getElementById("video-file-name").textContent=="No File Selected"){
+                formData.append("video", "");
+
+            }
     
             if (post_thumbnail.files[0]) {
                 formData.append("thumbnail", post_thumbnail.files[0]);
             }
+            else if (document.getElementById("thumbnail-file-name").textContent=="No File Selected"){
+                formData.append("thumbnail", "");
+
+            }
     
             if (post_preview.files[0]) {
                 formData.append("preview", post_preview.files[0]);
+            }
+            else if (document.getElementById("preview-file-name").textContent=="No File Selected"){
+                formData.append("preview", "");
+
             }
 
             try {
