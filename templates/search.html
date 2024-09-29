@@ -155,7 +155,7 @@
 
 	const getUserPosts = async (search,page) => {
 		console.log(page)
-		await fetch(`${window.location.origin}/api/upload-video/?page=${page}&search=${search}`, {
+		await fetch(`${window.location.origin}/api/upload-video/search-video-approved/?page=${page}&search=${search}`, {
 			method: "GET",
 			headers: {
 				"content-type": "application/json",
@@ -195,7 +195,7 @@
                         <div style="width: 100%; padding: 53px 10px; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
                             <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
                             <h4 style="text-align: center; width: 70%; margin: 10px; color: gray;">
-                                There are no User or Videos of this Search.
+                                No creator's have uploaded video related to your Search
                             </h4>
                         </div>`;
                     } else {
@@ -321,7 +321,7 @@
 				}
 				function searchCalled() {
 					const searchValue = document.getElementById('search').value;
-					if (searchValue.length>2){
+					if (searchValue.length>0){
 						getUserPosts(searchValue,1)
 					}else{
 						document.getElementById("search_result_count").innerHTML=`Your search "${searchValue}" returned 0 results.`

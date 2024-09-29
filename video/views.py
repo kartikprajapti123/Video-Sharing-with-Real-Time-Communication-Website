@@ -31,7 +31,7 @@ class VideoViewSet(ModelViewSet):
     
     def get_permissions(self):
         print('action',self.action)
-        if self.action == 'retrieve' or self.action=='user_approved_posts' or self.action=='random_posts' or self.action=='list' or self.action=="latest_posts":
+        if self.action == 'retrieve' or self.action=='user_approved_posts' or self.action=='random_posts' or self.action=="search_video_approved" or self.action=='list' or self.action=="latest_posts":
             return [AllowAny()]
         
         
@@ -66,6 +66,26 @@ class VideoViewSet(ModelViewSet):
 
         serializer = self.serializer_class(queryset, many=True)
         return Response({"success": True, "data": serializer.data})
+    
+    @action(detail=False,methods=["GET"],url_path="search-video-approved")
+    def search_video_approved(self,request,*args,**kwargs):
+        queryset=self.filter_queryset(self.get_queryset())
+        no_pagination = request.query_params.get("no_pagination")
+        if no_pagination:
+            serializer = self.serializer_class(queryset, many=True)
+            return Response({"success": True, "data": serializer.data})
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.serializer_class(page, many=True)
+            return self.get_paginated_response(
+                {"success": True, "data": serializer.data}
+            )
+
+        serializer = self.serializer_class(queryset, many=True)
+        return Response({"success": True, "data": serializer.data})
+    
+            
 
     def create(self, request, *args, **kwargs):
         request.data._mutable = True
