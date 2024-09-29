@@ -780,6 +780,7 @@
 
     creater_become_save.onclick = become_creator
     async function become_creator(e) {
+        creater_become_save.style.disabled=true
         card.style.display = "none";
         e.preventDefault();
 
@@ -807,8 +808,11 @@
             },
             body: JSON.stringify(data)
         }).then((response) => {
+        creater_become_save.style.disabled=true
+
             return response.json();
         }).then((response) => {
+
             if (response.success) {
                 card.style.display = "none";
 
