@@ -264,7 +264,7 @@
 				document.getElementById("all-main").style.display="block"
 				sharebutton2(response.data.user.username)
 				other_user = response.data.user.id
-
+				document.getElementById("other_user_username").innerHTML=`${response.data.user.username}'s Videos`
 				console.log(response.data)
 
 				/////followers////
