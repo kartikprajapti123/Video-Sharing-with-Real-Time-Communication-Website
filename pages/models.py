@@ -13,7 +13,7 @@ class Pages(models.Model):
         help_text="Select to display this page in the footer."
     )
     
-    page_url=models.CharField(max_length=100,unique=True,help_text="Example:-terms_and_condtion.... for /https://www.bmy.fan/pages/terms_and_condition and make suer to underscore '_' or '-'")
+    page_url=models.CharField(max_length=100,unique=True,help_text="Example:-terms_and_condtion  for this url https://www.bmy.fan/pages/terms_and_condition and make suer to underscore '_' or dess '-' ")
     page_name = models.CharField(
     max_length=100,
     unique=True,
@@ -43,7 +43,7 @@ class FanPages(models.Model):
         help_text="Select to display this page in the footer."
     )
     
-    page_url=models.CharField(max_length=100,unique=True,help_text="Example:-terms_and_condtion.... for /https://www.bmy.fan/pages/terms_and_condition and make suer to underscore '_' or '-'")
+    page_url=models.CharField(max_length=100,unique=True,help_text="Example:-terms_and_condtion  for this url https://www.bmy.fan/pages/terms_and_condition and make suer to underscore '_' or dess '-' ")
     page_name = models.CharField(
     max_length=100,
     unique=True,
@@ -74,7 +74,7 @@ class SimultaneouslyPages(models.Model):
         help_text="Select to display this page in the footer."
     )
     
-    page_url=models.CharField(max_length=100,unique=True,help_text="Example:-terms_and_condtion.... for /https://www.bmy.fan/pages/terms_and_condition and make suer to underscore '_' or '-'")
+    page_url=models.CharField(max_length=100,unique=True,help_text="Example:-terms_and_condtion  for this url https://www.bmy.fan/pages/terms_and_condition and make suer to underscore '_' or dess '-' ")
     page_name = models.CharField(
     max_length=100,
     unique=True,
