@@ -3,54 +3,335 @@
 
 {% endblock link %}
 {% block title %}
-  Upload-Video
+Upload-Video
 {% endblock title %}
 {% block style %}
 <style>
-    @keyframes progress {
-        from {
-            --percentage: 0;
+    /* HTML: <div class="loader"></div> */
+    /* HTML: <div class="loader"></div> */
+    .loader {
+        width: 60px;
+        aspect-ratio: 4;
+        --_g: no-repeat radial-gradient(circle closest-side, #049dff 90%, #0000);
+        background:
+            var(--_g) 0% 50%,
+            var(--_g) 50% 50%,
+            var(--_g) 100% 50%;
+        background-size: calc(100%/3) 100%;
+        animation: l7 1s infinite linear;
+    }
+
+    @keyframes l7 {
+        33% {
+            background-size: calc(100%/3) 0%, calc(100%/3) 100%, calc(100%/3) 100%
         }
 
-        to {
-            --percentage: var(--value);
+        50% {
+            background-size: calc(100%/3) 100%, calc(100%/3) 0%, calc(100%/3) 100%
+        }
+
+        66% {
+            background-size: calc(100%/3) 100%, calc(100%/3) 100%, calc(100%/3) 0%
         }
     }
 
-    [role="progressbar"] {
-        --percentage: var(--value);
-        --primary: #ff4667;
-        --secondary: #fae2e0;
-        --size: 150px;
-        animation: progress 2s 0.5s forwards;
-        width: var(--size);
-        aspect-ratio: 1;
-        border-radius: 50%;
+    .progress {
+        width: 150px;
+        height: 150px;
+        line-height: 150px;
+        background: none;
+        margin: 0 auto;
+        box-shadow: none;
         position: relative;
-        overflow: hidden;
-        display: grid;
-        place-items: center;
+        overflow: visible;
     }
-    
-    [role="progressbar"]::before {
+
+    .progress:after {
         content: "";
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 5px solid #fff;
         position: absolute;
         top: 0;
         left: 0;
+    }
+
+    .progress>span {
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+
+    .progress .progress-left {
+        left: 0;
+    }
+
+    .progress .progress-bar {
         width: 100%;
         height: 100%;
-        background: conic-gradient(var(--primary) calc(var(--percentage) * 1%), var(--secondary) 0);
-        mask: radial-gradient(white 55%, transparent 0);
-        mask-mode: alpha;
-        -webkit-mask: radial-gradient(#0000 55%, #000 0);
-        -webkit-mask-mode: alpha;
+        background: none;
+        border-width: 5px;
+        border-style: solid;
+        position: absolute;
+        top: 0;
     }
-    [role="progressbar"]::after {
-        counter-reset: percentage var(--value);
-        content: counter(percentage) '%';
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: calc(var(--size) / 5);
-        color: var(--primary);
+
+    .progress .progress-left .progress-bar {
+        left: 100%;
+        border-top-right-radius: 80px;
+        border-bottom-right-radius: 80px;
+        border-left: 0;
+        -webkit-transform-origin: center left;
+        transform-origin: center left;
+    }
+
+    .progress .progress-right {
+        right: 0;
+    }
+
+    .progress .progress-right .progress-bar {
+        left: -100%;
+        border-top-left-radius: 80px;
+        border-bottom-left-radius: 80px;
+        border-right: 0;
+        -webkit-transform-origin: center right;
+        transform-origin: center right;
+        animation: loading-1 1.8s linear forwards;
+    }
+
+    .progress .inner-circle,
+    .progress .progress-value {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 5px solid #8e8e8e;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 50px;
+        text-align: center;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+    }
+
+    .progress .inner-circle:after {
+        content: "";
+        width: 5px;
+        height: 60px;
+        background: #8e8e8e;
+        margin: 0 auto;
+        position: absolute;
+        top: -60px;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        transition: all 10s linear 0s;
+    }
+
+    .progress.blue .progress-bar {
+        border-color: #049dff;
+    }
+
+    .progress.blue .progress-value {
+        color: #049dff;
+    }
+
+    .progress.blue .progress-left .progress-bar {
+        animation: loading-2 1.5s linear forwards 1.8s;
+    }
+
+    .progress.blue .inner-circle {
+        animation: loading-6 3.8s ease forwards;
+    }
+
+    .progress.yellow .progress-bar {
+        border-color: #fdba04;
+    }
+
+    .progress.yellow .progress-value {
+        color: #fdba04;
+    }
+
+    .progress.yellow .progress-left .progress-bar {
+        animation: loading-3 1s linear forwards 1.8s;
+    }
+
+    .progress.yellow .inner-circle {
+        animation: loading-7 3.8s ease forwards;
+    }
+
+    .progress.pink .progress-bar {
+        border-color: #ed687c;
+    }
+
+    .progress.pink .progress-value {
+        color: #ed687c;
+    }
+
+    .progress.pink .progress-left .progress-bar {
+        animation: loading-4 0.4s linear forwards 1.8s;
+    }
+
+    .progress.pink .inner-circle {
+        animation: loading-8 3.8s ease forwards;
+    }
+
+    .progress.green .progress-bar {
+        border-color: #1abc9c;
+    }
+
+    .progress.green .progress-value {
+        color: #1abc9c;
+    }
+
+    .progress.green .progress-left .progress-bar {
+        animation: loading-5 1.2s linear forwards 1.8s;
+    }
+
+    .progress.green .inner-circle {
+        animation: loading-9 3.8s ease forwards;
+    }
+
+    @keyframes loading-1 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+    }
+
+    @keyframes loading-2 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(144deg);
+            transform: rotate(144deg);
+        }
+    }
+
+    @keyframes loading-3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+    }
+
+    @keyframes loading-4 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(36deg);
+            transform: rotate(36deg);
+        }
+    }
+
+    @keyframes loading-5 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(126deg);
+            transform: rotate(126deg);
+        }
+    }
+
+    @keyframes loading-6 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(324deg);
+            transform: rotate(324deg);
+        }
+    }
+
+    @keyframes loading-7 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+    }
+
+    @keyframes loading-8 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(216deg);
+            transform: rotate(216deg);
+        }
+    }
+
+    @keyframes loading-9 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        50% {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(306deg);
+            transform: rotate(306deg);
+        }
+    }
+
+    @media only screen and (max-width: 990px) {
+        .progress {
+            margin-bottom: 20px;
+        }
     }
 </style>
 {% endblock style %}
@@ -70,7 +351,7 @@
                             <li>
                                 <a href="/myprofile/" class="btn btn-black profile-update">Back to Profile</a>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -95,8 +376,7 @@
                                         <ul class="nav" style="display: flex;
     justify-content: center;">
                                             <li>
-                                                <a href="/creator/" class="btn btn-success-dark"
-                                                   >Become a Creator</a>
+                                                <a href="/creator/" class="btn btn-success-dark">Become a Creator</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -124,7 +404,7 @@
                             <!-- <li>
                                 <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Save</a>
                             </li> -->
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -133,7 +413,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" style="position: relative;">
                     <!-- Course Wizard -->
                     <div class="widget-set">
                         <div class="widget-setcount">
@@ -208,19 +488,22 @@
                                                     </label>
                                                     <!-- <button  class="clear-button" style="display: none;">&times; Clear</button> -->
                                                     <label class="relative-file-upload" id="upload-video-label">
-                                                        Upload File <input type="file" id="post_video" accept=".mp4, .wav">
+                                                        Upload File <input type="file" id="post_video"
+                                                            accept=".mp4, .wav">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="input-block">
-                                                <label class="add-course-label">Thumbnail (Leave this field empty. The thumbnail will be generated automatically from video.)</label>
+                                                <label class="add-course-label">Thumbnail (Leave this field empty. The
+                                                    thumbnail will be generated automatically from video.)</label>
                                                 <div class="relative-form">
                                                     <span id="thumbnail-file-name">No File Selected</span>
                                                     <label class="relative-file-upload" id="clear-thumbnail">
                                                         Clear
                                                     </label>
                                                     <label class="relative-file-upload" id="upload-thumbnail-label">
-                                                        Upload File <input type="file" id="post_thumbnail" accept=".jpg ,jpeg,.png">
+                                                        Upload File <input type="file" id="post_thumbnail"
+                                                            accept=".jpg ,jpeg,.png">
                                                     </label>
                                                 </div>
                                             </div>
@@ -232,7 +515,8 @@
                                                         Clear
                                                     </label>
                                                     <label class="relative-file-upload" id="upload-preview-label">
-                                                        Upload File <input type="file" id="post_preview" accept=".mp4, .wav">
+                                                        Upload File <input type="file" id="post_preview"
+                                                            accept=".mp4, .wav">
                                                     </label>
                                                 </div>
                                             </div>
@@ -244,15 +528,16 @@
                                         </form>
                                     </div>
                                     <div class="widget-btn">
-                                    <ul class="nav">
-                                        <!-- <li>
+                                        <ul class="nav">
+                                            <!-- <li>
                                             <a href="/myprofile/" class="btn btn-black">Back to Profile</a>
                                         </li> -->
-                                        <li>
-                                            <a href="javascript:void(0);" class="btn btn-success-dark" id="post_save" style="height: 50px;">Publish</a>
-                                        </li>
-                                        
-                                    </ul>
+                                            <li>
+                                                <a href="javascript:void(0);" class="btn btn-success-dark"
+                                                    id="post_save" style="height: 50px;">Publish</a>
+                                            </li>
+
+                                        </ul>
                                         <!-- <a class="btn btn-black">Back</a> -->
                                         <!-- <a class="btn btn-info-light next_btn">Continue</a> -->
                                     </div>
@@ -272,8 +557,8 @@
                                                     <label class="relative-file-upload" id="clear-video">
                                                         Clear
                                                     </label> -->
-                                                    <!-- <button  class="clear-button" style="display: none;">&times; Clear</button> -->
-                                                    <!-- <label class="relative-file-upload" id="upload-video-label">
+                            <!-- <button  class="clear-button" style="display: none;">&times; Clear</button> -->
+                            <!-- <label class="relative-file-upload" id="upload-video-label">
                                                         Upload File <input type="file" id="post_video" accept=".mp4, .wav">
                                                     </label>
                                                 </div>
@@ -333,12 +618,46 @@
                                 </div>
                             </fieldset> -->
                         </div>
+
+                    </div>
+                    <div class="progress-bar-container" style="position: absolute;
+    z-index: 2000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white; display:none;">
+                        <div class="row" style="display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="progress blue">
+                                    <span class="progress-left">
+                                        <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                        <span class="progress-bar"></span>
+                                    </span>
+                                    <div class="inner-circle"></div>
+                                    <div class="progress-value"><span id="percent-complete">15</span>%</div>
+                                </div>
+                            </div>
+                            <h3 style="margin-top: 15px;
+    color: #049dff;position:relative;">Uploading your video. Please wait while we process your request <div
+                                    class="loader" style="position: absolute;
+    top: 9px;
+    right: 30px;"></div>
+                            </h3>
+                        </div>
+
                     </div>
                     <!-- /Course Wizard -->
 
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
     <div class="container" id="row2" style="display:none">
@@ -449,27 +768,27 @@
     });
 
     ClassicEditor
-    .create(document.querySelector('#editor2'), {
-        removePlugins: [
-            'Image', 
-            'ImageToolbar', 
-            'ImageCaption', 
-            'ImageStyle', 
-            'ImageUpload', 
-            'EasyImage',
-            'CKFinder',
-            'MediaEmbed'
-        ]
-    })
-    .then(editor => {
-        console.log("done");
+        .create(document.querySelector('#editor2'), {
+            removePlugins: [
+                'Image',
+                'ImageToolbar',
+                'ImageCaption',
+                'ImageStyle',
+                'ImageUpload',
+                'EasyImage',
+                'CKFinder',
+                'MediaEmbed'
+            ]
+        })
+        .then(editor => {
+            console.log("done");
 
-        // Attach the editor instance to a global variable for later use
-        window.editorInstance = editor;
-    })
-    .catch(error => {
-        console.error('There was a problem initializing the editor.', error);
-    });
+            // Attach the editor instance to a global variable for later use
+            window.editorInstance = editor;
+        })
+        .catch(error => {
+            console.error('There was a problem initializing the editor.', error);
+        });
 
     //function updateProgressBar(percentage) {
     //    const progressBar = document.getElementById('mainprogress');
@@ -480,7 +799,7 @@
 
     document.getElementById("post_save").onclick = async (e) => {
         e.preventDefault();
-    
+        card.style.display = "none"
         // Disable the button and show the spinner
         const postSaveButton = document.getElementById("post_save");
         if (postSaveButton.disabled) {
@@ -490,14 +809,30 @@
         postSaveButton.disabled = true;
         postSaveButton.style.backgroundColor = "#159F46";
         postSaveButton.style.color = "white";
-    
+
+        // Show the circular progress bar
+        const progressBarContainer = document.querySelector('.progress-bar-container');
+        progressBarContainer.style.display = "flex";  // Show the progress bar
+        const progressValue = document.getElementById("percent-complete");
+
+        // Simulate progress increment
+        let progress = 15;  // Start at 15%
+        const progressInterval = setInterval(() => {
+            progress += 20;
+            if (progress > 100) {
+                clearInterval(progressInterval);
+            } else {
+                progressValue.textContent = progress;
+            }
+        }, 1000);  // Simulate progress increment every 500ms
+
         // Prepare the data to be sent
         const editorContent = window.editorInstance.getData();
         let formData = new FormData();
         formData.append("title", post_title.value);
         formData.append("description", editorContent);
         formData.append("price", post_price.value);
-    
+
         // Append files if they exist
         if (post_video.files[0]) {
             formData.append("video", post_video.files[0]);
@@ -508,9 +843,9 @@
         if (post_preview.files[0]) {
             formData.append("preview", post_preview.files[0]);
         }
-    
+
         try {
-            // Make the request
+            // Start the fetch request
             const response = await fetch(`${window.location.origin}/api/upload-video/`, {
                 method: "POST",
                 headers: {
@@ -518,15 +853,23 @@
                 },
                 body: formData
             });
-    
+
             const result = await response.json();
-    
+
             if (response.ok) {
+                // Complete the progress bar on success
+                clearInterval(progressInterval);
+                progressValue.textContent = 100;
+
+                // Hide progress bar after a brief delay
+                setTimeout(() => {
+                    progressBarContainer.style.display = "none";
+                }, 1000);
+
                 // Handle success
                 document.getElementById('row1').style.display = "none";
                 document.getElementById("row2").style.display = "block";
                 card.style.display = "none";
-
             } else {
                 // Handle errors
                 let errorMessage = "An error occurred";
@@ -543,7 +886,7 @@
                 } else if (result.message.price) {
                     errorMessage = result.message.price[0];
                 }
-    
+
                 message_content.innerHTML = errorMessage;
                 card.style.display = "flex";
                 card.style.borderLeft = "10px solid red";
@@ -554,7 +897,7 @@
                 document.getElementById('post_form').style.display = "block";
             }
         } catch (error) {
-            // Handle network or other unexpected errors
+            // Handle network or unexpected errors
             console.error('Error:', error);
             message_content.innerHTML = "Failed to upload the video. Please try again later.";
             card.style.display = "flex";
@@ -565,12 +908,14 @@
             message_icon_child.classList = "fas fa-times-circle";
             document.getElementById('post_form').style.display = "block";
         } finally {
-            // Re-enable the button
+            // Re-enable the button and hide the progress bar after completion
             postSaveButton.innerHTML = `Publish`;
             postSaveButton.disabled = false;
+            progressBarContainer.style.display = "none";
+            clearInterval(progressInterval); // Ensure progress simulation stops
         }
     };
-    
+
 
     function reversefunction(e) {
         window.location.reload()
@@ -586,7 +931,7 @@
         }).then((response) => {
             return response.json()
         }).then(async (response) => {
-            userId=response.data.id
+            userId = response.data.id
             if (response.success) {
                 const approvalResponse = await fetch(`${window.location.origin}/api/upload-video/check-approval/?user_id=${userId}`, {
                     method: "GET",
@@ -595,17 +940,17 @@
                         "Authorization": `Bearer ${authenticated}`
                     }
                 });
-    
+
                 const approvalData = await approvalResponse.json();
-    
+
                 if (approvalData.success) {
                     console.log('User approval status:', approvalData);
                     // Handle the approval status here
                     if (approvalData.success) {
                         // User is approved
-                        document.getElementById("become_creator").style.display="none"
+                        document.getElementById("become_creator").style.display = "none"
                         document.getElementById('row1').style.display = "block"
-                    document.getElementById("row2").style.display = "none"
+                        document.getElementById("row2").style.display = "none"
                         // You can now proceed with actions for approved users
                     } else {
                         // User is not approved
@@ -613,8 +958,8 @@
                         // Handle cases where the user is not approved
                     }
                 } else {
-                    document.getElementById("become_creator").style.display="block"
-                        document.getElementById('row1').style.display = "none"
+                    document.getElementById("become_creator").style.display = "block"
+                    document.getElementById('row1').style.display = "none"
                     document.getElementById("row2").style.display = "none"
                 }
 
@@ -627,7 +972,23 @@
     //document.getElementsByClassName("footer")[0].style.display="none"
     document.getElementsByClassName("footer-top")[0].classList.remove("aos");
     document.getElementsByClassName("footer-top")[0].setAttribute("data-aos", "");
-    
+
+
+
+    $(document).ready(function () {
+        $('.progress-value > span').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 3500,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+    });
 
 </script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 {% endblock script %}

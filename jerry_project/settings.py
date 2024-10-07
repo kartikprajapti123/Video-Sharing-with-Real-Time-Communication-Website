@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'follow',
     'django_ckeditor_5',
     "video",
+    "support_ticket",
     
 ]
 

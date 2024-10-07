@@ -6,6 +6,7 @@ from video.serializer import VideoSerializer
 from user.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from rest_framework.filters import SearchFilter,OrderingFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -458,13 +459,23 @@ class UserViewSet(ModelViewSet):
     serializer_class=UserSerializer
     permission_classes=[IsAuthenticated]
     authentication_classes=[JWTAuthentication]
+    filter_backends=[SearchFilter,OrderingFilter]
+    
+    search_fields=[
+        "username",
+    ]
+    
+    ordering_fields=[
+        "username"
+    ]
+    
     
     def get_permissions(self):
         print(self.action)
         if self.action in ['retrieve_by_username','get_all_users']:
             self.permission_classes = [AllowAny]
             
-        elif self.action == 'retrieve':
+        elif self.action == 'retrieve' or self.action=="search_user_api":
             self.permission_classes = [AllowAny]
         else:
             self.permission_classes = [IsAuthenticated]
@@ -585,3 +596,18 @@ class UserViewSet(ModelViewSet):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response({'success': True, 'data': serializer.data}, status=status.HTTP_200_OK)
+    
+    @action(detail=False,methods=["GET"],url_path="search-user-api")
+    def search_user_api(self,request,*args,**kwargs):
+        search=request.query_params.get("search")
+        
+        if not search:
+            return Response({"success":False,"message":"search is required"},status=status.HTTP_200_OK)
+        
+        
+        users=User.objects.filter(username__icontains=search)
+            
+        serializer=UserSerializer(users,many=True)
+        
+        return Response({"success":True,"data":serializer.data})
+            

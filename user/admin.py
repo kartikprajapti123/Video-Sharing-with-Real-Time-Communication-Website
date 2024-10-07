@@ -3,12 +3,13 @@ from django.contrib.admin import AdminSite
 from video.models import Video
 from django.contrib.auth.admin import UserAdmin
 from .models import User
-from pages.models import Pages
+from pages.models import Pages,FanPages,SimultaneouslyPages
 from notification.models import Notification, MainNotification
 from creator.models import CreatorApproval
 from chat.models import Conversation, Message, UploadedImage
 from django.db import models
 import os
+from support_ticket.models import Support_ticket,Attachment
 
 # Custom Admin Site for Creators
 class CreatorAdminSite(AdminSite):
@@ -150,7 +151,56 @@ admin_admin_site.register(UploadedImage, UploadedImageAdmin)
 class PagesAdmin(admin.ModelAdmin):
     list_display = ('page_name', 'page_url', 'show_in_menu','show_in_footer')
     search_fields = ('page_name',)
-    fields = ('page_name', 'page_url', 'show_in_menu','show_in_footer','content')
+    fields = ('page_name', 'page_url', 'show_in_menu','show_in_footer','content',"deleted")
     ordering = ('page_name',)
 
 creator_admin_site.register(Pages, PagesAdmin)
+
+
+@admin.register(FanPages)
+class PagesAdmin(admin.ModelAdmin):
+    list_display = ('page_name', 'page_url', 'show_in_menu','show_in_footer')
+    search_fields = ('page_name',)
+    fields = ('page_name', 'page_url', 'show_in_menu','show_in_footer','content',"deleted")
+    ordering = ('page_name',)
+
+creator_admin_site.register(FanPages, PagesAdmin)
+
+
+@admin.register(SimultaneouslyPages)
+class PagesAdmin(admin.ModelAdmin):
+    list_display = ('page_name', 'page_url', 'show_in_menu','show_in_footer')
+    search_fields = ('page_name',)
+    fields = ('page_name', 'page_url', 'show_in_menu','show_in_footer','content',"deleted")
+    ordering = ('page_name',)
+   
+creator_admin_site.register(SimultaneouslyPages, PagesAdmin)
+
+class AttachmentInline(admin.StackedInline):
+    model = Attachment
+    extra = 1
+    fields = ['file']
+    verbose_name = "Attachment"
+    verbose_name_plural = "Attachments"
+    show_change_link = True  # Allows linking to each attachment’s admin change page
+
+@admin.register(Support_ticket)
+class SupportTicketAdmin(admin.ModelAdmin):
+    list_display = ('ticket_id', "user", 'priority',"status",'category', 'created_at', 'updated_at')
+    search_fields = ('ticket_id',  'category')
+    list_filter = ("status",'priority', 'category')
+    fields = ('ticket_id', 'priority', 'category', 'description',"status")
+    inlines = [AttachmentInline]
+    
+    def save_model(self, request, obj, form, change):
+        if change and 'status' in form.changed_data:
+            old_status = Support_ticket.objects.get(pk=obj.pk).status
+            new_status = form.cleaned_data['status']
+            if old_status != new_status:
+                obj.create_notification_and_send_message(request.user)
+        super().save_model(request, obj, form, change)
+        
+    def has_add_permission(self, request):
+        return False
+
+creator_admin_site.register(Support_ticket, SupportTicketAdmin)
