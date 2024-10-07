@@ -31,9 +31,9 @@ urlpatterns = [
     path('update-video/<str:id>/',views.updatevideo,name="update-video"),
     path('video-view/<str:id>/',views.video_view,name="update-video"),
     path('search/',views.search,name="search"),
-    path('<str:id>/',views.others_profile,name="others-profile"),
-    
+    path('support-ticket/',views.support_ticket,name="support_ticket"),
     path('page/<str:id>/',views.pages_func,name="pages"),
+    path('<str:id>/',views.others_profile,name="others-profile"),
     
     
     # path('myfollowers/',views.myfollowers,name="followers"),

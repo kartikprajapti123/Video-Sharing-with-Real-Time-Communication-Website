@@ -90,11 +90,10 @@ class VideoSerializer(serializers.ModelSerializer):
 
         # Preview validation
         preview = data.get("preview")
-        if not instance and not preview:
+        if preview:
             # Create case: preview is required
-            errors["preview"] = "Preview file is required."
-        elif preview:
             ext_preview = os.path.splitext(preview.name)[-1].lower()
+            
             if ext_preview not in [".mp4", ".wav"]:
                 errors["preview"] = "Invalid file type for preview. Only '.mp4' and '.wav' are allowed."
             if preview.size > 10 * 1024 * 1024:  # 10MB limit
@@ -105,8 +104,6 @@ class VideoSerializer(serializers.ModelSerializer):
             if "video" in data and data.get("video") is None:
                 errors['video'] = "Video file is required."
 
-            if "preview" in data and data.get("preview") is None:
-                errors['preview'] = "Preview file is required."
         # Raise any validation errors if found
         if errors:
             raise serializers.ValidationError(errors)
@@ -172,7 +169,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         video = validated_data.get('video')
-        if video and (instance.video != video):  # Check if video has changed
+        if video and instance.video != video and not validated_data.get('thumbnail'):  # Check if video has changed
             validated_data['thumbnail'] = self.generate_thumbnail_from_video(video)
         return super().update(instance, validated_data)
     

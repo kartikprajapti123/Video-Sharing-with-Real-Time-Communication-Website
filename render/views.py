@@ -54,7 +54,9 @@ def upload_video(request):
     
 
 
-
+def support_ticket(request):
+    return render(request,"support-tickets.html")
+    
 
 def my_video(request):
     return render(request,"my_video.html")

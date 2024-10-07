@@ -416,6 +416,9 @@
 									<a class="dropdown-item" href="/contact-list/"><i
 											class="feather-message-circle me-1"></i>Messages</a>
 
+									<a class="dropdown-item" href="/support-ticket/"><i
+												class="feather-message-circle me-1"></i>Support Ticket</a>
+
 									<!-- <div class="dropdown-item night-mode">
 											<span><i class="feather-moon me-1"></i> Night Mode </span>
 											<div class="form-check form-switch check-on m-0">
@@ -522,14 +525,14 @@
 						<div class="col-md-6">
 							<div class="privacy-policy">
 								<ul>
-									<li><a href="term-condition.html">Terms</a></li>
-									<li><a href="privacy-policy.html">Privacy</a></li>
+									<!-- <li><a href="term-condition.html">Terms</a></li> -->
+									<!-- <li><a href="privacy-policy.html">Privacy</a></li> -->
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-6 text-md-end">
 							<div class="copyright-text">
-								<p class="mb-0">&copy; 2024 DreamsLMS. All rights reserved.</p>
+								<!-- <p class="mb-0">&copy; 2024 DreamsLMS. All rights reserved.</p> -->
 							</div>
 						</div>
 					</div>
@@ -651,7 +654,13 @@
 
 						console.log(response.data.image)
 						sharebutton(response.data.username)
-						check_user_creator()
+						check_creator=check_user_creator()
+						if (check_creator){
+							fetch_creator_pages()
+						}
+						else{
+							fetch_fan_pages()
+						}
 
 						if (document.getElementById("profile_picture_link2")) {
 
@@ -715,6 +724,7 @@
 		}
 		else {
 			talking_to_empty()
+			fetch_fan_pages()
 		}
 		async function LogoutApi() {
 			card.style.display = "none";
@@ -1363,7 +1373,6 @@
 				return response.json()
 			}).then((response) => {
 				console.log("base", response)
-				fetch_pages()
 
 				if (response.success) {
 					if (response.data.length > 0) {
@@ -1395,7 +1404,6 @@
 			})
 		}
 		function talking_to_empty() {
-			fetch_pages()
 
 			let str = `<li><a href="##">Your contact-list is empty Login and create contact's</a></li>`
 			document.getElementById("all_creators_unauthenticated").innerHTML = str
@@ -1433,6 +1441,7 @@
 					if (document.getElementById("creator_check")) {
 						document.getElementById("creator_check").innerHTML = str2
 					}
+					return true
 
 				}
 			})
@@ -1526,7 +1535,7 @@
 
 		} else {
 			document.getElementById("footer-unauthentication").innerHTML = `<div class="footer-widget footer-menu">
-				<h2 class="footer-title footer-policy-link">Creator Links</h2>
+				<h2 class="footer-title footer-policy-link">Fan Links</h2>
 								<ul>
 									<li><a href="/">Home</a></li>
 									<li><a href="/signin/">Login</a></li>
@@ -1540,8 +1549,53 @@
 
 		}
 
-		async function fetch_pages() {
-			await fetch(`${window.location.origin}/api/page/?no_pagination=true`, {
+		async function fetch_creator_pages() {
+			await fetch(`${window.location.origin}/api/creator-page/?no_pagination=true`, {
+				'method': "get",
+				"headers":{
+					"content-type": "application/json",
+						"Authorization": `Bearer ${authenticated}`
+				}
+			}).then((response) => {
+				return response.json()
+			}).then((response) => {
+				console.log("base_pages", response)
+				if (response.success) {
+					if (response.data.length > 0) {
+						str = ``
+						footer_common_links = ``
+						response.data.forEach((data) => {
+							console.log("show_in_footer", data.show_in_footer)
+							if (data.show_in_menu) {
+
+								str += `<li class="has-submenu">
+									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+									<a href="/page/${data.page_url}/">${data.page_name} </a>
+								</li>`
+							}
+							if (data.show_in_footer) {
+
+								footer_common_links += `<li><a href="/page/${data.page_url}/">${data.page_name}</a></li>`
+							}
+						})
+						console.log("str", str)
+						document.getElementById("menu-add-authenticated").innerHTML += str
+						document.getElementById("menu-add-unauthenticated").innerHTML += str
+						console.log("footer_common_links", footer_common_links)
+						document.getElementById("footer-common-links").innerHTML = `<div class="footer-widget footer-menu">
+							<h2 class="footer-title">Pages</h2>
+							<ul id="fan-creator-footer-common-links">
+								${footer_common_links}
+
+							</ul>
+						</div>`
+						fetch_simultaneously_pages()
+					}
+				}
+			})
+		}
+		async function fetch_fan_pages() {
+			await fetch(`${window.location.origin}/api/fan-page/?no_pagination=true`, {
 				'method': "get",
 			}).then((response) => {
 				return response.json()
@@ -1570,17 +1624,57 @@
 						document.getElementById("menu-add-unauthenticated").innerHTML += str
 						console.log("footer_common_links", footer_common_links)
 						document.getElementById("footer-common-links").innerHTML = `<div class="footer-widget footer-menu">
-							<h2 class="footer-title">Support & Policy</h2>
-							<ul>
+							<h2 class="footer-title" >Pages</h2>
+							<ul id="fan-creator-footer-common-links">
 								${footer_common_links}
 
 							</ul>
 						</div>`
+						fetch_simultaneously_pages()
+
 					}
 				}
 			})
 		}
+		async function fetch_simultaneously_pages() {
+			await fetch(`${window.location.origin}/api/simultaneously-page/?no_pagination=true`, {
+				'method': "get",
+			}).then((response) => {
+				return response.json()
+			}).then((response) => {
+				console.log("base_pages", response)
+				if (response.success) {
+					if (response.data.length > 0) {
+						str = ``
+						footer_common_links = ``
+						response.data.forEach((data) => {
+							console.log("show_in_footer", data.show_in_footer)
+							if (data.show_in_menu) {
 
+								str += `<li class="has-submenu">
+									<!-- <a class="" href="#">Home <i class="fas fa-chevron-down"></i></a> -->
+									<a href="/page/${data.page_url}/">${data.page_name} </a>
+								</li>`
+							}
+							if (data.show_in_footer) {
+
+								footer_common_links += `<li><a href="/page/${data.page_url}/">${data.page_name}</a></li>`
+							}
+						})
+						console.log("str", str)
+						document.getElementById("menu-add-authenticated").innerHTML += str
+						document.getElementById("menu-add-unauthenticated").innerHTML += str
+						console.log("footer_common_links", footer_common_links)
+						document.getElementById("fan-creator-footer-common-links").innerHTML += `
+								${footer_common_links}
+
+						`
+					}
+				}
+			})
+		}
+		
+		
 
 	</script>
 	{% block script %}
