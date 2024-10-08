@@ -798,6 +798,12 @@
 			console.log(response)
 			if (response.success) {
 				if (response.data) {
+					if (response.data.title.length > 50) {
+						// Get the first 50 characters and add ellipsis
+						title = response.data.title.substring(0, 50) + '...';
+					} else {
+						title = response.data.title; // Use the title as is if it's within the limit
+					}
 					allstr = ""
 					countall = 0
 
@@ -849,7 +855,7 @@
 													<td><a href="javascript:void(0);" class="tab-title">${data.ticket_id}</a>
 													</td>
 													<td>${formattedDate}</td>
-													<td>${data.title}</td>
+													<td>${title}</td>
 													
 													${ticket_priority}
 													<td>${data.category}</td>
@@ -866,7 +872,7 @@
 													<td><a href="javascript:void(0);" class="tab-title">${data.ticket_id}</a>
 													</td>
 													<td>${formattedDate}</td>
-													<td>${data.title}</td>
+													<td>${title}</td>
 													
 													${ticket_priority}
 													<td>${data.category}</td>
@@ -882,7 +888,7 @@
 													<td><a href="javascript:void(0);" class="tab-title">${data.ticket_id}</a>
 													</td>
 													<td>${formattedDate}</td>
-													<td>${data.title}</td>
+													<td>${title}</td>
 													
 													${ticket_priority}
 													<td>${data.category}</td>
@@ -899,7 +905,7 @@
 													<td><a href="javascript:void(0);" class="tab-title">${data.ticket_id}</a>
 													</td>
 													<td>${formattedDate}</td>
-													<td>${data.title}</td>
+													<td>${title}</td>
 													
 													${ticket_priority}
 													<td>${data.category}</td>
