@@ -798,7 +798,7 @@
 			console.log(response)
 			if (response.success) {
 				if (response.data) {
-					if (response.data.title.length > 50) {
+					if (response.data.title && response.data.title.length>50) {
 						// Get the first 50 characters and add ellipsis
 						title = response.data.title.substring(0, 50) + '...';
 					} else {
