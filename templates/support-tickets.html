@@ -798,12 +798,7 @@
 			console.log(response)
 			if (response.success) {
 				if (response.data) {
-					if (response.data.title && response.data.title.length>50) {
-						// Get the first 50 characters and add ellipsis
-						title = response.data.title.substring(0, 50) + '...';
-					} else {
-						title = response.data.title; // Use the title as is if it's within the limit
-					}
+					
 					allstr = ""
 					countall = 0
 
@@ -818,6 +813,12 @@
 
 					console.log(response.data.length)
 					response.data.forEach((data) => {
+						if (data.title && data.title.length>50) {
+							// Get the first 50 characters and add ellipsis
+							title =data.title.substring(0, 50) + '...';
+						} else {
+							title = data.title; // Use the title as is if it's within the limit
+						}
 						console.log("status", data.status)
 						console.log(data.status == "Closed")
 						const timestamp = data.created_at;
