@@ -153,7 +153,7 @@
     
     const searchQuery = params.get('search')
 
-	const getUserPosts = async (search,page) => {
+	const getUserPosts =  async (search,page) => {
 		console.log(page)
 		await fetch(`${window.location.origin}/api/upload-video/search-video-approved/?page=${page}&search=${search}`, {
 			method: "GET",
@@ -161,9 +161,9 @@
 				"content-type": "application/json",
 			}
 		}).then(response => response.json())
-			.then(response => {
+			.then(async (response) => {
 
-				if (response.results) {
+				if (response.results.data) {
                     document.getElementById('search_results').innerHTML ="";
 
 					console.log("User videos fetched successfully:", response);
@@ -174,14 +174,14 @@
 					currentPage = page;
 
 					document.getElementById("search_result_count").innerHTML=`Your search "${search}" returned ${response.count} results.`
-
+					console.log("response.count",response.count)
 					if (response.count==0){
-						fetch_user_profile(search)
+						await fetch_user_profile(search)
 					}
 					else{
 
-						displayPosts(response.results);
-						updatePagination(search);
+						await displayPosts(response.results.data);
+						await updatePagination(search);
 					}
 					// Display posts
 
@@ -357,7 +357,7 @@
                     } else {
 
 						response.data.forEach(post => {
-            
+
                             const truncatedTitle = post.bio.length > 60 ? `${post.bio.substring(0, 60)}...` : post.bio;
                             const videoSrc = post.profile_picture;
                             const hoverAttributes = videoSrc ? 'onmouseover="this.play()" onmouseout="this.pause()"' : '';
@@ -390,17 +390,10 @@
 												</div>
 												<div class="course-info border-bottom-0 pb-0 d-flex align-items-center">
 													
-													
-													
 												</div>
-												
-												
-																		
-													
+
 												<div class="course-group d-flex mb-0">
 													<div class="course-group-img d-flex">
-														
-														
 													</div>
 													
 												</div>
@@ -434,7 +427,7 @@
                         });
                     }
             
-                    document.getElementById('search_results').innerHTML += str;
+                    document.getElementById('search_results').innerHTML = str;
             
 					})
 				}
