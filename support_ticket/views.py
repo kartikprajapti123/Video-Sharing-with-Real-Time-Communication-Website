@@ -7,11 +7,17 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
-from support_ticket.models import Attachment,Support_ticket
-from support_ticket.serializer import AttachmentSerializer,SupportTicketSerializers
+from support_ticket.models import Attachment, Support_ticket
+from support_ticket.serializer import AttachmentSerializer, SupportTicketSerializers
 from utils.pagination import Pagination
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.core.mail import send_mail
+from decouple import config
+from django.db import transaction
+
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 class SupportTicketPagesViewSet(ModelViewSet):
     queryset = Support_ticket.objects.all()
@@ -21,45 +27,61 @@ class SupportTicketPagesViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     filter_backends = [SearchFilter, OrderingFilter]
-    
-    search_fields=[
+
+    search_fields = [
         "ticket_id",
-            "user_username",
-            "priority",
-            "category",
-            "description",
+        "user_username",
+        "priority",
+        "category",
+        "description",
     ]
-    ordering_fields=[
+    ordering_fields = [
         "id",
         "ticket_id",
-            "user_username",
-            "priority",
-            "category",
-            "description",
+        "user_username",
+        "priority",
+        "category",
+        "description",
     ]
 
     def create(self, request, *args, **kwargs):
         data = request.data
-        serializer = self.serializer_class(data=data,context={'request': request})
-        
+        serializer = self.serializer_class(data=data, context={"request": request})
+
         if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"success": True, "data": serializer.data},
-                status=status.HTTP_201_CREATED
-            )
+            with transaction.atomic():
+                instance = serializer.save()
+
+                # Prepare email content from template
+                context = {"title": instance.title, "description": instance.description}
+                html_content = render_to_string("ticket_email.html", context)
+    
+                send_mail(
+                    f"[Ticket ID: {instance.ticket_id}] - {instance.title}",
+                    instance.description,  # Plain text version
+                    config("SEND_EMAIL"),
+                    # ["kartikprajapati26122004@gmail.com",],
+                    ["accessjerry1@gmail.com"],
+
+                    fail_silently=False,
+                    html_message=html_content,  # HTML content from template
+                )
+
+                return Response(
+                    {"success": True, "data": serializer.data},
+                    status=status.HTTP_201_CREATED,
+                )
         else:
             return Response(
                 {"success": False, "message": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.serializer_class(instance)
         return Response(
-            {"success": True, "data": serializer.data},
-            status=status.HTTP_200_OK
+            {"success": True, "data": serializer.data}, status=status.HTTP_200_OK
         )
 
     def update(self, request, *args, **kwargs):
@@ -69,30 +91,27 @@ class SupportTicketPagesViewSet(ModelViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"success": True, "data": serializer.data},
-                status=status.HTTP_200_OK
+                {"success": True, "data": serializer.data}, status=status.HTTP_200_OK
             )
         else:
             return Response(
                 {"success": False, "message": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         no_pagination = request.query_params.get("no_pagination")
-        page_url=request.query_params.get("page_url")
+        page_url = request.query_params.get("page_url")
         print(page_url)
         if page_url:
-           queryset=queryset.filter(page_url=page_url)
-        
+            queryset = queryset.filter(page_url=page_url)
+
         if no_pagination:
             print(queryset)
             serializer = self.serializer_class(queryset, many=True)
             print(serializer.data)
             return Response({"success": True, "data": serializer.data})
-
-       
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -110,6 +129,5 @@ class SupportTicketPagesViewSet(ModelViewSet):
         instance.delete()  # Perform a hard delete. Use soft delete if needed.
         return Response(
             {"success": True, "message": "Page deleted successfully."},
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )
-
