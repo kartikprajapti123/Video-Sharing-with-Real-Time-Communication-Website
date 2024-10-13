@@ -683,7 +683,7 @@
 						card.style.display = "flex";
 						card.style.borderLeft = "10px solid green";
 
-						message_content.innerHTML = "Your support ticket has been created. Our team will assist you shortly. Thank you for reaching out!";
+						message_content.innerHTML = "Your support ticket is created. An email has been sent to our admin, and our team will assist you soon. Thank you!";
 
 						// Use Bootstrap's modal hide <method></method>
 						document.getElementById("add-tickets").style.display = "none" // This will properly hide the modal
@@ -702,7 +702,7 @@
 						setTimeout(() => {
 							card.style.display = "none";
 							window.location.reload()
-						}, 2500)
+						}, 3000)
 
 						ticket_title.value = ""
 						window.editorInstance.setData('');
