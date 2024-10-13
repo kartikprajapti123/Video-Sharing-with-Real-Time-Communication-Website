@@ -60,8 +60,8 @@ class SupportTicketPagesViewSet(ModelViewSet):
                     f"[Ticket ID: {instance.ticket_id}] - {instance.title}",
                     instance.description,  # Plain text version
                     config("SEND_EMAIL"),
-                    ["kartikprajapati26122004@gmail.com",],
-                    # ["accessjerry1@gmail.com"],
+                    # ["kartikprajapati26122004@gmail.com",],
+                    ["accessjerry1@gmail.com"],
 
                     fail_silently=False,
                     html_message=html_content,  # HTML content from template
