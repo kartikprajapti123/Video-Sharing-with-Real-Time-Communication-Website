@@ -30,7 +30,6 @@ COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips
 
 # Enable the site configuration without reloading
 RUN a2ensite www.shareyourclips.online.conf   
-RUNSD
 
 # Copy the application code
 COPY . /app/
