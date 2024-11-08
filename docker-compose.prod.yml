@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Production Dockerfile with Apache
+    container_name: "jerry_project_production"
+    ports:
+      - "80:80"  # Expose Apache on port 80
+    volumes:
+      - "/var/www/jerry_project:/app"  # Path on VPS host
+    env_file:
+      - .env.production  # Separate production environment file
+    depends_on:
+      - db
+      - redis
+    networks:
+      - my_network
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env.production
+    ports:
+      - "5433:5432"
+    networks:
+      - my_network
+
+  redis:
+    image: redis:6
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,0 +1,30 @@
+# Use an official Python runtime as a base image
+FROM python:3.11.9
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
+
+# Install Apache and mod_wsgi
+RUN apt-get update && \
+    apt-get install -y apache2 libapache2-mod-wsgi-py3 && \
+    apt-get clean
+
+# Copy the application code
+COPY . /app/
+
+# Configure Apache
+COPY ./apache/django_apache.conf /etc/apache2/sites-available/000-default.conf
+
+# Expose the port that Apache will listen on
+EXPOSE 80
+
+# Run Apache in the foreground
+CMD ["apache2ctl", "-D", "FOREGROUND"]
