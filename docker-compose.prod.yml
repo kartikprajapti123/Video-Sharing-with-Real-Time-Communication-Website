@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.prod  # Production Dockerfile with Apache
     container_name: "jerry_project_production"
     ports:
-      - "80:80"  # Expose Apache on port 80
+      - "8080:80"  # Expose Apache on port 80
     volumes:
       - "/var/www/Jerry-Project:/app"  # Path on VPS host
     env_file:
