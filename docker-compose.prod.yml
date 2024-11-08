@@ -11,7 +11,7 @@ services:
     volumes:
       - "/var/www/jerry_project:/app"  # Path on VPS host
     env_file:
-      - .env.production  # Separate production environment file
+      - .env  # Separate production environment file
     depends_on:
       - db
       - redis
@@ -24,7 +24,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - .env.production
+      - .env
     ports:
       - "5433:5432"
     networks:
