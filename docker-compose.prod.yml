@@ -20,7 +20,7 @@ services:
 
   daphne:
     build:
-      # context: .
+      context: .
       dockerfile: Dockerfile.prod
     container_name: "daphne"
     command: "daphne -p 8001 jerry_project.asgi:application"
