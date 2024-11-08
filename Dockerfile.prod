@@ -23,10 +23,12 @@ RUN echo "ServerName shareyourclips.online" >> /etc/apache2/apache2.conf
 
 
 # Copy the application code
+COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
+RUN a2ensite www.shareyourclips.online.conf && \
+service apache2 reload
 COPY . /app/
 
 # Configure Apache
-COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
 
 # Expose the port that Apache will listen on
 EXPOSE 80
