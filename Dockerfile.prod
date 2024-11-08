@@ -21,7 +21,7 @@ RUN apt-get update && \
 COPY . /app/
 
 # Configure Apache
-COPY ./apache/django_apache.conf /etc/apache2/sites-available/000-default.conf
+COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
 
 # Expose the port that Apache will listen on
 EXPOSE 80
