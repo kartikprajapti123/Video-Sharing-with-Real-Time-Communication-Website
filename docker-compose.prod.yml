@@ -18,18 +18,6 @@ services:
     networks:
       - my_network
 
-  db:
-    image: postgres:15
-    container_name: postgres_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env
-    ports:
-      - "5433:5432"
-    networks:
-      - my_network
-
   daphne:
     build:
       # context: .
@@ -47,6 +35,20 @@ services:
       - redis
     networks:
       - my_network
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+    networks:
+      - my_network
+
+  
 
   redis:
     image: redis:6
