@@ -29,7 +29,8 @@ RUN a2enmod rewrite proxy proxy_http
 COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
 
 # Enable the site configuration without reloading
-RUN a2ensite www.shareyourclips.online.conf
+RUN a2ensite www.shareyourclips.online.conf   
+RUNSD
 
 # Copy the application code
 COPY . /app/
