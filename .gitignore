@@ -1,13 +1,8 @@
-# Ignore Python virtual environment
-.venv/
-
-# Ignore environment variables file
+*.pyc
+__pycache__
+.git
 .env
-
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-
-
-# Ignore media files
+# node_modules
+logs/
+# static/
 media/
