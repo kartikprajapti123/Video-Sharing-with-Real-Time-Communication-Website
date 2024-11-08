@@ -2,7 +2,7 @@ services:
   web:
     build:
       # context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
     container_name: "jerry_project"
     command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
@@ -23,7 +23,7 @@ services:
   daphne:
     build:
       # context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
     container_name: "daphne"
     command: "daphne -p 8001 jerry_project.asgi:application"
     ports:
