@@ -21,11 +21,12 @@ RUN apt-get update && \
 
 RUN echo "ServerName shareyourclips.online" >> /etc/apache2/apache2.conf
 
-
+RUN a2enmod rewrite
 # Copy the application code
 COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
 RUN a2ensite www.shareyourclips.online.conf && \
 service apache2 reload
+
 COPY . /app/
 
 # Configure Apache
