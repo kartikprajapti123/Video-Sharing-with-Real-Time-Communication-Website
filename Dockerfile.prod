@@ -19,17 +19,21 @@ RUN apt-get update && \
     apt-get install -y apache2 libapache2-mod-wsgi-py3 && \
     apt-get clean
 
+# Configure Apache
 RUN echo "ServerName shareyourclips.online" >> /etc/apache2/apache2.conf
 
-RUN a2enmod rewrite
-# Copy the application code
+# Enable necessary Apache modules
+RUN a2enmod rewrite proxy proxy_http
+
+# Copy Apache configuration
 COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
+
+# Enable the site configuration
 RUN a2ensite www.shareyourclips.online.conf && \
-service apache2 reload
+    service apache2 reload
 
+# Copy the application code
 COPY . /app/
-
-# Configure Apache
 
 # Expose the port that Apache will listen on
 EXPOSE 80
