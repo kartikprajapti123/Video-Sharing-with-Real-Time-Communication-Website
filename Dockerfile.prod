@@ -4,7 +4,6 @@ FROM python:3.11.9
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
 ENV HOSTNAME=shareyourclips.online
 
 # Set the working directory
@@ -14,29 +13,30 @@ WORKDIR /app
 COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 
-# Install Apache and mod_wsgi
+# Install Apache, mod_wsgi, and enable SSL
 RUN apt-get update && \
     apt-get install -y apache2 libapache2-mod-wsgi-py3 && \
     apt-get clean
 
 # Configure Apache
 RUN echo "ServerName shareyourclips.online" >> /etc/apache2/apache2.conf
+RUN a2enmod ssl rewrite proxy proxy_http
 
-# Enable necessary Apache modules
-RUN a2enmod rewrite proxy proxy_http
+# Copy SSL certificates (Assuming you mount these directories)
+COPY /etc/letsencrypt/live/shareyourclips.online/fullchain.pem /etc/ssl/certs/fullchain.pem
+COPY /etc/letsencrypt/live/shareyourclips.online/privkey.pem /etc/ssl/private/privkey.pem
 
 # Copy Apache configuration
 COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
 
-# Enable the site configuration without reloading
+# Enable the site configuration
 RUN a2ensite www.shareyourclips.online.conf   
 
 # Copy the application code
 COPY . /app/
 
-# Expose the port that Apache will listen on
-EXPOSE 80
+# Expose the ports for HTTP and HTTPS
+EXPOSE 80 443
 
 # Run Apache in the foreground when the container starts
 CMD ["apache2ctl", "-D", "FOREGROUND"]
-
