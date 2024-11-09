@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod  # Production Dockerfile
     container_name: "jerry_project_production"
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python ./manage.py runserver"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python ./manage.py runserver 0.0.0.0:8000"
     ports:
       - "80:80"  # Expose Apache on port 80
     volumes:
