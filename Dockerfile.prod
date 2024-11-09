@@ -20,13 +20,9 @@ RUN apt-get update && \
 
 # Configure Apache
 RUN echo "ServerName shareyourclips.online" >> /etc/apache2/apache2.conf
-RUN a2enmod ssl rewrite proxy proxy_http
+RUN a2enmod ssl rewrite proxy proxy_http proxy_wstunnel
 
-# Copy SSL certificates (Assuming you mount these directories)
-COPY /etc/letsencrypt/live/shareyourclips.online/fullchain.pem /etc/ssl/certs/fullchain.pem
-COPY /etc/letsencrypt/live/shareyourclips.online/privkey.pem /etc/ssl/private/privkey.pem
-
-# Copy Apache configuration
+# Copy Apache configuration (this includes WSGI and SSL settings)
 COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips.online.conf
 
 # Enable the site configuration
