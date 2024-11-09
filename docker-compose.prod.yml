@@ -4,13 +4,15 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.prod  # Production Dockerfile with 
+      dockerfile: Dockerfile.prod  # Production Dockerfile
     container_name: "jerry_project_production"
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python ./manage.py runserver  "
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python ./manage.py runserver"
     ports:
       - "8080:80"  # Expose Apache on port 80
     volumes:
       - "/var/www/Jerry-Project:/app"  # Path on VPS host
+      - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
+      - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem  # Mount SSL certificates
     env_file:
       - .env  # Separate production environment file
     depends_on:
@@ -29,6 +31,8 @@ services:
       - "8001:8001"
     volumes:
       - "/var/www/Jerry-Project:/app"  # Updated for Windows path
+      - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
+      - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem  # Mount SSL certificates
     env_file:
       - .env
     depends_on:
@@ -41,15 +45,13 @@ services:
     image: postgres:15
     container_name: postgres_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data  # Ensure persistent database storage
     env_file:
       - .env
     ports:
       - "5433:5432"
     networks:
       - my_network
-
-  
 
   redis:
     image: redis:6
@@ -64,4 +66,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:
+  postgres_data:  # Persistent volume for database data
