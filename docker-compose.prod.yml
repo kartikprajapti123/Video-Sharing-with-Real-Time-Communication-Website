@@ -19,7 +19,7 @@ services:
       - db
       - redis
     networks:
-      - jerry-project_my_network
+      - my_network
 
   daphne:
     build:
@@ -39,7 +39,7 @@ services:
       - db
       - redis
     networks:
-      - jerry-project_my_network
+      - my_network
 
   db:
     image: postgres:15
@@ -51,7 +51,7 @@ services:
     ports:
       - "5433:5432"
     networks:
-      - jerry-project_my_network
+      - my_network
 
   redis:
     image: redis:6
@@ -59,7 +59,7 @@ services:
     ports:
       - "6370:6379"
     networks:
-      - jerry-project_my_network
+      - my_network
 
 networks:
   my_network:
