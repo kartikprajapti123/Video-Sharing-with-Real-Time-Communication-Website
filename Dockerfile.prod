@@ -39,3 +39,4 @@ EXPOSE 80
 
 # Run Apache in the foreground when the container starts
 CMD ["apache2ctl", "-D", "FOREGROUND"]
+
