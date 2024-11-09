@@ -13,7 +13,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['*','wwww.shareyourclips.online','shareyourclips.online']
+ALLOWED_HOSTS = ['*','www.shareyourclips.online','shareyourclips.online']
 
 # Application definition
 INSTALLED_APPS = [
