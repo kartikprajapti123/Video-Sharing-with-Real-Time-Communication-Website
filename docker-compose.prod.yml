@@ -21,6 +21,8 @@ services:
     networks:
       - my_network
 
+    restart: always
+
   daphne:
     build:
       context: .
@@ -41,6 +43,8 @@ services:
     networks:
       - my_network
 
+    restart: always
+
   db:
     image: postgres:15
     container_name: postgres_db
@@ -60,6 +64,8 @@ services:
       - "6370:6379"
     networks:
       - my_network
+
+    restart: always
 
 networks:
   my_network:
