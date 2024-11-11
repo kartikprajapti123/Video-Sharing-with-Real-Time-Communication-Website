@@ -1,27 +1,28 @@
 version: '3'
 
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod  # Production Dockerfile
-    container_name: "jerry_project_production"
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && apache2ctl -D FOREGROUND"  # Start Apache instead of runserver
-    ports:
-      - "80:80"   # Map Apache's port 80 to host port 8081 (to avoid conflict with your existing website)
-      - "443:443"  # Expose Apache on port 443 for HTTPS
-    volumes:
-      - "/var/www/Jerry-Project:/app"  # Path on VPS host
-      - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
-      - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem  # Mount SSL certificates
-    env_file:
-      - .env  # Separate production environment file
-    depends_on:
-      - db
-      - redis
-    networks:
-      - my_network
-    restart: always
+    web:
+      build:
+        context: .
+        dockerfile: Dockerfile.prod  # Production Dockerfile
+      container_name: "jerry_project_production"
+      command: sh -c "/app/.venv/bin/python manage.py makemigrations && /app/.venv/bin/python manage.py migrate && apache2ctl -D FOREGROUND"  # Use the virtual environment
+      ports:
+        - "80:80"   # Map Apache's port 80 to host port 8081 (to avoid conflict with your existing website)
+        - "443:443"  # Expose Apache on port 443 for HTTPS
+      volumes:
+        - "/var/www/Jerry-Project:/app"  # Path on VPS host
+        - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
+        - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem  # Mount SSL certificates
+      env_file:
+        - .env  # Separate production environment file
+      depends_on:
+        - db
+        - redis
+      networks:
+        - my_network
+      restart: always
+
 
   daphne:
     build:
