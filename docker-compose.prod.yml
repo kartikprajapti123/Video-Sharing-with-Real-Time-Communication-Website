@@ -29,7 +29,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     container_name: "daphne"
-    command: "daphne -p 8001 jerry_project.asgi:application"
+    command: "/app/.venv/bin/daphne -p 8001 jerry_project.asgi:application"
     ports:
       - "8001:8001"
     volumes:
