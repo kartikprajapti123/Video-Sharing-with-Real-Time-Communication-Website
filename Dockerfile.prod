@@ -32,7 +32,7 @@ RUN a2ensite www.shareyourclips.online.conf
 COPY . /app/
 
 # Expose the ports for HTTP and HTTPS
-EXPOSE 80 443
+EXPOSE 80 444
 
 # Run Apache in the foreground when the container starts
 CMD ["apache2ctl", "-D", "FOREGROUND"]
