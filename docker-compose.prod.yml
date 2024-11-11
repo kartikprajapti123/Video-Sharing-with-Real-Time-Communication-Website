@@ -8,8 +8,8 @@ services:
     container_name: "jerry_project_production"
     command: sh -c "python manage.py makemigrations && python manage.py migrate && apache2ctl -D FOREGROUND"  # Start Apache instead of runserver
     ports:
-      - "81:81"   # Map Apache's port 80 to host port 8081 (to avoid conflict with your existing website)
-      - "444:444"  # Expose Apache on port 443 for HTTPS
+      - "81:80"   # Map Apache's port 80 to host port 8081 (to avoid conflict with your existing website)
+      - "444:443"  # Expose Apache on port 443 for HTTPS
     volumes:
       - "/var/www/Jerry-Project:/app"  # Path on VPS host
       - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
