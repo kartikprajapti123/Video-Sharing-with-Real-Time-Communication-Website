@@ -5,6 +5,7 @@ FROM python:3.11.9
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV HOSTNAME=shareyourclips.online
+# ENV PATH="/app/.venv/bin:$PATH" 
 
 # Set the working directory
 WORKDIR /app
@@ -13,8 +14,7 @@ COPY . /app/
 
 # Install dependencies
 COPY requirements.txt /app/
-RUN python -m venv /app/.venv  # Create a virtual environment
-RUN . /app/.venv/bin/activate && python -m pip install -r requirements.txt # Install dependencies in the virtual environment
+RUN pip install --no-cache-dir -r requirements.txt  # Install dependencies globally
 
 # Install Apache, mod_wsgi, and enable SSL
 RUN apt-get update && \
@@ -30,8 +30,6 @@ COPY ./apache/django_apache.conf /etc/apache2/sites-available/www.shareyourclips
 
 # Enable the site configuration
 RUN a2ensite www.shareyourclips.online.conf
-
-# Copy the application code
 
 # Expose the ports for HTTP and HTTPS
 EXPOSE 80 443
