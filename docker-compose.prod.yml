@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod  # Production Dockerfile
     container_name: "jerry_project_production"
-    command: sh -c "/app/.venv/bin/python manage.py makemigrations && /app/.venv/bin/python manage.py migrate && apache2ctl -D FOREGROUND"  # Use the virtual environment
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && apache2ctl -D FOREGROUND"  # Use the virtual environment
     ports:
       - "80:80"   # Map Apache's port 80 to host port 8081 (to avoid conflict with your existing website)
       - "443:443"  # Expose Apache on port 443 for HTTPS
@@ -29,7 +29,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     container_name: "daphne"
-    command: sh -c "/app/.venv/bin/daphne -p 8001 jerry_project.asgi:application"
+    command: sh -c "daphne -p 8001 jerry_project.asgi:application"
     ports:
       - "8001:8001"
     volumes:
