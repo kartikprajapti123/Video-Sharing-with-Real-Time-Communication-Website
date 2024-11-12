@@ -4,18 +4,18 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.prod  # Production Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: "jerry_project_production"
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && apache2ctl -D FOREGROUND"  # Use the virtual environment
+    command: sh -c "/app/.venv/bin/python manage.py makemigrations && /app/.venv/bin/python manage.py migrate && apache2ctl -D FOREGROUND"
     ports:
-      - "80:80"   # Map Apache's port 80 to host port 8081 (to avoid conflict with your existing website)
-      - "443:443"  # Expose Apache on port 443 for HTTPS
+      - "80:80"
+      - "443:443"
     volumes:
-      - "/var/www/Jerry-Project:/app"  # Path on VPS host
+      - "/var/www/Jerry-Project:/app"
       - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
-      - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem  # Mount SSL certificates
+      - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem
     env_file:
-      - .env  # Separate production environment file
+      - .env
     depends_on:
       - db
       - redis
@@ -23,19 +23,18 @@ services:
       - my_network
     restart: always
 
-
   daphne:
     build:
       context: .
       dockerfile: Dockerfile.prod
     container_name: "daphne"
-    command: sh -c "daphne -p 8001 jerry_project.asgi:application"
+    command: sh -c "/app/.venv/bin/python -m daphne -p 8001 jerry_project.asgi:application"
     ports:
       - "8001:8001"
     volumes:
-      - "/var/www/Jerry-Project:/app"  # Updated for Windows path
+      - "/var/www/Jerry-Project:/app"
       - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
-      - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem  # Mount SSL certificates
+      - /etc/letsencrypt/live/shareyourclips.online/privkey.pem:/etc/ssl/private/privkey.pem
     env_file:
       - .env
     depends_on:
@@ -49,7 +48,7 @@ services:
     image: postgres:15
     container_name: postgres_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Ensure persistent database storage
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
@@ -71,4 +70,4 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:  # Persistent volume for database data
+  postgres_data:
