@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     container_name: "jerry_project_production"
-    command: sh -c "/app/.venv/bin/python manage.py makemigrations && /app/.venv/bin/python manage.py migrate && apache2ctl -D FOREGROUND"
+    command: sh -c "/.venv/bin/python manage.py makemigrations && /.venv/bin/python manage.py migrate && apache2ctl -D FOREGROUND"
     ports:
       - "80:80"
       - "443:443"
@@ -28,7 +28,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     container_name: "daphne"
-    command: sh -c "/app/.venv/bin/python -m daphne -p 8001 jerry_project.asgi:application"
+    command: sh -c "/.venv/bin/python -m daphne -p 8001 jerry_project.asgi:application"
     ports:
       - "8001:8001"
     volumes:
