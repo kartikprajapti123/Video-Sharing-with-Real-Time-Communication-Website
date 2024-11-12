@@ -14,7 +14,7 @@ COPY . /app/
 
 # Install dependencies
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt  # Install dependencies globally
+RUN pip install -r requirements.txt  # Install dependencies globally
 
 # Install Apache, mod_wsgi, and enable SSL
 RUN apt-get update && \
