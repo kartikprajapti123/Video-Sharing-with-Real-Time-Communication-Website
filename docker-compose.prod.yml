@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     container_name: "jerry_project_production"
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python ./manage.py runserver && apache2ctl -D FOREGROUND"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && apache2ctl -D FOREGROUND"
     ports:
       - "80:80"
       - "443:443"
