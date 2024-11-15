@@ -694,7 +694,7 @@
 
                 const connectWebSocket = (userID, conversationId, userProfiePicture, userUsername) => {
                     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-                    const host = window.location.protocol === "https:" ? `${window.location.host}` : "127.0.0.1";
+                    const host = window.location.protocol === "https:" ? `${window.location.hostname}` : "127.0.0.1";
                     if (currentWebSocket) {
                         currentWebSocket.close();
                         console.log("Previous WebSocket connection closed.");
@@ -1143,7 +1143,7 @@
 
             function global_websocket_connection(user_uuid, userId) {
                 const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-                const host = window.location.protocol === "https:" ? `${window.location.host}` : "127.0.0.1";
+                const host = window.location.protocol === "https:" ? `${window.location.hostname}` : "127.0.0.1";
 
                 const ws = new WebSocket(`${protocol}://${host}:8003/ws/global_chat/${user_uuid}/`);
 
