@@ -700,7 +700,7 @@
                         console.log("Previous WebSocket connection closed.");
                     }
 
-                    const ws = new WebSocket(`${protocol}://${host}:8001/ws/chat/${conversationId}/?token=${authenticated}`);
+                    const ws = new WebSocket(`${protocol}://${host}:8002/ws/chat/${conversationId}/?token=${authenticated}`);
 
                     ws.onopen = () => {
                         console.log('WebSocket connection opened');
@@ -1145,7 +1145,7 @@
                 const protocol = window.location.protocol === "https:" ? "wss" : "ws";
                 const host = window.location.protocol === "https:" ? `${window.location.host}` : "127.0.0.1";
 
-                const ws = new WebSocket(`${protocol}://${host}:8001/ws/global_chat/${user_uuid}/`);
+                const ws = new WebSocket(`${protocol}://${host}:8002/ws/global_chat/${user_uuid}/`);
 
                 ws.onopen = () => {
                     console.log('global WebSocket connection opened');
