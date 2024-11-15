@@ -8,8 +8,8 @@ services:
     container_name: "jerry_project_production"
     command: sh -c "python manage.py makemigrations && python manage.py migrate && apache2ctl -D FOREGROUND"
     ports:
-      - "8080:8080"
-      - "8443:8443"
+      - "8080:80"
+      - "8443:443"
     volumes:
       - "/var/www/Jerry-Project:/app"
       - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
