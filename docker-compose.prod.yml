@@ -28,9 +28,9 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     container_name: "daphne"
-    command: sh -c "python -m daphne -p 8001 jerry_project.asgi:application"
+    command: sh -c "python -m daphne -p 8003 jerry_project.asgi:application"
     ports:
-      - "8002:8002"
+      - "8003:8003"
     volumes:
       - "/var/www/Jerry-Project:/app"
       - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
