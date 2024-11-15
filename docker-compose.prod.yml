@@ -30,7 +30,7 @@ services:
     container_name: "daphne"
     command: sh -c "python -m daphne -p 8001 jerry_project.asgi:application"
     ports:
-      - "8001:8001"
+      - "8002:8002"
     volumes:
       - "/var/www/Jerry-Project:/app"
       - /etc/letsencrypt/live/shareyourclips.online/fullchain.pem:/etc/ssl/certs/fullchain.pem
