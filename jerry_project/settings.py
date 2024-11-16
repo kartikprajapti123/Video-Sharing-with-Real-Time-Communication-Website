@@ -116,7 +116,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8001",
     
     'https://www.bmy.fan',
-    
+    "https://www.shareyourclips.online",
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 # Password validation
