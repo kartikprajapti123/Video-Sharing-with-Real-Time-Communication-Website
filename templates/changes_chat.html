@@ -694,7 +694,7 @@
 
                 const connectWebSocket = (userID, conversationId, userProfiePicture, userUsername) => {
                     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-                    const host = window.location.protocol === "https:" ? `${window.location.hostname}:8443` : "127.0.0.1:8001";
+                    const host = window.location.protocol === "https:" ? `${window.location.hostname}:8003` : "127.0.0.1:8001";
                     if (currentWebSocket) {
                         currentWebSocket.close();
                         console.log("Previous WebSocket connection closed.");
