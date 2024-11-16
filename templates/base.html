@@ -10,7 +10,7 @@
 	<meta property="og:image" content="/static/img/share_your_clips_logo.png">
 	<meta property="og:url" content="https://www.bmy.fan">
 	<title>{% block title %}
-
+		
 		{% endblock title %}</title>
 
 	<!-- Favicon -->
@@ -604,8 +604,9 @@
 
 			if (authenticated) {
 				document.querySelectorAll('.authenticated').forEach(function (element) {
-					element.style.display = "block";
+					element.style.display = "contents";
 					element.classList.add("visible");
+
 				});
 
 				document.querySelector(".menu-authenticated").style.display = "block"
@@ -617,7 +618,7 @@
 				});
 			} else {
 				document.querySelectorAll('.authenticated').forEach(function (element) {
-					element.style.display = "none";
+					element.style.display = "none ";
 				});
 
 				document.querySelector(".menu-authenticated").style.display = "none"
@@ -809,7 +810,7 @@
 			const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 			const socketUrl = window.location.protocol === 'https:'
 				? `${protocol}//${window.location.hostname}:8003/ws/notification/${userUuid}/`
-				: `${protocol}//${window.location.host}/ws/notification/${userUuid}/`;
+				: `${protocol}//${window.location.hostname}:8001/ws/notification/${userUuid}/`;
 
 
 			const ws = new WebSocket(socketUrl);
