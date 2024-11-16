@@ -11,7 +11,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - "D:/jerry project/Jerry-Project:/app"  # Updated for Windows path
+      - "D:/new Jerry Project/Jerry-Project:/app"  # Updated for Windows path
     env_file:
       - .env
     depends_on:
@@ -29,7 +29,7 @@ services:
     ports:
       - "8001:8001"
     volumes:
-      - "D:/jerry project/Jerry-Project:/app"  # Updated for Windows path
+      - "D:/new Jerry Project/Jerry-Project:/app"  # Updated for Windows path
     env_file:
       - .env
     depends_on:

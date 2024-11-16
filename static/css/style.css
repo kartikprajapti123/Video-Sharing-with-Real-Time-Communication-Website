@@ -24261,10 +24261,10 @@ ul li {
 	.header-navbar-rht {
 		display: none ;
 	}
-    .authenticated {
+    /* .authenticated {
         display: contents !important ;
     }
-    
+     */
     
     .unauthenticated {
         display: none !important;
