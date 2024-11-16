@@ -24139,9 +24139,9 @@ ul li {
     .sell-tabel-info {
         max-width: 100%;
     }
-	.navbar-header {
+	/* .navbar-header {
 		width: 100%;
-	}
+	} */
     .head-course-title{
         display: flex;
         justify-content: center;
