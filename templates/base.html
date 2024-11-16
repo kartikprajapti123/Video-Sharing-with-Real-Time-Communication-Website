@@ -1677,7 +1677,10 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 		function updateButtonsBasedOnWidth() {
 			console.log("called")
 			const menu_mobile_login_signup=document.getElementById("user_not_authenticatd")
-
+			console.log(menu_mobile_login_signup.style.display)
+			if (!authenticated){
+				menu_mobile_login_signup.style.display="block"	
+			}
 			
 			if (window.innerWidth < 767) {
 				
