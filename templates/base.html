@@ -352,7 +352,7 @@
 						</div>
 						<ul class="nav header-navbar-rht  authenticated">
 							<li class="nav-item dropdown">
-
+								
 								<button type="button" class="icon-button nav-link dropdown-toggle"
 									data-bs-toggle="dropdown" style="background-color: #fae2e0;" aria-expanded="false">
 									<i class="fas fa-envelope" style="color: #ff4667;"></i>
@@ -434,12 +434,7 @@
 
 						<!-- Unauthenticated Navbar -->
 						<ul class="nav header-navbar-rht unauthenticated" id="user_not_authenticatd">
-							<li class="nav-item">
-								<a class="nav-link header-sign" href="/signin/">Signin</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link header-login" href="/signup/">Signup</a>
-							</li>
+							
 						</ul>
 					</div>
 				</nav>
@@ -588,6 +583,7 @@
 	<script src="/static/js/script.js"></script>
 
 	<script>
+		
 		let profileId = 0
 		const authenticated = localStorage.getItem("jerry_project_access_token");
 		const refresh_token = localStorage.getItem("jerry_project_refresh_token");
@@ -628,6 +624,10 @@
 					element.style.display = "block";
 				});
 			}
+
+			window.addEventListener('load', updateButtonsBasedOnWidth);
+window.addEventListener('resize', updateButtonsBasedOnWidth);
+			
 		});
 
 		if (authenticated) {
@@ -1673,6 +1673,49 @@
 					}
 				}
 			})
+		}
+		function updateButtonsBasedOnWidth() {
+			console.log("called")
+			const menu_mobile_login_signup=document.getElementById("user_not_authenticatd")
+
+			
+			if (window.innerWidth < 767) {
+				
+				
+				const login_image = "/static/img/login.png";
+				const singup_image = "/static/img/add-user.png"; // Replace with your image path
+				 // Replace with your image path
+			
+				menu_mobile_login_signup.innerHTML=`<ul class="nav " style="width:max-content;">
+					<li class="nav-item dropdown" >
+						
+						<button type="button" class="icon-button nav-link dropdown-toggle"
+							data-bs-toggle="dropdown" style="background-color: #fae2e0;" aria-expanded="false">
+							<a href="/singin/"><img src="${login_image}" style="width:25px;"/></a>
+						</button>
+
+					</li>
+					<li class="nav-item dropdown">
+
+						<button type="button" class="icon-button nav-link dropdown-toggle"
+							data-bs-toggle="dropdown" style="background-color: #fae2e0;" aria-expanded="false">
+							<a href="/signup/"><img src="${singup_image}" style="width:25px;" /></a>
+
+						</button>
+
+					</li>
+
+				</ul>`
+			} else {
+				//loginButton.innerHTML = "Login"; // Restore original text
+				// Restore original text
+				menu_mobile_login_signup.innerHTML=`<li class="nav-item">
+								<a class="nav-link header-sign" href="/signin/" id="login_button">Login</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link header-login" href="/signup/" id="signup_button">Signup</a>
+							</li>`
+			}
 		}
 		
 		
