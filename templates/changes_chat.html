@@ -693,7 +693,7 @@
                 };
 
                 const connectWebSocket = (userID, conversationId, userProfiePicture, userUsername) => {
-                    const protocol = window.location.protocol === "https:" ? "ws" : "ws";
+                    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
                     const host = window.location.protocol === "https:" ? `${window.location.hostname}:8003` : "127.0.0.1:8001";
                     if (currentWebSocket) {
                         currentWebSocket.close();
@@ -1142,7 +1142,7 @@
 
 
             function global_websocket_connection(user_uuid, userId) {
-                const protocol = window.location.protocol === "https:" ? "ws" : "ws";
+                const protocol = window.location.protocol === "https:" ? "wss" : "ws";
                 const host = window.location.protocol === "https:" ? `${window.location.hostname}:` : "127.0.0.1:8001";
 
                 const ws = new WebSocket(`${protocol}://${host}/ws/global_chat/${user_uuid}/`);

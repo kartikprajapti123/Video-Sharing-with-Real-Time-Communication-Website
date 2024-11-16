@@ -807,7 +807,7 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 
 		function initializeWebSocket(userUuid, userid) {
 			//const token = localStorage.getItem("jerry_project_access_token");
-			const protocol = window.location.protocol === 'https:' ? 'ws:' : 'ws:';
+			const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 			const socketUrl = window.location.protocol === 'https:'
 				? `${protocol}//${window.location.hostname}:8003/ws/notification/${userUuid}/`
 				: `${protocol}//${window.location.hostname}:8001/ws/notification/${userUuid}/`;
