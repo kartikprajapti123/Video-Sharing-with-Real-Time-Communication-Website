@@ -1562,9 +1562,7 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 			}).then((response) => {
 				console.log("base_pages", response)
 				if (response.success) {
-					fetch_simultaneously_pages()
 
-					if (response.data.length > 0) {
 						str = ``
 						footer_common_links = ``
 						response.data.forEach((data) => {
@@ -1592,7 +1590,6 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 
 							</ul>
 						</div>`
-					}
 				}
 			})
 		}
@@ -1606,7 +1603,6 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 				if (response.success) {
 					fetch_simultaneously_pages()
 
-					if (response.data.length > 0) {
 						str = ``
 						footer_common_links = ``
 						response.data.forEach((data) => {
@@ -1636,7 +1632,6 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 						</div>`
 						
 					}
-				}
 			})
 		}
 		async function fetch_simultaneously_pages() {
