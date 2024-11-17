@@ -1562,6 +1562,7 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 			}).then((response) => {
 				console.log("base_pages", response)
 				if (response.success) {
+					fetch_simultaneously_pages()
 
 						str = ``
 						footer_common_links = ``
