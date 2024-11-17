@@ -1562,6 +1562,8 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 			}).then((response) => {
 				console.log("base_pages", response)
 				if (response.success) {
+					fetch_simultaneously_pages()
+
 					if (response.data.length > 0) {
 						str = ``
 						footer_common_links = ``
@@ -1591,7 +1593,6 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 							</ul>
 						</div>`
 					}
-					fetch_simultaneously_pages()
 				}
 			})
 		}
@@ -1603,6 +1604,8 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 			}).then((response) => {
 				console.log("base_pages", response)
 				if (response.success) {
+					fetch_simultaneously_pages()
+
 					if (response.data.length > 0) {
 						str = ``
 						footer_common_links = ``
@@ -1633,7 +1636,6 @@ window.addEventListener('resize', updateButtonsBasedOnWidth);
 						</div>`
 						
 					}
-					fetch_simultaneously_pages()
 				}
 			})
 		}
