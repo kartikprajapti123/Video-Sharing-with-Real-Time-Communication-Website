@@ -487,7 +487,7 @@
 
 
 									</div>
-									<a href="#" class="btn btn-enroll w-100" >Purchase Now</a>
+									<!-- <a href="#" class="btn btn-enroll w-100" >Purchase Now</a> -->
 								</div>
 							</div>
 						</div>
@@ -626,7 +626,7 @@
 
 			post_view_title.innerHTML = response.data.title
 
-			post_view_price.innerHTML=`$${response.data.price}`
+			//post_view_price.innerHTML=`$${response.data.price}`
 
 			post_view_description.innerHTML = response.data.description
 
@@ -656,7 +656,7 @@
 
 			if (response.data.preview) {
 				// Set the preview
-				previewElement.src = `${response.data.preview}`;
+				previewElement.src = `${response.data.video}`;
 			//post_view_video_link.href=`${response.data.preview}`
 
 			}

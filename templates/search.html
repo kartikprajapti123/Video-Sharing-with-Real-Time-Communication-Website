@@ -221,7 +221,7 @@
                             });
             
                             const truncatedTitle = post.title.length > 60 ? `${post.title.substring(0, 60)}...` : post.title;
-                            const videoSrc = post.preview || post.video;
+                            const videoSrc = post.video;
                             const hoverAttributes = videoSrc ? 'onmouseover="this.play()" onmouseout="this.pause()"' : '';
                             const videoElement = videoSrc
                                 ? `<video style="width:314px; height: 231px; object-fit: contain; object-position: center;" alt="Img" src="${videoSrc}" poster="${post.thumbnail}" ${hoverAttributes} muted></video>`
