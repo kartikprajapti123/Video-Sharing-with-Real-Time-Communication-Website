@@ -663,6 +663,7 @@
 
 			// Load the full video metadata using the hidden video element
 			if (response.data.video) {
+				previewElement.src = `${response.data.video}`;
 				hiddenVideoElement.src = `${response.data.video}`;
 
 				hiddenVideoElement.addEventListener('loadedmetadata', () => {
