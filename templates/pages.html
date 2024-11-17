@@ -24,7 +24,7 @@
     async function get_content(){
         card.style.display = "none";
 
-        await fetch(`${window.location.origin}/api/page/?page_url=${page_name}&no_pagination=true`,{
+        await fetch(`${window.location.origin}/api/simultaneously-page/?page_url=${page_name}&no_pagination=true`,{
             method:"get",
         }).then((Response)=>{
             return Response.json()
