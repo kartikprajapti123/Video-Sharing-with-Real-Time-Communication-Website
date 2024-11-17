@@ -348,7 +348,7 @@ Myvideo
 			const truncatedTitle = data.title.length > 60 ? `${data.title.substring(0, 60)}...` : data.title;
 
 			// Determine the video source and hover behavior
-			const videoSrc = data.preview || data.video; // Use preview if available, otherwise use video
+			const videoSrc = data.video; // Use preview if available, otherwise use video
 			const hoverAttributes = videoSrc
 				? 'onmouseover="this.play()" onmouseout="this.pause()"'
 				: '';
