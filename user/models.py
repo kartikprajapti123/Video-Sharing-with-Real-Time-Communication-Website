@@ -51,7 +51,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     profile_picture = models.ImageField(default='profile_pictures/default_profile_image.png', upload_to='profile_pictures/')
     otp = models.IntegerField(null=True)
-    bio=models.TextField(max_length=1000,default="""Welcome to my profile!
+    bio=models.TextField(max_length=10000,default="""Welcome to my profile!
 I’m excited to connect with you and share my journey.
 Feel free to explore my posts and reach out if you’d like to collaborate!""")
     phone = models.CharField(max_length=15, null=True)
