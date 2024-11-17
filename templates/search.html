@@ -198,7 +198,7 @@
                 const displayPosts = (data) => {
                     let str = "";
             
-                    if (data.data.length === 0) {
+                    if (data.length === 0) {
                         str = `
                         <div style="width: 100%; padding: 53px 10px; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
                             <i class="fas fa-exclamation-circle" style="color: #ff4667; font-size: 50px;"></i>
@@ -207,7 +207,7 @@
                             </h4>
                         </div>`;
                     } else {
-						data.data.forEach(post => {
+						data.forEach(post => {
 							const timestamp = new Date(post.created_at);
                             const formattedDate = timestamp.toLocaleDateString('en-US', {
                                 month: '2-digit',
